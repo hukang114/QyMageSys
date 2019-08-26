@@ -1,5 +1,7 @@
 package com.qymage.sys.ui.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +11,9 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qymage.sys.R;
+import com.qymage.sys.common.base.BaseActivity;
 import com.qymage.sys.common.tools.ToastUtil;
+import com.qymage.sys.ui.act.OpenAfterWorkActivity;
 import com.qymage.sys.ui.entity.WorkListEnt;
 
 import java.util.List;
@@ -48,11 +52,11 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
     private void setOnItemClick(String keyname) {
         switch (keyname) {
             case "shangban":// 上班打卡
-                ToastUtil.showToast(mContext, "上班打卡");
+                openActivity(OpenAfterWorkActivity.class);
                 break;
 
             case "xiaban"://下班打卡
-
+                openActivity(OpenAfterWorkActivity.class);
                 break;
             case "lixiang"://立项申请
 
@@ -93,6 +97,33 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
 
                 break;
         }
+    }
+
+
+    /**
+     * 跳转Activity
+     *
+     * @param activityClass 目标Activity类名称
+     * @param bundle        Bundle 对象
+     */
+    public void intoActivity(Class<?> activityClass, Bundle bundle) {
+        Intent into = new Intent(mContext, activityClass);
+        if (bundle != null) {
+            into.putExtra("bundle", bundle);
+        }
+        mContext.startActivity(into);
+    }
+
+    protected void openActivity(Class<?> pClass) {
+        openActivity(pClass, null);
+    }
+
+    protected void openActivity(Class<?> pClass, Bundle pBundle) {
+        Intent intent = new Intent(mContext, pClass);
+        if (pBundle != null) {
+            intent.putExtras(pBundle);
+        }
+        mContext.startActivity(intent);
     }
 
 

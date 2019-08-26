@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.qymage.sys.common.widget.MeTitle
+            android:id="@+id/metitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cTxt="@string/open_to_work"
+            app:showView="false" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/user_head_img"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin15"
+                android:src="@mipmap/ic_launcher" />
+
+
+            <TextView
+                android:id="@+id/user_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:layout_marginTop="@dimen/margin10"
+                android:layout_toRightOf="@+id/user_head_img"
+                android:text="用户昵称"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/kaoqin_rules_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_name_tv"
+                android:layout_marginLeft="@dimen/margin15"
+                android:layout_marginTop="@dimen/margin3"
+                android:layout_toRightOf="@+id/user_head_img"
+                android:text="@string/kaoqin_rules_txt"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_13" />
+
+
+            <TextView
+                android:id="@+id/kaoqing_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin15"
+                android:drawableLeft="@mipmap/rili_ioc"
+                android:gravity="center"
+                android:text="2019-8-26"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_13" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/app_div_h_color" />
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/on_duty_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/on_duty_txt"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/business_travel_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/business_travel_txt"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/leave_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/leave_txt"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/div_color" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rlTimeline"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10">
+
+                <TextView
+                    android:id="@+id/tvDot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:background="@drawable/timelline_dot_normal" />
+
+                <TextView
+                    android:id="@+id/centet_div"
+                    android:layout_width="0.5dp"
+                    android:layout_height="115dp"
+                    android:layout_below="@id/tvDot"
+                    android:layout_centerHorizontal="true"
+                    android:background="#999" />
+
+                <TextView
+                    android:id="@+id/tvDot_e"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_below="@+id/centet_div"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="0dp"
+                    android:background="@drawable/timelline_dot_normal" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rlCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:paddingBottom="6dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:id="@+id/work_shift_time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上班时间：09:00"
+                        android:textColor="#999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/work_shift_clock_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/work_shift_time_tv"
+                        android:layout_marginTop="5dp"
+                        android:text="打卡时间08:51"
+                        android:textColor="@color/rizhi_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/work_shift_address_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/work_shift_clock_time"
+                        android:layout_marginTop="5dp"
+                        android:drawableLeft="@mipmap/dk_address"
+                        android:drawablePadding="@dimen/margin5"
+                        android:text="摩根中心A座"
+                        android:textColor="#999"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/closing_relayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin48"
+                    android:paddingBottom="6dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:id="@+id/closing_time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="下班时间：18:00"
+                        android:textColor="#999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/closing_clock_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/closing_time_tv"
+                        android:layout_marginTop="5dp"
+                        android:text="打卡时间18:51"
+                        android:textColor="@color/rizhi_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/closing_address_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/closing_clock_time"
+                        android:layout_marginTop="5dp"
+                        android:drawableLeft="@mipmap/dk_address"
+                        android:drawablePadding="@dimen/margin5"
+                        android:text="摩根中心A座"
+                        android:textColor="#999"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</layout>

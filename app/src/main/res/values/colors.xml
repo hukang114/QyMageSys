@@ -92,5 +92,7 @@
     <color name="rizhi_color">#3F3F3F</color>
     <color name="rizhi_content_color">#747474</color>
     <color name="login_text_hint_color">#bebebe</color>
+    <color name="app_div_h_color">#F8F8F8</color>
+
 
 </resources>

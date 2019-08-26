@@ -51,5 +51,11 @@
     <string name="worknotice_txt">工作通知</string>
     <string name="refuse_txt">拒绝</string>
     <string name="agree_txt">同意</string>
+    <string name="open_to_work">上班打卡</string>
+    <string name="kaoqin_rules_txt">考勤组：考勤(查看规则)</string>
+    <string name="on_duty_txt">在岗</string>
+    <string name="business_travel_txt">出差</string>
+    <string name="leave_txt">请假</string>
+
 
 </resources>

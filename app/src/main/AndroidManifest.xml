@@ -155,7 +155,8 @@
         <activity android:name=".ui.act.PersonalActivity" />
         <activity android:name=".ui.act.LoginActivity" />
         <activity android:name=".ui.act.MessageNotifActivity" />
-        <activity android:name=".ui.act.WorkNoticeActivity"></activity>
+        <activity android:name=".ui.act.WorkNoticeActivity" />
+        <activity android:name=".ui.act.OpenAfterWorkActivity"></activity>
     </application>
 
 </manifest>
