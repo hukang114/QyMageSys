@@ -1,0 +1,169 @@
+apply plugin: 'com.android.application'
+apply plugin: 'cn.leo.plugin.magic' //java 用这个SingleClick
+apply plugin: 'com.mob.sdk'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '27.0.3'
+    defaultConfig {
+        applicationId "com.qymage.sys"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi'// 'x86', 'armeabi-v7a', 'arm64-v8a'
+
+            // 还可以添加 , 'x86_64', 'mips', 'mips64'
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "e3bf5be8f9c5ce759d9eb278", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //用户渠道统计的渠道名称
+        ]
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    productFlavors {
+    }
+
+}
+
+// ============ Share分享开始 ============
+MobSDK {
+    appKey "2b8e9fcf75d60"
+    appSecret "fce613cc3f4a27c99df513167bded0b7"
+    ShareSDK {
+        devInfo {
+            SinaWeibo {// 新浪微博
+                appKey "568898243"
+                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+                callbackUri "http://www.sharesdk.cn"
+            }
+            Wechat {
+                // 微信
+                appId "wx3c00cf9daad431a2"
+                appSecret "fe8e4f235aa23545c6ddc26dcfe90cc2"
+                userName "gh_afb25ac019c9"
+                path "pages/index/index.html?id=1"
+                withShareTicket true
+                miniprogramType 2
+                bypassApproval false
+                enable true
+            }
+            QQ {// QQ
+                appId "1108018471"
+                appKey "cRsRlhuBrAt6xEW1"
+                enable true
+                bypassApproval false
+                shareByAppClient true
+            }
+            QZone {// QZone
+                appId "1108018471"
+                appKey "cRsRlhuBrAt6xEW1"
+                enable true
+                bypassApproval false
+                shareByAppClient true
+            }
+            WechatMoments {// 微信朋友圈
+                appId "wx3c00cf9daad431a2"
+                appSecret "fe8e4f235aa23545c6ddc26dcfe90cc2"
+                bypassApproval false
+                enable true
+            }
+        }
+    }
+}
+// ============ Share分享结束 ============
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:support-v13:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // 网络请求
+    compile 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.lzy.net:okgo:2.1.4'
+
+    // 图片的加载框架
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    // 事件订阅
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    //Gosn数据解析
+    implementation 'com.google.code.gson:gson:2.8.0'
+    //fastJson解析json
+    compile 'com.alibaba:fastjson:1.1.70.android'
+    // 轮播
+    implementation 'com.bigkoo:convenientbanner:2.0.5'
+    implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+    // 引用多包分解
+    implementation 'com.android.support:multidex:1.0.2'
+    // 拍照，裁剪
+    implementation 'com.jph.takephoto:takephoto_library:3.0.4'
+    //    点击事件防重库
+    implementation 'com.github.jarryleo:SingleClick:v1.8'
+    //    SmartRefreshLayout下拉刷新控件
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'  //1.0.5及以前版本的老用户升级需谨慎，API改动过大
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'  //没有使用特殊Header，可以不加这行
+    //    image-loader 依赖
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+
+    //    BaseRecyclerViewAdapterHelper
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    //    沉浸式状态栏
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.3-beta09'
+    //    Android权限申请
+    implementation 'com.hjq:xxpermissions:5.2'
+    // 百度地图
+    implementation files('libs/BaiduLBS_Android.jar')
+    implementation files('libs/sun.misc.BASE64Decoder.jar')
+    //    支付宝支付SDK
+    implementation(name: 'alipaySdk-15.5.9-20181123210601', ext: 'aar')
+    //    微信支付SDK
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    // 此处以JPush 3.1.1 版本为例。
+    implementation 'cn.jiguang.sdk:jpush:3.1.3'
+    // 此处以JMessage 2.9.0 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:2.0.0'
+    implementation files('libs/lib_photoview.jar')
+
+    implementation 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
+}

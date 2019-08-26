@@ -1,0 +1,152 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/corporate_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:text="@string/journal_txt"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/div_color" />
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/daily_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/daily_txt"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/weekly_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/weekly_txt"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/monthly_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/monthly_txt"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="16sp" />
+
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/date_splash_bg_style"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/start_date_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="2019-01-01"
+                android:textColor="@color/item_color"
+                android:textColorHint="@color/item_color"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="—"
+                android:textColor="@color/item_color"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/end_date_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="2019-01-31"
+                android:textColor="@color/item_color"
+                android:textColorHint="@color/item_color"
+                android:textSize="@dimen/sp_16" />
+
+            <ImageView
+                android:id="@+id/date_select_img"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:src="@mipmap/date_select_ioc" />
+
+
+        </LinearLayout>
+
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.qymage.sys.common.widget.FrameEmptyLayout
+                android:id="@+id/emptylayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </com.qymage.sys.common.widget.FrameEmptyLayout>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+    </LinearLayout>
+
+</layout>

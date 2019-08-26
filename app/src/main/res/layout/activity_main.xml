@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.qymage.sys.common.util.HackyViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/view_div"
+            android:background="@color/app_background" />
+
+        <View
+            android:id="@+id/view_div"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_above="@id/radiogroup"
+            android:background="@color/lighter_gray" />
+
+
+        <RadioGroup
+            android:id="@+id/radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/tab1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/tab1"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:background="@color/transparent"
+                android:text="@string/news_txt"
+                android:textColor="@color/shape_login_radiobutton_select"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/tab2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/tab2"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:background="@color/transparent"
+                android:text="@string/week_txt"
+                android:textColor="@color/shape_login_radiobutton_select"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/tab3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/tab3"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:text="@string/journal_txt"
+                android:background="@color/transparent"
+                android:textColor="@color/shape_login_radiobutton_select"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/tab4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/tab4"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:text="@string/my_txt"
+                android:background="@color/transparent"
+                android:textColor="@color/shape_login_radiobutton_select"
+                android:textSize="12sp" />
+
+        </RadioGroup>
+
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

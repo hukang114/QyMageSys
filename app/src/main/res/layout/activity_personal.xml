@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        android:orientation="vertical">
+
+        <com.qymage.sys.common.widget.MeTitle
+            android:id="@+id/metitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cTxt="@string/persion_info_txt" />
+
+
+        <LinearLayout style="@style/personal_msg_ll">
+
+            <TextView
+                style="@style/personal_title_txt"
+                android:text="@string/phone_number_txt" />
+
+            <EditText
+                android:id="@+id/phone_et"
+                style="@style/personal_title_et"
+                android:layout_marginRight="5dp"
+                android:enabled="false"
+                android:hint="0123456789" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin10"
+            android:background="@color/div_color" />
+
+        <LinearLayout style="@style/personal_msg_ll">
+
+            <TextView
+                style="@style/personal_title_txt"
+                android:text="@string/jon_num_txt" />
+
+            <EditText
+                android:id="@+id/jon_num_et"
+                style="@style/personal_title_et"
+                android:layout_marginRight="5dp"
+                android:hint="0123" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin10"
+            android:background="@color/div_color" />
+
+        <LinearLayout style="@style/personal_msg_ll">
+
+            <TextView
+                style="@style/personal_title_txt"
+                android:text="@string/user_txt" />
+
+            <EditText
+                android:id="@+id/username_et"
+                style="@style/personal_title_et"
+                android:layout_marginRight="5dp"
+                android:hint="张三" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin10"
+            android:background="@color/div_color" />
+
+        <LinearLayout style="@style/personal_msg_ll">
+
+            <TextView
+                style="@style/personal_title_txt"
+                android:text="@string/sex_txt" />
+
+            <TextView
+                android:id="@+id/sex_et"
+                style="@style/personal_title_et"
+                android:layout_marginRight="5dp"
+                android:hint="保密" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin10"
+            android:background="@color/div_color" />
+
+        <LinearLayout style="@style/personal_msg_ll">
+
+            <TextView
+                style="@style/personal_title_txt"
+                android:text="@string/station_txt" />
+
+            <EditText
+                android:id="@+id/station_et"
+                style="@style/personal_title_et"
+                android:layout_marginRight="5dp"
+                android:hint="软件工程师" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin10"
+            android:background="@color/div_color" />
+
+        <LinearLayout style="@style/personal_msg_ll">
+
+            <TextView
+                style="@style/personal_title_txt"
+                android:text="@string/birthday_txt" />
+
+            <TextView
+                android:id="@+id/birthday_et"
+                style="@style/personal_title_et"
+                android:layout_marginRight="5dp"
+                android:hint="1991-01-01" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin10"
+            android:background="@color/div_color" />
+
+        <RelativeLayout style="@style/personal_msg_ll">
+
+            <TextView
+                style="@style/personal_title_txt"
+                android:layout_centerVertical="true"
+                android:text="@string/pic_txt" />
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_launcher" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin10"
+            android:background="@color/div_color" />
+
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="@dimen/margin15"
+            android:layout_marginRight="@dimen/margin15"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/save_btn_style"
+            android:text="保  存"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+</layout>

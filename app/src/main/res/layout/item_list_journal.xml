@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin10"
+    android:layout_marginLeft="@dimen/margin15"
+    android:layout_marginRight="@dimen/margin15"
+    android:background="@drawable/item_rizhi_bg_style"
+    android:orientation="vertical"
+    android:padding="@dimen/margin10">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/head_img"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher" />
+
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_toRightOf="@+id/head_img"
+            android:text="张三的日报"
+            android:textColor="@color/rizhi_color"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/date_time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_name"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_marginTop="@dimen/margin5"
+            android:layout_toRightOf="@+id/head_img"
+            android:text="2019-01-01" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin55"
+        android:layout_marginTop="@dimen/margin10"
+        android:text="今日工作计划"
+        android:textColor="@color/rizhi_color"
+        android:textSize="@dimen/text_size_15" />
+
+    <TextView
+        android:id="@+id/today_plan_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin55"
+        android:layout_marginTop="@dimen/margin2"
+        android:text="今日工作计划"
+        android:textColor="@color/rizhi_content_color"
+        android:textSize="@dimen/text_size_15" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin55"
+        android:layout_marginTop="@dimen/margin10"
+        android:text="今日工作内容"
+        android:textColor="@color/rizhi_color"
+        android:textSize="@dimen/text_size_15" />
+
+    <TextView
+        android:id="@+id/today_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin55"
+        android:layout_marginTop="@dimen/margin2"
+        android:text="今日工作内容"
+        android:textColor="@color/rizhi_content_color"
+        android:textSize="@dimen/text_size_15" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin55"
+        android:layout_marginTop="@dimen/margin10"
+        android:text="明日工作计划"
+        android:textColor="@color/rizhi_color"
+        android:textSize="@dimen/text_size_15" />
+
+    <TextView
+        android:id="@+id/tomorrow_plan_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin55"
+        android:layout_marginTop="@dimen/margin2"
+        android:text="明日工作计划"
+        android:textColor="@color/rizhi_content_color"
+        android:textSize="@dimen/text_size_15" />
+
+
+</LinearLayout>

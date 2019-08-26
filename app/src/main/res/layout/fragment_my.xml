@@ -1,0 +1,82 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/info_relayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin15"
+                android:layout_marginLeft="@dimen/margin15"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@drawable/item_splash_userbg_style"
+                android:minHeight="@dimen/margin150"
+                android:orientation="vertical"
+                android:padding="@dimen/margin10">
+
+                <TextView
+                    android:id="@+id/user_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户昵称"
+                    android:textColor="@color/rizhi_color"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/job_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginTop="@dimen/margin2"
+                    android:layout_toRightOf="@+id/user_name_tv"
+                    android:text="工号：123456"
+                    android:textColor="@color/rizhi_color" />
+
+
+                <ImageView
+                    android:id="@+id/user_head"
+                    android:layout_width="@dimen/margin50"
+                    android:layout_height="@dimen/margin50"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/icon_default_image" />
+
+
+                <TextView
+                    android:id="@+id/corporate_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_name_tv"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:text="@string/corporate_name_tv" />
+
+                <TextView
+                    android:id="@+id/department_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/corporate_name_tv"
+                    android:layout_marginTop="@dimen/margin8"
+                    android:text="@string/department_txt" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin20" />
+
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</layout>

@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">企业项目管理平台</string>
+
+    <!--app更新-->
+    <string name="update_app_model_prepare">准备下载</string>
+    <string name="update_app_model_progress">正在下载 %1$d%2$s</string>
+    <string name="update_app_model_success">下载成功(点击安装)</string>
+    <string name="update_app_model_error">下载失败(点击浏览器下载)</string>
+
+
+    <item name="statusbarutil_fake_status_bar_view" type="id" />
+    <item name="statusbarutil_translucent_view" type="id" />
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="corporate_name_txt">润可科技</string>
+
+
+    <string name="news_txt">消息</string>
+    <string name="week_txt">工作</string>
+    <string name="journal_txt">日志</string>
+    <string name="my_txt">我的</string>
+
+    <string name="daily_txt">日报</string>
+    <string name="weekly_txt">周报</string>
+    <string name="monthly_txt">月报</string>
+    <string name="srarch_txt">搜索</string>
+
+    <string name="corporate_name_tv">贵州润可信息科技有限公司</string>
+    <string name="department_txt">技术部-研发工程师</string>
+    <string name="seting">设置</string>
+    <string name="user_info">个人信息</string>
+    <string name="info_security">修改密码</string>
+    <string name="msg_notifi">新消息通知</string>
+    <string name="about_txtx">关于我们</string>
+    <string name="out_login_txt">退出登录</string>
+    <string name="outlog_msg">退出后不会删除任何数据，下次登录依然可以使用本账号</string>
+    <string name="copyright_txt">CopyRight @2018贵州润可信息科技有限公司 版权所有</string>
+    <string name="persion_info_txt">个人信息</string>
+    <string name="phone_number_txt">手机号</string>
+    <string name="jon_num_txt">工号</string>
+    <string name="user_txt">姓名</string>
+    <string name="sex_txt">姓别</string>
+    <string name="station_txt">岗位</string>
+    <string name="birthday_txt">生日</string>
+    <string name="pic_txt">图片</string>
+    <string name="login">登录</string>
+    <string name="login_username_num_txt">请输入账号</string>
+    <string name="login_psd_num_txt">请输入登录密码</string>
+    <string name="msg_noti_txt">消息通知</string>
+    <string name="worknotice_txt">工作通知</string>
+    <string name="refuse_txt">拒绝</string>
+    <string name="agree_txt">同意</string>
+
+</resources>
