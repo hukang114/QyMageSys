@@ -56,6 +56,9 @@
     <string name="on_duty_txt">在岗</string>
     <string name="business_travel_txt">出差</string>
     <string name="leave_txt">请假</string>
+    <string name="submit_txt">提交</string>
+    <string name="my_attendance">我的考勤</string>
+    <string name="kaoqin_guiz_tv">考勤 (查看规则)</string>
 
 
 </resources>

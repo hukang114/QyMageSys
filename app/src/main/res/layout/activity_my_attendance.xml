@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.qymage.sys.common.widget.MeTitle
+            android:id="@+id/metitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cTxt="@string/my_attendance"
+            app:showView="false" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin15"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/radio_button_left"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="周"
+                    android:textColor="@color/radio_button_text"
+                    android:textSize="@dimen/text_size_16" />
+
+                <RadioButton
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/radio_button_right"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="月"
+                    android:textColor="@color/radio_button_text"
+                    android:textSize="@dimen/text_size_16" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/kaoqing_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin15"
+                android:drawableLeft="@mipmap/rili_ioc"
+                android:gravity="center"
+                android:text="2019-8-26"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_13" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/app_div_h_color" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@drawable/share_btn_bg">
+
+            <ImageView
+                android:id="@+id/user_head_img"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin15"
+                android:src="@mipmap/ic_launcher" />
+
+
+            <TextView
+                android:id="@+id/user_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:layout_marginTop="@dimen/margin10"
+                android:layout_toRightOf="@+id/user_head_img"
+                android:text="用户昵称"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/kaoqin_rules_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_name_tv"
+                android:layout_marginLeft="@dimen/margin15"
+                android:layout_marginTop="@dimen/margin3"
+                android:layout_toRightOf="@+id/user_head_img"
+                android:text="@string/kaoqin_guiz_tv"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_13" />
+
+
+            <TextView
+                android:id="@+id/index_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_name_tv"
+                android:layout_marginLeft="@dimen/margin50"
+                android:layout_marginRight="@dimen/margin15"
+                android:layout_marginTop="@dimen/margin2"
+                android:layout_toRightOf="@+id/kaoqin_rules_tv"
+                android:gravity="center"
+                android:text="指数:21"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_15" />
+
+
+            <TextView
+                android:id="@+id/ranking_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/user_name_tv"
+                android:layout_marginRight="@dimen/margin15"
+                android:layout_marginTop="@dimen/margin2"
+                android:gravity="center"
+                android:text="排行:2"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_15" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="总工时" />
+
+                    <EditText
+                        android:id="@+id/phone_et"
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:enabled="false"
+                        android:hint="0123456789" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="平均工时" />
+
+                    <EditText
+                        android:id="@+id/jon_num_et"
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:hint="0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="出勤天数" />
+
+                    <EditText
+                        android:id="@+id/username_et"
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:hint="0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="休息天数" />
+
+                    <TextView
+                        android:id="@+id/sex_et"
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:hint="0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="迟到" />
+
+                    <EditText
+                        android:id="@+id/station_et"
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:hint="0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="早退" />
+
+                    <TextView
+                        android:id="@+id/birthday_et"
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:hint="0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="旷工" />
+
+                    <TextView
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:hint="0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="异常" />
+
+                    <TextView
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:hint="0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="请假" />
+
+                    <TextView
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:hint="0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+                <LinearLayout style="@style/personal_msg_ll">
+
+                    <TextView
+                        style="@style/personal_titlerizhi_txt"
+                        android:text="出差" />
+
+                    <TextView
+                        style="@style/personal_title_kaoqin_et"
+                        android:layout_marginRight="5dp"
+                        android:hint="0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="@dimen/margin50"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:background="@color/div_color" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+</layout>

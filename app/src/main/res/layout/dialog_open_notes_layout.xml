@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/notes_edt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin150"
+        android:layout_margin="@dimen/margin15"
+        android:background="@drawable/notes_edt_bg_style"
+        android:gravity="top"
+        android:hint="请输入备注内容"
+        android:padding="@dimen/margin15"
+        android:textColor="@color/item_color"
+        android:textColorHint="@color/item_color"
+        android:textSize="@dimen/text_size_14" />
+
+
+    <TextView
+        android:id="@+id/submit_btn"
+        android:layout_width="75dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/margin20"
+        android:background="@drawable/jujue_btn_style"
+        android:gravity="center"
+        android:text="@string/submit_txt"
+        android:textColor="@color/white" />
+
+
+</LinearLayout>

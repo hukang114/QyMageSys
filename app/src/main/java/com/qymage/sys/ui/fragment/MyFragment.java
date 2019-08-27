@@ -15,6 +15,7 @@ import com.qymage.sys.common.base.baseFragment.FragmentLazy;
 import com.qymage.sys.common.util.PicasooUtil;
 import com.qymage.sys.databinding.FragmentMyBinding;
 import com.qymage.sys.ui.act.LoginActivity;
+import com.qymage.sys.ui.act.MyAttendanceActivity;
 import com.qymage.sys.ui.act.PersonalActivity;
 import com.qymage.sys.ui.act.SetUpActivity;
 import com.qymage.sys.ui.adapter.MyMenuAdapter;
@@ -97,6 +98,7 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
 
                 break;
             case "wdkq": // 我的考勤
+                openActivity(MyAttendanceActivity.class);
 
                 break;
             case "seting": // 设置

@@ -156,7 +156,8 @@
         <activity android:name=".ui.act.LoginActivity" />
         <activity android:name=".ui.act.MessageNotifActivity" />
         <activity android:name=".ui.act.WorkNoticeActivity" />
-        <activity android:name=".ui.act.OpenAfterWorkActivity"></activity>
+        <activity android:name=".ui.act.OpenAfterWorkActivity" />
+        <activity android:name=".ui.act.MyAttendanceActivity"></activity>
     </application>
 
 </manifest>
