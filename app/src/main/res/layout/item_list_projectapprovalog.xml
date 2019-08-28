@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin5"
+    android:layout_marginLeft="@dimen/margin15"
+    android:layout_marginRight="@dimen/margin15"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/margin8"
+    app:cardElevation="@dimen/margin2"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/margin15">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/head_img"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_toRightOf="@+id/head_img"
+                android:text="张三的借款"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/crate_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_name"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_toRightOf="@+id/head_img"
+                android:text="2019-01-01"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/proj_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10"
+            android:text="项目类型"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:id="@+id/proj_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="项目名称"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:id="@+id/appaly_content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="预算申请"
+            android:textColor="@color/rizhi_content_color"
+            android:textSize="@dimen/text_size_15" />
+
+
+        <TextView
+            android:id="@+id/date_time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="申请时间"
+            android:textColor="@color/rizhi_content_color"
+            android:textSize="@dimen/text_size_15" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin5"
+            android:layout_marginTop="@dimen/margin10"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/status_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="待还款"
+                android:textColor="@color/blue_219"
+                android:visibility="visible" />
+
+
+            <TextView
+                android:id="@+id/bnt1"
+                android:layout_width="70dp"
+                android:layout_height="26dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:text="@string/app_repayment"
+                android:textColor="@color/white" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

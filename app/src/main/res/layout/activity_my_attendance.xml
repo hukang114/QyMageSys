@@ -35,7 +35,6 @@
                     android:layout_height="35dp"
                     android:background="@drawable/radio_button_left"
                     android:button="@null"
-                    android:checked="true"
                     android:gravity="center"
                     android:text="周"
                     android:textColor="@color/radio_button_text"
@@ -156,12 +155,14 @@
                         style="@style/personal_titlerizhi_txt"
                         android:text="总工时" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/phone_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
                         android:enabled="false"
-                        android:hint="0123456789" />
+                        android:hint="10小时" />
                 </LinearLayout>
 
                 <View
@@ -177,11 +178,13 @@
                         style="@style/personal_titlerizhi_txt"
                         android:text="平均工时" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/jon_num_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:hint="0" />
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
+                        android:hint="0小时" />
                 </LinearLayout>
 
                 <View
@@ -197,11 +200,13 @@
                         style="@style/personal_titlerizhi_txt"
                         android:text="出勤天数" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/username_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:hint="0" />
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
+                        android:hint="0天" />
                 </LinearLayout>
 
                 <View
@@ -221,7 +226,9 @@
                         android:id="@+id/sex_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:hint="0" />
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
+                        android:hint="0天" />
                 </LinearLayout>
 
                 <View
@@ -237,11 +244,13 @@
                         style="@style/personal_titlerizhi_txt"
                         android:text="迟到" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/station_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:hint="0" />
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
+                        android:hint="0次" />
                 </LinearLayout>
 
                 <View
@@ -261,7 +270,9 @@
                         android:id="@+id/birthday_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:hint="0" />
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
+                        android:hint="0次" />
                 </LinearLayout>
 
                 <View
@@ -280,7 +291,9 @@
                     <TextView
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:hint="0" />
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
+                        android:hint="0次" />
                 </LinearLayout>
 
                 <View
@@ -299,7 +312,9 @@
                     <TextView
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:hint="0" />
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
+                        android:hint="0次" />
                 </LinearLayout>
 
                 <View
@@ -318,7 +333,9 @@
                     <TextView
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:hint="0" />
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
+                        android:hint="0次" />
                 </LinearLayout>
 
                 <View
@@ -337,7 +354,9 @@
                     <TextView
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:hint="0" />
+                        android:drawablePadding="@dimen/margin5"
+                        android:drawableRight="@mipmap/down_ioc"
+                        android:hint="0次" />
                 </LinearLayout>
 
                 <View

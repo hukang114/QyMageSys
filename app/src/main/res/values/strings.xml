@@ -59,6 +59,9 @@
     <string name="submit_txt">提交</string>
     <string name="my_attendance">我的考勤</string>
     <string name="kaoqin_guiz_tv">考勤 (查看规则)</string>
+    <string name="my_loan_txt">我的借款</string>
+    <string name="app_repayment">申请还款</string>
+    <string name="project_approval_log_txt">立项记录</string>
 
 
 </resources>

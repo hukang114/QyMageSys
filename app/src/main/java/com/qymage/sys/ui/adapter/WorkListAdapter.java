@@ -14,6 +14,7 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BaseActivity;
 import com.qymage.sys.common.tools.ToastUtil;
 import com.qymage.sys.ui.act.OpenAfterWorkActivity;
+import com.qymage.sys.ui.act.ProjectApprovaLoglActivity;
 import com.qymage.sys.ui.entity.WorkListEnt;
 
 import java.util.List;
@@ -59,6 +60,7 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
                 openActivity(OpenAfterWorkActivity.class);
                 break;
             case "lixiang"://立项申请
+                openActivity(ProjectApprovaLoglActivity.class);
 
                 break;
             case "hetong"://合同申请

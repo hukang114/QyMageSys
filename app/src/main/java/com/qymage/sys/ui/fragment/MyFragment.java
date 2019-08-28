@@ -16,6 +16,7 @@ import com.qymage.sys.common.util.PicasooUtil;
 import com.qymage.sys.databinding.FragmentMyBinding;
 import com.qymage.sys.ui.act.LoginActivity;
 import com.qymage.sys.ui.act.MyAttendanceActivity;
+import com.qymage.sys.ui.act.MyLoanActivity;
 import com.qymage.sys.ui.act.PersonalActivity;
 import com.qymage.sys.ui.act.SetUpActivity;
 import com.qymage.sys.ui.adapter.MyMenuAdapter;
@@ -95,7 +96,7 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
                 break;
 
             case "wdjhk": // 我的借还款
-
+                openActivity(MyLoanActivity.class);
                 break;
             case "wdkq": // 我的考勤
                 openActivity(MyAttendanceActivity.class);
