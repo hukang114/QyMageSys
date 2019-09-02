@@ -62,6 +62,43 @@
     <string name="my_loan_txt">我的借款</string>
     <string name="app_repayment">申请还款</string>
     <string name="project_approval_log_txt">立项记录</string>
-
+    <string name="reimbursement_txt">报销</string>
+    <string name="more_txt">更多</string>
+    <string name="add_baoxiaoi_mx_txt">新增报销明细</string>
+    <string name="uplod_pic_txt">上传图片</string>
+    <string name="true_txt">确认</string>
+    <string name="delete_txt">删除</string>
+    <string name="baoxiaojine_txt">报销金额(元)</string>
+    <string name="baoxiao_cate_txt">报销类别</string>
+    <string name="feiyong_mx_txt">费用明细</string>
+    <string name="select_txt">请选择报销类别</string>
+    <string name="feiyong_mx_ms_txt">请输入费用的明细描述</string>
+    <string name="loanapplication_txt">借款申请</string>
+    <string name="shenqingren_txt">申请人</string>
+    <string name="qsrsqrxm_txt">请输入申请人姓名</string>
+    <string name="bumeng_txt">部门</string>
+    <string name="qxzbm_txt">请选择部门</string>
+    <string name="shiyou_txt">事由</string>
+    <string name="qsrsy_txt">请输入事由</string>
+    <string name="sqje_txt">申请金额</string>
+    <string name="qsrsqje_txt">请输入申请金额</string>
+    <string name="daxie_txt">大写</string>
+    <string name="shyiyong_date_txt">使用日期</string>
+    <string name="qingxuanze_txt">请选择</string>
+    <string name="shenpiren_txt">审批人</string>
+    <string name="cahosongren_txt">抄送人</string>
+    <string name="haikuanshenqing_txt">还款申请</string>
+    <string name="hkje_txt">还款金额</string>
+    <string name="haikuan_date_txt">还款日期</string>
+    <string name="lixiangshenqing_txt">立项申请</string>
+    <string name="lixiangjilu_txt">立项记录</string>
+    <string name="xiangmuleixing_txt">项目类型</string>
+    <string name="select_xiangmuleixing_txt">请选择项目类型</string>
+    <string name="xiangmubianhao_txt">项目编号</string>
+    <string name="xiangmumingcheng_txt">项目名称</string>
+    <string name="fuzeren_txt">负责人</string>
+    <string name="yusuanjine_txt">预算金额（元）</string>
+    <string name="date_txt">日期</string>
+    <string name="proj_shuoming">项目说明</string>
 
 </resources>

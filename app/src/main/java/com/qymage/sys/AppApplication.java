@@ -22,6 +22,7 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.qymage.sys.common.allpay.wxpay.Constants;
 import com.qymage.sys.common.allpay.wxpay.WXPayUtil;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.http.LogUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -80,6 +81,7 @@ public class AppApplication extends Application {
         MobSDK.init(this);
         intiBaiDu();
         initImageLoader();
+        LogUtils.openLog(true);// 设置是否开启Log输出  true 输出  false 不输出
     }
 
     private void intiBaiDu() {

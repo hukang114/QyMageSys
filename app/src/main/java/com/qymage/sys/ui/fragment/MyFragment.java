@@ -18,6 +18,7 @@ import com.qymage.sys.ui.act.LoginActivity;
 import com.qymage.sys.ui.act.MyAttendanceActivity;
 import com.qymage.sys.ui.act.MyLoanActivity;
 import com.qymage.sys.ui.act.PersonalActivity;
+import com.qymage.sys.ui.act.ReimbursementActivity;
 import com.qymage.sys.ui.act.SetUpActivity;
 import com.qymage.sys.ui.adapter.MyMenuAdapter;
 import com.qymage.sys.ui.entity.MyMenuEnt;
@@ -92,6 +93,7 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
 
                 break;
             case "wdbx": // 我的报销
+                openActivity(ReimbursementActivity.class);
 
                 break;
 

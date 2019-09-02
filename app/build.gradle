@@ -145,9 +145,12 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'  //没有使用特殊Header，可以不加这行
     //    image-loader 依赖
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
-
+    // 适配器
+    implementation 'com.zhy:base-rvadapter:3.0.3'
     //    BaseRecyclerViewAdapterHelper
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    //    日期选择控件
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
     //    沉浸式状态栏
     implementation 'com.gyf.immersionbar:immersionbar:2.3.3-beta09'
     //    Android权限申请

@@ -159,7 +159,11 @@
         <activity android:name=".ui.act.OpenAfterWorkActivity" />
         <activity android:name=".ui.act.MyAttendanceActivity" />
         <activity android:name=".ui.act.MyLoanActivity" />
-        <activity android:name=".ui.act.ProjectApprovaLoglActivity"></activity>
+        <activity android:name=".ui.act.ProjectApprovaLoglActivity" />
+        <activity android:name=".ui.act.ReimbursementActivity" />
+        <activity android:name=".ui.act.LoanApplicationActivity" />
+        <activity android:name=".ui.act.ApplicationRepaymentActivity" />
+        <activity android:name=".ui.act.ProjectApprovaApplylActivity"></activity>
     </application>
 
 </manifest>

@@ -81,7 +81,7 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
                 "市场部",
                 "5000元",
                 "企业管理项目采购",
-                1));
+                2));
 
         listdata.add(new ProjectAppLogEnt("http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20190316/a2b4fe8ce83a453a91354d6e88751f2a.jpeg",
                 "三毛购申请",
@@ -89,7 +89,7 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
                 "销售",
                 "10000元",
                 "企业管理项目采购",
-                1));
+                2));
 
         adapter.notifyDataSetChanged();
 

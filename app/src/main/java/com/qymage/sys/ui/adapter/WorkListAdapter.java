@@ -13,7 +13,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BaseActivity;
 import com.qymage.sys.common.tools.ToastUtil;
+import com.qymage.sys.ui.act.ApplicationRepaymentActivity;
+import com.qymage.sys.ui.act.LoanApplicationActivity;
 import com.qymage.sys.ui.act.OpenAfterWorkActivity;
+import com.qymage.sys.ui.act.ProjectApprovaApplylActivity;
 import com.qymage.sys.ui.act.ProjectApprovaLoglActivity;
 import com.qymage.sys.ui.entity.WorkListEnt;
 
@@ -60,7 +63,7 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
                 openActivity(OpenAfterWorkActivity.class);
                 break;
             case "lixiang"://立项申请
-                openActivity(ProjectApprovaLoglActivity.class);
+                openActivity(ProjectApprovaApplylActivity.class);
 
                 break;
             case "hetong"://合同申请
@@ -93,10 +96,11 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
 
                 break;
             case "jiekuan"://借款申请
+                openActivity(LoanApplicationActivity.class);
 
                 break;
             case "huankuan"://还款申请
-
+                openActivity(ApplicationRepaymentActivity.class);
                 break;
         }
     }
