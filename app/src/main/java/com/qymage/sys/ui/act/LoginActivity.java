@@ -18,8 +18,10 @@ import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.util.MD5;
 import com.qymage.sys.common.util.SPUtils;
 import com.qymage.sys.databinding.ActivityLoginBinding;
+import com.qymage.sys.ui.entity.LoginEntity;
 
 import java.util.HashMap;
+import java.util.List;
 
 import cn.leo.click.SingleClick;
 import okhttp3.Call;
@@ -139,11 +141,22 @@ public class LoginActivity extends BBActivity<ActivityLoginBinding> implements V
     private void LoginMoth() {
         showLoading();
 
-        HttpUtil.UserLogin(HttpConsts.LOGIN, getPar()).execute(new JsonCallback<Result<String>>() {
+        HttpUtil.UserLogin(HttpConsts.LOGIN, getPar()).execute(new JsonCallback<Result<List<LoginEntity>>>() {
             @Override
-            public void onSuccess(Result<String> result, Call call, Response response) {
+            public void onSuccess(Result<List<LoginEntity>> result, Call call, Response response) {
                 closeLoading();
-
+                SPUtils.put(LoginActivity.this, Constants.USER_NAME, mBinding.etMobile.getText().toString());
+                if (mBinding.remPsd.isChecked()) {
+                    SPUtils.put(LoginActivity.this, Constants.REM_PSD, mBinding.etCode.getText().toString());
+                } else {
+                    SPUtils.remove(LoginActivity.this, Constants.REM_PSD);
+                }
+                if (result.data != null) {
+                    SPUtils.put(LoginActivity.this, Constants.token, result.data.get(0).token);
+                    SPUtils.put(LoginActivity.this, Constants.userid, result.data.get(0).userCode);
+                }
+                showToast(result.message);
+                openActivity(MainActivity.class);
             }
 
             @Override
@@ -153,15 +166,6 @@ public class LoginActivity extends BBActivity<ActivityLoginBinding> implements V
                 showToast(e.getMessage());
             }
         });
-
-
-//        SPUtils.put(LoginActivity.this, Constants.USER_NAME, mBinding.etMobile.getText().toString());
-//        if (mBinding.remPsd.isChecked()) {
-//            SPUtils.put(LoginActivity.this, Constants.REM_PSD, mBinding.etCode.getText().toString());
-//        } else {
-//            SPUtils.remove(LoginActivity.this, Constants.REM_PSD);
-//        }
-//
 
     }
 

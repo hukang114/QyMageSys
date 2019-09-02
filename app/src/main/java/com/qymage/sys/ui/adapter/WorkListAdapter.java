@@ -16,6 +16,8 @@ import com.qymage.sys.common.tools.ToastUtil;
 import com.qymage.sys.ui.act.ApplicationRepaymentActivity;
 import com.qymage.sys.ui.act.LoanApplicationActivity;
 import com.qymage.sys.ui.act.OpenAfterWorkActivity;
+import com.qymage.sys.ui.act.PerformanceBondShouActivity;
+import com.qymage.sys.ui.act.PerformanceBondZhiActivity;
 import com.qymage.sys.ui.act.ProjectApprovaApplylActivity;
 import com.qymage.sys.ui.act.ProjectApprovaLoglActivity;
 import com.qymage.sys.ui.entity.WorkListEnt;
@@ -85,15 +87,16 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
                 break;
             case "toubiaoz"://投标保证金支
 
+
                 break;
             case "toubiaos"://投标保证金收
 
                 break;
             case "lvyuez"://履约保证金支
-
+                openActivity(PerformanceBondZhiActivity.class);
                 break;
             case "lvyues"://履约保证金收
-
+                openActivity(PerformanceBondShouActivity.class);
                 break;
             case "jiekuan"://借款申请
                 openActivity(LoanApplicationActivity.class);

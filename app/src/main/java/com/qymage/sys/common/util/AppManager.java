@@ -6,6 +6,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 
 
+import com.qymage.sys.ui.act.LoginActivity;
 import com.qymage.sys.ui.act.MainActivity;
 
 import java.util.Iterator;
@@ -104,9 +105,9 @@ public class AppManager {
     public void finishAllActivityNoLogin() {
         for (int i = 0, size = activityStack.size(); i < size; i++) {
             if (null != activityStack.get(i)) {
-//                if (activityStack.get(i).getClass() != LoginActivity.class) {
-//                    activityStack.get(i).finish();
-//                }
+                if (activityStack.get(i).getClass() != LoginActivity.class) {
+                    activityStack.get(i).finish();
+                }
             }
         }
         activityStack.clear();

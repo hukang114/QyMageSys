@@ -7,9 +7,17 @@ import android.view.View;
 
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
+import com.qymage.sys.common.callback.JsonCallback;
+import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.http.HttpConsts;
+import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.AppManager;
 import com.qymage.sys.databinding.ActivityChangePasswordBinding;
 
 import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * 修改登录密码
@@ -69,17 +77,35 @@ public class ChangePasswordActivity extends BBActivity<ActivityChangePasswordBin
     }
 
     private void submitData() {
+        showLoading();
+        HttpUtil.updatePwd(HttpConsts.UPDATEPWD, getPer()).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+                closeLoading();
+                showToast(result.message);
+                // 需要从新登录
+                AppManager.getInstance().finishAllActivityNoLogin();
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+
 
         showToast("修改成功");
         finish();
-
 
     }
 
     private HashMap<String, String> getPer() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("newpsd", mBinding.pwdEt.getText().toString());
-        map.put("oldpsd", mBinding.oldPwdEt.getText().toString());
+        map.put("newPwd", mBinding.pwdEt.getText().toString());
+        map.put("oldPwd", mBinding.oldPwdEt.getText().toString());
+        map.put("userCode", getUserId());
         return map;
 
     }

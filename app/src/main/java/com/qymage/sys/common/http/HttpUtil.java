@@ -40,12 +40,35 @@ public class HttpUtil {
     /**
      * 用户登录
      *
-     * @param name
+     * @param urlname
      * @param params
      * @return
      */
-    public static PostRequest UserLogin(String name, Map<String, String> params) {
-        return HttpClient.getInstance().postData(name, params);
+    public static PostRequest UserLogin(String urlname, Map<String, String> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+
+    /**
+     * 用户修改密码
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest updatePwd(String urlname, Map<String, String> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+    /**
+     * 用户退出登录
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest logout(String urlname, Map<String, String> params) {
+        return HttpClient.getInstance().postData(urlname, params);
     }
 
 

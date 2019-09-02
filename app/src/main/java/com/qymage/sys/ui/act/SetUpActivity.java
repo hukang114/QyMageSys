@@ -10,13 +10,23 @@ import android.view.Window;
 
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
+import com.qymage.sys.common.callback.JsonCallback;
+import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
+import com.qymage.sys.common.http.HttpConsts;
+import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.AppManager;
 import com.qymage.sys.common.util.MeventKey;
 import com.qymage.sys.common.util.MyEvtnTools;
 import com.qymage.sys.common.util.SPUtils;
 import com.qymage.sys.databinding.ActivitySetUpBinding;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * 设置
@@ -87,13 +97,40 @@ public class SetUpActivity extends BBActivity<ActivitySetUpBinding> implements V
         dialog.show();
         dialog.findViewById(R.id.tv_outlogin).setOnClickListener(view1 -> {
             dialog.dismiss();
-//            sendOutLogin();
-            showToast("退出登录成功");
-            SPUtils.remove(SetUpActivity.this, Constants.token);
-            SPUtils.remove(SetUpActivity.this, Constants.openid);
-            EventBus.getDefault().post(new MyEvtnTools(MeventKey.OUTLOGIN));
-            finish();
+            sendOutLogin();
         });
         dialog.findViewById(R.id.tv_cancel).setOnClickListener(v -> dialog.dismiss());
+    }
+
+    /**
+     * 、
+     * 提交退出登录
+     */
+    private void sendOutLogin() {
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("userCode", getUserId());
+        showLoading();
+        HttpUtil.logout(HttpConsts.LOGOUT, map).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+                closeLoading();
+                showToast("退出登录成功");
+                SPUtils.remove(SetUpActivity.this, Constants.token);
+                SPUtils.remove(SetUpActivity.this, Constants.openid);
+                EventBus.getDefault().post(new MyEvtnTools(MeventKey.OUTLOGIN));
+                // 需要从新登录
+                AppManager.getInstance().finishAllActivityNoLogin();
+                finish();
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+
     }
 }

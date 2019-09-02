@@ -163,7 +163,9 @@
         <activity android:name=".ui.act.ReimbursementActivity" />
         <activity android:name=".ui.act.LoanApplicationActivity" />
         <activity android:name=".ui.act.ApplicationRepaymentActivity" />
-        <activity android:name=".ui.act.ProjectApprovaApplylActivity"></activity>
+        <activity android:name=".ui.act.ProjectApprovaApplylActivity" />
+        <activity android:name=".ui.act.PerformanceBondZhiActivity" />
+        <activity android:name=".ui.act.PerformanceBondShouActivity"></activity>
     </application>
 
 </manifest>
