@@ -10,12 +10,14 @@
         android:background="@color/app_background"
         android:orientation="vertical">
 
+
         <com.qymage.sys.common.widget.MeTitle
             android:id="@+id/metitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             app:rTxt="@string/more_txt"
-            app:cTxt="@string/lybzjz_txt" />
+            android:layout_height="wrap_content"
+            app:cTxt="@string/toubiaoshou_txt" />
+
 
         <ScrollView
             android:id="@+id/scrollview"
@@ -26,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -229,7 +232,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/margin2"
                         android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/skdwmc_txt"
+                        android:text="@string/fkdwmc_txt"
                         android:textColor="@color/rizhi_color"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
@@ -732,5 +735,6 @@
 
             </LinearLayout>
         </ScrollView>
+
     </LinearLayout>
 </layout>

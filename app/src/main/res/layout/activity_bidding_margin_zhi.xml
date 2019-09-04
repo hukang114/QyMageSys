@@ -3,29 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/app_background"
         android:orientation="vertical">
 
+
         <com.qymage.sys.common.widget.MeTitle
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:rTxt="@string/more_txt"
-            app:cTxt="@string/lybzjz_txt" />
+            app:cTxt="@string/toubiaozhi_txt" />
+
 
         <ScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -730,7 +733,12 @@
                 </LinearLayout>
 
 
+
             </LinearLayout>
+
         </ScrollView>
+
     </LinearLayout>
+
+
 </layout>

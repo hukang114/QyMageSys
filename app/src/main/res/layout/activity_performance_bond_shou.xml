@@ -15,6 +15,7 @@
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:rTxt="@string/more_txt"
             app:cTxt="@string/lybzjs_txt" />
 
         <ScrollView
@@ -230,7 +231,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/margin2"
                         android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/skdwmc_txt"
+                        android:text="@string/fkdwmc_txt"
                         android:textColor="@color/rizhi_color"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />

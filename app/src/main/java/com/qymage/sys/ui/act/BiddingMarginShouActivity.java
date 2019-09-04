@@ -5,19 +5,20 @@ import android.os.Bundle;
 
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
-import com.qymage.sys.databinding.ActivityPerformanceBondShouBinding;
+import com.qymage.sys.databinding.ActivityBiddingMarginShouBinding;
 
 
 /**
- * 履约保证金收
+ * 投标保证金收
  */
-public class PerformanceBondShouActivity extends BBActivity<ActivityPerformanceBondShouBinding> {
+public class BiddingMarginShouActivity extends BBActivity<ActivityBiddingMarginShouBinding> {
 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_performance_bond_shou;
+        return R.layout.activity_bidding_margin_shou;
     }
+
 
 
     @Override
@@ -27,10 +28,11 @@ public class PerformanceBondShouActivity extends BBActivity<ActivityPerformanceB
 
     }
 
-
     @Override
     protected void initData() {
         super.initData();
 
     }
+
+
 }

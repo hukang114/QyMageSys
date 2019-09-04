@@ -14,6 +14,9 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BaseActivity;
 import com.qymage.sys.common.tools.ToastUtil;
 import com.qymage.sys.ui.act.ApplicationRepaymentActivity;
+import com.qymage.sys.ui.act.BiddingMarginShouActivity;
+import com.qymage.sys.ui.act.BiddingMarginZhiActivity;
+import com.qymage.sys.ui.act.ContractApplicationActivity;
 import com.qymage.sys.ui.act.LoanApplicationActivity;
 import com.qymage.sys.ui.act.OpenAfterWorkActivity;
 import com.qymage.sys.ui.act.PerformanceBondShouActivity;
@@ -69,6 +72,7 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
 
                 break;
             case "hetong"://合同申请
+                openActivity(ContractApplicationActivity.class);
 
                 break;
 
@@ -86,10 +90,11 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
 
                 break;
             case "toubiaoz"://投标保证金支
-
+                openActivity(BiddingMarginZhiActivity.class);
 
                 break;
             case "toubiaos"://投标保证金收
+                openActivity(BiddingMarginShouActivity.class);
 
                 break;
             case "lvyuez"://履约保证金支

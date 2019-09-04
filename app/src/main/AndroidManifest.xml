@@ -165,7 +165,12 @@
         <activity android:name=".ui.act.ApplicationRepaymentActivity" />
         <activity android:name=".ui.act.ProjectApprovaApplylActivity" />
         <activity android:name=".ui.act.PerformanceBondZhiActivity" />
-        <activity android:name=".ui.act.PerformanceBondShouActivity"></activity>
+        <activity android:name=".ui.act.PerformanceBondShouActivity" />
+        <activity android:name=".ui.act.BiddingMarginZhiActivity" />
+        <activity android:name=".ui.act.BiddingMarginShouActivity" />
+        <activity android:name=".ui.act.ContractApplicationActivity" />
+        <activity android:name=".ui.act.ContractDetailsAddActivity" />
+        <activity android:name=".ui.act.ContractPaymentRaActivity"></activity>
     </application>
 
 </manifest>

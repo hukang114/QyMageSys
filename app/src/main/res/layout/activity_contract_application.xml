@@ -14,8 +14,9 @@
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:rTxt="@string/more_txt"
-            app:cTxt="@string/lybzjz_txt" />
+            app:cTxt="@string/htsq_txt"
+            app:rTxt="@string/more_txt" />
+
 
         <ScrollView
             android:id="@+id/scrollview"
@@ -26,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -43,7 +45,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="visible" />
+                        android:visibility="invisible" />
 
 
                     <TextView
@@ -87,7 +89,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible" />
+                        android:visibility="visible" />
 
 
                     <TextView
@@ -111,6 +113,49 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
                         android:hint="请输入项目名称"
+                        android:textColor="@color/item_color"
+                        android:textSize="@dimen/text_size_14" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin55"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/tv_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="@dimen/margin5"
+                        android:text="*"
+                        android:textColor="@color/xinghao_color"
+                        android:textSize="@dimen/text_size_30" />
+
+                    <TextView
+                        android:id="@+id/tv_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin2"
+                        android:layout_toRightOf="@+id/tv_3"
+                        android:text="@string/htlx_txt"
+                        android:textColor="@color/rizhi_color"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/htlx_cate_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/margin10"
+                        android:layout_toRightOf="@+id/tv_4"
+                        android:background="@color/white"
+                        android:drawableRight="@mipmap/right_ioc_small"
+                        android:gravity="center_vertical|end"
+                        android:hint="@string/qxzhtlx_txt"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
@@ -141,20 +186,20 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/margin2"
                         android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/bzjmc_txt"
+                        android:text="@string/htbh_txt"
                         android:textColor="@color/rizhi_color"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/bzjmc_edt"
+                        android:id="@+id/htbh_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/margin20"
                         android:layout_toRightOf="@+id/tv_9"
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
-                        android:hint="@string/bzjmc_txt"
+                        android:hint="@string/htbh_txt"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
@@ -171,6 +216,181 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="@dimen/margin5"
+                        android:text="*"
+                        android:textColor="@color/xinghao_color"
+                        android:textSize="@dimen/text_size_30"
+                        android:visibility="visible" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin2"
+                        android:layout_toRightOf="@+id/tv_8"
+                        android:text="@string/htmc_txt"
+                        android:textColor="@color/rizhi_color"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/htmc_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/margin20"
+                        android:layout_toRightOf="@+id/tv_9"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|end"
+                        android:hint="@string/htmc_txt"
+                        android:textColor="@color/item_color"
+                        android:textSize="@dimen/text_size_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin55"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="@dimen/margin5"
+                        android:text="*"
+                        android:textColor="@color/xinghao_color"
+                        android:textSize="@dimen/text_size_30"
+                        android:visibility="visible" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin2"
+                        android:layout_toRightOf="@+id/tv_8"
+                        android:text="@string/htje_txt"
+                        android:textColor="@color/rizhi_color"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/htje_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/margin20"
+                        android:layout_toRightOf="@+id/tv_9"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|end"
+                        android:hint="@string/htje_txt"
+                        android:textColor="@color/item_color"
+                        android:textSize="@dimen/text_size_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin55"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="@dimen/margin5"
+                        android:text="*"
+                        android:textColor="@color/xinghao_color"
+                        android:textSize="@dimen/text_size_30"
+                        android:visibility="visible" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin2"
+                        android:layout_toRightOf="@+id/tv_8"
+                        android:text="@string/htrq_txt"
+                        android:textColor="@color/rizhi_color"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/htrq_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/margin20"
+                        android:layout_toRightOf="@+id/tv_9"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|end"
+                        android:hint="@string/qingxuanze_txt"
+                        android:textColor="@color/item_color"
+                        android:textSize="@dimen/text_size_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin55"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="@dimen/margin5"
+                        android:text="*"
+                        android:textColor="@color/xinghao_color"
+                        android:textSize="@dimen/text_size_30"
+                        android:visibility="visible" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin2"
+                        android:layout_toRightOf="@+id/tv_8"
+                        android:text="@string/htmx_txt"
+                        android:textColor="@color/rizhi_color"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/htmx_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/margin20"
+                        android:layout_toRightOf="@+id/tv_9"
+                        android:background="@color/white"
+                        android:drawableRight="@mipmap/right_ioc_small"
+                        android:gravity="center_vertical|end"
+                        android:hint="@string/ckhtmx_txt"
+                        android:textColor="@color/item_color"
+                        android:textSize="@dimen/text_size_14" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/tv_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:paddingTop="@dimen/margin5"
                         android:text="*"
@@ -178,6 +398,50 @@
                         android:textSize="@dimen/text_size_30"
                         android:visibility="invisible" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin2"
+                        android:layout_marginTop="@dimen/margin10"
+                        android:layout_toRightOf="@+id/tv_5"
+                        android:text="@string/hkbz_txt"
+                        android:textColor="@color/rizhi_color"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/hkbz_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/tv_5"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|top"
+                        android:hint=""
+                        android:textColor="@color/item_color"
+                        android:textSize="@dimen/text_size_14" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin55"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="@dimen/margin5"
+                        android:text="*"
+                        android:textColor="@color/xinghao_color"
+                        android:textSize="@dimen/text_size_30"
+                        android:visibility="visible" />
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -185,20 +449,21 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/margin2"
                         android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/gsmc_txt"
+                        android:text="@string/fkblsm_txt"
                         android:textColor="@color/rizhi_color"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/gsmc_edt"
+                    <TextView
+                        android:id="@+id/fkblsm_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/margin20"
                         android:layout_toRightOf="@+id/tv_9"
                         android:background="@color/white"
+                        android:drawableRight="@mipmap/right_ioc_small"
                         android:gravity="center_vertical|end"
-                        android:hint="@string/gsmc_txt"
+                        android:hint="@string/chakan_txt"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
@@ -229,20 +494,21 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/margin2"
                         android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/skdwmc_txt"
+                        android:text="@string/skfxx_txt"
                         android:textColor="@color/rizhi_color"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/skdwmc_edt"
+                    <TextView
+                        android:id="@+id/skfxx_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/margin20"
                         android:layout_toRightOf="@+id/tv_9"
                         android:background="@color/white"
+                        android:drawableRight="@mipmap/right_ioc_small"
                         android:gravity="center_vertical|end"
-                        android:hint="请输入收款单位名称"
+                        android:hint="@string/chakan_txt"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
@@ -273,196 +539,21 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/margin2"
                         android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/yhzh_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/yhzh_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin20"
-                        android:layout_toRightOf="@+id/tv_9"
-                        android:background="@color/white"
-                        android:gravity="center_vertical|end"
-                        android:hint="请输入银行账户"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin55"
-                    android:layout_marginTop="@dimen/margin1"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="visible" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/khh_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/khh_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin20"
-                        android:layout_toRightOf="@+id/tv_9"
-                        android:background="@color/white"
-                        android:gravity="center_vertical|end"
-                        android:hint="请输入开户行支行"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin55"
-                    android:layout_marginTop="@dimen/margin5"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="visible" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/bzjje_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/bzjje_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin20"
-                        android:layout_toRightOf="@+id/tv_9"
-                        android:background="@color/white"
-                        android:gravity="center_vertical|end"
-                        android:hint="请输入保证金金额"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin55"
-                    android:layout_marginTop="@dimen/margin5"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="visible" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/start_date_txt"
+                        android:text="@string/fkfxx_txt"
                         android:textColor="@color/rizhi_color"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/start_date_tv"
+                        android:id="@+id/fkfxx_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/margin20"
                         android:layout_toRightOf="@+id/tv_9"
                         android:background="@color/white"
+                        android:drawableRight="@mipmap/right_ioc_small"
                         android:gravity="center_vertical|end"
-                        android:hint="@string/qingxuanze_txt"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin55"
-                    android:layout_marginTop="@dimen/margin5"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="visible" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/end_date_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/end_date_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin20"
-                        android:layout_toRightOf="@+id/tv_9"
-                        android:background="@color/white"
-                        android:gravity="center_vertical|end"
-                        android:hint="@string/qingxuanze_txt"
+                        android:hint="@string/chakan_txt"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
@@ -507,48 +598,6 @@
                             android:src="@mipmap/tupian" />
                     </LinearLayout>
                 </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:id="@+id/tv_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_marginTop="@dimen/margin10"
-                        android:layout_toRightOf="@+id/tv_5"
-                        android:text="@string/beizhu_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/baoxiao_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/tv_5"
-                        android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
-                        android:background="@color/white"
-                        android:gravity="center_vertical|top"
-                        android:hint=""
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -603,7 +652,6 @@
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -626,7 +674,6 @@
                         android:src="@mipmap/add_spr_img_ioc" />
 
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -681,7 +728,6 @@
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -732,5 +778,6 @@
 
             </LinearLayout>
         </ScrollView>
+
     </LinearLayout>
 </layout>

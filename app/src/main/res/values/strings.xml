@@ -113,6 +113,30 @@
     <string name="fujian_txt">附件</string>
     <string name="beizhu_txt">备注</string>
     <string name="fkdwmc_txt">付款单位名称</string>
+    <string name="toubiaozhi_txt">投标保证金支</string>
+    <string name="toubiaoshou_txt">投标保证金收</string>
+    <string name="htsq_txt">合同申请</string>
+    <string name="htlx_txt">合同类型</string>
+    <string name="qxzhtlx_txt">请选择合同的类型</string>
+    <string name="htbh_txt">合同编号</string>
+    <string name="htmc_txt">合同名称</string>
+    <string name="htje_txt">合同金额(元)</string>
+    <string name="htrq_txt">合同日期</string>
+    <string name="htmx_txt">合同明细</string>
+    <string name="ckhtmx_txt">查看合同明细</string>
+    <string name="hkbz_txt">付款备注</string>
+    <string name="fkblsm_txt">付款比例说明</string>
+    <string name="chakan_txt">查看</string>
+    <string name="skfxx_txt">收款方信息</string>
+    <string name="fkfxx_txt">付款方信息</string>
+    <string name="jine_txt">金额(元)</string>
+    <string name="suilv_txt">税率</string>
+    <string name="shuijin_txt">税金(元)</string>
+    <string name="save_txt">保存</string>
+    <string name="qingshuru_txt">请输入</string>
+    <string name="fkbl_txt">付款比例</string>
+    <string name="xuhao_txt">序号</string>
+    <string name="bili_txt">比例</string>
 
 
 </resources>
