@@ -13,13 +13,12 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-
         <TextView
             android:id="@+id/num_tv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin34"
             android:layout_marginRight="5dp"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:background="@drawable/add_htmx_btn_style"
             android:gravity="center"
             android:hint="@string/xuhao_txt"
@@ -29,10 +28,10 @@
 
         <TextView
             android:id="@+id/jine_edt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin34"
             android:layout_marginRight="5dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:background="@drawable/add_htmx_btn_style"
             android:gravity="center"
             android:hint="@string/qingxuanze_txt"
@@ -43,8 +42,8 @@
 
         <TextView
             android:id="@+id/shui_lv_tv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin34"
             android:layout_marginLeft="@dimen/margin5"
             android:layout_marginRight="@dimen/margin5"
             android:layout_weight="1"
@@ -56,17 +55,16 @@
 
         <EditText
             android:id="@+id/shuijin_tv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin34"
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight="1"
             android:background="@drawable/add_htmx_btn_style"
             android:gravity="center"
-            android:textSize="@dimen/text_size_14"
-            android:hint="@string/shuijin_txt"
-            android:textColor="@color/rizhi_color" />
+            android:hint="@string/jine_txt"
+            android:textColor="@color/rizhi_color"
+            android:textSize="@dimen/text_size_14" />
 
     </LinearLayout>
-
 
 </LinearLayout>

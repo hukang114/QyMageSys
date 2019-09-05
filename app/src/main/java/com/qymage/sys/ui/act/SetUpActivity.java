@@ -20,6 +20,7 @@ import com.qymage.sys.common.util.MeventKey;
 import com.qymage.sys.common.util.MyEvtnTools;
 import com.qymage.sys.common.util.SPUtils;
 import com.qymage.sys.databinding.ActivitySetUpBinding;
+import com.qymage.sys.ui.fragment.MyFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,6 +35,8 @@ import okhttp3.Response;
 
 public class SetUpActivity extends BBActivity<ActivitySetUpBinding> implements View.OnClickListener {
 
+
+    private Bundle bundle;
 
     @Override
     protected int getLayoutId() {
@@ -61,8 +64,11 @@ public class SetUpActivity extends BBActivity<ActivitySetUpBinding> implements V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.user_info_relayout:// 个人信息
-                openActivity(PersonalActivity.class);
-
+                if (MyFragment.infoBean != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", MyFragment.infoBean);
+                    openActivity(PersonalActivity.class, bundle);
+                }
                 break;
             case R.id.info_security_relayout:// 修改密码
                 openActivity(ChangePasswordActivity.class);
@@ -118,6 +124,7 @@ public class SetUpActivity extends BBActivity<ActivitySetUpBinding> implements V
                 showToast("退出登录成功");
                 SPUtils.remove(SetUpActivity.this, Constants.token);
                 SPUtils.remove(SetUpActivity.this, Constants.openid);
+                SPUtils.remove(SetUpActivity.this, Constants.userid);
                 EventBus.getDefault().post(new MyEvtnTools(MeventKey.OUTLOGIN));
                 // 需要从新登录
                 AppManager.getInstance().finishAllActivityNoLogin();

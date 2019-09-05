@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class LogUtils {
 
-    private static final String TAG = "XFLog";
+    private static final String TAG = "HKLog";
     private static boolean allowD = true;
     private static boolean allowE = true;
     private static boolean allowI = true;

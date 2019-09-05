@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.qymage.sys.R;
 import com.qymage.sys.common.allpay.wxpay.MD5Util;
 import com.qymage.sys.common.base.BBActivity;
@@ -15,6 +16,7 @@ import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.common.util.MD5;
 import com.qymage.sys.common.util.SPUtils;
 import com.qymage.sys.databinding.ActivityLoginBinding;
@@ -140,10 +142,9 @@ public class LoginActivity extends BBActivity<ActivityLoginBinding> implements V
 
     private void LoginMoth() {
         showLoading();
-
-        HttpUtil.UserLogin(HttpConsts.LOGIN, getPar()).execute(new JsonCallback<Result<List<LoginEntity>>>() {
+        HttpUtil.UserLogin(HttpConsts.LOGIN, getPar()).execute(new JsonCallback<Result<LoginEntity>>() {
             @Override
-            public void onSuccess(Result<List<LoginEntity>> result, Call call, Response response) {
+            public void onSuccess(Result<LoginEntity> result, Call call, Response response) {
                 closeLoading();
                 SPUtils.put(LoginActivity.this, Constants.USER_NAME, mBinding.etMobile.getText().toString());
                 if (mBinding.remPsd.isChecked()) {
@@ -152,11 +153,13 @@ public class LoginActivity extends BBActivity<ActivityLoginBinding> implements V
                     SPUtils.remove(LoginActivity.this, Constants.REM_PSD);
                 }
                 if (result.data != null) {
-                    SPUtils.put(LoginActivity.this, Constants.token, result.data.get(0).token);
-                    SPUtils.put(LoginActivity.this, Constants.userid, result.data.get(0).userCode);
+                    SPUtils.put(LoginActivity.this, Constants.token, result.data.token);
+                    SPUtils.put(LoginActivity.this, Constants.userid, result.data.info.userAccount);
+                    SPUtils.put(LoginActivity.this, Constants.userinfo, new Gson().toJson(result.data.info));
                 }
-                showToast(result.message);
+                showToast("登录成功");
                 openActivity(MainActivity.class);
+                finish();
             }
 
             @Override
@@ -172,8 +175,8 @@ public class LoginActivity extends BBActivity<ActivityLoginBinding> implements V
 
     private HashMap<String, String> getPar() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("userCode", mBinding.etCode.getText().toString().trim());
-        map.put("password", MD5.getMD5(mBinding.etCode.getText().toString().getBytes()));
+        map.put("userCode", mBinding.etMobile.getText().toString().trim());
+        map.put("password", mBinding.etCode.getText().toString());
         return map;
     }
 

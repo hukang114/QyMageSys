@@ -48,7 +48,9 @@ public class SlpashActivity extends BBActivity<ActivitySlpashBinding> {
                 if (timer != null) {
                     timer.cancel();
                 }
-                startActivity(new Intent(SlpashActivity.this, MainActivity.class));
+                if (isLogin(LoginActivity.class)) {
+                    startActivity(new Intent(SlpashActivity.this, MainActivity.class));
+                }
                 finish();
             }
         });
@@ -71,7 +73,10 @@ public class SlpashActivity extends BBActivity<ActivitySlpashBinding> {
                     if (recLen < 0) {
                         timer.cancel();
                         mBinding.tvJumpOver.setVisibility(View.GONE);//倒计时到0隐藏字体
-                        startActivity(new Intent(SlpashActivity.this, MainActivity.class));
+                        if (isLogin(LoginActivity.class)) {
+                            startActivity(new Intent(SlpashActivity.this, MainActivity.class));
+//                            openActivity(LoginActivity.class);
+                        }
                         finish();
                     }
                 }
@@ -86,9 +91,9 @@ public class SlpashActivity extends BBActivity<ActivitySlpashBinding> {
     }
 
     private void setRestPush() {
-        String openid = (String) SPUtils.get(this, Constants.openid, "");
-        if (openid != null && !openid.equals("")) {
-            JPushInterface.setAlias(SlpashActivity.this, openid, (code, alias, tags) -> {
+        String userid = (String) SPUtils.get(this, Constants.userid, "");
+        if (userid != null && !userid.equals("")) {
+            JPushInterface.setAlias(SlpashActivity.this, userid, (code, alias, tags) -> {
                 String logs;
                 switch (code) {
                     case 0:
@@ -106,8 +111,7 @@ public class SlpashActivity extends BBActivity<ActivitySlpashBinding> {
                 Log.i("JPush", logs);
             });
         } else {
-            SPUtils.remove(SlpashActivity.this, Constants.token);
-            SPUtils.remove(SlpashActivity.this, Constants.openid);
+            SPUtils.remove(SlpashActivity.this, Constants.userid);
         }
     }
 

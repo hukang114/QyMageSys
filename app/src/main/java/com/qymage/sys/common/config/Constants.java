@@ -1,7 +1,6 @@
 package com.qymage.sys.common.config;
 
 
-
 public interface Constants {
 
     //http://101.37.157.35 测试用
@@ -56,6 +55,7 @@ public interface Constants {
     public static final String token = "token";
     public static final String openid = "openid";
     public static final String userid = "userid";
+    public static final String userinfo = "userinfo";
 
     public static final String login_mode = "login_mode";
     // 用户设置手势密码

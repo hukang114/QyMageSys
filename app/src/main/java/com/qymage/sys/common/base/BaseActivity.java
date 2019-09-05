@@ -200,7 +200,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return
      */
     public boolean isLogin(Class aClass) {
-        if (getUserId().equals("") || getUserId() == null) {
+        if (getUserId() == null || getUserId().equals("")) {
             openActivity(aClass);
             return false;
         } else {

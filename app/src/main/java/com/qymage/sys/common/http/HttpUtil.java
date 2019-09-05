@@ -50,7 +50,7 @@ public class HttpUtil {
 
 
     /**
-     * 用户修改密码
+     * 用户修改密码---接口不通
      *
      * @param urlname
      * @param params
@@ -61,7 +61,7 @@ public class HttpUtil {
     }
 
     /**
-     * 用户退出登录
+     * 用户退出登录---接口不通
      *
      * @param urlname
      * @param params
@@ -71,7 +71,35 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(urlname, params);
     }
 
+    /**
+     * 获取各个下拉的枚举类型 --- 接口不通
+     * {
+     * type:String    ProjectType-项目类型   ExpenseType-报销类型  ContractOutType-合同类型支出类    ContractComeType—合同类型收入类   leaveType-请假类型
+     * taxrateType-税率
+     * //枚举类型名称
+     * }
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest getEnum(String urlname, Map<String, String> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
 
+    /**
+     * 树形结构部门、人员数据获取
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest getTree(String urlname, Map<String, String> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+
+    
 }
 
 

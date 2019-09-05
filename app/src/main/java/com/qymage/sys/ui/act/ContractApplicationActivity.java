@@ -43,6 +43,9 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         mBinding.metitle.setlTxtClick(v -> finish());
         mBinding.htmxEdt.setOnClickListener(this);
         mBinding.fkblsmEdt.setOnClickListener(this);
+        mBinding.sprImg.setOnClickListener(this);
+        mBinding.csrImg.setOnClickListener(this);
+        mBinding.fujianImg.setOnClickListener(this);
 
     }
 
@@ -66,6 +69,20 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
                 bundle = new Bundle();
                 bundle.putSerializable("data", (Serializable) listbil);
                 openActivity(ContractPaymentRaActivity.class, bundle);
+                break;
+            case R.id.spr_img:// 添加审批人
+                bundle = new Bundle();
+                bundle.putString("type", "1");
+                openActivity(SelectionDepartmentActivity.class, bundle);
+                break;
+
+            case R.id.csr_img:// 添加抄送人
+                bundle = new Bundle();
+                bundle.putString("type", "2");
+                openActivity(SelectionDepartmentActivity.class, bundle);
+                break;
+            case R.id.fujian_img:// 添加附件
+
                 break;
         }
     }

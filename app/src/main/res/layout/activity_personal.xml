@@ -68,6 +68,7 @@
                 android:id="@+id/username_et"
                 style="@style/personal_title_et"
                 android:layout_marginRight="5dp"
+                android:enabled="false"
                 android:hint="张三" />
         </LinearLayout>
 
@@ -167,12 +168,13 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="@dimen/margin15"
-            android:layout_marginRight="@dimen/margin15"
             android:layout_marginTop="55dp"
+            android:layout_marginRight="@dimen/margin15"
             android:background="@drawable/save_btn_style"
             android:text="保  存"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="invisible" />
 
 
     </LinearLayout>

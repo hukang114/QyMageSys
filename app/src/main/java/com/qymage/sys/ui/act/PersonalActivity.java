@@ -28,6 +28,7 @@ import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.tools.FileSizeUtil;
 import com.qymage.sys.common.util.PicasooUtil;
 import com.qymage.sys.databinding.ActivityPersonalBinding;
+import com.qymage.sys.ui.entity.LoginEntity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -42,6 +43,10 @@ public class PersonalActivity extends BBActivity<ActivityPersonalBinding> implem
     private String[] sexArry = new String[]{"保密", "女", "男"};// 性别选择
     private int checkedItem = 0;
 
+    LoginEntity.InfoBean infoBean;
+    private Intent mIntent;
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_personal;
@@ -54,12 +59,28 @@ public class PersonalActivity extends BBActivity<ActivityPersonalBinding> implem
         mBinding.sexEt.setOnClickListener(this);
         mBinding.birthdayEt.setOnClickListener(this);
         mBinding.avatar.setOnClickListener(this);
-
+        mIntent = getIntent();
+        infoBean = (LoginEntity.InfoBean) mIntent.getSerializableExtra("data");
+        if (infoBean == null) {
+            return;
+        }
     }
 
     @Override
     protected void initData() {
         super.initData();
+        mBinding.phoneEt.setText(infoBean.moblie);
+        mBinding.jonNumEt.setText(infoBean.userAccount);
+        mBinding.usernameEt.setText(infoBean.userName);
+        if (infoBean.sex == 1) {
+            mBinding.sexEt.setText("男");
+        } else {
+            mBinding.sexEt.setText("女");
+        }
+        mBinding.stationEt.setText(infoBean.userPost);
+        mBinding.birthdayEt.setText(infoBean.birthday);
+        PicasooUtil.setImageResource(infoBean.portrait, mBinding.avatar, 360);
+
     }
 
 
@@ -68,15 +89,13 @@ public class PersonalActivity extends BBActivity<ActivityPersonalBinding> implem
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sex_et:// 性别
-                showSexChooseDialog();
-
+//                showSexChooseDialog();
                 break;
             case R.id.birthday_et:// 生日
-                showDateDialog();
+//                showDateDialog();
                 break;
-
             case R.id.avatar:// 头像选择
-                showPhoneDialog();
+//                showPhoneDialog();
                 break;
 
         }

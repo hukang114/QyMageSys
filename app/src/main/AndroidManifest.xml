@@ -49,6 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.act.SelectionDepartmentActivity"></activity>
         <activity
             android:name=".ui.act.SlpashActivity"
             android:theme="@style/splashStyle">
@@ -57,9 +58,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- android 7.0 app安装问题 -->
+        </activity> <!-- android 7.0 app安装问题 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.qymage.sys.fileprovider"
@@ -68,9 +67,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-
-        <!-- 百度地图及地位 -->
+        </provider> <!-- 百度地图及地位 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="UqGsNVSNT1CuzRYtG1UTL2blBcCtAe83" />
@@ -88,9 +85,7 @@
             android:value="true" /> <!-- 适配小米（xiaomi）刘海屏 -->
         <meta-data
             android:name="notch.config"
-            android:value="portrait|landscape" />
-
-        <!-- 微信支付入口 -->
+            android:value="portrait|landscape" /> <!-- 微信支付入口 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -105,8 +100,7 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:resizeableActivity="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!-- ============ 微信相关结束 ============ -->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- ============ 微信相关结束 ============ -->
         <!-- j  push s -->
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -137,9 +131,7 @@
 
                 <category android:name="com.qymage.sys" />
             </intent-filter>
-        </receiver>
-        <!-- j push e -->
-
+        </receiver> <!-- j push e -->
         <activity
             android:name=".ui.act.MainActivity"
             android:launchMode="singleTop"
@@ -148,7 +140,6 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan|stateHidden"
             tools:targetApi="n" /> <!-- 用户登录页 -->
-
         <activity android:name=".ui.act.SetUpActivity" />
         <activity android:name=".ui.act.AboutActivity" />
         <activity android:name=".ui.act.ChangePasswordActivity" />
@@ -170,7 +161,7 @@
         <activity android:name=".ui.act.BiddingMarginShouActivity" />
         <activity android:name=".ui.act.ContractApplicationActivity" />
         <activity android:name=".ui.act.ContractDetailsAddActivity" />
-        <activity android:name=".ui.act.ContractPaymentRaActivity"></activity>
+        <activity android:name=".ui.act.ContractPaymentRaActivity" />
     </application>
 
 </manifest>

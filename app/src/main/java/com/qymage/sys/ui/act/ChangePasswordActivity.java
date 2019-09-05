@@ -85,6 +85,8 @@ public class ChangePasswordActivity extends BBActivity<ActivityChangePasswordBin
                 showToast(result.message);
                 // 需要从新登录
                 AppManager.getInstance().finishAllActivityNoLogin();
+                showToast("修改成功");
+                finish();
             }
 
             @Override
@@ -94,10 +96,6 @@ public class ChangePasswordActivity extends BBActivity<ActivityChangePasswordBin
                 showToast(e.getMessage());
             }
         });
-
-
-        showToast("修改成功");
-        finish();
 
     }
 

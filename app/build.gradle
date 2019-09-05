@@ -120,7 +120,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // 网络请求
-    compile 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.lzy.net:okgo:2.1.4'
 
     // 图片的加载框架
@@ -130,7 +130,7 @@ dependencies {
     //Gosn数据解析
     implementation 'com.google.code.gson:gson:2.8.0'
     //fastJson解析json
-    compile 'com.alibaba:fastjson:1.1.70.android'
+    implementation 'com.alibaba:fastjson:1.1.70.android'
     // 轮播
     implementation 'com.bigkoo:convenientbanner:2.0.5'
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'

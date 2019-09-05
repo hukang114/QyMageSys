@@ -35,7 +35,7 @@ public class HttpClient {
     Gson gson = new Gson();
 
     private HttpClient() {
-        mUrl = AppConfig.HOST + "/emp/api/vl/";
+        mUrl = AppConfig.HOST + "/emp/api/v1/";
     }
 
     public static HttpClient getInstance() {
@@ -110,9 +110,9 @@ public class HttpClient {
 
 
     public PostRequest postData(String mUrlName, Map<String, String> params) {
-        params.put("nonce", AppSignUtil.randomChar());
-        params.put("timestamp", System.currentTimeMillis() + "");
-        params.put("sign", AppSignUtil.getgenAppSignValue(params));
+//        params.put("nonce", AppSignUtil.randomChar());
+//        params.put("timestamp", System.currentTimeMillis() + "");
+//        params.put("sign", AppSignUtil.getgenAppSignValue(params));
         return OkGo.post(mUrl + mUrlName)//
                 .upJson(gson.toJson(AppSignUtil.genAppSign(params)))
                 .tag(mUrlName);

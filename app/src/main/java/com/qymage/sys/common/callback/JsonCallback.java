@@ -4,6 +4,7 @@ import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.request.BaseRequest;
 import com.qymage.sys.AppApplication;
 import com.qymage.sys.common.config.Constants;
+import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.common.util.SPUtils;
 
 import org.json.JSONObject;
@@ -32,8 +33,9 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         //.params("params1", "ParamsValue1")//
         //.params("token", "3215sdf13ad1f65asd4f3ads1f");
         if (getToken() != null && !getToken().equals("")) {
-            request.headers("token", getToken());
+            request.headers("Authorization", getToken());
         }
+        LogUtils.e("Authorization=" + getToken());
 
 
     }
@@ -90,8 +92,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         //以下代码是根据泛型解析数据，返回对象，返回的对象自动以参数的形式传递到 onSuccess 中，可以直接使用
         String jsonRe = response.body().string();
         JSONObject resJ = new JSONObject(jsonRe);
-        if (resJ.getInt("code") != 1) {
-
+        if (resJ.getInt("code") != 200) {
             throw new IllegalStateException(resJ.getString("message"));
         }
         if (typeArgument == Void.class) {
@@ -109,7 +110,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
 
             //这里的0是以下意思
             //一般来说服务器会和客户端约定一个数表示成功，其余的表示失败，这里根据实际情况修改
-            if (code == 1) {
+            if (code == 200) {
                 return (T) lzyResponse;
             } else {
                 throw new IllegalStateException(lzyResponse.message);

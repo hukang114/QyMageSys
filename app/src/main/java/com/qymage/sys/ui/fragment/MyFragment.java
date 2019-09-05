@@ -10,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.baseFragment.FragmentLazy;
+import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.util.PicasooUtil;
+import com.qymage.sys.common.util.SPUtils;
 import com.qymage.sys.databinding.FragmentMyBinding;
 import com.qymage.sys.ui.act.LoginActivity;
 import com.qymage.sys.ui.act.MyAttendanceActivity;
@@ -21,6 +24,7 @@ import com.qymage.sys.ui.act.PersonalActivity;
 import com.qymage.sys.ui.act.ReimbursementActivity;
 import com.qymage.sys.ui.act.SetUpActivity;
 import com.qymage.sys.ui.adapter.MyMenuAdapter;
+import com.qymage.sys.ui.entity.LoginEntity;
 import com.qymage.sys.ui.entity.MyMenuEnt;
 
 import java.util.ArrayList;
@@ -36,7 +40,9 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
 
     List<MyMenuEnt> myMenuEnts = new ArrayList<>();
     MyMenuAdapter menuAdapter;
-
+    public static LoginEntity.InfoBean infoBean;
+    Gson gson = new Gson();
+    Bundle bundle;
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -67,6 +73,7 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
         mBinding.refreshlayout.setEnablePureScrollMode(true);
         menuAdapter.setOnItemClickListener(this);
         mBinding.infoRelayout.setOnClickListener(this);
+        infoBean = gson.fromJson(SPUtils.get(getActivity(), Constants.userinfo, "").toString(), LoginEntity.InfoBean.class);
     }
 
     @Override
@@ -77,9 +84,15 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
         myMenuEnts.add(new MyMenuEnt("wdkq", "我的考勤", R.mipmap.my_4));
         myMenuEnts.add(new MyMenuEnt("seting", "设置", R.mipmap.my_5));
         menuAdapter.notifyDataSetChanged();
+        setInfoShow();
+    }
 
-        PicasooUtil.setImageResource("http://img.jf258.com/uploads/2014-08-13/061816616.jpg", mBinding.userHead, 360);
-
+    private void setInfoShow() {
+        mBinding.userNameTv.setText(infoBean.userName);
+        mBinding.jobNumber.setText("工号：" + infoBean.userCode);
+        mBinding.corporateNameTv.setText(infoBean.deptName);
+        mBinding.departmentTv.setText(infoBean.userPost);
+        PicasooUtil.displayFromSDCard(infoBean.portrait, mBinding.userHead, 360);
 
     }
 
@@ -115,7 +128,11 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.info_relayout:
-                openActivity(PersonalActivity.class);
+                if (infoBean != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", infoBean);
+                    openActivity(PersonalActivity.class, bundle);
+                }
                 break;
         }
 
