@@ -54,6 +54,8 @@ public class SelectionDeparAdapter extends BaseQuickAdapter<GetTreeEnt, BaseView
             name_tv_bg.setVisibility(View.GONE);
         }
 
+        helper.setChecked(R.id.frg_selc_all, item.isCheck);
+
 
     }
 

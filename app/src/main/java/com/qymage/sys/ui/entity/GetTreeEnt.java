@@ -1,5 +1,6 @@
 package com.qymage.sys.ui.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class GetTreeEnt {
+public class GetTreeEnt implements Serializable {
 
     /**
      * name : 角色根节点

@@ -22,6 +22,7 @@ import com.qymage.sys.ui.entity.ContractDetAddEnt;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
     CommonAdapter<ContractDetAddEnt> adapter;
     List<String> shuilv_list = new ArrayList<>();
     DecimalFormat df = new DecimalFormat("0.00");
+    private Bundle bundle;
+
 
     @Override
     protected int getLayoutId() {
@@ -61,10 +64,17 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
             return;
         }
         setAdapter();
-
         for (int i = 1; i <= 100; i++) {
             shuilv_list.add(i + "%");
         }
+        mBinding.metitle.setrTxtClick(v -> {
+            bundle = new Bundle();
+            bundle.putSerializable("data", (Serializable) listdata);
+            Intent intent = new Intent();
+            intent.putExtras(bundle);
+            setResult(200, intent);
+            finish();
+        });
 
     }
 
@@ -100,15 +110,15 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
             protected void convert(ViewHolder holder, ContractDetAddEnt item, int position) {
 
                 EditText jine_edt = holder.getView(R.id.jine_edt);
-                jine_edt.setText(item.money);
-                holder.setText(R.id.shuijin_tv, item.shuijin);
-                if (item.shuilv == 0) {
+                jine_edt.setText(item.amount);
+                holder.setText(R.id.shuijin_tv, item.taxes);
+                if (item.taxRate == 0) {
                     holder.setText(R.id.shui_lv_tv, "");
                 } else {
-                    holder.setText(R.id.shui_lv_tv, item.shuilv + "%");
+                    holder.setText(R.id.shui_lv_tv, item.taxRate + "%");
                 }
                 holder.setOnClickListener(R.id.shui_lv_tv, v -> {
-                    if (!listdata.get(position).money.equals("")) {
+                    if (!listdata.get(position).amount.equals("")) {
                         setOnClick(position);
                     } else {
                         showToast("请先填写金额");
@@ -131,8 +141,8 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
                     @Override
                     public void afterTextChanged(Editable s) {
                         if (s != null && !"".equals(s.toString()) && !s.toString().substring(0, 1).equals(".") && !s.toString().equals("0.")) {
-                            listdata.get(position).money = s.toString();
-                            if (listdata.get(position).shuilv != 0) {
+                            listdata.get(position).amount = s.toString();
+                            if (listdata.get(position).taxRate != 0) {
                                 setCalculation(position);
                                 jine_edt.clearFocus();
                             }
@@ -157,8 +167,8 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                listdata.get(position).shuilv = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
-                listdata.get(position).shuijin = df.format((Double.parseDouble(listdata.get(position).shuilv + "") / 100) * Double.parseDouble(listdata.get(position).money));
+                listdata.get(position).taxRate = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
+                listdata.get(position).taxes = df.format((Double.parseDouble(listdata.get(position).taxRate + "") / 100) * Double.parseDouble(listdata.get(position).amount));
                 adapter.notifyDataSetChanged();
             }
         })
@@ -178,7 +188,7 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
 
 
     private void setCalculation(int position) {
-        listdata.get(position).shuijin = df.format((Double.parseDouble(listdata.get(position).shuilv + "") / 100) * Double.parseDouble(listdata.get(position).money));
+        listdata.get(position).taxes = df.format((Double.parseDouble(listdata.get(position).taxRate + "") / 100) * Double.parseDouble(listdata.get(position).amount));
         if (mBinding.recyclerview.getScrollState() == RecyclerView.SCROLL_STATE_IDLE || (mBinding.recyclerview.isComputingLayout() == false)) {
         }
 //        new Handler().postDelayed(new Runnable() {

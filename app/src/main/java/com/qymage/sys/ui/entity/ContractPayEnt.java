@@ -9,15 +9,18 @@ import java.io.Serializable;
 
 public class ContractPayEnt implements Serializable{
 
-    public int id;
-    public String date;
-    public int bili;
-    public String money;
+//    date:Date，//付款日期
+//    payScale:Double,//比例（百分比）
+//    amount：Double//金额
 
-    public ContractPayEnt(int id, String date, int bili, String money) {
-        this.id = id;
+
+    public String date;
+    public int payScale;
+    public String amount;
+
+    public ContractPayEnt( String date, int payScale, String amount) {
         this.date = date;
-        this.bili = bili;
-        this.money = money;
+        this.payScale = payScale;
+        this.amount = amount;
     }
 }

@@ -9,15 +9,19 @@ import java.io.Serializable;
 
 public class ContractDetAddEnt implements Serializable {
 
-    public String money;
 
-    public int shuilv;
+//    amount:Double,//金额
+//    taxRate：Double，//税率
+//    taxes：Double//税金
 
-    public String shuijin;
+    public String amount;
+    public int taxRate;
+    public String taxes;
 
-    public ContractDetAddEnt(String money, int shuilv, String shuijin) {
-        this.money = money;
-        this.shuilv = shuilv;
-        this.shuijin = shuijin;
+
+    public ContractDetAddEnt(String amount, int taxRate, String taxes) {
+        this.amount = amount;
+        this.taxRate = taxRate;
+        this.taxes = taxes;
     }
 }

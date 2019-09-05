@@ -49,7 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.act.SelectionDepartmentActivity"></activity>
+        <activity android:name=".ui.act.SelectionDepartmentActivity" />
         <activity
             android:name=".ui.act.SlpashActivity"
             android:theme="@style/splashStyle">
@@ -162,6 +162,7 @@
         <activity android:name=".ui.act.ContractApplicationActivity" />
         <activity android:name=".ui.act.ContractDetailsAddActivity" />
         <activity android:name=".ui.act.ContractPaymentRaActivity" />
+        <activity android:name=".ui.act.ReceiverInfoActivity"></activity>
     </application>
 
 </manifest>

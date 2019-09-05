@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        android:orientation="vertical">
+
+        <com.qymage.sys.common.widget.MeTitle
+            android:id="@+id/metitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cTxt="@string/skfxx_txt"
+            app:rTxt="@string/save_txt" />
+
+        <LinearLayout style="@style/sfk_base_layout_style">
+
+            <TextView
+                android:id="@+id/sfk_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/skfmc_txt"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/skfmc_edt"
+                style="@style/sfk_base_edt_style"
+                android:hint="@string/skfmc_txt" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/sfk_base_layout_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/kfh_txt"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/kfh_edt"
+                style="@style/sfk_base_edt_style"
+                android:hint="@string/kfh_txt" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/sfk_base_layout_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/yhzh_txt"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/yhzh_edt"
+                style="@style/sfk_base_edt_style"
+                android:hint="@string/yhzh_txt"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/sfk_base_layout_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/yxdm_txt"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/yxdm_edt"
+                style="@style/sfk_base_edt_style"
+                android:hint="@string/yxdm_txt" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/sfk_base_layout_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/kpdh_txt"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/kpdh_edt"
+                style="@style/sfk_base_edt_style"
+                android:hint="@string/kpdh_txt"
+                android:inputType="phone" />
+
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/sfk_base_layout_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/kpdz_txt"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/kpdz_edt"
+                style="@style/sfk_base_edt_style"
+                android:hint="@string/kpdz_txt" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/sfk_base_layout_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/lxr_txt"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/lxr_edt"
+                style="@style/sfk_base_edt_style"
+                android:hint="@string/lxr_txt" />
+
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/sfk_base_layout_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/lxdh_txt"
+                android:textColor="@color/rizhi_color"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/lxdh_edt"
+                style="@style/sfk_base_edt_style"
+                android:hint="@string/lxdh_txt" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>

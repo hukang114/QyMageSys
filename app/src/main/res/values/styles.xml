@@ -177,4 +177,24 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="sfk_base_layout_style">
+        <item name="android:layout_height">@dimen/margin55</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">@dimen/margin5</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="sfk_base_edt_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginRight">@dimen/margin20</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:textColor">@color/item_color</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+
 </resources>
