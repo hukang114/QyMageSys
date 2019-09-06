@@ -98,6 +98,55 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(urlname, params);
     }
 
+    /**
+     * 6.2合同申请提交接口
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest contract_submit(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+    /**
+     * 6.1合同编号获取接口
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest getContractNo(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+    /**
+     * 获取项目编号
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest getProjectNo(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+
+    /**
+     * 2.7按项目名称/项目编号查询
+     * {
+     * projectNo:string //项目编号
+     * projectName:string //项目名称
+     * }
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest getProject(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
 
 }
 

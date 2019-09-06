@@ -9,11 +9,17 @@ import android.view.View;
 
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
+import com.qymage.sys.common.callback.JsonCallback;
+import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.config.Constants;
+import com.qymage.sys.common.http.HttpConsts;
+import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.databinding.ActivityContractApplicationBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
 import com.qymage.sys.ui.entity.ContractPayEnt;
+import com.qymage.sys.ui.entity.FileListEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.PaymentInfo;
 import com.qymage.sys.ui.entity.ReceiverInfo;
@@ -24,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.leo.click.SingleClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 /**
@@ -38,11 +46,16 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     List<GetTreeEnt> auditorList = new ArrayList<>();// 审核人
     List<GetTreeEnt> copierList = new ArrayList<>();// 抄送人
 
+    List<FileListEnt> fileList = new ArrayList<>();// 上传附件
+
     AuditorListAdapter auditorListAdapter;// 审批人适配器
     CopierListAdapter copierListAdapter;// 抄送人适配器
 
     ReceiverInfo receiverInfo;//收款方信息
     PaymentInfo paymentInfo; // 付款方信息
+    private String projectId;// 项目id
+    private String contractType;// 合同类型
+    private String contractNo;
 
 
     Bundle bundle;
@@ -118,8 +131,46 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     @Override
     protected void initData() {
         super.initData();
+        getProjectNo();
 
     }
+
+    /**
+     * 合同编号
+     */
+    private void getProjectNo() {
+        HttpUtil.getProjectNo(HttpConsts.getProjectNo, new HashMap<>()).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+                getProjectName(result.data);
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                showToast(e.getMessage());
+            }
+        });
+
+    }
+
+
+    /**
+     * @param projectNo 更具编号查询名称
+     */
+    private void getProjectName(String projectNo) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("projectNo", projectNo);
+        HttpUtil.getProject(HttpConsts.getProject, map).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+
+            }
+        });
+
+
+    }
+
 
     @SingleClick(2000)
     @Override
@@ -162,7 +213,35 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
                 bundle.putSerializable("data", paymentInfo);
                 openActivity(ReceiverInfoActivity.class, bundle);
                 break;
+            case R.id.save_btn:
+                if (isCheck()) {
+                    subMitData();
+                }
+                break;
         }
+    }
+
+    /**
+     * 提交合同申请数据
+     */
+    private void subMitData() {
+        showLoading();
+        HttpUtil.contract_submit(HttpConsts.CONTRACT_SUBMIT, getPar()).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+                closeLoading();
+                msgDialog("合同申请提成功");
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+
+
     }
 
 
@@ -197,11 +276,46 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     }
 
 
+    /**
+     * 合同申请参数
+     *
+     * @return
+     */
     private HashMap<String, Object> getPar() {
 
         HashMap<String, Object> hashMap = new HashMap<>();
-
-
+        hashMap.put("projectId", projectId);
+        hashMap.put("contractType", contractType);
+        hashMap.put("contractNo", mBinding.htbhEdt.getText().toString());
+        hashMap.put("contractName", mBinding.htmcEdt.getText().toString());
+        hashMap.put("amount", mBinding.htjeEdt.getText().toString());
+        hashMap.put("amountName", "");
+        hashMap.put("date", mBinding.htrqEdt.getText().toString());
+        hashMap.put("endDate", "");
+        hashMap.put("payRemark", mBinding.hkbzContent.getText().toString());
+        hashMap.put("contractDetails", listdata);
+        hashMap.put("contractPayscale", listbil);
+        //付款方信息↓
+        hashMap.put("payName", paymentInfo.payName);
+        hashMap.put("payBank", paymentInfo.payBank);
+        hashMap.put("payAccount", paymentInfo.payAccount);
+        hashMap.put("payCreditCode", paymentInfo.payCreditCode);
+        hashMap.put("payInvoicePhone", paymentInfo.payInvoicePhone);
+        hashMap.put("payInvoiceAddress", paymentInfo.payInvoiceAddress);
+        hashMap.put("payContacts", paymentInfo.payContacts);
+        hashMap.put("payPhone", paymentInfo.payPhone);
+        //收款方信息
+        hashMap.put("colName", receiverInfo.colName);
+        hashMap.put("colBank", receiverInfo.colBank);
+        hashMap.put("colAccount", receiverInfo.colAccount);
+        hashMap.put("colCreditCode", receiverInfo.colCreditCode);
+        hashMap.put("colInvoicePhone", receiverInfo.colInvoicePhone);
+        hashMap.put("colInvoiceAddress", receiverInfo.colInvoiceAddress);
+        hashMap.put("colContacts", receiverInfo.colContacts);
+        hashMap.put("colPhone", receiverInfo.colPhone);
+        hashMap.put("fileList", fileList);
+        hashMap.put("auditor", auditorList);
+        hashMap.put("copier", copierList);
         return hashMap;
 
 

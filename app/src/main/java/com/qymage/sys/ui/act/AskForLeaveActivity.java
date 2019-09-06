@@ -5,9 +5,10 @@ import android.os.Bundle;
 
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
+import com.qymage.sys.databinding.ActivityAskForLeaveBinding;
 import com.qymage.sys.databinding.ActivityChangePasswordBinding;
 
-public class AskForLeaveActivity extends BBActivity<ActivityChangePasswordBinding> {
+public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> {
 
     @Override
     protected int getLayoutId() {
@@ -32,6 +33,8 @@ public class AskForLeaveActivity extends BBActivity<ActivityChangePasswordBindin
 
     @Override
     protected void initView() {
+        // 关闭当前的页面
+        mBinding.metitle.setlTxtClick(v -> finish());
 
     }
 }

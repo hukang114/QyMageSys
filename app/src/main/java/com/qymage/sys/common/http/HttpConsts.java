@@ -17,6 +17,17 @@ public class HttpConsts {
     public static final String GETENUM = "getEnum";
     //树形结构部门、人员数据获取
     public static final String GETTREE = "getTree";
+    //合同申请提交接口
+    public static final String CONTRACT_SUBMIT = "contract/submit";
+    //6.1合同编号获取接口
+    public static final String getContractNo = "contract/getContractNo";
+
+    public static final String getProjectNo = "project/getProjectNo";
+    //2.7按项目名称/项目编号查询
+    public static final String getProject = "getProject";
+
+
+
 
 
 }
