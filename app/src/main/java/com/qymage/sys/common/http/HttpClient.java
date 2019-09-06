@@ -109,12 +109,12 @@ public class HttpClient {
     }
 
 
-    public PostRequest postData(String mUrlName, Map<String, String> params) {
+    public PostRequest postData(String mUrlName, Map<String, Object> params) {
 //        params.put("nonce", AppSignUtil.randomChar());
 //        params.put("timestamp", System.currentTimeMillis() + "");
 //        params.put("sign", AppSignUtil.getgenAppSignValue(params));
         return OkGo.post(mUrl + mUrlName)//
-                .upJson(gson.toJson(AppSignUtil.genAppSign(params)))
+                .upJson(gson.toJson(params))//AppSignUtil.genAppSign(params)
                 .tag(mUrlName);
 
     }

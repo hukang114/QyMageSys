@@ -2,13 +2,11 @@ package com.qymage.sys.ui.act;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.databinding.ActivityContractApplicationBinding;
@@ -22,6 +20,7 @@ import com.qymage.sys.ui.entity.ReceiverInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.leo.click.SingleClick;
@@ -195,6 +194,17 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
             List<ContractPayEnt> list = (List<ContractPayEnt>) data.getSerializableExtra("data");
             listbil.addAll(list);
         }
+    }
+
+
+    private HashMap<String, Object> getPar() {
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+
+
+        return hashMap;
+
+
     }
 
 
