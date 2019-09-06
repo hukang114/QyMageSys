@@ -4,16 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.qymage.sys.ApplicationCollectionActivity;
+import com.qymage.sys.ui.act.ApplicationCollectionActivity;
 import com.qymage.sys.R;
-import com.qymage.sys.common.base.BaseActivity;
-import com.qymage.sys.common.tools.ToastUtil;
 import com.qymage.sys.ui.act.ApplicationRepaymentActivity;
 import com.qymage.sys.ui.act.AskForLeaveActivity;
 import com.qymage.sys.ui.act.BiddingMarginShouActivity;
@@ -24,7 +20,6 @@ import com.qymage.sys.ui.act.OpenAfterWorkActivity;
 import com.qymage.sys.ui.act.PerformanceBondShouActivity;
 import com.qymage.sys.ui.act.PerformanceBondZhiActivity;
 import com.qymage.sys.ui.act.ProjectApprovaApplylActivity;
-import com.qymage.sys.ui.act.ProjectApprovaLoglActivity;
 import com.qymage.sys.ui.entity.WorkListEnt;
 
 import java.util.List;

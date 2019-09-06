@@ -2,7 +2,6 @@ package com.qymage.sys.ui.act;
 
 import android.os.Process;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
@@ -12,7 +11,6 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BaseActivity;
 import com.qymage.sys.common.util.HackyViewPager;
 import com.qymage.sys.ui.adapter.HomeViewPagerAdapter;
-import com.qymage.sys.ui.fragment.AskForLeaveRecordlFragment;
 import com.qymage.sys.ui.fragment.JournalFragment;
 import com.qymage.sys.ui.fragment.MyFragment;
 import com.qymage.sys.ui.fragment.NewsFragment;

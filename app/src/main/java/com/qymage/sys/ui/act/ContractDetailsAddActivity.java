@@ -109,9 +109,11 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
             @Override
             protected void convert(ViewHolder holder, ContractDetAddEnt item, int position) {
 
-                EditText jine_edt = holder.getView(R.id.jine_edt);
+                EditText jine_edt = holder.getView(R.id.amount_edt);
                 jine_edt.setText(item.amount);
+
                 holder.setText(R.id.shuijin_tv, item.taxes);
+
                 if (item.taxRate == 0) {
                     holder.setText(R.id.shui_lv_tv, "");
                 } else {

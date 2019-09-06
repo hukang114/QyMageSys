@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cTxt="@string/ask_for_leave_txt"
-            app:rTxt="@string/more_txt" />
+            app:rTxt="@string/afl_record_txt" />
 
 
         <ScrollView

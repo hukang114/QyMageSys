@@ -176,6 +176,7 @@
     <string name="t_start_time_txt">开始时间：</string>
     <string name="t_end_time_txt">结束时间：</string>
 
+    <string name="yfk_txt">已付款</string>
 
 
 </resources>

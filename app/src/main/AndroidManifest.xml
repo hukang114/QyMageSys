@@ -49,7 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ApplicationCollectionActivity" />
+        <activity android:name=".ui.act.ApplicationCollectionActivity" />
         <activity android:name=".ui.act.SelectionDepartmentActivity" />
         <activity
             android:name=".ui.act.SlpashActivity"
@@ -165,7 +165,8 @@
         <activity android:name=".ui.act.ContractPaymentRaActivity" />
         <activity android:name=".ui.act.ReceiverInfoActivity" />
         <activity android:name=".ui.act.AskForLeaveActivity" />
-        <activity android:name=".ui.act.AskForLeaveRecordActivity"></activity>
+        <activity android:name=".ui.act.ReceiptsPaymentsDetActivity"></activity>
+        <activity android:name=".ui.act.AskForLeaveRecordlActivity"></activity>
     </application>
 
 </manifest>

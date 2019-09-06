@@ -35,6 +35,9 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
     protected void initView() {
         // 关闭当前的页面
         mBinding.metitle.setlTxtClick(v -> finish());
+        mBinding.metitle.setrTxtClick(v -> {
+            openActivity(AskForLeaveRecordlActivity.class);
+        });
 
     }
 }
