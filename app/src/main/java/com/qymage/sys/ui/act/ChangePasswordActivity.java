@@ -99,8 +99,8 @@ public class ChangePasswordActivity extends BBActivity<ActivityChangePasswordBin
 
     }
 
-    private HashMap<String, String> getPer() {
-        HashMap<String, String> map = new HashMap<>();
+    private HashMap<String, Object> getPer() {
+        HashMap<String, Object> map = new HashMap<>();
         map.put("newPwd", mBinding.pwdEt.getText().toString());
         map.put("oldPwd", mBinding.oldPwdEt.getText().toString());
         map.put("userCode", getUserId());

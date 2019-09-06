@@ -32,7 +32,7 @@ public class HttpUtil {
     }
 
 
-    public static PostRequest getAdv(String name, Map<String, String> params) {
+    public static PostRequest getAdv(String name, Map<String, Object> params) {
         return HttpClient.getInstance().postData(name, params);
     }
 
@@ -44,7 +44,7 @@ public class HttpUtil {
      * @param params
      * @return
      */
-    public static PostRequest UserLogin(String urlname, Map<String, String> params) {
+    public static PostRequest UserLogin(String urlname, Map<String, Object> params) {
         return HttpClient.getInstance().postData(urlname, params);
     }
 
@@ -56,7 +56,7 @@ public class HttpUtil {
      * @param params
      * @return
      */
-    public static PostRequest updatePwd(String urlname, Map<String, String> params) {
+    public static PostRequest updatePwd(String urlname, Map<String, Object> params) {
         return HttpClient.getInstance().postData(urlname, params);
     }
 
@@ -67,7 +67,7 @@ public class HttpUtil {
      * @param params
      * @return
      */
-    public static PostRequest logout(String urlname, Map<String, String> params) {
+    public static PostRequest logout(String urlname, Map<String, Object> params) {
         return HttpClient.getInstance().postData(urlname, params);
     }
 
@@ -83,7 +83,7 @@ public class HttpUtil {
      * @param params
      * @return
      */
-    public static PostRequest getEnum(String urlname, Map<String, String> params) {
+    public static PostRequest getEnum(String urlname, Map<String, Object> params) {
         return HttpClient.getInstance().postData(urlname, params);
     }
 
@@ -94,12 +94,11 @@ public class HttpUtil {
      * @param params
      * @return
      */
-    public static PostRequest getTree(String urlname, Map<String, String> params) {
+    public static PostRequest getTree(String urlname, Map<String, Object> params) {
         return HttpClient.getInstance().postData(urlname, params);
     }
 
 
-    
 }
 
 

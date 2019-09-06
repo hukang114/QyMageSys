@@ -114,7 +114,7 @@ public class SetUpActivity extends BBActivity<ActivitySetUpBinding> implements V
      */
     private void sendOutLogin() {
 
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         map.put("userCode", getUserId());
         showLoading();
         HttpUtil.logout(HttpConsts.LOGOUT, map).execute(new JsonCallback<Result<String>>() {

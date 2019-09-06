@@ -173,8 +173,8 @@ public class LoginActivity extends BBActivity<ActivityLoginBinding> implements V
     }
 
 
-    private HashMap<String, String> getPar() {
-        HashMap<String, String> map = new HashMap<>();
+    private HashMap<String, Object> getPar() {
+        HashMap<String, Object> map = new HashMap<>();
         map.put("userCode", mBinding.etMobile.getText().toString().trim());
         map.put("password", mBinding.etCode.getText().toString());
         return map;

@@ -99,7 +99,7 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
      */
     private void getEnum() {
         showLoading();
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         map.put("type", "taxrateType");
         HttpUtil.getEnum(HttpConsts.GETENUM, map).execute(new JsonCallback<Result<String>>() {
             @Override
