@@ -153,4 +153,19 @@
     <string name="wkp_txt">未开票</string>
     <string name="bcsk_txt">本次收款(元)</string>
 
+    <string name="ask_for_leave_txt">请假</string>
+    <string name="afl_type_txt">请假类型</string>
+    <string name="select_afl_type_txt">请选择请假类型</string>
+    <string name="start_time_txt">开始时间</string>
+    <string name="end_time_txt">结束时间</string>
+    <string name="time_duration_txt">时长</string>
+    <string name="input_time_duration_txt">请输入时长</string>
+    <string name="time_duration_illustrate_txt">时长将自动计入考勤统计</string>
+    <string name="afl_reason_txt">请假事由</string>
+    <string name="input_afl_reason_txt">请输入请假事由</string>
+    <string name="process_unsetting_txt">流程未设置</string>
+    <string name="how_setting">如何设置</string>
+    <string name="copier_txt">抄送人</string>
+    <string name="copy_illustrate_txt">审批通过后，通知抄送人</string>
+
 </resources>
