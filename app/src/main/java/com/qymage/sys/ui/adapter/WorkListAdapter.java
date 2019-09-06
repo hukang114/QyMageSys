@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.qymage.sys.ApplicationCollectionActivity;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BaseActivity;
 import com.qymage.sys.common.tools.ToastUtil;
@@ -32,6 +33,9 @@ import java.util.List;
  */
 
 public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolder> {
+
+
+    Bundle bundle;
 
 
     public WorkListAdapter(int layoutResId, @Nullable List<WorkListEnt> data) {
@@ -77,17 +81,25 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
                 break;
 
             case "shoukuan"://收款申请
-
+                bundle = new Bundle();
+                bundle.putString("type", "1");
+                openActivity(ApplicationCollectionActivity.class, bundle);
                 break;
 
             case "fukuan"://付款申请
-
+                bundle = new Bundle();
+                bundle.putString("type", "2");
+                openActivity(ApplicationCollectionActivity.class, bundle);
                 break;
             case "kaipiao"://开票申请
-
+                bundle = new Bundle();
+                bundle.putString("type", "3");
+                openActivity(ApplicationCollectionActivity.class, bundle);
                 break;
             case "shoupiao"://收票申请
-
+                bundle = new Bundle();
+                bundle.putString("type", "4");
+                openActivity(ApplicationCollectionActivity.class, bundle);
                 break;
             case "toubiaoz"://投标保证金支
                 openActivity(BiddingMarginZhiActivity.class);

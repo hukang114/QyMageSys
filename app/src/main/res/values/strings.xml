@@ -144,6 +144,13 @@
     <string name="kpdz_txt">开票地址</string>
     <string name="lxr_txt">联系人</string>
     <string name="lxdh_txt">联系电话</string>
-
+    <string name="sksq_txt">收款申请</string>
+    <string name="fksq_txt">付款申请</string>
+    <string name="sqjl_txt">申请记录</string>
+    <string name="ysk_txt">已收款</string>
+    <string name="wsk_txt">未收款</string>
+    <string name="ykp_txt">已开票</string>
+    <string name="wkp_txt">未开票</string>
+    <string name="bcsk_txt">本次收款(元)</string>
 
 </resources>
