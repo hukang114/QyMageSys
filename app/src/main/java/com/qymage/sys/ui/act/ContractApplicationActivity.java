@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -194,7 +195,65 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
             List<ContractPayEnt> list = (List<ContractPayEnt>) data.getSerializableExtra("data");
             listbil.addAll(list);
         }
+    }
 
+
+    /**
+     * 检测参数
+     *
+     * @return
+     */
+    private boolean isCheck() {
+        if (TextUtils.isEmpty(mBinding.htbhEdt.getText().toString())) {
+            showToast("请填写合同编号");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htmcEdt.getText().toString())) {
+            showToast("请填写合同名称");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htlxCateTxt.getText().toString())) {
+            showToast("请填写合同类型");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.xmbhEdt.getText().toString())) {
+            showToast("请填写项目编号");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.xmmcEdt.getText().toString())) {
+            showToast("请填写项目名称");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htjeEdt.getText().toString())) {
+            showToast("请填合同金额");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htrqEdt.getText().toString())) {
+            showToast("请填合同日期");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.hkbzContent.getText().toString())) {
+            showToast("请填付款备注");
+            return false;
+        } else if (listdata.size() == 0) {
+            showToast("请填写合同明细");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.hkbzContent.getText().toString())) {
+            showToast("请填付款备注");
+            return false;
+        } else if (listbil.size() == 0) {
+            showToast("请填写付款比例");
+            return false;
+        } else if (receiverInfo.colName == null) {
+            showToast("请填写收款方信息");
+            return false;
+        } else if (paymentInfo.payName == null) {
+            showToast("请填写付款方信息");
+            return false;
+        } else if (auditorList.size() == 0) {
+            showToast("请选择审批人");
+            return false;
+        } else if (copierList.size() == 0) {
+            showToast("请选择抄送人");
+            return false;
+        } else {
+            return false;
+        }
 
     }
+
+
 }
