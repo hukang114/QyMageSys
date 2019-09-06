@@ -15,6 +15,7 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BaseActivity;
 import com.qymage.sys.common.tools.ToastUtil;
 import com.qymage.sys.ui.act.ApplicationRepaymentActivity;
+import com.qymage.sys.ui.act.AskForLeaveActivity;
 import com.qymage.sys.ui.act.BiddingMarginShouActivity;
 import com.qymage.sys.ui.act.BiddingMarginZhiActivity;
 import com.qymage.sys.ui.act.ContractApplicationActivity;
@@ -121,6 +122,12 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
                 break;
             case "huankuan"://还款申请
                 openActivity(ApplicationRepaymentActivity.class);
+                break;
+            case "qingjia":
+                openActivity(AskForLeaveActivity.class);
+                break;
+            case "yue":
+                openActivity(AskForLeaveActivity.class);
                 break;
         }
     }
