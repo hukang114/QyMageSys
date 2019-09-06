@@ -7,7 +7,7 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.databinding.ActivityChangePasswordBinding;
 
-public class AskForLeave extends BBActivity<ActivityChangePasswordBinding> {
+public class AskForLeaveActivity extends BBActivity<ActivityChangePasswordBinding> {
 
     @Override
     protected int getLayoutId() {

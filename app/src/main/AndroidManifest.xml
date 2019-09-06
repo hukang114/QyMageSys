@@ -164,7 +164,7 @@
         <activity android:name=".ui.act.ContractDetailsAddActivity" />
         <activity android:name=".ui.act.ContractPaymentRaActivity" />
         <activity android:name=".ui.act.ReceiverInfoActivity" />
-        <activity android:name=".ui.act.AskForLeave"></activity>
+        <activity android:name=".ui.act.AskForLeaveActivity"></activity>
     </application>
 
 </manifest>
