@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin10"
+    android:layout_marginLeft="@dimen/margin15"
+    android:layout_marginRight="@dimen/margin15"
+    android:background="@drawable/item_rizhi_bg_style"
+    android:orientation="vertical"
+    android:padding="@dimen/margin10">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/afl_head_img"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher" />
+
+
+        <TextView
+            android:id="@+id/afl_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_toRightOf="@+id/afl_head_img"
+            android:text="xxx提交的请假申请"
+            android:textColor="@color/rizhi_color"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_16" />
+
+        <RelativeLayout
+            android:id="@+id/r_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/afl_user_name"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_toRightOf="@+id/afl_head_img">
+
+            <TextView
+                android:id="@+id/tv_afl_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="@string/t_afl_type_txt"
+                android:textColor="@color/rizhi_content_color" />
+
+            <TextView
+                android:id="@+id/qingjia_leixing_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_marginTop="@dimen/margin5"
+                android:layout_toRightOf="@+id/tv_afl_type"
+                android:text="xxxx"
+                android:textColor="@color/rizhi_content_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/r_start_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/r_type"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_toRightOf="@+id/afl_head_img">
+
+            <TextView
+                android:id="@+id/tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="@string/t_start_time_txt"
+                android:textColor="@color/rizhi_content_color" />
+
+            <TextView
+                android:id="@+id/qingjia_kaishi_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_marginTop="@dimen/margin5"
+                android:layout_toRightOf="@+id/tv_start_time"
+                android:text="xxxx"
+                android:textColor="@color/rizhi_content_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/r_end_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/r_start_time"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_toRightOf="@+id/afl_head_img">
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="@string/t_end_time_txt"
+                android:textColor="@color/rizhi_content_color" />
+
+            <TextView
+                android:id="@+id/qingjia_jieshu_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_marginTop="@dimen/margin5"
+                android:layout_toRightOf="@+id/tv_end_time"
+                android:text="xxxx"
+                android:textColor="@color/rizhi_content_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/r_end_time"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_toRightOf="@+id/afl_head_img">
+
+            <TextView
+                android:id="@+id/shenpi_jieguo_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="xxxx"
+                android:textColor="@color/rizhi_color" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

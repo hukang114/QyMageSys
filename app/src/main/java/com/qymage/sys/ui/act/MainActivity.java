@@ -12,6 +12,7 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BaseActivity;
 import com.qymage.sys.common.util.HackyViewPager;
 import com.qymage.sys.ui.adapter.HomeViewPagerAdapter;
+import com.qymage.sys.ui.fragment.AskForLeaveRecordlFragment;
 import com.qymage.sys.ui.fragment.JournalFragment;
 import com.qymage.sys.ui.fragment.MyFragment;
 import com.qymage.sys.ui.fragment.NewsFragment;

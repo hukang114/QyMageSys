@@ -168,4 +168,14 @@
     <string name="copier_txt">抄送人</string>
     <string name="copy_illustrate_txt">审批通过后，通知抄送人</string>
 
+    <string name="afl_record_txt">请假记录</string>
+    <string name="current_week">本周</string>
+    <string name="current_month">本月</string>
+    <string name="current_year">本年</string>
+    <string name="t_afl_type_txt">请假类型：</string>
+    <string name="t_start_time_txt">开始时间：</string>
+    <string name="t_end_time_txt">结束时间：</string>
+
+
+
 </resources>
