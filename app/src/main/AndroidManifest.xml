@@ -165,8 +165,10 @@
         <activity android:name=".ui.act.ContractPaymentRaActivity" />
         <activity android:name=".ui.act.ReceiverInfoActivity" />
         <activity android:name=".ui.act.AskForLeaveActivity" />
-        <activity android:name=".ui.act.ReceiptsPaymentsDetActivity"></activity>
-        <activity android:name=".ui.act.AskForLeaveRecordlActivity"></activity>
+        <activity android:name=".ui.act.ReceiptsPaymentsDetActivity" />
+        <activity android:name=".ui.act.AskForLeaveRecordlActivity" />
+        <activity android:name=".ui.act.DailyReportActivity" />
+        <activity android:name=".ui.act.MonthReportActivity"></activity>
     </application>
 
 </manifest>

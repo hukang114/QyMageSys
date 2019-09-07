@@ -178,5 +178,33 @@
 
     <string name="yfk_txt">已付款</string>
 
+    <string name="d_daily_txt">日报</string>
+    <string name="d_c_work_plan_txt">本周工作计划</string>
+    <string name="d_t_work_plan_txt">今日工作计划</string>
+    <string name="d_contract_no_txt">合同编号</string>
+    <string name="d_contract_name_txt">合同名称</string>
+    <string name="d_project_no_txt">项目编号</string>
+    <string name="d_project_name_txt">项目名称</string>
+    <string name="d_worktime_proportion_txt">工时比例</string>
+    <string name="d_input_worktime_proportion_txt">请输入工时比例</string>
+    <string name="d_work_content_txt">工作内容</string>
+    <string name="d_input_work_content_txt">请填写工作内容</string>
+    <string name="d_reimbursement_txt">报销费用</string>
+    <string name="d_add_project_detail_txt">增加项目明细</string>
+    <string name="d_tomorrow_workplan_txt">明日工作计划</string>
+    <string name="d_input_workplan_txt">请填写工作计划</string>
+    <string name="d_c_summary_work_txt">本周工作总结</string>
+    <string name="d_input_summary_work_txt">请填写工作总结</string>
+    <string name="d_next_week_plan">下周计划</string>
+
+    <string name="m_month_txt">月报</string>
+    <string name="m_c_month_work_plan_txt">本月工作计划</string>
+    <string name="m_week_plan_txt">周计划</string>
+    <string name="m_week_summary_txt">周总结</string>
+    <string name="m_c_work_summary_txt">本月工作总结</string>
+    <string name="m_next_work_plan">下月工作计划</string>
+    <string name="m_self_grade_txt">自我评级</string>
+    <string name="m_depart_leader_comment_txt">领导评语</string>
+    <string name="m_leader_score_txt">领导打分</string>
 
 </resources>
