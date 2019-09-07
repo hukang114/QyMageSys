@@ -168,6 +168,10 @@
         <activity android:name=".ui.act.ReceiptsPaymentsDetActivity" />
         <activity android:name=".ui.act.AskForLeaveRecordlActivity" />
         <activity android:name=".ui.act.InvoicedCollectActivity"></activity>
+        <activity android:name=".ui.act.ReceiptsPaymentsDetActivity" />
+        <activity android:name=".ui.act.AskForLeaveRecordlActivity" />
+        <activity android:name=".ui.act.DailyReportActivity" />
+        <activity android:name=".ui.act.MonthReportActivity"></activity>
     </application>
 
 </manifest>
