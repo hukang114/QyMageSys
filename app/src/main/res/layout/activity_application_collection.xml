@@ -267,6 +267,7 @@
                         android:visibility="invisible" />
 
                     <TextView
+                        android:id="@+id/ysk_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -311,6 +312,7 @@
                         android:visibility="invisible" />
 
                     <TextView
+                        android:id="@+id/wfk_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -355,6 +357,7 @@
                         android:visibility="invisible" />
 
                     <TextView
+                        android:id="@+id/ykp_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -399,6 +402,7 @@
                         android:visibility="invisible" />
 
                     <TextView
+                        android:id="@+id/wkp_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -416,7 +420,6 @@
                         android:layout_marginRight="@dimen/margin10"
                         android:layout_toRightOf="@+id/tv_4"
                         android:background="@color/white"
-                        android:drawableRight="@mipmap/right_ioc_small"
                         android:gravity="center_vertical|end"
                         android:hint="@string/wkp_txt"
                         android:textColor="@color/item_color"

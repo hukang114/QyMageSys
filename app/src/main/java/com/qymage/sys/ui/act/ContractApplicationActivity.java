@@ -1,5 +1,6 @@
 package com.qymage.sys.ui.act;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.qymage.sys.ui.entity.ReceiverInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -77,6 +79,8 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         mBinding.fujianImg.setOnClickListener(this);
         mBinding.skfxxEdt.setOnClickListener(this);
         mBinding.fkfxxEdt.setOnClickListener(this);
+        mBinding.saveBtn.setOnClickListener(this);
+        mBinding.htrqEdt.setOnClickListener(this);
         LinearLayoutManager layouta = new LinearLayoutManager(this);
         layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         LinearLayoutManager layoutb = new LinearLayoutManager(this);
@@ -213,6 +217,10 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
                 bundle.putSerializable("data", paymentInfo);
                 openActivity(ReceiverInfoActivity.class, bundle);
                 break;
+
+            case R.id.htrq_edt:
+                selectClickDate();
+                break;
             case R.id.save_btn:
                 if (isCheck()) {
                     subMitData();
@@ -242,6 +250,21 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         });
 
 
+    }
+
+    /**
+     * 选择日期
+     */
+    private void selectClickDate() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            String desc = String.format("%d-%d-%d", year, month + 1, dayOfMonth);
+            mBinding.htrqEdt.setText(desc);
+        },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
     }
 
 
@@ -328,20 +351,20 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
      * @return
      */
     private boolean isCheck() {
-        if (TextUtils.isEmpty(mBinding.htbhEdt.getText().toString())) {
-            showToast("请填写合同编号");
-            return false;
-        } else if (TextUtils.isEmpty(mBinding.htmcEdt.getText().toString())) {
-            showToast("请填写合同名称");
-            return false;
-        } else if (TextUtils.isEmpty(mBinding.htlxCateTxt.getText().toString())) {
-            showToast("请填写合同类型");
-            return false;
-        } else if (TextUtils.isEmpty(mBinding.xmbhEdt.getText().toString())) {
+        if (TextUtils.isEmpty(mBinding.xmbhEdt.getText().toString())) {
             showToast("请填写项目编号");
             return false;
         } else if (TextUtils.isEmpty(mBinding.xmmcEdt.getText().toString())) {
             showToast("请填写项目名称");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htlxCateTxt.getText().toString())) {
+            showToast("请填写合同类型");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htbhEdt.getText().toString())) {
+            showToast("请填写合同编号");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htmcEdt.getText().toString())) {
+            showToast("请填写合同名称");
             return false;
         } else if (TextUtils.isEmpty(mBinding.htjeEdt.getText().toString())) {
             showToast("请填合同金额");

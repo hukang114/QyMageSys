@@ -1,8 +1,8 @@
 package com.qymage.sys.ui.act;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,37 +17,41 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
-import com.qymage.sys.databinding.ActivityContractDetailsAddBinding;
-import com.qymage.sys.ui.entity.ContractDetAddEnt;
+import com.qymage.sys.databinding.ActivityInvoicedCollectBinding;
+import com.qymage.sys.ui.entity.CompanyMoneyPaymentVOS;
+import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
+import com.qymage.sys.ui.entity.ContractPayEnt;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import cn.leo.click.SingleClick;
 
 
 /**
- * 合同明细 ，添加合同明细
+ * 已开票 已收票明细
  */
-public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetailsAddBinding> implements View.OnClickListener {
+public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectBinding> implements View.OnClickListener {
 
 
-    List<ContractDetAddEnt> listdata;
-    private Intent mInstant;
-    CommonAdapter<ContractDetAddEnt> adapter;
     List<String> shuilv_list = new ArrayList<>();
     DecimalFormat df = new DecimalFormat("0.00");
     private Bundle bundle;
+    private String type;
+    List<CompanyMoneyTicketVOS> ticketVOS;
+    CommonAdapter<CompanyMoneyTicketVOS> adapter;
+    private Intent mInstant;
 
 
     @Override
+
     protected int getLayoutId() {
-        return R.layout.activity_contract_details_add;
+        return R.layout.activity_invoiced_collect;
     }
 
 
@@ -59,76 +63,64 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
         mBinding.newAddImg.setOnClickListener(this);
         mBinding.delImg.setOnClickListener(this);
         mInstant = getIntent();
-        listdata = (List<ContractDetAddEnt>) mInstant.getSerializableExtra("data");
-        if (listdata == null) {
+        ticketVOS = (List<CompanyMoneyTicketVOS>) mInstant.getSerializableExtra("data");
+        type = mInstant.getStringExtra("type");
+        if (ticketVOS == null) {
             return;
         }
+        if (type.equals("3")) {
+            mBinding.metitle.setcTxt(this.getResources().getString(R.string.ykp_txt));
+        } else if (type.equals("4")) {
+            mBinding.metitle.setcTxt(this.getResources().getString(R.string.ysp_txt));
+        }
         setAdapter();
+
         for (int i = 1; i <= 100; i++) {
             shuilv_list.add(i + "%");
         }
         mBinding.metitle.setrTxtClick(v -> {
             bundle = new Bundle();
-            bundle.putSerializable("data", (Serializable) listdata);
+            bundle.putSerializable("data", (Serializable) ticketVOS);
             Intent intent = new Intent();
             intent.putExtras(bundle);
-            setResult(200, intent);
+            setResult(700, intent);
             finish();
         });
 
-    }
 
-
-    @Override
-    protected void initData() {
-        super.initData();
-
-    }
-
-    @SingleClick(2000)
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.new_add_img:// 新增
-                listdata.add(new ContractDetAddEnt("", 0, ""));
-                adapter.notifyDataSetChanged();
-                break;
-            case R.id.del_img:// 删除
-                if (listdata.size() > 0) {
-                    listdata.remove(listdata.size() - 1);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    showToast("请先添加一条数据");
-                }
-                break;
-        }
     }
 
     private void setAdapter() {
-        adapter = new CommonAdapter<ContractDetAddEnt>(this, R.layout.item_add_list_contractdet, listdata) {
+        adapter = new CommonAdapter<CompanyMoneyTicketVOS>(this, R.layout.itme_list_invoicedcollect, ticketVOS) {
             @Override
-            protected void convert(ViewHolder holder, ContractDetAddEnt item, int position) {
+            protected void convert(ViewHolder holder, CompanyMoneyTicketVOS item, int position) {
+
+                holder.setText(R.id.date_tv, item.paymentTime);
+                holder.setText(R.id.shuijin_tv, df.format(item.taxes));
+
 
                 EditText jine_edt = holder.getView(R.id.jine_edt);
                 jine_edt.setText(item.amount);
-
-                holder.setText(R.id.shuijin_tv, item.taxes);
 
                 if (item.taxRate == 0) {
                     holder.setText(R.id.shui_lv_tv, "");
                 } else {
                     holder.setText(R.id.shui_lv_tv, item.taxRate + "%");
                 }
+                holder.setIsRecyclable(false);
+                jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾
+
+                holder.setOnClickListener(R.id.date_tv, v -> {
+                    selectClickDate(position);
+                });
                 holder.setOnClickListener(R.id.shui_lv_tv, v -> {
-                    if (!listdata.get(position).amount.equals("")) {
+                    if (!ticketVOS.get(position).amount.equals("")) {
                         setOnClick(position);
                     } else {
                         showToast("请先填写金额");
                     }
 
                 });
-
-                holder.setIsRecyclable(false);
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾
 
                 jine_edt.addTextChangedListener(new TextWatcher() {
@@ -143,8 +135,8 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
                     @Override
                     public void afterTextChanged(Editable s) {
                         if (s != null && !"".equals(s.toString()) && !s.toString().substring(0, 1).equals(".") && !s.toString().equals("0.")) {
-                            listdata.get(position).amount = s.toString();
-                            if (listdata.get(position).taxRate != 0) {
+                            ticketVOS.get(position).amount = s.toString();
+                            if (ticketVOS.get(position).taxRate != 0) {
                                 setCalculation(position);
                                 jine_edt.clearFocus();
                             }
@@ -160,7 +152,26 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
 
 
     /**
-     * 税率的选择
+     * 选择日期
+     *
+     * @param position
+     */
+    private void selectClickDate(int position) {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            String desc = String.format("%d-%d-%d", year, month + 1, dayOfMonth);
+            ticketVOS.get(position).paymentTime = desc;
+            adapter.notifyDataSetChanged();
+        },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+
+    /**
+     * 税率选择
      *
      * @param position
      */
@@ -169,8 +180,8 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                listdata.get(position).taxRate = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
-                listdata.get(position).taxes = df.format((Double.parseDouble(listdata.get(position).taxRate + "") / 100) * Double.parseDouble(listdata.get(position).amount));
+                ticketVOS.get(position).taxRate = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
+                ticketVOS.get(position).taxes = ticketVOS.get(position).taxRate / 100 * Double.parseDouble(ticketVOS.get(position).amount);
                 adapter.notifyDataSetChanged();
             }
         })
@@ -188,9 +199,13 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
         pvOptions.show();
     }
 
-
+    /**
+     * 输入金额计算税金
+     *
+     * @param position
+     */
     private void setCalculation(int position) {
-        listdata.get(position).taxes = df.format((Double.parseDouble(listdata.get(position).taxRate + "") / 100) * Double.parseDouble(listdata.get(position).amount));
+        ticketVOS.get(position).taxes = (ticketVOS.get(position).taxRate / 100) * Double.parseDouble(ticketVOS.get(position).amount);
         if (mBinding.recyclerview.getScrollState() == RecyclerView.SCROLL_STATE_IDLE || (mBinding.recyclerview.isComputingLayout() == false)) {
         }
 //        new Handler().postDelayed(new Runnable() {
@@ -203,4 +218,29 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
     }
 
 
+    @Override
+    protected void initData() {
+        super.initData();
+
+    }
+
+
+    @SingleClick(2000)
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.new_add_img:// 新增
+                ticketVOS.add(new CompanyMoneyTicketVOS("", 0, 0, ""));
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.del_img:// 删除
+                if (ticketVOS.size() > 0) {
+                    ticketVOS.remove(ticketVOS.size() - 1);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    showToast("请先添加一条数据");
+                }
+                break;
+        }
+    }
 }

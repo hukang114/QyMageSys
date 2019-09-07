@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin34"
+        android:layout_marginBottom="@dimen/margin10"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/date_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/add_htmx_btn_style"
+            android:gravity="center"
+            android:hint="@string/qingxuanze_txt"
+            android:inputType="numberDecimal"
+            android:textColor="@color/rizhi_color"
+            android:textSize="@dimen/text_size_14" />
+
+
+        <EditText
+            android:id="@+id/amount_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_marginRight="@dimen/margin5"
+            android:layout_weight="1"
+            android:background="@drawable/add_htmx_btn_style"
+            android:gravity="center"
+            android:hint="@string/qingshuru_txt"
+            android:inputType="numberDecimal"
+            android:textColor="@color/rizhi_color"
+            android:textSize="@dimen/text_size_14" />
+
+
+        <EditText
+            android:id="@+id/remarks_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight="1"
+            android:background="@drawable/add_htmx_btn_style"
+            android:gravity="center"
+            android:hint="@string/beizhu_txt"
+            android:textColor="@color/rizhi_color"
+            android:textSize="@dimen/text_size_14" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

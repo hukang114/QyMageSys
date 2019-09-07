@@ -146,6 +146,18 @@ public class HttpUtil {
     public static PostRequest getProject(String urlname, Map<String, Object> params) {
         return HttpClient.getInstance().postData(urlname, params);
     }
+    /**
+     *11.1收款/付款/开票/收票申请接口
+     * openType：string  1-收款  2-付款  3-开票  4-收票
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest inmoneyAdd(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+
 
 
 }

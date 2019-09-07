@@ -25,9 +25,8 @@ public class HttpConsts {
     public static final String getProjectNo = "project/getProjectNo";
     //2.7按项目名称/项目编号查询
     public static final String getProject = "getProject";
-
-
-
+    //11.1收款/付款/开票/收票申请接口
+    public static final String INMONEYADD = "money/inmoneyAdd";
 
 
 }

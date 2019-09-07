@@ -5,10 +5,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
+import com.qymage.sys.common.callback.JsonCallback;
+import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.http.HttpConsts;
+import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.databinding.ActivityApplicationCollectionBinding;
 import com.qymage.sys.ui.act.ReceiverInfoActivity;
 import com.qymage.sys.ui.act.SelectionDepartmentActivity;
@@ -29,6 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.leo.click.SingleClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * 收款申请，付款申请 ，开票申请，收票申请
@@ -71,6 +78,8 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         mBinding.csrImg.setOnClickListener(this);
         mBinding.fujianImg.setOnClickListener(this);
         mBinding.yskTxt.setOnClickListener(this);
+        mBinding.ykpTxt.setOnClickListener(this);
+        mBinding.saveBtn.setOnClickListener(this);
         LinearLayoutManager layouta = new LinearLayoutManager(this);
         layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         LinearLayoutManager layoutb = new LinearLayoutManager(this);
@@ -134,12 +143,18 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 break;
             case "2":
                 mBinding.metitle.setcTxt("付款申请");
+                mBinding.yskTv.setText("已付款");
+                mBinding.yskTxt.setText("已付款");
+                mBinding.wfkTv.setText("未付款");
                 break;
             case "3":
                 mBinding.metitle.setcTxt("开票申请");
                 break;
             case "4":
                 mBinding.metitle.setcTxt("收票申请");
+                mBinding.ykpTv.setText("已收票");
+                mBinding.ykpTxt.setText("已收票");
+                mBinding.wkpTv.setText("未收票");
                 break;
         }
     }
@@ -235,8 +250,44 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 openActivity(ReceiptsPaymentsDetActivity.class, bundle);
                 break;
 
+            case R.id.ykp_txt: // 已开票 已收票
+                bundle = new Bundle();
+                bundle.putSerializable("data", (Serializable) ticketVOS);
+                bundle.putString("type", type);
+                openActivity(InvoicedCollectActivity.class, bundle);
+
+                break;
+
+            case R.id.save_btn:// 提交申请的参数
+                if (isCheck()) {
+                    subMitData();
+                }
+
+                break;
+
 
         }
+    }
+
+
+    private void subMitData() {
+        showLoading();
+        HttpUtil.inmoneyAdd(HttpConsts.INMONEYADD, getPer()).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+                closeLoading();
+                showToast(result.message);
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                msgDialog("申请提成功");
+            }
+        });
+
+
     }
 
     @Override
@@ -246,6 +297,13 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             List<CompanyMoneyPaymentVOS> list = (List<CompanyMoneyPaymentVOS>) data.getSerializableExtra("data");
             paymentVOS.clear();
             paymentVOS.addAll(list);
+            if (paymentVOS.size() > 0) {
+                Double money = 0.0;
+                for (int i = 0; i < paymentVOS.size(); i++) {
+                    money = money + Double.parseDouble(paymentVOS.get(i).amount);
+                }
+                mBinding.yskTxt.setText(df.format(money));
+            }
 
         } else if (resultCode == 300) { // 审核人
             List<GetTreeEnt> list = (List<GetTreeEnt>) data.getSerializableExtra("data");
@@ -264,9 +322,75 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             paymentInfo = (PaymentInfo) data.getSerializableExtra("data");
             showToast(paymentInfo.payName);
         } else if (resultCode == 700) {//开收票明细
-
-
+            List<CompanyMoneyTicketVOS> list = (List<CompanyMoneyTicketVOS>) data.getSerializableExtra("data");
+            ticketVOS.clear();
+            ticketVOS.addAll(list);
+            if (ticketVOS.size() > 0) {
+                Double money = 0.0;
+                for (int i = 0; i < ticketVOS.size(); i++) {
+                    money = money + Double.parseDouble(ticketVOS.get(i).amount);
+                }
+                mBinding.ykpTxt.setText(df.format(money));
+            }
         }
+    }
+
+
+    private boolean isCheck() {
+        if (TextUtils.isEmpty(mBinding.htbhEdt.getText().toString())) {
+            showToast("请填写合同编号");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htmcEdt.getText().toString())) {
+            showToast("请填写合同名称");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htlxCateTxt.getText().toString())) {
+            showToast("请填写合同类型");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.htbhEdt.getText().toString())) {
+            showToast("请填写合同编号");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.xmmcEdt.getText().toString())) {
+            showToast("请填写项目名称");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.yskTxt.getText().toString())) {
+            if (type.equals("1")) {
+                showToast("请填写已收款数据");
+                return false;
+            } else if (type.equals("2")) {
+                showToast("请填写已付款数据");
+                return false;
+            } else {
+                showToast("请填写已收款数据");
+                return false;
+            }
+        } else if (TextUtils.isEmpty(mBinding.wskEdt.getText().toString())) {
+            showToast("请填写未收款或者未付款数据");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.ykpTxt.getText().toString())) {
+            showToast("请填写已开票或者已收票");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.bzjjeEdt.getText().toString())) {
+            showToast("请填写本次金额");
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.bzjjeEdt.getText().toString())) {
+            showToast("请填写本次金额");
+            return false;
+        } else if (receiverInfo.colName == null) {
+            showToast("请填写收款方信息");
+            return false;
+        } else if (paymentInfo.payName == null) {
+            showToast("请填写付款方信息");
+            return false;
+        } else if (auditorList.size() == 0) {
+            showToast("请选择审批人");
+            return false;
+        } else if (copierList.size() == 0) {
+            showToast("请选择抄送人");
+            return false;
+        } else {
+            return false;
+        }
+
     }
 
 
