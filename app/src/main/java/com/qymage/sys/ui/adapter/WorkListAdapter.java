@@ -15,7 +15,9 @@ import com.qymage.sys.ui.act.AskForLeaveActivity;
 import com.qymage.sys.ui.act.BiddingMarginShouActivity;
 import com.qymage.sys.ui.act.BiddingMarginZhiActivity;
 import com.qymage.sys.ui.act.ContractApplicationActivity;
+import com.qymage.sys.ui.act.DailyReportActivity;
 import com.qymage.sys.ui.act.LoanApplicationActivity;
+import com.qymage.sys.ui.act.MonthReportActivity;
 import com.qymage.sys.ui.act.OpenAfterWorkActivity;
 import com.qymage.sys.ui.act.PerformanceBondShouActivity;
 import com.qymage.sys.ui.act.PerformanceBondZhiActivity;
@@ -122,7 +124,10 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
                 openActivity(AskForLeaveActivity.class);
                 break;
             case "yue":
-                openActivity(AskForLeaveActivity.class);
+                openActivity(MonthReportActivity.class);
+                break;
+            case "ribao":
+                openActivity(DailyReportActivity.class);
                 break;
         }
     }

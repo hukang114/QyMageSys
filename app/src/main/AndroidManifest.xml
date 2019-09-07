@@ -166,9 +166,7 @@
         <activity android:name=".ui.act.ReceiverInfoActivity" />
         <activity android:name=".ui.act.AskForLeaveActivity" />
         <activity android:name=".ui.act.ReceiptsPaymentsDetActivity" />
-        <activity android:name=".ui.act.AskForLeaveRecordlActivity" />
         <activity android:name=".ui.act.InvoicedCollectActivity"></activity>
-        <activity android:name=".ui.act.ReceiptsPaymentsDetActivity" />
         <activity android:name=".ui.act.AskForLeaveRecordlActivity" />
         <activity android:name=".ui.act.DailyReportActivity" />
         <activity android:name=".ui.act.MonthReportActivity"></activity>
