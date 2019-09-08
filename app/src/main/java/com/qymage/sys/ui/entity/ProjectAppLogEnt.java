@@ -8,22 +8,16 @@ package com.qymage.sys.ui.entity;
 public class ProjectAppLogEnt {
 
 
-    public String imgpath;
-    public String username;
-    public String date_time;
-    public String shenqing_ly;
-    public String shenqin_money;
-    public String shiyong_date;
-    public int status;
+    public String id; //主键
+    public String projectType; // 项目类型
+    public String projectNo; // 项目编号
+    public String projectName;//项目名称
+    public String persion; // 负责人
+    public String amount; // 预算价格
+    public String date; //申请日期（YYYY-MM-dd）
+    public String introduction; // 项目介绍
+    public int actStatus;//审批状态
+    public String portrait;
 
 
-    public ProjectAppLogEnt(String imgpath, String username, String date_time, String shenqing_ly, String shenqin_money, String shiyong_date, int status) {
-        this.imgpath = imgpath;
-        this.username = username;
-        this.date_time = date_time;
-        this.shenqing_ly = shenqing_ly;
-        this.shenqin_money = shenqin_money;
-        this.shiyong_date = shiyong_date;
-        this.status = status;
-    }
 }

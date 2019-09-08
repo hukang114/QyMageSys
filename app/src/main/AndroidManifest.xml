@@ -151,7 +151,9 @@
         <activity android:name=".ui.act.OpenAfterWorkActivity" />
         <activity android:name=".ui.act.MyAttendanceActivity" />
         <activity android:name=".ui.act.MyLoanActivity" />
-        <activity android:name=".ui.act.ProjectApprovaLoglActivity" />
+        <activity
+            android:name=".ui.act.ProjectApprovaLoglActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".ui.act.ReimbursementActivity" />
         <activity android:name=".ui.act.LoanApplicationActivity" />
         <activity android:name=".ui.act.ApplicationRepaymentActivity" />
@@ -166,10 +168,11 @@
         <activity android:name=".ui.act.ReceiverInfoActivity" />
         <activity android:name=".ui.act.AskForLeaveActivity" />
         <activity android:name=".ui.act.ReceiptsPaymentsDetActivity" />
-        <activity android:name=".ui.act.InvoicedCollectActivity"></activity>
+        <activity android:name=".ui.act.InvoicedCollectActivity" />
         <activity android:name=".ui.act.AskForLeaveRecordlActivity" />
         <activity android:name=".ui.act.DailyReportActivity" />
-        <activity android:name=".ui.act.MonthReportActivity"></activity>
+        <activity android:name=".ui.act.MonthReportActivity" />
+        <activity android:name=".ui.act.ProjectApprovaLoglDetActivity"></activity>
     </application>
 
 </manifest>

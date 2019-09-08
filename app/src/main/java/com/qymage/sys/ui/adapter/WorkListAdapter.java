@@ -100,18 +100,26 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
                 openActivity(ApplicationCollectionActivity.class, bundle);
                 break;
             case "toubiaoz"://投标保证金支
-                openActivity(BiddingMarginZhiActivity.class);
+                bundle = new Bundle();
+                bundle.putString("type", "1");
+                openActivity(BiddingMarginZhiActivity.class, bundle);
 
                 break;
             case "toubiaos"://投标保证金收
-                openActivity(BiddingMarginShouActivity.class);
+                bundle = new Bundle();
+                bundle.putString("type", "2");
+                openActivity(BiddingMarginZhiActivity.class, bundle);
 
                 break;
             case "lvyuez"://履约保证金支
-                openActivity(PerformanceBondZhiActivity.class);
+                bundle = new Bundle();
+                bundle.putString("type", "3");
+                openActivity(BiddingMarginZhiActivity.class, bundle);
                 break;
             case "lvyues"://履约保证金收
-                openActivity(PerformanceBondShouActivity.class);
+                bundle = new Bundle();
+                bundle.putString("type", "4");
+                openActivity(BiddingMarginZhiActivity.class, bundle);
                 break;
             case "jiekuan"://借款申请
                 openActivity(LoanApplicationActivity.class);
@@ -120,10 +128,10 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
             case "huankuan"://还款申请
                 openActivity(ApplicationRepaymentActivity.class);
                 break;
-            case "qingjia":
+            case "qingjia":// 请假
                 openActivity(AskForLeaveActivity.class);
                 break;
-            case "yue":
+            case "yue":// 月报
                 openActivity(MonthReportActivity.class);
                 break;
             case "ribao":

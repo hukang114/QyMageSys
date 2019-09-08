@@ -45,7 +45,8 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
+
                     <TextView
                         android:id="@+id/tv_4"
                         android:layout_width="wrap_content"
@@ -67,7 +68,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
                     <TextView
                         android:id="@+id/tv_4x"
@@ -78,8 +79,9 @@
                         android:layout_toRightOf="@+id/tv_3x"
                         android:text="采购新的办公室椅子及水杯"
                         android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"/>
+                        android:textSize="@dimen/text_size_16" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,7 +97,8 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
+
                     <TextView
                         android:id="@+id/tv_42"
                         android:layout_width="wrap_content"
@@ -117,7 +120,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
                     <TextView
                         android:id="@+id/tv_42x"
@@ -128,7 +131,7 @@
                         android:layout_toRightOf="@+id/tv_32x"
                         android:text="采购新的办公室椅子及水杯"
                         android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"/>
+                        android:textSize="@dimen/text_size_16" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -147,7 +150,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
 
                     <TextView
@@ -192,7 +195,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
 
                     <TextView
@@ -237,7 +240,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
 
                     <TextView
@@ -282,7 +285,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
 
                     <TextView
@@ -318,6 +321,7 @@
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/margin55"
@@ -333,7 +337,7 @@
                             android:text="*"
                             android:textColor="@color/xinghao_color"
                             android:textSize="@dimen/text_size_30"
-                            android:visibility="invisible"/>
+                            android:visibility="invisible" />
 
 
                         <TextView
@@ -418,7 +422,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
 
                     <TextView
@@ -450,17 +454,18 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/margin8"
+                    android:layout_marginTop="5dp"
                     android:paddingBottom="@dimen/margin8"
-                    android:layout_marginTop="5dp">
+                    android:paddingTop="@dimen/margin8">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:gravity="center"
                         android:drawableLeft="@mipmap/add_baoxiao_ioc"
-                        android:textColor="@color/lanse_ziti"
-                        android:text="@string/d_add_project_detail_txt"/>
+                        android:gravity="center"
+                        android:text="@string/d_add_project_detail_txt"
+                        android:textColor="@color/lanse_ziti" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -503,6 +508,7 @@
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -518,7 +524,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -544,6 +550,7 @@
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -558,7 +565,7 @@
                         android:paddingTop="@dimen/margin5"
                         android:text="*"
                         android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"/>
+                        android:textSize="@dimen/text_size_30" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -681,7 +688,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
                     <TextView
                         android:layout_width="wrap_content"

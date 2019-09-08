@@ -144,7 +144,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             case "2":
                 mBinding.metitle.setcTxt("付款申请");
                 mBinding.yskTv.setText("已付款");
-                mBinding.yskTxt.setText("已付款");
+                mBinding.yskTxt.setHint("已付款");
                 mBinding.wfkTv.setText("未付款");
                 break;
             case "3":
@@ -153,7 +153,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             case "4":
                 mBinding.metitle.setcTxt("收票申请");
                 mBinding.ykpTv.setText("已收票");
-                mBinding.ykpTxt.setText("已收票");
+                mBinding.ykpTxt.setHint("已收票");
                 mBinding.wkpTv.setText("未收票");
                 break;
         }
@@ -276,14 +276,14 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();
-                showToast(result.message);
+                msgDialog("申请提成功");
             }
 
             @Override
             public void onError(Call call, Response response, Exception e) {
                 super.onError(call, response, e);
                 closeLoading();
-                msgDialog("申请提成功");
+                showToast(e.getMessage());
             }
         });
 
@@ -388,7 +388,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             showToast("请选择抄送人");
             return false;
         } else {
-            return false;
+            return true;
         }
 
     }

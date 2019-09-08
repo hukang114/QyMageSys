@@ -29,7 +29,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
@@ -45,7 +44,7 @@
                         android:paddingTop="@dimen/margin5"
                         android:text="*"
                         android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"/>
+                        android:textSize="@dimen/text_size_30" />
 
                     <TextView
                         android:id="@+id/tv_4"
@@ -88,7 +87,7 @@
                         android:paddingTop="@dimen/margin5"
                         android:text="*"
                         android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"/>
+                        android:textSize="@dimen/text_size_30" />
 
 
                     <TextView
@@ -168,6 +167,7 @@
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/margin55"
@@ -208,11 +208,12 @@
                             android:textColor="@color/rizhi_color"
                             android:textSize="@dimen/text_size_14" />
                     </LinearLayout>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22dp"
-                        android:hint="@string/time_duration_illustrate_txt"/>
+                        android:hint="@string/time_duration_illustrate_txt" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -271,7 +272,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -283,18 +284,21 @@
                         android:textColor="@color/rizhi_color"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
+                        android:layout_height="@dimen/margin80"
                         android:layout_below="@+id/tv_x5"
+                        android:background="@color/white"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/qingjia_tupian_recy"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/margin90"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
                             android:background="@color/white"
                             android:nestedScrollingEnabled="false" />
 
@@ -302,7 +306,9 @@
                             android:id="@+id/qingjia_tupian"
                             android:layout_width="@dimen/margin50"
                             android:layout_height="@dimen/margin50"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginRight="@dimen/margin15"
                             android:src="@mipmap/add_spr_img_ioc" />
 
                     </LinearLayout>
@@ -366,23 +372,28 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/qingjia_spr_recyclerview"
+                        android:id="@+id/spr_recyclerview"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin90"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin10"
+                        android:layout_weight="1"
                         android:background="@color/white"
                         android:nestedScrollingEnabled="false" />
 
                     <ImageView
-                        android:id="@+id/qingjia_spr_img"
+                        android:id="@+id/spr_img"
                         android:layout_width="@dimen/margin50"
                         android:layout_height="@dimen/margin50"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
                         android:src="@mipmap/add_spr_img_ioc" />
 
                 </LinearLayout>
@@ -406,7 +417,7 @@
                         android:text="*"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -442,26 +453,29 @@
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/qingjia_csr_recyclerview"
+                        android:id="@+id/csr_recyclerview"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin90"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:background="@color/white"
                         android:nestedScrollingEnabled="false" />
 
                     <ImageView
-                        android:id="@+id/qingjia_csr_img"
+                        android:id="@+id/csr_img"
                         android:layout_width="@dimen/margin50"
                         android:layout_height="@dimen/margin50"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
                         android:src="@mipmap/add_spr_img_ioc" />
 
                 </LinearLayout>
@@ -476,7 +490,7 @@
 
 
                     <Button
-                        android:id="@+id/qingjia_save_btn"
+                        android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_marginBottom="@dimen/margin50"

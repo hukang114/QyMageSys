@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.qymage.sys.R;
 import com.qymage.sys.common.util.PicasooUtil;
 import com.qymage.sys.common.util.VerifyUtils;
+import com.qymage.sys.ui.act.MyLoanActivity;
 import com.qymage.sys.ui.entity.MyLoanEnt;
 
 import java.util.List;
@@ -29,31 +30,57 @@ public class MyLoanListAdapter extends BaseQuickAdapter<MyLoanEnt, BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, MyLoanEnt item) {
 
-        TextView haikuan_btn = helper.getView(R.id.bnt1);
+
+        String mType = ((MyLoanActivity) mContext).getmTypes();
+
+        TextView bnt1 = helper.getView(R.id.bnt1);
+        TextView bnt2 = helper.getView(R.id.bnt2);
+        TextView bnt3 = helper.getView(R.id.bnt3);
 
 
-        String status = VerifyUtils.isEmpty(item.status) ? "" : 1 == item.status ? "待还款" : 2 == item.status ? "正在审批中" : "";
+        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待还款" : 2 == item.actStatus ? "正在审批中" : "";
+
         helper.setText(R.id.status_tv, status)
-                .setText(R.id.user_name, item.username + "借款")
-                .setText(R.id.crate_time, item.shiyong_date)
-                .setText(R.id.proj_type, "申请事由：" + item.shenqing_ly)
-                .setText(R.id.proj_name, "申请金额：" + item.shenqin_money)
-                .setText(R.id.appaly_content_tv, "使用时间：" + item.shiyong_date)
-                .setText(R.id.date_time_tv, "备注：" + item.remake_text);
+                .setText(R.id.user_name, item.name + "借款")
+                .setText(R.id.crate_time, item.useDate)
+                .setText(R.id.proj_type, "申请事由：" + item.cause)
+                .setText(R.id.proj_name, "申请金额：" + item.Amount)
+                .setText(R.id.appaly_content_tv, "还款时间：" + item.pay)
+                .setText(R.id.date_time_tv, "所属部门：" + item.orgName);
 
-        PicasooUtil.setImageResource(item.imgpath, helper.getView(R.id.head_img), 360);
+        PicasooUtil.setImageResource(item.portrait, R.mipmap.def_logo_headimg, helper.getView(R.id.head_img), 360);
 
-        switch (item.status) {
-            case 1:
+        switch (mType) {
+            case "1":
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.colorAccent));
-                haikuan_btn.setVisibility(View.VISIBLE);
+                bnt1.setVisibility(View.VISIBLE);
+                bnt2.setVisibility(View.GONE);
+                bnt3.setVisibility(View.GONE);
                 break;
-            case 2:
-                haikuan_btn.setVisibility(View.GONE);
+            case "2":
+                bnt1.setVisibility(View.GONE);
+                bnt2.setVisibility(View.GONE);
+                bnt3.setVisibility(View.GONE);
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
+                break;
+            case "3":
+                bnt1.setVisibility(View.GONE);
+                bnt2.setVisibility(View.VISIBLE);
+                bnt3.setVisibility(View.VISIBLE);
+                helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
+                break;
+            case "4":
+                bnt1.setVisibility(View.GONE);
+                bnt2.setVisibility(View.GONE);
+                bnt3.setVisibility(View.GONE);
+                helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
+                break;
+            default:
+                helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.colorAccent));
                 break;
         }
 
+        helper.addOnClickListener(R.id.bnt1).addOnClickListener(R.id.bnt2).addOnClickListener(R.id.bnt3);
 
     }
 

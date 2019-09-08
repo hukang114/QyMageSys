@@ -36,7 +36,7 @@
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/margin15"
-                    android:text="借款总额度1000，已借0，剩余1000"
+                    android:text="借款总额度0，已借0，剩余0"
                     android:textColor="@color/item_color"
                     android:textSize="@dimen/text_size_16" />
 
@@ -71,7 +71,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/baoxiao_money_edt"
+                        android:id="@+id/shenqingren_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/margin20"
@@ -113,7 +113,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/baoxiao_cate_txt"
+                        android:id="@+id/bum_txt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/margin10"
@@ -154,7 +154,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/baoxiao_content"
+                        android:id="@+id/cause_content"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_below="@+id/tv_5"
@@ -337,7 +337,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -345,7 +345,10 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/spr_recyclerview"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin90"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin10"
+                        android:layout_weight="1"
                         android:background="@color/white"
                         android:nestedScrollingEnabled="false" />
 
@@ -353,11 +356,12 @@
                         android:id="@+id/spr_img"
                         android:layout_width="@dimen/margin50"
                         android:layout_height="@dimen/margin50"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
                         android:src="@mipmap/add_spr_img_ioc" />
 
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -415,7 +419,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -423,7 +427,9 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/csr_recyclerview"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin90"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:background="@color/white"
                         android:nestedScrollingEnabled="false" />
 
@@ -431,7 +437,9 @@
                         android:id="@+id/csr_img"
                         android:layout_width="@dimen/margin50"
                         android:layout_height="@dimen/margin50"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
                         android:src="@mipmap/add_spr_img_ioc" />
 
                 </LinearLayout>

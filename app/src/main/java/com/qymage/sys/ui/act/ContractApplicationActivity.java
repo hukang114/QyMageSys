@@ -397,7 +397,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
             showToast("请选择抄送人");
             return false;
         } else {
-            return false;
+            return true;
         }
 
     }

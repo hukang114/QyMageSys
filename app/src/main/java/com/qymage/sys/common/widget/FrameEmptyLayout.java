@@ -61,6 +61,7 @@ public class FrameEmptyLayout extends FrameLayout {
     private ImageView errorImageView;
     private TextView errorTextView;
     private Button errorRetry;
+    private TextView net_error;
 
     private int mLayoutState = STATUS_NORMAL;
     private LayoutInflater inflater;
@@ -96,6 +97,7 @@ public class FrameEmptyLayout extends FrameLayout {
         errorImgId = arr.getResourceId(R.styleable.FrameEmptyLayout_error_image, -1);
         errorMessage = arr.getString(R.styleable.FrameEmptyLayout_error_text);
         errorBtnMessage = arr.getString(R.styleable.FrameEmptyLayout_error_retry_text);
+
         //Empty state attrs
         emptyImgId = arr.getResourceId(R.styleable.FrameEmptyLayout_empty_image, -1);
         emptyMessage = arr.getString(R.styleable.FrameEmptyLayout_empty_text);
@@ -277,6 +279,10 @@ public class FrameEmptyLayout extends FrameLayout {
      * @param txtTip
      */
     private void setEmptyView(int resImgId, String txtTip) {
+
+        txtTip = "暂无数据记录";
+        resImgId = R.mipmap.msg_ic_data;
+
         if (emptyView == null) {
             emptyView = inflater.inflate(R.layout.layout_empty, this, false);
             emptyView.setTag(TAG_EMPTY);
@@ -306,10 +312,8 @@ public class FrameEmptyLayout extends FrameLayout {
 
     /**
      * 显示空数据view
-     *
-     *
      */
-    private void setEmptyView() {
+    public void setEmptyView() {
         if (emptyView == null) {
             emptyView = inflater.inflate(R.layout.layout_empty, this, false);
             emptyView.setTag(TAG_EMPTY);
@@ -327,13 +331,10 @@ public class FrameEmptyLayout extends FrameLayout {
     }
 
 
-
     /**
      * 显示出错View
-     *
-     *
      */
-    private void setErrorView() {
+    public void setErrorView() {
         if (errorView == null) {
             errorView = inflater.inflate(R.layout.layout_error, this, false);
             errorView.setTag(TAG_ERROR);
@@ -342,10 +343,15 @@ public class FrameEmptyLayout extends FrameLayout {
             errorTextView = errorView.findViewById(R.id.tv_error_text);
             errorRetry = errorView.findViewById(R.id.tv_error_retry);
 
+
             layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             layoutParams.gravity = Gravity.CENTER;
 
             addView(errorView, layoutParams);
+
+            errorTextView.setText("加载失败");
+
+
         } else {
             errorView.setVisibility(VISIBLE);
         }
@@ -368,6 +374,10 @@ public class FrameEmptyLayout extends FrameLayout {
      * @param contentTip
      */
     private void setErrorView(int resImgId, String txtTip, String contentTip) {
+
+        txtTip = "加载失败";
+        contentTip = "点击重试";
+
         if (errorView == null) {
             errorView = inflater.inflate(R.layout.layout_error, this, false);
             errorView.setTag(TAG_ERROR);
@@ -375,6 +385,7 @@ public class FrameEmptyLayout extends FrameLayout {
             errorImageView = errorView.findViewById(R.id.iv_error_icon);
             errorTextView = errorView.findViewById(R.id.tv_error_text);
             errorRetry = errorView.findViewById(R.id.tv_error_retry);
+            net_error = errorView.findViewById(R.id.net_err);
 
             layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             layoutParams.gravity = Gravity.CENTER;
@@ -383,6 +394,8 @@ public class FrameEmptyLayout extends FrameLayout {
         } else {
             errorView.setVisibility(VISIBLE);
         }
+
+        net_error.setText("请检测是否能正常连接");
 
         if (resImgId > 0 && errorImageView != null) {
             errorImageView.setImageResource(resImgId);

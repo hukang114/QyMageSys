@@ -26,7 +26,7 @@
         <LinearLayout
             android:id="@+id/search_layout"
             android:layout_width="match_parent"
-            android:layout_height="40sp"
+            android:layout_height="40dp"
             android:layout_marginBottom="@dimen/margin0"
             android:layout_marginLeft="@dimen/margin15"
             android:layout_marginRight="@dimen/margin15"
@@ -35,11 +35,27 @@
             android:gravity="center"
             android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="@dimen/margin15"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@color/transparent"
+                android:drawableLeft="@mipmap/serach_ioc"
+                android:gravity="center"
+                android:hint="@string/srarch_txt"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size_15" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@mipmap/serach_ioc" />
+                android:src="@mipmap/serach_ioc"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,7 +63,8 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:text="@string/srarch_txt"
-                android:textSize="@dimen/text_size_15" />
+                android:textSize="@dimen/text_size_15"
+                android:visibility="gone" />
         </LinearLayout>
 
 
@@ -67,7 +84,7 @@
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:text="待处理(2)"
+                android:text="待处理"
                 android:textColor="@color/shape_radiobutton_select"
                 android:textSize="14sp" />
 
@@ -127,9 +144,6 @@
             </com.qymage.sys.common.widget.FrameEmptyLayout>
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-
-
 
 
     </LinearLayout>

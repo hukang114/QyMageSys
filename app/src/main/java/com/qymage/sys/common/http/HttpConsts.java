@@ -27,6 +27,26 @@ public class HttpConsts {
     public static final String getProject = "getProject";
     //11.1收款/付款/开票/收票申请接口
     public static final String INMONEYADD = "money/inmoneyAdd";
+    //投标/履约保证金-支/收提交接口
+    public static final String BID_SUBMIT = "bid/submit";
+    //立项申请提交接口
+    public static final String PROJECT_SUBMIT = "project/submit";
+    //4.3查询个人立项记录列表
+    public static final String PROJECT_FINDBYUSER = "project/findByUser";
+    //4.4查询立项详情
+    public static final String PROJECT_FINDBYID = "project/findById";
+    //10.1审核接口
+    public static final String audit_auditAdd = "audit/auditAdd";
+    //12.1额度查询
+    public static final String LOAN_QUOTAQUERY = "loan/quotaQuery";
+    //12.2借款申请接口
+    public static final String LOAN_QUOTAADD = "loan/quotaAdd";
+    //12.4还款申请接口
+    public static final String LOAN_PAYADD = "loan/payAdd";
+    //借款查询接口 我的借款列表
+    public static final String LOAN_LOANQUERY = "loan/loanQuery";
+    //请假申请提交接口
+    public static final String LEAVE_SUBMIT = "leave/submit";
 
 
 }

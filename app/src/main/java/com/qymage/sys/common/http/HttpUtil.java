@@ -146,9 +146,11 @@ public class HttpUtil {
     public static PostRequest getProject(String urlname, Map<String, Object> params) {
         return HttpClient.getInstance().postData(urlname, params);
     }
+
     /**
-     *11.1收款/付款/开票/收票申请接口
+     * 11.1收款/付款/开票/收票申请接口
      * openType：string  1-收款  2-付款  3-开票  4-收票
+     *
      * @param urlname
      * @param params
      * @return
@@ -157,7 +159,119 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(urlname, params);
     }
 
+    /**
+     * 3.1投标/履约保证金-支/收提交接口
+     * bidType: String //保证金类型（投标 支-01，投标 收-02，履约支-03，履约 收04）
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest bid_submit(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
 
+    /**
+     * 立项申请提交接口
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest project_Submit(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+    /**
+     * 4.3查询个人立项记录列表
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest project_findByUser(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+    /**
+     * 4.4查询立项详情
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest project_findById(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+    /**
+     * 10.1审核接口
+     * <p>
+     * userCode:String 工号
+     * type：类型  1—通过   2-拒绝 3-撤回
+     * remarks String  备注
+     * taskId String 任务ID
+     *
+     * @param urlname
+     * @param params
+     * @return
+     */
+    public static PostRequest audit_auditAdd(String urlname, Map<String, Object> params) {
+        return HttpClient.getInstance().postData(urlname, params);
+    }
+
+    /**
+     * 12.1额度查询
+     * {
+     * userCode String 工号
+     * }
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest loan_quotaQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOAN_QUOTAQUERY, params);
+    }
+
+    /**
+     * 12.2借款申请接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest loan_quotaAdd(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOAN_QUOTAADD, params);
+    }
+
+    /**
+     * 还款申请接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest loan_payAdd(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOAN_PAYADD, params);
+    }
+
+    /**
+     * 12.3借款列表查询接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest loan_loanQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOAN_LOANQUERY, params);
+    }
+
+    /**
+     * 7.1请假申请提交接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest leave_Submit(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LEAVE_SUBMIT, params);
+    }
 
 
 }

@@ -14,8 +14,8 @@
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:rTxt="@string/more_txt"
-            app:cTxt="@string/toubiaozhi_txt" />
+            app:cTxt="@string/toubiaozhi_txt"
+            app:rTxt="@string/sqjl_txt" />
 
 
         <ScrollView
@@ -227,6 +227,7 @@
 
 
                     <TextView
+                        android:id="@+id/skdwmc_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -490,7 +491,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/margin80"
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
@@ -498,7 +499,9 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/fujian_recyclerview"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/margin60"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
                             android:background="@color/white"
                             android:nestedScrollingEnabled="false" />
 
@@ -506,7 +509,9 @@
                             android:id="@+id/fujian_img"
                             android:layout_width="@dimen/margin50"
                             android:layout_height="@dimen/margin50"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginRight="@dimen/margin15"
                             android:src="@mipmap/tupian" />
                     </LinearLayout>
                 </LinearLayout>
@@ -609,7 +614,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -617,7 +622,10 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/spr_recyclerview"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin90"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin10"
+                        android:layout_weight="1"
                         android:background="@color/white"
                         android:nestedScrollingEnabled="false" />
 
@@ -625,7 +633,9 @@
                         android:id="@+id/spr_img"
                         android:layout_width="@dimen/margin50"
                         android:layout_height="@dimen/margin50"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
                         android:src="@mipmap/add_spr_img_ioc" />
 
                 </LinearLayout>
@@ -687,7 +697,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -695,7 +705,9 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/csr_recyclerview"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin90"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:background="@color/white"
                         android:nestedScrollingEnabled="false" />
 
@@ -703,10 +715,13 @@
                         android:id="@+id/csr_img"
                         android:layout_width="@dimen/margin50"
                         android:layout_height="@dimen/margin50"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
                         android:src="@mipmap/add_spr_img_ioc" />
 
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -731,7 +746,6 @@
                         android:textSize="18sp" />
 
                 </LinearLayout>
-
 
 
             </LinearLayout>

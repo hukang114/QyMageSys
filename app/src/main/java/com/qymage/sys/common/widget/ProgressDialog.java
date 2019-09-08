@@ -73,7 +73,7 @@ public class ProgressDialog {
         pView.setLayoutParams(pViewParams);
 
         TextView pText = new TextView(mContext);
-        pText.setText("加载中...");
+        pText.setText("拼命加载中...");
         pText.setTextColor(Color.rgb(211, 211, 211));
         pText.setTextSize(14);
         mLinearLayout.addView(pText);
@@ -109,7 +109,7 @@ public class ProgressDialog {
     public void dismiss() {
         if (mDialog == null || !mDialog.isShowing()) {
             return;
-        }else{
+        } else {
             if (mDialog.isShowing()) {
                 mDialog.dismiss();
             }
@@ -117,8 +117,8 @@ public class ProgressDialog {
 
     }
 
-    public void setDialogNull(){
-        mDialog=null;
+    public void setDialogNull() {
+        mDialog = null;
     }
 
     public static ProgressDialog getInstance(Context context) {
