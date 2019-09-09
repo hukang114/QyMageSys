@@ -44,13 +44,16 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.common.tools.FileSizeUtil;
+import com.qymage.sys.common.tools.Tools;
 import com.qymage.sys.databinding.ActivityReimbursementBinding;
 import com.qymage.sys.ui.adapter.ReimbntAdapter;
+import com.qymage.sys.ui.entity.DayLogListEnt;
 import com.qymage.sys.ui.entity.ReimburEntCoust;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.io.File;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,9 +68,8 @@ import cn.leo.click.SingleClick;
 public class ReimbursementActivity extends BBActivity<ActivityReimbursementBinding> implements BaseQuickAdapter.OnItemChildClickListener, View.OnClickListener, TakePhoto.TakeResultListener, InvokeListener {
 
 
-    List<ReimburEntCoust> coustList = new ArrayList<>();
+    List<DayLogListEnt.SubMoneyListEntity> coustList;
     ReimbntAdapter reimbntAdapter;
-    List<String> imgList = new ArrayList<>();//报销图片集合
     CommonAdapter<String> imgadapter;//报销图片集合
     private ArrayList<TImage> logoList;
     private List<String> planting_imgList = new ArrayList<>();// 最后需要上传的图片集合
@@ -75,6 +77,9 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
     Gson gson = new Gson();
     List<String> stringList;
     private int ClickPosition = 0;
+    private Intent mIntent;
+    private int select_Position;// 传递过来的合同明细位置
+    Bundle bundle;
 
 
     @Override
@@ -86,6 +91,13 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
     protected void initView() {
         super.initView();
         mBinding.metitle.setlImgClick(v -> finish());
+        mIntent = getIntent();
+        coustList = (List<DayLogListEnt.SubMoneyListEntity>) mIntent.getSerializableExtra("data");
+        select_Position = mIntent.getIntExtra("select_Position", 0);
+        if (coustList == null) {
+            return;
+        }
+        LogUtils.e("list===" + coustList.size());
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -95,17 +107,20 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
         reimbntAdapter.setOnItemChildClickListener(this);
         mBinding.addNewBtn.setOnClickListener(this);
         mBinding.saveBtn.setOnClickListener(this);
+
     }
 
     @Override
     protected void initData() {
         super.initData();
         // 默认添加一条数据
-        stringList = new ArrayList<>();
-        stringList.add("add");
-        coustList.add(new ReimburEntCoust(1, "", "", "", stringList));
-        reimbntAdapter.notifyDataSetChanged();
-
+        if (coustList.size() == 1 && coustList.get(0).stringList.size() == 0) {
+//            stringList = new ArrayList<>();
+//            stringList.add("add");
+//            coustList.add(new DayLogListEnt.SubMoneyListEntity("", "", "", "", stringList));
+            coustList.get(0).stringList.add("add");
+            reimbntAdapter.notifyDataSetChanged();
+        }
         dataResult.add("销售部");
         dataResult.add("行政部");
         dataResult.add("技术部");
@@ -139,11 +154,21 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
             case R.id.add_new_btn:// 新增一条
                 stringList = new ArrayList<>();
                 stringList.add("add");
-                coustList.add(new ReimburEntCoust(coustList.size() + 1, "", "", "", stringList));
+                coustList.add(new DayLogListEnt.SubMoneyListEntity("", "", "", "", stringList));
                 reimbntAdapter.notifyDataSetChanged();
                 break;
             case R.id.save_btn:
-                LogUtils.e("list=" + gson.toJson(coustList));
+                if (coustList.get(0).amount.equals("")) {
+                    showToast("请填写报销明细内容");
+                } else {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) coustList);
+                    bundle.putInt("select_Position", select_Position);
+                    Intent intent = new Intent();
+                    intent.putExtras(bundle);
+                    setResult(800, intent);
+                    finish();
+                }
                 break;
         }
 
@@ -151,14 +176,10 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
 
 
     private void setMemberLevel(int position) {
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
+            coustList.get(position).type = dataResult.get(options1);
+            reimbntAdapter.notifyDataSetChanged();
 
-        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                coustList.get(position).cate_title = dataResult.get(options1);
-                reimbntAdapter.notifyDataSetChanged();
-
-            }
         })
                 .setTitleText("请选择报销类型")
                 .setDividerColor(Color.BLACK)
@@ -187,18 +208,18 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
     /**
      * 报销适配器
      */
-    class ReimbntAdapter extends BaseQuickAdapter<ReimburEntCoust, BaseViewHolder> {
+    class ReimbntAdapter extends BaseQuickAdapter<DayLogListEnt.SubMoneyListEntity, BaseViewHolder> {
 
-        List<ReimburEntCoust> data;
+        List<DayLogListEnt.SubMoneyListEntity> data;
 
 
-        public ReimbntAdapter(int layoutResId, @Nullable List<ReimburEntCoust> data) {
+        public ReimbntAdapter(int layoutResId, @Nullable List<DayLogListEnt.SubMoneyListEntity> data) {
             super(layoutResId, data);
             this.data = data;
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, ReimburEntCoust item) {
+        protected void convert(BaseViewHolder helper, DayLogListEnt.SubMoneyListEntity item) {
 
             TextView delete_btn = helper.getView(R.id.delete_btn);
 
@@ -207,9 +228,9 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
             } else {
                 delete_btn.setVisibility(View.GONE);
             }
-            helper.setText(R.id.baoxiao_money_edt, item.money)
-                    .setText(R.id.baoxiao_cate_txt, item.cate_title)
-                    .setText(R.id.baoxiao_content, item.content)
+            helper.setText(R.id.baoxiao_money_edt, item.amount)
+                    .setText(R.id.baoxiao_cate_txt, item.type)
+                    .setText(R.id.baoxiao_content, item.detailed)
                     .setText(R.id.baoxiao_id_tv, "报销明细(" + (helper.getAdapterPosition() + 1) + ")");
             helper.addOnClickListener(R.id.delete_btn).addOnClickListener(R.id.baoxiao_cate_txt);
 
@@ -228,9 +249,9 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
                 @Override
                 public void afterTextChanged(Editable s) {
                     if (s.toString() != null && !s.equals("")) {
-                        coustList.get(helper.getAdapterPosition()).money = s.toString();
+                        coustList.get(helper.getAdapterPosition()).amount = s.toString();
                     } else {
-                        coustList.get(helper.getAdapterPosition()).money = "";
+                        coustList.get(helper.getAdapterPosition()).amount = "";
                     }
                 }
             });
@@ -247,9 +268,9 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
                 @Override
                 public void afterTextChanged(Editable s) {
                     if (s.toString() != null && !s.equals("")) {
-                        coustList.get(helper.getAdapterPosition()).content = s.toString();
+                        coustList.get(helper.getAdapterPosition()).detailed = s.toString();
                     } else {
-                        coustList.get(helper.getAdapterPosition()).content = "";
+                        coustList.get(helper.getAdapterPosition()).detailed = "";
                     }
                 }
             });
@@ -380,10 +401,20 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
                         break;
                     }
                 }
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < coustList.get(ClickPosition).stringList.size(); i++) {
+                    sb.append(Tools.imageToBase64(coustList.get(ClickPosition).stringList.get(i)));
+//                    sb.append("data:image/" + coustList.get(ClickPosition).stringList.get(i).substring(coustList.get(ClickPosition).stringList.get(i).lastIndexOf(".") + 1) + ";base64," + Tools.imageToBase64(coustList.get(ClickPosition).stringList.get(i)));
+                    sb.append("|");
+                }
+                if (sb.toString().length() > 0) {
+                    sb.deleteCharAt(sb.toString().length() - 1);
+                }
+                // 将转换好的base64图片格式赋值给对应的报销明细photo字段
+                coustList.get(ClickPosition).photo = sb.toString();
                 planting_imgList.addAll(coustList.get(ClickPosition).stringList);
                 coustList.get(ClickPosition).stringList.add("add");
                 reimbntAdapter.notifyDataSetChanged();
-
             }
         }
 

@@ -45,7 +45,8 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
     private Bundle bundle;
     QuotaQuery query;
     List<String> orgList = new ArrayList<>();
-
+    private Intent mIntent;
+    private String TaskId;
 
     @Override
     protected int getLayoutId() {
@@ -56,6 +57,11 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
     protected void initView() {
         super.initView();
         mBinding.metitle.setlImgClick(v -> finish());
+        mIntent = getIntent();
+        TaskId = mIntent.getStringExtra("TaskId");
+        if (TaskId == null) {
+            return;
+        }
         mBinding.bumTxt.setOnClickListener(this);
         mBinding.shiyongDateTv.setOnClickListener(this);
         mBinding.sprImg.setOnClickListener(this);
@@ -234,7 +240,7 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
         map.put("cause", mBinding.causeContent.getText().toString());
         map.put("Amount", mBinding.shenqingMoneyEdt.getText().toString());
         map.put("payDate", mBinding.shiyongDateTv.getText().toString());
-        map.put("orgId", query.orgId);
+        map.put("TaskId", TaskId);
         map.put("appname", mBinding.shenqingrenEdt.getText().toString());
         ////审核人
         map.put("auditor", auditorList);
@@ -245,13 +251,15 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
     }
 
     private boolean isCheck() {
-        if (TextUtils.isEmpty(mBinding.shenqingrenEdt.getText().toString())) {
+     /*   if (TextUtils.isEmpty(mBinding.shenqingrenEdt.getText().toString())) {
             showToast("请填写申请人");
             return false;
         } else if (TextUtils.isEmpty(mBinding.bumTxt.getText().toString())) {
             showToast("请选择部门");
             return false;
-        } else if (TextUtils.isEmpty(mBinding.causeContent.getText().toString())) {
+        } else */
+
+        if (TextUtils.isEmpty(mBinding.causeContent.getText().toString())) {
             showToast("请填写申请事由");
             return false;
         } else if (TextUtils.isEmpty(mBinding.shenqingMoneyEdt.getText().toString())) {
@@ -260,13 +268,15 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
         } else if (TextUtils.isEmpty(mBinding.shiyongDateTv.getText().toString())) {
             showToast("请填写日期");
             return false;
-        } else if (auditorList.size() == 0) {
+        }
+      /*  else if (auditorList.size() == 0) {
             showToast("请选择审批人");
             return false;
         } else if (copierList.size() == 0) {
             showToast("请选择抄送人");
             return false;
-        } else {
+        } */
+        else {
             return true;
         }
 

@@ -273,6 +273,36 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(HttpConsts.LEAVE_SUBMIT, params);
     }
 
+    /**
+     * 日报申请接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest log_logAdd(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOG_LOGADD, params);
+    }
+
+    /**
+     * 2.6根据合同编号/合同名称查询
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest getContract(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.GETCONTRACT, params);
+    }
+
+    /**
+     * 9.2日志列表查询
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest listLogQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOG_LISTLOGQUERY, params);
+    }
+
 
 }
 

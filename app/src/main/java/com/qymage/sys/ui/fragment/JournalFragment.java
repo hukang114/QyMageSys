@@ -12,9 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.RadioGroup;
 
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.baseFragment.FragmentLazy;
+import com.qymage.sys.common.callback.JsonCallback;
+import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.config.Constants;
+import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.databinding.FragmentJournalBinding;
 import com.qymage.sys.ui.adapter.JournalAdapter;
 import com.qymage.sys.ui.entity.JournalEntity;
@@ -24,7 +29,11 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * A 日志
@@ -35,18 +44,13 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
     private int date_typp = 1;
     private long startime = 0;
     private long endtime = 0;
-
+    private int workType = 1;
+    private int logType = 1;// logType String  1-待处理 2-已处理 3-抄送我  4-已提交
 
     List<JournalEntity> journalEntities = new ArrayList<>();
     JournalAdapter adapter;
+    private int page = 1;
 
-
-    public static JournalFragment newInstance() {
-        JournalFragment fragment = new JournalFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,13 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         if (getArguments() != null) {
 
         }
+    }
+
+    public static JournalFragment newInstance() {
+        JournalFragment fragment = new JournalFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -76,13 +87,48 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         mBinding.refreshlayout.setOnLoadMoreListener(refreshLayout -> {
             mBinding.refreshlayout.finishLoadMore();
         });
+        mBinding.workGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.daily_btn:// 日报
+                    workType = 1;
+                    mBinding.radioGroup.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.weekly_btn:// 周报
+                    workType = 2;
+                    mBinding.radioGroup.setVisibility(View.GONE);
+                    break;
+                case R.id.monthly_btn:// 月报
+                    workType = 3;
+                    mBinding.radioGroup.setVisibility(View.VISIBLE);
+                    break;
+            }
+            page = 1;
+            getAllTypeData(Constants.RequestMode.FRIST);
+        });
+        mBinding.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.pending_btn: // 待处理
+                    logType = 1;
+                    break;
+                case R.id.processed_btn:// 已处理
+                    logType = 2;
+                    break;
+                case R.id.copy_to_me_btn:// 抄送给我
+                    logType = 3;
+                    break;
+                case R.id.yitijioa_btn:// 已提交
+                    logType = 4;
+                    break;
+            }
+            page = 1;
+            getAllTypeData(Constants.RequestMode.FRIST);
+        });
 
 
     }
 
     @Override
     protected void initData() {
-
         journalEntities.add(new JournalEntity(
                 "http://img0w.pconline.com.cn/pconline/1312/20/spcgroup/width_640,qua_30/4037677_09-002443_965.jpg",
                 "小月月",
@@ -101,6 +147,41 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
 
 
         adapter.notifyDataSetChanged();
+        getAllTypeData(Constants.RequestMode.FRIST);
+    }
+
+
+    private void getAllTypeData(Constants.RequestMode mode) {
+        if (workType == 1) {
+            getlistLogQuery(mode);
+        } else if (workType == 2) {
+
+        } else if (workType == 3) {
+
+        }
+    }
+
+
+    private void getlistLogQuery(Constants.RequestMode mode) {
+        showLoading();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("logType", logType + "");
+        hashMap.put("page", page + "");
+        HttpUtil.listLogQuery(hashMap).execute(new JsonCallback<Result<List<JournalEntity>>>() {
+            @Override
+            public void onSuccess(Result<List<JournalEntity>> result, Call call, Response response) {
+                closeLoading();
+
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+
     }
 
 

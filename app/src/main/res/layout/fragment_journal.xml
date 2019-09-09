@@ -8,27 +8,21 @@
         android:background="@color/app_background"
         android:orientation="vertical">
 
-
         <TextView
             android:id="@+id/corporate_name_tv"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
             android:gravity="center"
-            android:paddingLeft="15dp"
             android:text="@string/journal_txt"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/div_color" />
-
-
         <RadioGroup
+            android:id="@+id/work_group"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -71,16 +65,119 @@
 
         </RadioGroup>
 
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="@dimen/margin15"
+            android:layout_marginTop="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin15"
+            android:layout_marginBottom="@dimen/margin0"
+            android:background="@drawable/item_search_edt_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="@dimen/margin15"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@color/transparent"
+                android:drawableLeft="@mipmap/serach_ioc"
+                android:gravity="center"
+                android:hint="@string/srarch_txt"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size_15" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/serach_ioc"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/srarch_txt"
+                android:textSize="@dimen/text_size_15"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/pending_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="待处理"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/processed_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:gravity="center"
+                android:text="已处理"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/copy_to_me_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:gravity="center"
+                android:text="抄送给我"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/yitijioa_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:gravity="center"
+                android:text="已提交"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="14sp" />
+        </RadioGroup>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/date_splash_bg_style"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
 
             <TextView
@@ -130,7 +227,8 @@
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshlayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin5">
 
             <com.qymage.sys.common.widget.FrameEmptyLayout
                 android:id="@+id/emptylayout"

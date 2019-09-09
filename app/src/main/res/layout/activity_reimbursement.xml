@@ -14,8 +14,7 @@
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cTxt="@string/reimbursement_txt"
-            app:rTxt="@string/more_txt" />
+            app:cTxt="@string/reimbursement_txt" />
 
 
         <android.support.v4.widget.NestedScrollView

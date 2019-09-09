@@ -47,6 +47,7 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
     MyLoanListAdapter adapter;
     private String stats = "1";// 1-待处理 2-已处理 3-抄送我  4-已提交
     private String keyword = "";
+    private Bundle bundle;
 
     @Override
     protected int getLayoutId() {
@@ -91,7 +92,9 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
 
             switch (view.getId()) {
                 case R.id.bnt1: // 申请还款
-                    openActivity(ApplicationRepaymentActivity.class);
+                    bundle = new Bundle();
+                    bundle.putString("TaskId", listdata.get(position).TaskId);
+                    openActivity(ApplicationRepaymentActivity.class, bundle);
                     break;
                 case R.id.bnt2:// 拒绝
                     msgDialogBuilder("拒绝审批？", (dialog, which) -> {

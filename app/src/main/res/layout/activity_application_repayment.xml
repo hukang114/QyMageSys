@@ -42,7 +42,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="@dimen/margin5"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_1"
@@ -85,7 +86,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_3"
@@ -221,7 +223,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/margin25"
                         android:text="@string/daxie_txt"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        android:visibility="invisible" />
 
                     <EditText
                         android:id="@+id/daxie_money_edt"
@@ -232,7 +235,8 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
                         android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        android:visibility="invisible" />
 
                 </RelativeLayout>
 
@@ -285,7 +289,8 @@
                     android:layout_marginTop="5dp"
                     android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -338,7 +343,8 @@
                     android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/spr_recyclerview"
@@ -368,7 +374,8 @@
                     android:layout_marginTop="5dp"
                     android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -421,7 +428,8 @@
                     android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/csr_recyclerview"
@@ -456,10 +464,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginBottom="@dimen/margin50"
                         android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginTop="50dp"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginBottom="@dimen/margin50"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

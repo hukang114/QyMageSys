@@ -134,331 +134,23 @@
                         android:textSize="@dimen/text_size_16" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="@dimen/margin5"
-                    android:background="@color/white">
 
-                    <TextView
-                        android:id="@+id/tv_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible" />
-
-
-                    <TextView
-                        android:id="@+id/tv_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_toRightOf="@+id/tv_1"
-                        android:text="@string/d_contract_no_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/xuanze_shijian_start"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin10"
-                        android:layout_toRightOf="@+id/tv_2"
-                        android:background="@color/white"
-                        android:drawableRight="@mipmap/right_ioc_small"
-                        android:gravity="center_vertical|end"
-                        android:hint="2837656"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin55"
-                    android:layout_marginTop="@dimen/margin1"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:id="@+id/tv_8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible" />
-
-
-                    <TextView
-                        android:id="@+id/tv_9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_toRightOf="@+id/tv_8"
-                        android:text="@string/d_contract_name_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/hetong_mingchen"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin10"
-                        android:layout_toRightOf="@+id/tv_9"
-                        android:background="@color/white"
-                        android:drawableRight="@mipmap/right_ioc_small"
-                        android:gravity="center_vertical|end"
-                        android:hint="合同名称"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="@dimen/margin1"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:id="@+id/tv_1pro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible" />
-
-
-                    <TextView
-                        android:id="@+id/tv_2pro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_toRightOf="@+id/tv_1pro"
-                        android:text="@string/d_project_no_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/xiangmu_bianhao"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin10"
-                        android:layout_toRightOf="@+id/tv_2pro"
-                        android:background="@color/white"
-                        android:drawableRight="@mipmap/right_ioc_small"
-                        android:gravity="center_vertical|end"
-                        android:hint="2837656"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin55"
-                    android:layout_marginTop="@dimen/margin1"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:id="@+id/tv_8pro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible" />
-
-
-                    <TextView
-                        android:id="@+id/tv_9pro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_toRightOf="@+id/tv_8pro"
-                        android:text="@string/d_project_name_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/xiangmu_mingchen"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin10"
-                        android:layout_toRightOf="@+id/tv_9pro"
-                        android:background="@color/white"
-                        android:drawableRight="@mipmap/right_ioc_small"
-                        android:gravity="center_vertical|end"
-                        android:hint="项目名称"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin100"
-                    android:layout_marginTop="@dimen/margin1"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin55"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:paddingTop="@dimen/margin5"
-                            android:text="*"
-                            android:textColor="@color/xinghao_color"
-                            android:textSize="@dimen/text_size_30"
-                            android:visibility="invisible" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/margin2"
-                            android:layout_toRightOf="@+id/tv_8"
-                            android:text="@string/d_worktime_proportion_txt"
-                            android:textColor="@color/rizhi_color"
-                            android:textSize="@dimen/text_size_16"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/gongshi_bili"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/margin20"
-                            android:layout_toRightOf="@+id/tv_9"
-                            android:background="@color/white"
-                            android:gravity="center_vertical|end"
-                            android:hint="@string/d_input_worktime_proportion_txt"
-                            android:textColor="@color/rizhi_color"
-                            android:textSize="@dimen/text_size_14" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <RelativeLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/htmx_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin1"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:id="@+id/tv_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_marginTop="@dimen/margin10"
-                        android:layout_toRightOf="@+id/tv_5"
-                        android:text="@string/d_work_content_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/gongzuo_neirong"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/tv_5"
-                        android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
-                        android:background="@color/white"
-                        android:gravity="center_vertical|top"
-                        android:hint="@string/d_input_work_content_txt"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin55"
-                    android:layout_marginTop="@dimen/margin1"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:id="@+id/tv_bx"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="@dimen/margin5"
-                        android:text="*"
-                        android:textColor="@color/xinghao_color"
-                        android:textSize="@dimen/text_size_30"
-                        android:visibility="invisible" />
-
-
-                    <TextView
-                        android:id="@+id/tv_9bx"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin2"
-                        android:layout_toRightOf="@+id/tv_bx"
-                        android:text="@string/d_reimbursement_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/baoxiao_feiyong"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/margin10"
-                        android:layout_toRightOf="@+id/tv_9bx"
-                        android:background="@color/white"
-                        android:drawableRight="@mipmap/right_ioc_small"
-                        android:gravity="center_vertical|end"
-                        android:hint="897789"
-                        android:textColor="@color/item_color"
-                        android:textSize="@dimen/text_size_14" />
-                </RelativeLayout>
+                    android:focusableInTouchMode="false"
+                    android:nestedScrollingEnabled="false" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingBottom="@dimen/margin8"
-                    android:paddingTop="@dimen/margin8">
+                    android:paddingTop="@dimen/margin8"
+                    android:paddingBottom="@dimen/margin8">
 
                     <TextView
+                        android:id="@+id/add_htmx_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -466,6 +158,20 @@
                         android:gravity="center"
                         android:text="@string/d_add_project_detail_txt"
                         android:textColor="@color/lanse_ziti" />
+
+                    <TextView
+                        android:id="@+id/delete_btn"
+                        android:layout_width="@dimen/margin50"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:gravity="center"
+                        android:text="@string/delete_txt"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="invisible" />
+
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -648,23 +354,28 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/qingjia_spr_recyclerview"
+                        android:id="@+id/spr_recyclerview"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin90"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin10"
+                        android:layout_weight="1"
                         android:background="@color/white"
                         android:nestedScrollingEnabled="false" />
 
                     <ImageView
-                        android:id="@+id/qingjia_spr_img"
+                        android:id="@+id/spr_img"
                         android:layout_width="@dimen/margin50"
                         android:layout_height="@dimen/margin50"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
                         android:src="@mipmap/add_spr_img_ioc" />
 
                 </LinearLayout>
@@ -727,23 +438,27 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin80"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/qingjia_csr_recyclerview"
+                        android:id="@+id/csr_recyclerview"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin90"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:background="@color/white"
                         android:nestedScrollingEnabled="false" />
 
                     <ImageView
-                        android:id="@+id/qingjia_csr_img"
+                        android:id="@+id/csr_img"
                         android:layout_width="@dimen/margin50"
                         android:layout_height="@dimen/margin50"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
                         android:src="@mipmap/add_spr_img_ioc" />
 
                 </LinearLayout>
@@ -758,13 +473,13 @@
 
 
                     <Button
-                        android:id="@+id/qingjia_save_btn"
+                        android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginBottom="@dimen/margin50"
                         android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginTop="50dp"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginBottom="@dimen/margin50"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

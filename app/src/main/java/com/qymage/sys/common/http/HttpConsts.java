@@ -47,6 +47,14 @@ public class HttpConsts {
     public static final String LOAN_LOANQUERY = "loan/loanQuery";
     //请假申请提交接口
     public static final String LEAVE_SUBMIT = "leave/submit";
+    //日报申请接口
+    public static final String LOG_LOGADD = "log/logAdd";
+    //2.6根据合同编号/合同名称查询
+    public static final String GETCONTRACT = "getContract";
+    //9.2日志列表查询
+    public static final String LOG_LISTLOGQUERY= "log/listLogQuery";
+
+
 
 
 }

@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QyMageSys.iml" filepath="$PROJECT_DIR$/QyMageSys.iml" />
-      <module fileurl="file://D:\MyApplication\AS_Android_project\QyMageSys\QyMageSys.iml" filepath="D:\MyApplication\AS_Android_project\QyMageSys\QyMageSys.iml" />
+      <module fileurl="file://D:/MyApplication/AS_Android_project/QyMageSys/QyMageSys.iml" filepath="D:/MyApplication/AS_Android_project/QyMageSys/QyMageSys.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\MyApplication\AS_Android_project\QyMageSys\app\app.iml" filepath="D:\MyApplication\AS_Android_project\QyMageSys\app\app.iml" />
+      <module fileurl="file://D:/MyApplication/AS_Android_project/QyMageSys/app/app.iml" filepath="D:/MyApplication/AS_Android_project/QyMageSys/app/app.iml" />
     </modules>
   </component>
 </project>
