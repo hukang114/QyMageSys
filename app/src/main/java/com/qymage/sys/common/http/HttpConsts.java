@@ -52,9 +52,15 @@ public class HttpConsts {
     //2.6根据合同编号/合同名称查询
     public static final String GETCONTRACT = "getContract";
     //9.2日志列表查询
-    public static final String LOG_LISTLOGQUERY= "log/listLogQuery";
-
-
+    public static final String LOG_LISTLOGQUERY = "log/listLogQuery";
+    //9.4周报查询
+    public static final String LOG_WEEKLYQUERY = "log/weeklyQuery";
+    //9.8获取月报工作计划接口
+    public static final String LOG_YESQUERY = "log/yesQuery";
+    //9.7月报申请提交接口
+    public static final String LOG_MONADD = "log/monAdd";
+    //按条件查询人员你列表
+    public static final String GETUSERINFO_LIST = "getUserInfo";
 
 
 }

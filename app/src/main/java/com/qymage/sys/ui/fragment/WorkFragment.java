@@ -86,7 +86,7 @@ public class WorkFragment extends FragmentLazy<FragmentWorkBinding> {
         //0-------------------------
         List<WorkListEnt.DataBaen> baenList3 = new ArrayList<>();
         baenList3.add(new WorkListEnt.DataBaen("qingjia", "请假申请", R.mipmap.qingjia));
-        baenList3.add(new WorkListEnt.DataBaen("ribao", "日报", R.mipmap.yue));
+        baenList3.add(new WorkListEnt.DataBaen("ribao", "日报", R.mipmap.ribao));
         baenList3.add(new WorkListEnt.DataBaen("yue", "月报", R.mipmap.yue));
         workListEnts.add(new WorkListEnt("行政管理", baenList3));
 

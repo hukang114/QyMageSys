@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cTxt="@string/htsq_txt"
-            app:rTxt="@string/more_txt" />
+            app:rTxt="@string/sqjl_txt" />
 
 
         <ScrollView
@@ -60,7 +60,7 @@
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/xmbh_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -68,7 +68,10 @@
                         android:layout_toRightOf="@+id/tv_2"
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
-                        android:hint="选择项目编号"
+                        android:hint="选输入目编号"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
@@ -113,6 +116,9 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
                         android:hint="请输入项目名称"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
@@ -823,10 +829,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginBottom="@dimen/margin50"
                         android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginTop="50dp"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginBottom="@dimen/margin50"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

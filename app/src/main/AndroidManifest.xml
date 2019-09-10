@@ -49,6 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.act.WeeklySummWeeklyPlanActivity"></activity>
         <activity android:name=".ui.act.ApplicationCollectionActivity" />
         <activity android:name=".ui.act.SelectionDepartmentActivity" />
         <activity
@@ -172,7 +173,7 @@
         <activity android:name=".ui.act.AskForLeaveRecordlActivity" />
         <activity android:name=".ui.act.DailyReportActivity" />
         <activity android:name=".ui.act.MonthReportActivity" />
-        <activity android:name=".ui.act.ProjectApprovaLoglDetActivity"></activity>
+        <activity android:name=".ui.act.ProjectApprovaLoglDetActivity" />
     </application>
 
 </manifest>

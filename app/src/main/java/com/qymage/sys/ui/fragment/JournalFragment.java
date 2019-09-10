@@ -23,6 +23,7 @@ import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.databinding.FragmentJournalBinding;
 import com.qymage.sys.ui.adapter.JournalAdapter;
 import com.qymage.sys.ui.entity.JournalEntity;
+import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -44,7 +45,7 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
     private int date_typp = 1;
     private long startime = 0;
     private long endtime = 0;
-    private int workType = 1;
+    public static int workType = 1;
     private int logType = 1;// logType String  1-待处理 2-已处理 3-抄送我  4-已提交
 
     List<JournalEntity> journalEntities = new ArrayList<>();
@@ -72,6 +73,7 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         return R.layout.fragment_journal;
     }
 
+
     @Override
     protected void baseInit() {
         super.baseInit();
@@ -82,10 +84,12 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         adapter = new JournalAdapter(R.layout.item_list_journal, journalEntities);
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.refreshlayout.setOnRefreshListener(refreshLayout -> {
-            mBinding.refreshlayout.finishRefresh();
+            page = 1;
+            getAllTypeData(Constants.RequestMode.FRIST);
         });
         mBinding.refreshlayout.setOnLoadMoreListener(refreshLayout -> {
-            mBinding.refreshlayout.finishLoadMore();
+            page++;
+            getAllTypeData(Constants.RequestMode.LOAD_MORE);
         });
         mBinding.workGroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
@@ -129,24 +133,6 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
 
     @Override
     protected void initData() {
-        journalEntities.add(new JournalEntity(
-                "http://img0w.pconline.com.cn/pconline/1312/20/spcgroup/width_640,qua_30/4037677_09-002443_965.jpg",
-                "小月月",
-                "2019-08-24",
-                "计划完成了企业管理系统首页的开发",
-                "完成了首页开发的二分之一",
-                "继续完成其他工作"));
-
-        journalEntities.add(new JournalEntity(
-                "http://5b0988e595225.cdn.sohucs.com/images/20190715/eafa82ee23204e7eaf336403a2bfc8b1.jpeg",
-                "小花花",
-                "2019-08-24",
-                "计划完成了企业管理系统首页的开发",
-                "完成了首页开发的二分之一",
-                "继续完成其他工作"));
-
-
-        adapter.notifyDataSetChanged();
         getAllTypeData(Constants.RequestMode.FRIST);
     }
 
@@ -155,13 +141,74 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         if (workType == 1) {
             getlistLogQuery(mode);
         } else if (workType == 2) {
-
+            getweeklyQuery(mode);
         } else if (workType == 3) {
 
         }
     }
 
+    /**
+     * 获取周报
+     *
+     * @param mode
+     */
+    private void getweeklyQuery(Constants.RequestMode mode) {
+        showLoading();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("keyword", "");
+        hashMap.put("page", page);
+        HttpUtil.weeklyQuery(hashMap).execute(new JsonCallback<Result<List<JournalEntity>>>() {
+            @Override
+            public void onSuccess(Result<List<JournalEntity>> result, Call call, Response response) {
+                closeLoading();
+                closeLoading();
+                mBinding.emptylayout.showContent();
+                mBinding.refreshlayout.finishRefresh(); // 刷新完成
+                mBinding.refreshlayout.finishLoadMore();
+                if (mode == Constants.RequestMode.FRIST) {
+                    journalEntities.clear();
+                    if (result.data != null && result.data.size() > 0) {
+                        journalEntities.addAll(result.data);
+                    } else {
+                        mBinding.emptylayout.showEmpty();
+                    }
+                } else if (mode == Constants.RequestMode.LOAD_MORE) {
+                    if (result.data != null && result.data.size() > 0) {
+                        List<JournalEntity> list = result.data;
+                        journalEntities.addAll(list);
+                    } else {
+                        // 全部加载完成,没有数据了调用此方法
+                        mBinding.refreshlayout.finishLoadMoreWithNoMoreData();
+                        page--;
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                
+            }
 
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                mBinding.refreshlayout.finishRefresh(); // 刷新完成
+                mBinding.refreshlayout.finishLoadMore();
+                showToast(e.getMessage());
+                mBinding.emptylayout.showError();
+                mBinding.emptylayout.setRetryListener(() -> {
+                    page = 1;
+                    getweeklyQuery(Constants.RequestMode.FRIST);
+                });
+            }
+        });
+
+    }
+
+
+    /**
+     * 获取日报
+     *
+     * @param mode
+     */
     private void getlistLogQuery(Constants.RequestMode mode) {
         showLoading();
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -171,14 +218,41 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
             @Override
             public void onSuccess(Result<List<JournalEntity>> result, Call call, Response response) {
                 closeLoading();
-
+                mBinding.emptylayout.showContent();
+                mBinding.refreshlayout.finishRefresh(); // 刷新完成
+                mBinding.refreshlayout.finishLoadMore();
+                if (mode == Constants.RequestMode.FRIST) {
+                    journalEntities.clear();
+                    if (result.data != null && result.data.size() > 0) {
+                        journalEntities.addAll(result.data);
+                    } else {
+                        mBinding.emptylayout.showEmpty();
+                    }
+                } else if (mode == Constants.RequestMode.LOAD_MORE) {
+                    if (result.data != null && result.data.size() > 0) {
+                        List<JournalEntity> list = result.data;
+                        journalEntities.addAll(list);
+                    } else {
+                        // 全部加载完成,没有数据了调用此方法
+                        mBinding.refreshlayout.finishLoadMoreWithNoMoreData();
+                        page--;
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onError(Call call, Response response, Exception e) {
                 super.onError(call, response, e);
                 closeLoading();
+                mBinding.refreshlayout.finishRefresh(); // 刷新完成
+                mBinding.refreshlayout.finishLoadMore();
                 showToast(e.getMessage());
+                mBinding.emptylayout.showError();
+                mBinding.emptylayout.setRetryListener(() -> {
+                    page = 1;
+                    getlistLogQuery(Constants.RequestMode.FRIST);
+                });
             }
         });
 

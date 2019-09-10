@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin10"
     android:layout_marginLeft="@dimen/margin15"
     android:layout_marginRight="@dimen/margin15"
+    android:layout_marginBottom="@dimen/margin10"
     android:background="@drawable/item_rizhi_bg_style"
     android:orientation="vertical"
     android:padding="@dimen/margin10">
@@ -15,12 +15,26 @@
         android:layout_height="wrap_content">
 
 
+        <TextView
+            android:id="@+id/name_tv_bg"
+            android:layout_width="@dimen/margin45"
+            android:layout_height="@dimen/margin45"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_round_style"
+            android:gravity="center"
+            android:text="名字"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_13"
+            android:visibility="visible" />
+
+
         <ImageView
             android:id="@+id/head_img"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone" />
 
 
         <TextView
@@ -28,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin10"
-            android:layout_toRightOf="@+id/head_img"
+            android:layout_toRightOf="@+id/name_tv_bg"
             android:text="张三的日报"
             android:textColor="@color/rizhi_color"
             android:textSize="@dimen/text_size_16" />
@@ -40,12 +54,13 @@
             android:layout_below="@+id/user_name"
             android:layout_marginLeft="@dimen/margin10"
             android:layout_marginTop="@dimen/margin5"
-            android:layout_toRightOf="@+id/head_img"
+            android:layout_toRightOf="@+id/name_tv_bg"
             android:text="2019-01-01" />
 
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/jrgzjh_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin55"
@@ -65,11 +80,12 @@
         android:textSize="@dimen/text_size_15" />
 
     <TextView
+        android:id="@+id/mrgzjh_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin55"
         android:layout_marginTop="@dimen/margin10"
-        android:text="今日工作内容"
+        android:text="明日工作计划"
         android:textColor="@color/rizhi_color"
         android:textSize="@dimen/text_size_15" />
 
@@ -84,11 +100,12 @@
         android:textSize="@dimen/text_size_15" />
 
     <TextView
+        android:id="@+id/xzgzjh_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin55"
         android:layout_marginTop="@dimen/margin10"
-        android:text="明日工作计划"
+        android:text="下周工作计划"
         android:textColor="@color/rizhi_color"
         android:textSize="@dimen/text_size_15" />
 

@@ -65,20 +65,14 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
         super.initView();
         mBinding.metitle.setlImgClick(v -> finish());
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        mBinding.refreshlayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                page = 1;
-                getListData(Constants.RequestMode.FRIST);
+        mBinding.refreshlayout.setOnRefreshListener(refreshLayout -> {
+            page = 1;
+            getListData(Constants.RequestMode.FRIST);
 
-            }
         });
-        mBinding.refreshlayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                page++;
-                getListData(Constants.RequestMode.LOAD_MORE);
-            }
+        mBinding.refreshlayout.setOnLoadMoreListener(refreshLayout -> {
+            page++;
+            getListData(Constants.RequestMode.LOAD_MORE);
         });
         mBinding.refreshlayout.setEnableLoadMore(false);
         adapter = new ProjectApprovaLogAdapter(R.layout.item_list_projectapprovalog, listdata);

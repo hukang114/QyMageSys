@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qymage.sys.R;
@@ -14,6 +17,8 @@ import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.KeyBordUtil;
+import com.qymage.sys.common.widget.FrameEmptyLayout;
 import com.qymage.sys.databinding.ActivitySelectionDepartmentBinding;
 import com.qymage.sys.ui.adapter.SelectionDeparAdapter;
 import com.qymage.sys.ui.entity.GetTreeEnt;
@@ -77,21 +82,39 @@ public class SelectionDepartmentActivity extends BBActivity<ActivitySelectionDep
                     break;
             }
         });
+        mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                KeyBordUtil.hideSoftKeyboard(mBinding.etSearch);
+                getUserInfo();
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
     protected void initData() {
         super.initData();
+        getUserInfo();
+    }
+
+
+    private void getUserInfo() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name", mBinding.etSearch.getText().toString());
         showLoading();
-        HttpUtil.getTree(HttpConsts.GETTREE, new HashMap<>()).execute(new JsonCallback<Result<List<GetTreeEnt>>>() {
+        HttpUtil.getUserInfo(map).execute(new JsonCallback<Result<List<GetTreeEnt>>>() {
             @Override
             public void onSuccess(Result<List<GetTreeEnt>> result, Call call, Response response) {
                 closeLoading();
-                if (result.data != null) {
+                if (result.data != null && result.data.size() > 0) {
+                    mBinding.emptylayout.showContent();
                     listdata.clear();
                     listdata.addAll(result.data);
                     adapter.notifyDataSetChanged();
                     mBinding.trueBtn.setText("确定(0/" + listdata.size() + ")");
+                } else {
+                    mBinding.emptylayout.showEmpty();
                 }
             }
 
@@ -100,8 +123,13 @@ public class SelectionDepartmentActivity extends BBActivity<ActivitySelectionDep
                 super.onError(call, response, e);
                 closeLoading();
                 showToast(e.getMessage());
+                mBinding.emptylayout.showError();
+                mBinding.emptylayout.setRetryListener(() -> {
+                    getUserInfo();
+                });
             }
         });
+
     }
 
     @SingleClick(2000)

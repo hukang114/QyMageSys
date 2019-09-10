@@ -25,7 +25,7 @@ public class AuditorListAdapter extends BaseQuickAdapter<GetTreeEnt, BaseViewHol
     @Override
     protected void convert(BaseViewHolder helper, GetTreeEnt item) {
         PicasooUtil.setImageResource(item.portrait, R.mipmap.def_logo_headimg, helper.getView(R.id.headimg), 360);
-        helper.setText(R.id.user_name_tv, item.name);
+        helper.setText(R.id.user_name_tv, item.userName);
         helper.addOnClickListener(R.id.caccel_ioc);
 
     }

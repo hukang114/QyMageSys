@@ -23,12 +23,64 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview"
+            <LinearLayout
+                android:id="@+id/search_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/margin15"
                 android:layout_marginTop="@dimen/margin10"
-                android:layout_weight="1" />
+                android:layout_marginRight="@dimen/margin15"
+                android:layout_marginBottom="@dimen/margin0"
+                android:background="@drawable/item_search_edt_bg"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="@dimen/margin15"
+                    android:layout_marginRight="@dimen/margin15"
+                    android:background="@color/transparent"
+                    android:drawableLeft="@mipmap/serach_ioc"
+                    android:gravity="center"
+                    android:hint="@string/srarch_txt"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_size_15" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/serach_ioc"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/srarch_txt"
+                    android:textSize="@dimen/text_size_15"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <com.qymage.sys.common.widget.FrameEmptyLayout
+                android:id="@+id/emptylayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin10" />
+
+            </com.qymage.sys.common.widget.FrameEmptyLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"

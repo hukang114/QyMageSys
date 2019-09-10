@@ -2,12 +2,16 @@ package com.qymage.sys.ui.act;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -23,6 +27,7 @@ import com.qymage.sys.ui.entity.ContractPayEnt;
 import com.qymage.sys.ui.entity.FileListEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.PaymentInfo;
+import com.qymage.sys.ui.entity.ProjecInfoEnt;
 import com.qymage.sys.ui.entity.ReceiverInfo;
 
 import java.io.Serializable;
@@ -55,6 +60,13 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
 
     ReceiverInfo receiverInfo;//收款方信息
     PaymentInfo paymentInfo; // 付款方信息
+    List<ProjecInfoEnt> infoEnts = new ArrayList<>();// 项目编号信息包含名称合同名称
+
+
+    List<String> proList = new ArrayList<>();// 合同编号 项目编号
+
+    List<String> proNumBer = new ArrayList<>();// 项目编号 项目名称
+
     private String projectId;// 项目id
     private String contractType;// 合同类型
     private String contractNo;
@@ -129,30 +141,75 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
                 , ""
                 , "");
 
+        mBinding.xmbhEdt.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (!mBinding.xmbhEdt.getText().toString().equals("")) {
+                    getProjectNo(1, mBinding.xmbhEdt.getText().toString());
+                } else {
+                    showToast("请输入搜索关键字");
+                }
+                return true;
+            }
+            return false;
+        });
+
 
     }
 
     @Override
     protected void initData() {
         super.initData();
-        getProjectNo();
+        getEnum();
 
     }
+
+
+    private void getEnum() {
+//        HttpUtil.getEnum()
+
+    }
+
 
     /**
      * 合同编号
      */
-    private void getProjectNo() {
-        HttpUtil.getProjectNo(HttpConsts.getProjectNo, new HashMap<>()).execute(new JsonCallback<Result<String>>() {
+    private void getProjectNo(int type, String contnet) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        if (type == 1) {
+            hashMap.put("projectNo", contnet);//项目编号
+        }
+        if (type == 2) {
+            hashMap.put("projectName", contnet);//项目名称
+        }
+        showLoading();
+        HttpUtil.getProjectNo(new HashMap<>()).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
             @Override
-            public void onSuccess(Result<String> result, Call call, Response response) {
-                getProjectName(result.data);
+            public void onSuccess(Result<List<ProjecInfoEnt>> result, Call call, Response response) {
+                closeLoading();
+                if (result.data != null && result.data.size() > 0) {
+                    infoEnts.clear();
+                    infoEnts.addAll(result.data);
+                    if (type == 1) {
+                        proList.clear();
+                        for (int i = 0; i < infoEnts.size(); i++) {
+                            proList.add(infoEnts.get(i).projectNo);
+                        }
+                        setProDialog(type, proList);
+                    } else if (type == 2) {
+                        proList.clear();
+                        for (int i = 0; i < infoEnts.size(); i++) {
+                            proList.add(infoEnts.get(i).projectName);
+                        }
+                        setProDialog(type, proList);
+                    }
+                }
             }
 
             @Override
             public void onError(Call call, Response response, Exception e) {
                 super.onError(call, response, e);
                 showToast(e.getMessage());
+                closeLoading();
             }
         });
 
@@ -160,19 +217,35 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
 
 
     /**
-     * @param projectNo 更具编号查询名称
+     * 选择合同编号或者合同名称
+     *
+     * @param type
+     * @param proList
      */
-    private void getProjectName(String projectNo) {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("projectNo", projectNo);
-        HttpUtil.getProject(HttpConsts.getProject, map).execute(new JsonCallback<Result<String>>() {
-            @Override
-            public void onSuccess(Result<String> result, Call call, Response response) {
+    private void setProDialog(int type, List<String> proList) {
+        String title = "请选择项目编号";
+        if (type == 1) {
+            title = "请选择项目编号";
+        } else if (type == 2) {
+            title = "请选择项目名称";
+        }
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
+            mBinding.xmbhEdt.setText(infoEnts.get(options1).projectNo);
+            mBinding.xmmcEdt.setText(infoEnts.get(options1).projectName);
 
-            }
-        });
-
-
+        })
+                .setTitleText(title)
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setContentTextSize(18)
+                .setOutSideCancelable(false)//点击外部dismiss default true
+                .setContentTextSize(16)//滚轮文字大小
+                .setSubCalSize(16)//确定和取消文字大小
+                .setLineSpacingMultiplier(2.4f)
+                .build();
+        // 三级选择器
+        pvOptions.setPicker(proList, null, null);
+        pvOptions.show();
     }
 
 

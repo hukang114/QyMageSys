@@ -1,28 +1,46 @@
 package com.qymage.sys.ui.entity;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by admin on 2019/8/24.
  * <p>
  * 日报，周报 月报
  */
 
-public class JournalEntity {
+public class JournalEntity implements Serializable {
 
+    /**
+     * id : 1099300500000000028
+     * dayWork : 明日工作计划
+     * wordPlay : null
+     * jobWord : 本周工作计划
+     * nextWork : 下周工作计划
+     * auditor : null
+     * copier : null
+     * logList : null
+     * processInstId : 125041
+     * createDate : 2019-09-09
+     * actStatus : null
+     * activityVo : null
+     * sendList : null
+     */
+    public String id;
+    public String dayWork;
+    public String wordPlay;
+    public String jobWord;
+    public String nextWork;
+    public String processInstId;
+    public String createDate;
+    public String actStatus;
     public String headimg;
-    public String username;
-    public String datetime;
-    public String today_plan;
-    public String today_content;
-    public String tomorrow_plan;
-
-    public JournalEntity(String headimg, String username, String datetime, String today_plan, String today_content, String tomorrow_plan) {
-        this.headimg = headimg;
-        this.username = username;
-        this.datetime = datetime;
-        this.today_plan = today_plan;
-        this.today_content = today_content;
-        this.tomorrow_plan = tomorrow_plan;
-    }
+    public String userName;
+    //周报--------------------------
+    public String date;
+    public String lastWeek;
+    public String weekDay;
+    public String nextWeek;
 
 
 }

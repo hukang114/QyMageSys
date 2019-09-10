@@ -3,6 +3,7 @@ package com.qymage.sys.common.http;
 import com.lzy.okgo.request.PostRequest;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.config.Constants;
 
 import java.util.Map;
 
@@ -121,14 +122,13 @@ public class HttpUtil {
     }
 
     /**
-     * 获取项目编号
+     * 2.7按项目名称/项目编号查询
      *
-     * @param urlname
      * @param params
      * @return
      */
-    public static PostRequest getProjectNo(String urlname, Map<String, Object> params) {
-        return HttpClient.getInstance().postData(urlname, params);
+    public static PostRequest getProjectNo(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.getProject, params);
     }
 
 
@@ -303,6 +303,47 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(HttpConsts.LOG_LISTLOGQUERY, params);
     }
 
+    /**
+     * 9.4周报查询
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest weeklyQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOG_WEEKLYQUERY, params);
+    }
+
+    /**
+     * 9.8获取月报工作计划接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest yesQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOG_YESQUERY, params);
+    }
+
+    /**
+     * 9.7月报申请提交接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest monAdd(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOG_MONADD, params);
+    }
+
+    /**
+     * 模糊输入，下拉选择查询所有项目
+     * 1.1.3 请求参数---模糊查询
+     * name:string //名字
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest getUserInfo(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.GETUSERINFO_LIST, params);
+    }
 
 }
 

@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cTxt="@string/d_daily_txt"
-            app:rTxt="@string/more_txt" />
+            app:rTxt="" />
 
 
         <ScrollView

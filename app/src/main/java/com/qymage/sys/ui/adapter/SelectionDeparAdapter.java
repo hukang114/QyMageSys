@@ -36,18 +36,18 @@ public class SelectionDeparAdapter extends BaseQuickAdapter<GetTreeEnt, BaseView
         ImageView head_img = helper.getView(R.id.head_img);
         PicasooUtil.setImageResource(item.portrait, helper.getView(R.id.head_img), 360);
         helper.setText(R.id.user_userpost_tv, item.userPost)
-                .setText(R.id.user_name_tv, item.name);
+                .setText(R.id.user_name_tv, item.userName);
         helper.addOnClickListener(R.id.frg_selc_all);
 
         TextView name_tv_bg = helper.getView(R.id.name_tv_bg);
         if (item.portrait == null) {
             head_img.setVisibility(View.GONE);
             name_tv_bg.setVisibility(View.VISIBLE);
-            if (item.name.length() >= 3) {
-                String strh = item.name.substring(item.name.length() - 2, item.name.length());   //截取
+            if (item.userName.length() >= 3) {
+                String strh = item.userName.substring(item.userName.length() - 2, item.userName.length());   //截取
                 name_tv_bg.setText(strh);
             } else {
-                name_tv_bg.setText(item.name);
+                name_tv_bg.setText(item.userName);
             }
         } else {
             head_img.setVisibility(View.VISIBLE);
