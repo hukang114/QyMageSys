@@ -49,7 +49,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.act.WeeklySummWeeklyPlanActivity"></activity>
+        <activity android:name=".ui.act.BidPerformanceLvYueSZActivity"></activity>
+        <activity android:name=".ui.act.ChoiceContractLogActivity" />
+        <activity android:name=".ui.act.ChoiceContractTypeActivity" />
+        <activity android:name=".ui.act.WeeklySummWeeklyPlanActivity" />
         <activity android:name=".ui.act.ApplicationCollectionActivity" />
         <activity android:name=".ui.act.SelectionDepartmentActivity" />
         <activity
@@ -174,6 +177,7 @@
         <activity android:name=".ui.act.DailyReportActivity" />
         <activity android:name=".ui.act.MonthReportActivity" />
         <activity android:name=".ui.act.ProjectApprovaLoglDetActivity" />
+        <activity android:name=".ui.act.ContractApplicationDetActivity" />
     </application>
 
 </manifest>

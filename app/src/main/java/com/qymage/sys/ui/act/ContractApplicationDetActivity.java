@@ -1,11 +1,10 @@
 package com.qymage.sys.ui.act;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,13 +17,13 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
-import com.qymage.sys.common.config.Constants;
-import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.databinding.ActivityContractApplicationBinding;
+import com.qymage.sys.databinding.ActivityContractApplicationDetBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
+import com.qymage.sys.ui.entity.ContractDetEnt;
 import com.qymage.sys.ui.entity.ContractPayEnt;
 import com.qymage.sys.ui.entity.FileListEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
@@ -44,9 +43,9 @@ import okhttp3.Response;
 
 
 /**
- * 合同申请
+ * 合同详情
  */
-public class ContractApplicationActivity extends BBActivity<ActivityContractApplicationBinding> implements View.OnClickListener {
+public class ContractApplicationDetActivity extends BBActivity<ActivityContractApplicationDetBinding> implements View.OnClickListener {
 
 
     List<ContractDetAddEnt> listdata = new ArrayList<>();// h合同明细
@@ -71,13 +70,14 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
 
     private String projectId;// 项目id
     private String contractType;// 合同类型
+    private String id;// 合同id
 
-
+    private Intent mIntent;
     Bundle bundle;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_contract_application;
+        return R.layout.activity_contract_application_det;
     }
 
 
@@ -85,9 +85,11 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     protected void initView() {
         super.initView();
         mBinding.metitle.setlTxtClick(v -> finish());
-        mBinding.metitle.setrTxtClick(v -> {
-            openActivity(ChoiceContractLogActivity.class);
-        });
+        mIntent = getIntent();
+        id = mIntent.getStringExtra("id");
+        if (id == null) {
+            return;
+        }
         mBinding.htmxEdt.setOnClickListener(this);
         mBinding.fkblsmEdt.setOnClickListener(this);
         mBinding.sprImg.setOnClickListener(this);
@@ -157,17 +159,6 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
             }
             return false;
         });
-        mBinding.xmmcEdt.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (!mBinding.xmbhEdt.getText().toString().equals("")) {
-                    getProjectNo(2, mBinding.xmbhEdt.getText().toString());
-                } else {
-                    showToast("请输入搜索关键字");
-                }
-                return true;
-            }
-            return false;
-        });
 
 
     }
@@ -175,13 +166,28 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     @Override
     protected void initData() {
         super.initData();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", id);
+        showLoading();
+        HttpUtil.expense_findById(hashMap).execute(new JsonCallback<Result<ContractDetEnt>>() {
+            @Override
+            public void onSuccess(Result<ContractDetEnt> result, Call call, Response response) {
+                closeLoading();
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
 
     }
 
 
-
     /**
-     * 搜索项目编号或者项目名称
+     * 合同编号
      */
     private void getProjectNo(int type, String contnet) {
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -392,11 +398,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         }
     }
 
-    /**
-     * 根据合同类型获取合同编号
-     *
-     * @param value
-     */
+
     private void getContractNo(String value) {
         showLoading();
         HashMap<String, Object> hashMap = new HashMap<>();

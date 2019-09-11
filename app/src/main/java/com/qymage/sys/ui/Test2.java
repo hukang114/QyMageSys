@@ -1,5 +1,7 @@
 package com.qymage.sys.ui;
 
+import java.util.List;
+
 /**
  * 类名：
  * 类描述：
@@ -13,9 +15,16 @@ package com.qymage.sys.ui;
  */
 public class Test2 {
 
-    public String weekDay;
 
-    public Test2(String weekDay) {
-        this.weekDay = weekDay;
+    public List<FileListBean> fileList;
+
+    public static class FileListBean {
+        /**
+         * fileName : 12
+         * filePath : 12
+         */
+
+        public String fileName;
+        public String filePath;
     }
 }

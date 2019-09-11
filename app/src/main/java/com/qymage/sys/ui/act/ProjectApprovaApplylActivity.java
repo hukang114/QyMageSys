@@ -1,6 +1,7 @@
 package com.qymage.sys.ui.act;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -25,8 +26,10 @@ import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.entity.CompanyMoneyPaymentVOS;
 import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
+import com.qymage.sys.ui.entity.ContractTypeEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.PaymentInfo;
+import com.qymage.sys.ui.entity.ProjecInfoEnt;
 import com.qymage.sys.ui.entity.ReceiverInfo;
 
 import java.util.ArrayList;
@@ -52,6 +55,8 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
     CopierListAdapter copierListAdapter;// 抄送人适配器
     private Bundle bundle;
     private List<String> protypelist = new ArrayList<>();
+    List<ContractTypeEnt> typeEnts = new ArrayList<>();
+    private String projectType;
 
 
     @Override
@@ -106,8 +111,39 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
     @Override
     protected void initData() {
         super.initData();
-        protypelist.add("市场部");
-        protypelist.add("销售");
+        getProType();
+
+    }
+
+    /**
+     * 获取项目类型
+     */
+    private void getProType() {
+        showLoading();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("type", "ProjectType");
+        HttpUtil.getEnum(hashMap).execute(new JsonCallback<Result<List<ContractTypeEnt>>>() {
+            @Override
+            public void onSuccess(Result<List<ContractTypeEnt>> result, Call call, Response response) {
+                closeLoading();
+                if (result.data != null && result.data.size() > 0) {
+                    typeEnts.clear();
+                    typeEnts.addAll(result.data);
+                    for (int i = 0; i < typeEnts.size(); i++) {
+                        protypelist.add(typeEnts.get(i).label);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+
     }
 
 
@@ -135,7 +171,12 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
                 }
                 break;
             case R.id.baoxiao_cate_txt:// 选择项目类型
-                setOnClick();
+                if (protypelist.size() > 0) {
+                    setOnClick();
+                } else {
+                    showToast("暂无项目类型可以选择");
+                }
+
                 break;
         }
     }
@@ -147,7 +188,12 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
      * @param
      */
     private void setOnClick() {
-        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> mBinding.baoxiaoCateTxt.setText(protypelist.get(options1)))
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
+            mBinding.baoxiaoCateTxt.setText(protypelist.get(options1));
+            projectType = typeEnts.get(options1).value;
+            getProjectNo(typeEnts.get(options1).value);
+
+        })
                 .setTitleText("请选择项目类型")
                 .setDividerColor(Color.BLACK)
                 .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
@@ -160,6 +206,34 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
         // 三级选择器
         pvOptions.setPicker(protypelist, null, null);
         pvOptions.show();
+    }
+
+    /**
+     * 根据项目类型获取项目编号
+     *
+     * @param value
+     */
+    private void getProjectNo(String value) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("projectType", value);
+        showLoading();
+        HttpUtil.project_getProjectNo(map).execute(new JsonCallback<Result<ProjecInfoEnt>>() {
+            @Override
+            public void onSuccess(Result<ProjecInfoEnt> result, Call call, Response response) {
+                closeLoading();
+                if (result.data != null) {
+                    mBinding.baoxiaoMoneyEdt.setText(result.data.projectNo);
+                }
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+
     }
 
 
@@ -185,7 +259,11 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();
-                msgDialog("申请提交成功");
+                msgNocanseDialogBuilder("申请提交成功", (dialog, which) -> {
+                    dialog.dismiss();
+                    openActivity(ProjectApprovaLoglActivity.class);
+                    finish();
+                }).setCancelable(false).create().show();
             }
 
             @Override
@@ -243,7 +321,7 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
      */
     private HashMap<String, Object> getPer() {
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("projectType", mBinding.baoxiaoCateTxt.getText().toString());
+        hashMap.put("projectType", projectType);
         hashMap.put("projectNo", mBinding.baoxiaoMoneyEdt.getText().toString());
         hashMap.put("projectName", mBinding.shenqingMoneyEdt.getText().toString());
         hashMap.put("persion", mBinding.fuzerenEdt.getText().toString());

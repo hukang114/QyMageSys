@@ -225,5 +225,9 @@
     <string name="m_leader_score_txt">领导打分</string>
 
     <string name="det_txt">详情</string>
+    <string name="htjl_txt">合同记录</string>
+    <string name="cehui_txt">撤回</string>
+    <string name="htxq_txt">合同详情</string>
+    <string name="lixiang_det_txt">立项详情</string>
 
 </resources>

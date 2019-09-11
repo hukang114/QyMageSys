@@ -80,12 +80,11 @@ public class HttpUtil {
      * //枚举类型名称
      * }
      *
-     * @param urlname
      * @param params
      * @return
      */
-    public static PostRequest getEnum(String urlname, Map<String, Object> params) {
-        return HttpClient.getInstance().postData(urlname, params);
+    public static PostRequest getEnum(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.GETENUM, params);
     }
 
     /**
@@ -102,23 +101,21 @@ public class HttpUtil {
     /**
      * 6.2合同申请提交接口
      *
-     * @param urlname
      * @param params
      * @return
      */
-    public static PostRequest contract_submit(String urlname, Map<String, Object> params) {
-        return HttpClient.getInstance().postData(urlname, params);
+    public static PostRequest contract_submit(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.CONTRACT_SUBMIT, params);
     }
 
     /**
-     * 6.1合同编号获取接口
+     * 6.1合同编号获取接口 根据合同类型
      *
-     * @param urlname
      * @param params
      * @return
      */
-    public static PostRequest getContractNo(String urlname, Map<String, Object> params) {
-        return HttpClient.getInstance().postData(urlname, params);
+    public static PostRequest getContractNo(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.getContractNo, params);
     }
 
     /**
@@ -185,23 +182,21 @@ public class HttpUtil {
     /**
      * 4.3查询个人立项记录列表
      *
-     * @param urlname
      * @param params
      * @return
      */
-    public static PostRequest project_findByUser(String urlname, Map<String, Object> params) {
-        return HttpClient.getInstance().postData(urlname, params);
+    public static PostRequest project_findByUser(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.PROJECT_FINDBYUSER, params);
     }
 
     /**
      * 4.4查询立项详情
      *
-     * @param urlname
      * @param params
      * @return
      */
-    public static PostRequest project_findById(String urlname, Map<String, Object> params) {
-        return HttpClient.getInstance().postData(urlname, params);
+    public static PostRequest project_findById(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.PROJECT_FINDBYID, params);
     }
 
     /**
@@ -212,12 +207,11 @@ public class HttpUtil {
      * remarks String  备注
      * taskId String 任务ID
      *
-     * @param urlname
      * @param params
      * @return
      */
-    public static PostRequest audit_auditAdd(String urlname, Map<String, Object> params) {
-        return HttpClient.getInstance().postData(urlname, params);
+    public static PostRequest audit_auditAdd(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.audit_auditAdd, params);
     }
 
     /**
@@ -344,6 +338,68 @@ public class HttpUtil {
     public static PostRequest getUserInfo(Map<String, Object> params) {
         return HttpClient.getInstance().postData(HttpConsts.GETUSERINFO_LIST, params);
     }
+
+
+    /**
+     * 6.3获取我的合同记录
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest contract_findByUser(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.CONTRACT_FINDBYUSER, params);
+    }
+
+    /**
+     * 6.3获取我的合详情
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest expense_findById(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.EXPENSE_FINDBYID, params);
+    }
+
+    /**
+     * 根据项目类型4.1获取项目编号
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest project_getProjectNo(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.getProjectNo, params);
+    }
+
+    /**
+     * 3.5按条件查询所有公司
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest bid_findAllCompany(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.BID_FINDALLCOMPANY, params);
+    }
+
+    /**
+     * 3.2投标/履约保证金-收查询对应支数据的接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest bid_findByProject(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.BID_FINDBYPROJECT, params);
+    }
+
+    /**
+     * 2.8按条件模糊查询单位信息
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest getCompanyInfo(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.GETCOMPANYINFO, params);
+    }
+
 
 }
 

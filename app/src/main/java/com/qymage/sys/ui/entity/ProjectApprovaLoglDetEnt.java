@@ -16,7 +16,7 @@ public class ProjectApprovaLoglDetEnt {
 
     public static class DataInfo implements Serializable {
 
-        public int id;
+        public String id;
         public String projectType;
         public String projectNo;
         public String projectName;
@@ -26,6 +26,7 @@ public class ProjectApprovaLoglDetEnt {
         public String introduction;
         public int actStatus;
         public String number;
+        public String processInstanceId;
 
     }
 

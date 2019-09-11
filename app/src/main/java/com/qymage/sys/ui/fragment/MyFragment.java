@@ -17,6 +17,7 @@ import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.util.PicasooUtil;
 import com.qymage.sys.common.util.SPUtils;
 import com.qymage.sys.databinding.FragmentMyBinding;
+import com.qymage.sys.ui.act.ChoiceContractLogActivity;
 import com.qymage.sys.ui.act.LoginActivity;
 import com.qymage.sys.ui.act.MyAttendanceActivity;
 import com.qymage.sys.ui.act.MyLoanActivity;
@@ -102,8 +103,7 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         switch (myMenuEnts.get(position).keyname) {
             case "wdht": // 我的合同
-                openActivity(LoginActivity.class);
-
+                openActivity(ChoiceContractLogActivity.class);
                 break;
             case "wdbx": // 我的报销
                 openActivity(ReimbursementActivity.class);

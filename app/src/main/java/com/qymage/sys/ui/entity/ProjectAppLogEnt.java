@@ -18,6 +18,9 @@ public class ProjectAppLogEnt {
     public String introduction; // 项目介绍
     public int actStatus;//审批状态
     public String portrait;
+    public String projectTypeName;// 类型名称
+    public String personName;// 提交人姓名
+    public String processInstId;
 
 
 }

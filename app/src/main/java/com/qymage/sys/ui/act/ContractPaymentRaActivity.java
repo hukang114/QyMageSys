@@ -101,7 +101,7 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
         showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("type", "taxrateType");
-        HttpUtil.getEnum(HttpConsts.GETENUM, map).execute(new JsonCallback<Result<String>>() {
+        HttpUtil.getEnum(map).execute(new JsonCallback<Result<String>>() {
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();

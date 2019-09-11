@@ -112,7 +112,6 @@
                 android:gravity="end"
                 android:orientation="horizontal">
 
-
                 <TextView
                     android:id="@+id/bnt1"
                     android:layout_width="70dp"

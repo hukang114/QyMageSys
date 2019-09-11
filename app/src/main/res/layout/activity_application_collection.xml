@@ -447,6 +447,7 @@
 
 
                     <TextView
+                        android:id="@+id/bcsfks_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -457,7 +458,7 @@
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/bzjje_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -781,10 +782,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginBottom="@dimen/margin50"
                         android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginTop="50dp"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginBottom="@dimen/margin50"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

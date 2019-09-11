@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -31,6 +32,7 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
     private String Tag;
     private String id;
     private Intent mIntent;
+    ProjectApprovaLoglDetEnt.DataInfo info;
 
 
     @Override
@@ -62,13 +64,14 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
      */
     private void project_findById() {
         showLoading();
-        HttpUtil.project_findById(HttpConsts.PROJECT_FINDBYID, getPer()).execute(new JsonCallback<Result<ProjectApprovaLoglDetEnt>>() {
+        HttpUtil.project_findById(getPer()).execute(new JsonCallback<Result<ProjectApprovaLoglDetEnt>>() {
 
             @Override
             public void onSuccess(Result<ProjectApprovaLoglDetEnt> result, Call call, Response response) {
                 closeLoading();
                 if (result.data != null) {
                     setDataShow(result.data.dataInfo);
+                    info = result.data.dataInfo;
                 }
             }
 
@@ -121,15 +124,19 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.refuse_tv: // 拒绝
-                msgDialogBuilder("拒绝审批？", (dialog, which) -> {
-                    auditAdd("2");
-                }).create().show();
+                if (info != null) {
+                    msgDialogBuilder("拒绝审批？", (dialog, which) -> {
+                        auditAdd("2");
+                    }).create().show();
+                }
                 break;
 
             case R.id.agree_tv:// 同意
-                msgDialogBuilder("同意审批？", (dialog, which) -> {
-                    auditAdd("1");
-                }).create().show();
+                if (info != null) {
+                    msgDialogBuilder("同意审批？", (dialog, which) -> {
+                        auditAdd("1");
+                    }).create().show();
+                }
                 break;
         }
 
@@ -145,11 +152,12 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
     private void auditAdd(String type) {
         showLoading();
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("userCode", getUserId());
+        hashMap.put("Id", info.id);
         hashMap.put("remarks", "");
         hashMap.put("type", type);
-        hashMap.put("taskId", id);
-        HttpUtil.audit_auditAdd(HttpConsts.audit_auditAdd, hashMap).execute(new JsonCallback<Result<String>>() {
+        hashMap.put("processInstanceId", info.processInstanceId);
+        hashMap.put("modeType", AppConfig.status.value1);
+        HttpUtil.audit_auditAdd(hashMap).execute(new JsonCallback<Result<String>>() {
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();

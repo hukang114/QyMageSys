@@ -23,6 +23,7 @@ public class ProjecInfoEnt implements Serializable {
     public String projectId;//项目主键 
     public String contractNo;//合同编号
     public String contractName; // 合同名称
+    public String company_name;// 公司名称
 
 
 }

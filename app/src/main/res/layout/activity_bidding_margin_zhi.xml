@@ -61,7 +61,7 @@
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/baoxiao_money_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -70,6 +70,9 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
                         android:hint="选择项目编号"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
@@ -114,11 +117,15 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
                         android:hint="请输入项目名称"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/bzjmc_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin55"
                     android:layout_marginTop="@dimen/margin5"
@@ -156,6 +163,7 @@
                         android:layout_marginRight="@dimen/margin20"
                         android:layout_toRightOf="@+id/tv_9"
                         android:background="@color/white"
+                        android:enabled="false"
                         android:gravity="center_vertical|end"
                         android:hint="@string/bzjmc_txt"
                         android:textColor="@color/item_color"
@@ -193,7 +201,7 @@
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/gsmc_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -201,7 +209,10 @@
                         android:layout_toRightOf="@+id/tv_9"
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
-                        android:hint="@string/gsmc_txt"
+                        android:hint="请选择公司名称"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
@@ -247,6 +258,9 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
                         android:hint="请输入收款单位名称"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
@@ -736,10 +750,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginBottom="@dimen/margin50"
                         android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginTop="50dp"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginBottom="@dimen/margin50"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

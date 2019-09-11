@@ -80,6 +80,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         mBinding.yskTxt.setOnClickListener(this);
         mBinding.ykpTxt.setOnClickListener(this);
         mBinding.saveBtn.setOnClickListener(this);
+        mBinding.bzjjeEdt.setOnClickListener(this);
         LinearLayoutManager layouta = new LinearLayoutManager(this);
         layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         LinearLayoutManager layoutb = new LinearLayoutManager(this);
@@ -143,18 +144,21 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 break;
             case "2":
                 mBinding.metitle.setcTxt("付款申请");
-                mBinding.yskTv.setText("已付款");
-                mBinding.yskTxt.setHint("已付款");
-                mBinding.wfkTv.setText("未付款");
+//                mBinding.yskTv.setText("已付款");
+//                mBinding.yskTxt.setHint("已付款");
+//                mBinding.wfkTv.setText("未付款");
+                mBinding.bcsfksTv.setText("本次付款(元)");
                 break;
             case "3":
                 mBinding.metitle.setcTxt("开票申请");
+                mBinding.bcsfksTv.setText("本次开票");
                 break;
             case "4":
-                mBinding.metitle.setcTxt("收票申请");
-                mBinding.ykpTv.setText("已收票");
-                mBinding.ykpTxt.setHint("已收票");
-                mBinding.wkpTv.setText("未收票");
+                mBinding.bcsfksTv.setText("本次收票");
+//                mBinding.metitle.setcTxt("收票申请");
+//                mBinding.ykpTv.setText("已收票");
+//                mBinding.ykpTxt.setHint("已收票");
+//                mBinding.wkpTv.setText("未收票");
                 break;
         }
     }
@@ -244,20 +248,26 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 break;
 
             case R.id.ysk_txt:// 收-付-款明细
-                bundle = new Bundle();
-                bundle.putSerializable("data", (Serializable) paymentVOS);
-                bundle.putString("type", type);
-                openActivity(ReceiptsPaymentsDetActivity.class, bundle);
+
                 break;
 
             case R.id.ykp_txt: // 已开票 已收票
-                bundle = new Bundle();
-                bundle.putSerializable("data", (Serializable) ticketVOS);
-                bundle.putString("type", type);
-                openActivity(InvoicedCollectActivity.class, bundle);
+
 
                 break;
-
+            case R.id.bzjje_edt:// 本次收款 ，本次付款 ，本次开票，本次收票
+                if (type.equals("1") || type.equals("2")) { //
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) paymentVOS);
+                    bundle.putString("type", type);
+                    openActivity(ReceiptsPaymentsDetActivity.class, bundle);
+                } else if (type.equals("3") || type.equals("4")) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) ticketVOS);
+                    bundle.putString("type", type);
+                    openActivity(InvoicedCollectActivity.class, bundle);
+                }
+                break;
             case R.id.save_btn:// 提交申请的参数
                 if (isCheck()) {
                     subMitData();
@@ -353,16 +363,8 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             showToast("请填写项目名称");
             return false;
         } else if (TextUtils.isEmpty(mBinding.yskTxt.getText().toString())) {
-            if (type.equals("1")) {
-                showToast("请填写已收款数据");
-                return false;
-            } else if (type.equals("2")) {
-                showToast("请填写已付款数据");
-                return false;
-            } else {
-                showToast("请填写已收款数据");
-                return false;
-            }
+            showToast("请填写已收款数据");
+            return false;
         } else if (TextUtils.isEmpty(mBinding.wskEdt.getText().toString())) {
             showToast("请填写未收款或者未付款数据");
             return false;

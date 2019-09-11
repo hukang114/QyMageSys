@@ -19,9 +19,9 @@ public class HttpConsts {
     public static final String GETTREE = "getTree";
     //合同申请提交接口
     public static final String CONTRACT_SUBMIT = "contract/submit";
-    //6.1合同编号获取接口
+    //6.1合同编号获取接口 根据合同类型
     public static final String getContractNo = "contract/getContractNo";
-
+    //4.1获取项目编号
     public static final String getProjectNo = "project/getProjectNo";
     //2.7按项目名称/项目编号查询
     public static final String getProject = "getProject";
@@ -61,6 +61,18 @@ public class HttpConsts {
     public static final String LOG_MONADD = "log/monAdd";
     //按条件查询人员你列表
     public static final String GETUSERINFO_LIST = "getUserInfo";
+    //6.3获取我的合同记录
+    public static final String CONTRACT_FINDBYUSER = "contract/findByUser";
+    //6.4获取合同记录详情
+    public static final String EXPENSE_FINDBYID = "contract/findById";
+    //3.5按条件查询所有公司
+    public static final String BID_FINDALLCOMPANY = "bid/findAllCompany";
+
+    //3.2投标/履约保证金-收查询对应支数据的接口
+    public static final String BID_FINDBYPROJECT = "bid/findByProject";
+
+    //2.8按条件模糊查询单位信息
+    public static final String GETCOMPANYINFO = "getCompanyInfo";
 
 
 }

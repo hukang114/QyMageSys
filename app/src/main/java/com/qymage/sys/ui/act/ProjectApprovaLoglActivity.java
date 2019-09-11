@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -25,6 +26,7 @@ import com.qymage.sys.common.widget.FrameEmptyLayout;
 import com.qymage.sys.databinding.ActivityProjectApprovaLoglBinding;
 import com.qymage.sys.ui.adapter.MyLoanListAdapter;
 import com.qymage.sys.ui.adapter.ProjectApprovaLogAdapter;
+import com.qymage.sys.ui.entity.ChoiceContractLogEnt;
 import com.qymage.sys.ui.entity.MyLoanEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -46,7 +48,7 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
 
 
     private int page = 1;
-    private int mType = 1;
+    public static int mType = 1;
     List<ProjectAppLogEnt> listdata = new ArrayList<>();
     ProjectApprovaLogAdapter adapter;
     private String keyword = "";
@@ -85,21 +87,37 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
             bundle.putString("id", listdata.get(position).id);
             openActivity(ProjectApprovaLoglDetActivity.class, bundle);
         });
-        mBinding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                 /*   if (!getKeyWord().equals("")) {
-                    } else {
-                        showToast("请输入搜索关键字");
-                    }*/
-                    KeyBordUtil.hideSoftKeyboard(mBinding.etSearch);
-                    keyword = getKeyWord();
-                    page = 1;
-                    getListData(Constants.RequestMode.FRIST);
-                    return true;
-                }
-                return false;
+        mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+             /*   if (!getKeyWord().equals("")) {
+                } else {
+                    showToast("请输入搜索关键字");
+                }*/
+                KeyBordUtil.hideSoftKeyboard(mBinding.etSearch);
+                keyword = getKeyWord();
+                page = 1;
+                getListData(Constants.RequestMode.FRIST);
+                return true;
+            }
+            return false;
+        });
+        adapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.bnt1:
+                    msgDialogBuilder("确认撤销？", (dialog, which) -> {
+                        auditAdd("3", listdata.get(position));
+                    }).create().show();
+                    break;
+                case R.id.bnt2:// 拒绝
+                    msgDialogBuilder("拒绝审批？", (dialog, which) -> {
+                        auditAdd("2", listdata.get(position));
+                    }).create().show();
+                    break;
+                case R.id.bnt3:// 同意
+                    msgDialogBuilder("同意审批？", (dialog, which) -> {
+                        auditAdd("1", listdata.get(position));
+                    }).create().show();
+                    break;
             }
         });
 
@@ -112,18 +130,19 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
 
     private void getListData(Constants.RequestMode mode) {
         showLoading();
-        HttpUtil.project_findByUser(HttpConsts.PROJECT_FINDBYUSER, getPer()).execute(new JsonCallback<Result<List<ProjectAppLogEnt>>>() {
+        HttpUtil.project_findByUser(getPer()).execute(new JsonCallback<Result<List<ProjectAppLogEnt>>>() {
             @Override
             public void onSuccess(Result<List<ProjectAppLogEnt>> result, Call call, Response response) {
                 mBinding.emptylayout.showContent();
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
+                closeLoading();
                 if (mode == Constants.RequestMode.FRIST) {
                     listdata.clear();
                     if (result.data != null && result.data.size() > 0) {
                         listdata.addAll(result.data);
                     } else {
-                        mBinding.emptylayout.setEmptyView();
+                        mBinding.emptylayout.showEmpty();
                     }
                 } else if (mode == Constants.RequestMode.LOAD_MORE) {
                     if (result.data != null && result.data.size() > 0) {
@@ -163,6 +182,43 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
         getListData(Constants.RequestMode.FRIST);
 
     }
+
+    /**
+     * 撤销 拒绝 同意
+     *
+     * @param type
+     * @param item
+     */
+    private void auditAdd(String type, ProjectAppLogEnt item) {
+        showLoading();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Id", item.id);
+        hashMap.put("remarks", "");
+        hashMap.put("type", type);
+        hashMap.put("processInstanceId", item.processInstId);
+        hashMap.put("modeType", AppConfig.status.value1);
+        HttpUtil.audit_auditAdd(hashMap).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+                closeLoading();
+                msgDialogBuilder(result.message, (dialog, which) -> {
+                    dialog.dismiss();
+                    setResult(200);
+                    finish();
+                }).setCancelable(false).create().show();
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+
+
+    }
+
 
     /**
      * 每一种状态的点击事件处理

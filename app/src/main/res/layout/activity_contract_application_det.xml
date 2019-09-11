@@ -14,8 +14,7 @@
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cTxt="@string/htsq_txt"
-            app:rTxt="@string/sqjl_txt" />
+            app:cTxt="@string/htxq_txt" />
 
 
         <ScrollView
@@ -823,7 +822,8 @@
                     android:layout_marginTop="@dimen/margin10"
                     android:layout_weight="1"
                     android:background="@color/white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
 
                     <Button

@@ -1,6 +1,7 @@
 package com.qymage.sys.ui.act;
 
-import android.support.annotation.NonNull;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -19,13 +21,11 @@ import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.util.KeyBordUtil;
-import com.qymage.sys.databinding.ActivityMyLoanBinding;
-import com.qymage.sys.ui.adapter.MyLoanListAdapter;
-import com.qymage.sys.ui.entity.MyLoanEnt;
+import com.qymage.sys.databinding.ActivityChoiceContractLogBinding;
+import com.qymage.sys.ui.adapter.ContractLogAdapter;
+import com.qymage.sys.ui.adapter.ProjectApprovaLogAdapter;
+import com.qymage.sys.ui.entity.ChoiceContractLogEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,24 +36,23 @@ import okhttp3.Response;
 
 
 /**
- * 我的借款记录
+ * 我的合同 合同记录
  */
-public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements RadioGroup.OnCheckedChangeListener {
+public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContractLogBinding> implements RadioGroup.OnCheckedChangeListener {
 
 
     private int page = 1;
-    private int mType = 1;
-    List<MyLoanEnt> listdata = new ArrayList<>();
-    MyLoanListAdapter adapter;
-    private String stats = "1";// 1-待处理 2-已处理 3-抄送我  4-已提交
+    public static int mType = 1;
+    List<ChoiceContractLogEnt> listdata = new ArrayList<>();
+    ContractLogAdapter adapter;
     private String keyword = "";
-    private Bundle bundle;
+    Bundle bundle;
+    public static String Tag = "ProjectApprovaLoglActivity";
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_my_loan;
+        return R.layout.activity_choice_contract_log;
     }
-
 
     @Override
     protected void initView() {
@@ -63,67 +62,81 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
         mBinding.refreshlayout.setOnRefreshListener(refreshLayout -> {
             page = 1;
             getListData(Constants.RequestMode.FRIST);
+
         });
         mBinding.refreshlayout.setOnLoadMoreListener(refreshLayout -> {
             page++;
             getListData(Constants.RequestMode.LOAD_MORE);
         });
         mBinding.refreshlayout.setEnableLoadMore(false);
-        adapter = new MyLoanListAdapter(R.layout.item_myloan_list, listdata);
+        adapter = new ContractLogAdapter(R.layout.item_list_projectapprovalog, listdata);
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.radioGroup.setOnCheckedChangeListener(this);
         mBinding.pendingBtn.setChecked(true);
-        mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-             /*   if (!getKeyWord().equals("")) {
-                } else {
-                    showToast("请输入搜索关键字");
-                }*/
-                KeyBordUtil.hideSoftKeyboard(mBinding.etSearch);
-                keyword = getKeyWord();
-                page = 1;
-                getListData(Constants.RequestMode.FRIST);
-                return true;
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            bundle = new Bundle();
+            bundle.putString("Tag", Tag);
+            bundle.putString("id", listdata.get(position).id);
+            openActivity(ProjectApprovaLoglDetActivity.class, bundle);
+        });
+        mBinding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                 /*   if (!getKeyWord().equals("")) {
+                    } else {
+                        showToast("请输入搜索关键字");
+                    }*/
+                    KeyBordUtil.hideSoftKeyboard(mBinding.etSearch);
+                    keyword = getKeyWord();
+                    page = 1;
+                    getListData(Constants.RequestMode.FRIST);
+                    return true;
+                }
+                return false;
             }
-            return false;
         });
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
-
             switch (view.getId()) {
-                case R.id.bnt1: // 申请还款
-                    bundle = new Bundle();
-                    bundle.putString("TaskId", listdata.get(position).TaskId);
-                    openActivity(ApplicationRepaymentActivity.class, bundle);
+                case R.id.bnt1:
+                    msgDialogBuilder("确认撤销？", (dialog, which) -> {
+                        auditAdd("3", listdata.get(position));
+                    }).create().show();
                     break;
                 case R.id.bnt2:// 拒绝
                     msgDialogBuilder("拒绝审批？", (dialog, which) -> {
-                        auditAdd("2", listdata.get(position).TaskId);
+                        auditAdd("2", listdata.get(position));
                     }).create().show();
                     break;
                 case R.id.bnt3:// 同意
                     msgDialogBuilder("同意审批？", (dialog, which) -> {
-                        auditAdd("1", listdata.get(position).TaskId);
+                        auditAdd("1", listdata.get(position));
                     }).create().show();
-
                     break;
             }
         });
-
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            bundle = new Bundle();
+            bundle.putString("id", listdata.get(position).id);
+            openActivity(ContractApplicationDetActivity.class, bundle);
+        });
     }
 
+
     /**
-     * 审批操作
-     * type：类型  1—通过   2-拒绝 3-撤回
+     * 撤销 拒绝 同意
      *
      * @param type
+     * @param item
      */
-    private void auditAdd(String type, String taskId) {
+    private void auditAdd(String type, ChoiceContractLogEnt item) {
         showLoading();
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("userCode", getUserId());
+        hashMap.put("Id", item.id);
         hashMap.put("remarks", "");
         hashMap.put("type", type);
-        hashMap.put("taskId", taskId);
+        hashMap.put("processInstanceId", item.processInstId);
+        hashMap.put("modeType", AppConfig.status.value8);
         HttpUtil.audit_auditAdd(hashMap).execute(new JsonCallback<Result<String>>() {
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
@@ -146,26 +159,16 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
 
     }
 
+
     private String getKeyWord() {
         return mBinding.etSearch.getText().toString().trim();
     }
 
-
-    public String getmTypes() {
-        return stats;
-    }
-
-
-    /**
-     * 获取数据
-     *
-     * @param mode
-     */
     private void getListData(Constants.RequestMode mode) {
         showLoading();
-        HttpUtil.loan_loanQuery(getPer()).execute(new JsonCallback<Result<List<MyLoanEnt>>>() {
+        HttpUtil.contract_findByUser(getPer()).execute(new JsonCallback<Result<List<ChoiceContractLogEnt>>>() {
             @Override
-            public void onSuccess(Result<List<MyLoanEnt>> result, Call call, Response response) {
+            public void onSuccess(Result<List<ChoiceContractLogEnt>> result, Call call, Response response) {
                 mBinding.emptylayout.showContent();
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
@@ -179,7 +182,7 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
                     }
                 } else if (mode == Constants.RequestMode.LOAD_MORE) {
                     if (result.data != null && result.data.size() > 0) {
-                        List<MyLoanEnt> list = result.data;
+                        List<ChoiceContractLogEnt> list = result.data;
                         listdata.addAll(list);
                     } else {
                         // 全部加载完成,没有数据了调用此方法
@@ -205,16 +208,16 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
             }
         });
 
-
     }
+
 
     @Override
     protected void initData() {
         super.initData();
         page = 1;
         getListData(Constants.RequestMode.FRIST);
-    }
 
+    }
 
     /**
      * 每一种状态的点击事件处理
@@ -250,15 +253,21 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
      */
     private HashMap<String, Object> getPer() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("stats", stats);
+        map.put("stats", mType + "");
         map.put("keyword", keyword);
-        map.put("userCode", getUserId());
         map.put("page", page + "");
         return map;
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 200) {
+            page = 1;
+            getListData(Constants.RequestMode.FRIST);
+        }
+    }
+
+
 }
-
-
-
