@@ -10,7 +10,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/margin50"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
@@ -22,24 +22,29 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/div_color"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin10"
+            android:background="@color/app_background" />
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <com.qymage.sys.common.widget.FrameEmptyLayout
                 android:id="@+id/emptylayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin2">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-
             </com.qymage.sys.common.widget.FrameEmptyLayout>
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>

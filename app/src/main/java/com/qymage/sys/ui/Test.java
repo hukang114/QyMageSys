@@ -13,7 +13,7 @@ public class Test {
      * success : true
      * code : 200
      * message : 请求成功
-     * data : [{"nextWeek  ":"6","weekDay":"5","date ":"2019-08-14 18:05:22.0","userCode":"1","userName ":"2","lastWeek ":"4"},{"nextWeek  ":"1下周工作计划","weekDay":"1本周工作总结","date ":"2019-09-07 16:51:09.0","userCode":"1099305400000000001","userName ":"吴贵钰","lastWeek ":null},{"nextWeek  ":"测试-下周工作计划","weekDay":"测试-本周工作总结","date ":"2019-09-09 15:25:22.0","userCode":"1099305400000000002","userName ":"冯秋","lastWeek ":null},{"nextWeek  ":"测试-下周工作计划","weekDay":"测试-本周工作总结","date ":"2019-09-09 15:35:10.0","userCode":"1099305400000000003","userName ":"冯秋","lastWeek ":null},{"nextWeek  ":"测试-下周工作计划","weekDay":"测试-本周工作总结","date ":"2019-09-09 15:35:48.0","userCode":"1099305400000000004","userName ":"冯秋","lastWeek ":null},{"nextWeek  ":"测试-下周工作计划","weekDay":"测试-本周工作总结","date ":"2019-09-09 15:49:31.0","userCode":"1099305400000000005","userName ":"冯秋","lastWeek ":null},{"nextWeek  ":"测试-下周工作计划","weekDay":"测试-本周工作总结","date ":"2019-09-09 16:06:46.0","userCode":"1099305400000000006","userName ":"冯秋","lastWeek ":null},{"nextWeek  ":"测试-下周工作计划","weekDay":"测试-本周工作总结","date ":"2019-09-09 16:28:07.0","userCode":"1099305400000000008","userName ":"冯秋","lastWeek ":null},{"nextWeek  ":"测试-下周工作计划","weekDay":"测试-本周工作总结","date ":"2019-09-09 16:34:27.0","userCode":"1099305400000000009","userName ":"冯秋","lastWeek ":null}]
+     * data : [{"createTime":null,"createBy":null,"updateTime":null,"updateBy":null,"id":"1171771703866380289","projectId":"1171709245101412354","projectNo":"20190906","projectName":"企业管理系统","companyId":"1099100700000000020","companyName":"贵州润可信息科技有限公司","bidType":"01","name":"贵州省黔南龙里工商局","bank":"中国银行","account":"123456789","amount":"1500.00","amountName":"1","date":"2019-09-11 00:00:00.0","remark":"测试修改测试","endDate":"2019-09-12 00:00:00.0","activityVoList":null,"personName":"孔俊智","fileList":null,"auditor":null,"copier":null,"sendList":null,"keyword":null,"stats":null,"processInstId":null}]
      */
 
     public boolean success;
@@ -23,19 +23,63 @@ public class Test {
 
     public static class DataBean {
         /**
-         * nextWeek   : 6
-         * weekDay : 5
-         * date  : 2019-08-14 18:05:22.0
-         * userCode : 1
-         * userName  : 2
-         * lastWeek  : 4
+         * createTime : null
+         * createBy : null
+         * updateTime : null
+         * updateBy : null
+         * id : 1171771703866380289
+         * projectId : 1171709245101412354
+         * projectNo : 20190906
+         * projectName : 企业管理系统
+         * companyId : 1099100700000000020
+         * companyName : 贵州润可信息科技有限公司
+         * bidType : 01
+         * name : 贵州省黔南龙里工商局
+         * bank : 中国银行
+         * account : 123456789
+         * amount : 1500.00
+         * amountName : 1
+         * date : 2019-09-11 00:00:00.0
+         * remark : 测试修改测试
+         * endDate : 2019-09-12 00:00:00.0
+         * activityVoList : null
+         * personName : 孔俊智
+         * fileList : null
+         * auditor : null
+         * copier : null
+         * sendList : null
+         * keyword : null
+         * stats : null
+         * processInstId : null
          */
 
-        public String nextWeek;
-        public String weekDay;
+        public Object createTime;
+        public Object createBy;
+        public Object updateTime;
+        public Object updateBy;
+        public String id;
+        public String projectId;
+        public String projectNo;
+        public String projectName;
+        public String companyId;
+        public String companyName;
+        public String bidType;
+        public String name;
+        public String bank;
+        public String account;
+        public String amount;
+        public String amountName;
         public String date;
-        public String userCode;
-        public String userName;
-        public String lastWeek;
+        public String remark;
+        public String endDate;
+        public Object activityVoList;
+        public String personName;
+        public Object fileList;
+        public Object auditor;
+        public Object copier;
+        public Object sendList;
+        public Object keyword;
+        public Object stats;
+        public Object processInstId;
     }
 }

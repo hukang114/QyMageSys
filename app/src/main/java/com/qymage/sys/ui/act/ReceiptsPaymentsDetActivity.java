@@ -59,9 +59,9 @@ public class ReceiptsPaymentsDetActivity extends BBActivity<ActivityReceiptsPaym
             return;
         }
         if (type.equals("1")) {
-            mBinding.metitle.setcTxt(this.getResources().getString(R.string.ysk_txt));
+            mBinding.metitle.setcTxt("本次收款");
         } else if (type.equals("2")) {
-            mBinding.metitle.setcTxt(this.getResources().getString(R.string.yfk_txt));
+            mBinding.metitle.setcTxt("本次付款");
         }
         setAdapter();
         for (int i = 1; i <= 100; i++) {

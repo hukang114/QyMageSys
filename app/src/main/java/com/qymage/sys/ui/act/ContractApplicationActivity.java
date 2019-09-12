@@ -179,7 +179,6 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     }
 
 
-
     /**
      * 搜索项目编号或者项目名称
      */
@@ -385,7 +384,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
             listbil.clear();
             List<ContractPayEnt> list = (List<ContractPayEnt>) data.getSerializableExtra("data");
             listbil.addAll(list);
-        } else if (resultCode == AppConfig.num1000) {
+        } else if (resultCode == AppConfig.num1000) {//选择合同类型的回传标识
             getContractNo(data.getStringExtra("value"));
             contractType = data.getStringExtra("value");
             mBinding.htlxCateTxt.setText(data.getStringExtra("title"));

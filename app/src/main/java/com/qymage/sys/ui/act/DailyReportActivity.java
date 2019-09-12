@@ -474,7 +474,6 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
         pvOptions.setPicker(proList, null, null);
         pvOptions.show();
     }
-
     //------------------------------------------------------------------------------------------------
 
 

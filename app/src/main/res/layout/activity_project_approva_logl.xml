@@ -27,10 +27,10 @@
             android:id="@+id/search_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginBottom="@dimen/margin0"
             android:layout_marginLeft="@dimen/margin15"
-            android:layout_marginRight="@dimen/margin15"
             android:layout_marginTop="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin15"
+            android:layout_marginBottom="@dimen/margin0"
             android:background="@drawable/item_search_edt_bg"
             android:gravity="center"
             android:orientation="horizontal">

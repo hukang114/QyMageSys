@@ -20,32 +20,32 @@ import java.util.Map;
 public class AppConfig {
 
     //public static final String HOST = "http://livenewtest.yunbaozb.com";//50050
-    public static final String HOST = "http://192.168.1.105:8080";
+    public static final String HOST = "http://192.168.1.104:8080";
     //http://192.51.188.17
     //外部sd卡
     public static final String DCMI_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
-
+    // 选择合同类型的回传标识
     public static final int num1000 = 1000;
 
     // 工作模块的id
 
     public interface status {
 
-        final int value1=1;//
-        final int value2=2;//
-        final int value3=3;//
-        final int value4=4;//
-        final int value5=5;//
-        final int value6=6;//
-        final int value7=7;//
-        final int value8=8;//
-        final int value9=9;//
-        final int value10=10;//
-        final int value11=11;//
-        final int value12=12;//
-        final int value13=13;//
-        final int value14=14;//
-        final int value15=15;//
+        final int value1 = 1;//
+        final int value2 = 2;//
+        final int value3 = 3;//
+        final int value4 = 4;//
+        final int value5 = 5;//
+        final int value6 = 6;//
+        final int value7 = 7;//
+        final int value8 = 8;//
+        final int value9 = 9;//
+        final int value10 = 10;//
+        final int value11 = 11;//
+        final int value12 = 12;//
+        final int value13 = 13;//
+        final int value14 = 14;//
+        final int value15 = 15;//
 
       /*  <enum label="立项" value="1"/>
         <enum label="日报" value="2"/>
@@ -65,10 +65,6 @@ public class AppConfig {
 
 
     }
-
-
-
-
 
 
 }

@@ -229,5 +229,6 @@
     <string name="cehui_txt">撤回</string>
     <string name="htxq_txt">合同详情</string>
     <string name="lixiang_det_txt">立项详情</string>
+    <string name="diffmoney_tv">票款差额</string>
 
 </resources>

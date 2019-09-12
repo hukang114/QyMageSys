@@ -69,9 +69,9 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
             return;
         }
         if (type.equals("3")) {
-            mBinding.metitle.setcTxt(this.getResources().getString(R.string.ykp_txt));
+            mBinding.metitle.setcTxt("本次已开票");
         } else if (type.equals("4")) {
-            mBinding.metitle.setcTxt(this.getResources().getString(R.string.ysp_txt));
+            mBinding.metitle.setcTxt("本次已收票");
         }
         setAdapter();
 

@@ -70,9 +70,25 @@ public class HttpConsts {
 
     //3.2投标/履约保证金-收查询对应支数据的接口
     public static final String BID_FINDBYPROJECT = "bid/findByProject";
-
     //2.8按条件模糊查询单位信息
     public static final String GETCOMPANYINFO = "getCompanyInfo";
+
+    //3.3投标/履约保证金 个人记录查询接口
+    public static final String BID_FINDBYUSER = "bid/findByUser";
+    //3.4投标/履约保证金详情接口
+    public static final String BID_FINDBYID = "bid/findById";
+    //2.9消息接口 消息列表
+    public static final String MESSAGE_USER_MSG = "message/user/msg";
+    //2.12公告列表接口及详情
+    public static final String NOTICE_LISTNOTICE = "notice/listNotice";
+    //消息更新接口
+    public static final String NOTICE_MSGUDATE = "message/user/msgUdate";
+    //11.4按合同编号获取收付款/开票收票信息
+    public static final String MONEY_GETRECEIVED = "money/getReceived";
+    //11.2我的收款/付款/收票/开票查询列表接口
+    public static final String MONEY_LISTMONEYQUERY = "money/listMoneyQuery";
+    //11.3我的收款/付款/收票/开票查询详情接口
+    public static final String MONEY_MONEYQUERY = "money/moneyQuery";
 
 
 }

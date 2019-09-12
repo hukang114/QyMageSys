@@ -32,7 +32,10 @@
             <EditText
                 android:id="@+id/skfmc_edt"
                 style="@style/sfk_base_edt_style"
-                android:hint="@string/skfmc_txt" />
+                android:hint="@string/skfmc_txt"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:singleLine="true" />
 
         </LinearLayout>
 

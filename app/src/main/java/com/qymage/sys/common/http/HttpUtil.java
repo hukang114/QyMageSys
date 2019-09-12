@@ -160,12 +160,11 @@ public class HttpUtil {
      * 3.1投标/履约保证金-支/收提交接口
      * bidType: String //保证金类型（投标 支-01，投标 收-02，履约支-03，履约 收04）
      *
-     * @param urlname
      * @param params
      * @return
      */
-    public static PostRequest bid_submit(String urlname, Map<String, Object> params) {
-        return HttpClient.getInstance().postData(urlname, params);
+    public static PostRequest bid_submit(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.BID_SUBMIT, params);
     }
 
     /**
@@ -400,6 +399,85 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(HttpConsts.GETCOMPANYINFO, params);
     }
 
+    /**
+     * 3.3投标/履约保证金 个人记录查询接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest bid_findByUser(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.BID_FINDBYUSER, params);
+    }
+
+    /**
+     * 3.4投标/履约保证金详情接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest bid_findById(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.BID_FINDBYID, params);
+    }
+
+    /**
+     * 2.9消息接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest message_User_Msg(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.MESSAGE_USER_MSG, params);
+    }
+
+    /**
+     * 2.12公告列表接口及详情
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest notice_listNotice(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.NOTICE_LISTNOTICE, params);
+    }
+
+    /**
+     * 2.11消息更新接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest msgUdate(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.NOTICE_MSGUDATE, params);
+    }
+
+    /**
+     * 11.4按合同编号获取收付款/开票收票信息
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest money_getReceived(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.MONEY_GETRECEIVED, params);
+    }
+
+    /**
+     * 11.2我的收款/付款/收票/开票查询列表接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest money_listMoneyQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.MONEY_LISTMONEYQUERY, params);
+    }
+
+    /**
+     * 11.3我的收款/付款/收票/开票查询详情接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest money_moneyQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.MONEY_MONEYQUERY, params);
+    }
 
 }
 

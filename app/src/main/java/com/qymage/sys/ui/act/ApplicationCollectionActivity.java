@@ -1,13 +1,19 @@
 package com.qymage.sys.ui.act;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -24,8 +30,10 @@ import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
 import com.qymage.sys.ui.entity.ContractPayEnt;
 import com.qymage.sys.ui.entity.FileListEnt;
+import com.qymage.sys.ui.entity.GetReceivedInfoEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.PaymentInfo;
+import com.qymage.sys.ui.entity.ProjecInfoEnt;
 import com.qymage.sys.ui.entity.ReceiverInfo;
 
 import java.io.Serializable;
@@ -45,7 +53,8 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
 
     private Intent mIntent;
     private String type;
-
+    List<ProjecInfoEnt> infoEnts = new ArrayList<>();// 更具合同编号或合同名称查询的信息集合
+    List<String> proList = new ArrayList<>();// 合同编号 项目编号
     List<CompanyMoneyPaymentVOS> paymentVOS = new ArrayList<>();// 收款 付款明细
     List<CompanyMoneyTicketVOS> ticketVOS = new ArrayList<>();// //开 -收 票明细
     List<FileListEnt> fileList = new ArrayList<>();// 上传附件
@@ -56,6 +65,10 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
     ReceiverInfo receiverInfo;//收款方信息
     PaymentInfo paymentInfo; // 付款方信息
     private Bundle bundle;
+    private String contractType;// 合同类型
+    private String projectId;// 项目id
+    public List<GetReceivedInfoEnt.CompanyMoneyTicketVOBean> companyMoneyTicketVO = new ArrayList<>();//历史收票开票明细
+    public List<GetReceivedInfoEnt.CompanyMoneyPaymentVOBean> companyMoneyPaymentVO = new ArrayList<>();// 历史收付款明细
 
 
     @Override
@@ -72,6 +85,11 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         if (type == null) {
             return;
         }
+        mBinding.metitle.setrTxtClick(v -> {
+            bundle = new Bundle();
+            bundle.putString("type", type);
+            openActivity(ApplicationCollectionLogActivity.class, bundle);
+        });
         mBinding.skfxxEdt.setOnClickListener(this);
         mBinding.fkfxxEdt.setOnClickListener(this);
         mBinding.sprImg.setOnClickListener(this);
@@ -81,6 +99,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         mBinding.ykpTxt.setOnClickListener(this);
         mBinding.saveBtn.setOnClickListener(this);
         mBinding.bzjjeEdt.setOnClickListener(this);
+        mBinding.htlxCateTxt.setOnClickListener(this);
         LinearLayoutManager layouta = new LinearLayoutManager(this);
         layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         LinearLayoutManager layoutb = new LinearLayoutManager(this);
@@ -131,9 +150,37 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 , ""
                 , ""
                 , "");
-
+        mBinding.htbhEdt.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                getContract(1, mBinding.htbhEdt.getText().toString());
+                return true;
+            }
+            return false;
+        });
+        mBinding.htmcEdt.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                getContract(2, mBinding.htbhEdt.getText().toString());
+                return true;
+            }
+            return false;
+        });
+        mBinding.mxbhTv.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                getProjectNo(3, mBinding.mxbhTv.getText().toString());
+                return true;
+            }
+            return false;
+        });
+        mBinding.xmmcEdt.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                getProjectNo(4, mBinding.mxbhTv.getText().toString());
+                return true;
+            }
+            return false;
+        });
 
     }
+
 
     @Override
     protected void initData() {
@@ -144,9 +191,9 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 break;
             case "2":
                 mBinding.metitle.setcTxt("付款申请");
-//                mBinding.yskTv.setText("已付款");
-//                mBinding.yskTxt.setHint("已付款");
-//                mBinding.wfkTv.setText("未付款");
+                mBinding.yskTv.setText("已付款");
+                mBinding.yskTxt.setHint("已付款");
+                mBinding.wfkTv.setText("未付款");
                 mBinding.bcsfksTv.setText("本次付款(元)");
                 break;
             case "3":
@@ -154,13 +201,224 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 mBinding.bcsfksTv.setText("本次开票");
                 break;
             case "4":
+                mBinding.metitle.setcTxt("收票申请");
+                mBinding.ykpTv.setText("已收票");
+                mBinding.ykpTxt.setHint("已收票");
+                mBinding.wkpTv.setText("未收票");
                 mBinding.bcsfksTv.setText("本次收票");
-//                mBinding.metitle.setcTxt("收票申请");
-//                mBinding.ykpTv.setText("已收票");
-//                mBinding.ykpTxt.setHint("已收票");
-//                mBinding.wkpTv.setText("未收票");
+
                 break;
         }
+    }
+
+
+    /**
+     * 2.6根据合同编号/合同名称查询
+     *
+     * @param
+     * @param contetn 内容
+     */
+    private void getContract(int cate, String contetn) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        if (cate == 1) {
+            hashMap.put("contractNo", contetn); // 合同编号
+        }
+        if (cate == 2) {
+            hashMap.put("contractName", contetn);//合同名称查询
+        }
+        showLoading();
+        HttpUtil.getContract(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
+            @Override
+            public void onSuccess(Result<List<ProjecInfoEnt>> result, Call call, Response response) {
+                closeLoading();
+                if (result.data != null && result.data.size() > 0) {
+                    infoEnts.clear();
+                    infoEnts.addAll(result.data);
+                    if (cate == 1) {
+                        proList.clear();
+                        for (int i = 0; i < infoEnts.size(); i++) {
+                            proList.add(infoEnts.get(i).contractNo);
+                        }
+                        setProDialog(cate, proList);
+                    } else if (cate == 2) {
+                        proList.clear();
+                        for (int i = 0; i < infoEnts.size(); i++) {
+                            proList.add(infoEnts.get(i).contractName);
+                        }
+                        setProDialog(cate, proList);
+                    }
+                } else {
+                    showToast("未查询到合同编号或者合同名称");
+                }
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+
+    }
+
+    /**
+     * 搜索项目编号或者项目名称
+     */
+    private void getProjectNo(int cate, String contnet) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        if (cate == 3) {
+            hashMap.put("projectNo", contnet);//项目编号
+        }
+        if (cate == 4) {
+            hashMap.put("projectName", contnet);//项目名称
+        }
+        if (type.equals("2") || type.equals("4")) {
+            hashMap.put("bidType", type);
+        }
+        showLoading();
+        HttpUtil.getProjectNo(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
+            @Override
+            public void onSuccess(Result<List<ProjecInfoEnt>> result, Call call, Response response) {
+                closeLoading();
+                if (result.data != null && result.data.size() > 0) {
+                    infoEnts.clear();
+                    infoEnts.addAll(result.data);
+                    if (cate == 3) {
+                        proList.clear();
+                        for (int i = 0; i < infoEnts.size(); i++) {
+                            proList.add(infoEnts.get(i).projectNo);
+                        }
+                        setProDialog(cate, proList);
+                    } else if (cate == 4) {
+                        proList.clear();
+                        for (int i = 0; i < infoEnts.size(); i++) {
+                            proList.add(infoEnts.get(i).projectName);
+                        }
+                        setProDialog(cate, proList);
+                    }
+                } else {
+                    showToast("尚未查询到项目编号或项目名称");
+                }
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                showToast(e.getMessage());
+                closeLoading();
+            }
+        });
+
+    }
+
+
+    /**
+     * 合同编号或者合同名称的选择
+     *
+     * @param cate
+     * @param proList
+     */
+    private void setProDialog(int cate, List<String> proList) {
+
+        String title = "请选择合同编号";
+        if (cate == 1) {
+            title = "请选择合同编号";
+        } else if (cate == 2) {
+            title = "请选择合同名称";
+        } else if (cate == 3) {
+            title = "请选择项目编号";
+        } else if (cate == 4) {
+            title = "请选择项目名称";
+        }
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
+            if (cate == 1 || cate == 2) {
+                mBinding.htbhEdt.setText(infoEnts.get(options1).contractNo);
+                mBinding.htmcEdt.setText(infoEnts.get(options1).contractName);
+                mBinding.htlxCateTxt.setText(infoEnts.get(options1).contractTypeName);
+                mBinding.mxbhTv.setText(infoEnts.get(options1).projectNo);
+                mBinding.xmmcEdt.setText(infoEnts.get(options1).projectName);
+                contractType = infoEnts.get(options1).contractType;
+                projectId = infoEnts.get(options1).id;
+                //按合同编号获取收付款/开票收票信息
+                getMoney_Received(infoEnts.get(options1).contractNo);
+            } else if (cate == 3 || cate == 4) {
+                mBinding.mxbhTv.setText(infoEnts.get(options1).projectNo);
+                mBinding.xmmcEdt.setText(infoEnts.get(options1).projectName);
+                projectId = infoEnts.get(options1).id;
+            }
+
+        })
+                .setTitleText(title)
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setContentTextSize(18)
+                .setOutSideCancelable(false)//点击外部dismiss default true
+                .setContentTextSize(16)//滚轮文字大小
+                .setSubCalSize(16)//确定和取消文字大小
+                .setLineSpacingMultiplier(2.4f)
+                .build();
+        // 三级选择器
+        pvOptions.setPicker(proList, null, null);
+        pvOptions.show();
+
+    }
+    //------------------------------------------------------------------------------------------------
+
+
+    /**
+     * 按合同编号获取收付款/开票收票信息
+     */
+    private void getMoney_Received(String contractNo) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("contractNo", contractNo);
+        hashMap.put("type", type);
+        HttpUtil.money_getReceived(hashMap).execute(new JsonCallback<Result<GetReceivedInfoEnt>>() {
+            @Override
+            public void onSuccess(Result<GetReceivedInfoEnt> result, Call call, Response response) {
+                if (result.data != null) {
+                    if (result.data.companyMoneyPaymentVO != null) {
+                        companyMoneyPaymentVO.clear();
+                        companyMoneyPaymentVO.addAll(result.data.companyMoneyPaymentVO);
+                    }
+                    if (result.data.companyMoneyTicketVO != null) {
+                        companyMoneyTicketVO.clear();
+                        companyMoneyTicketVO.addAll(result.data.companyMoneyTicketVO);
+                    }
+                    mBinding.yskTxt.setText(df.format(result.data.endAmount));
+                /*    if (result.data.endAmount != null) { // 已收款 已付款
+                    } else {
+                        mBinding.yskTxt.setText("0");
+                    }*/
+                    mBinding.wskEdt.setText(df.format(result.data.notAmount));
+                  /*  if (result.data.notAmount != null) { // 未收款  未付款
+                    } else {
+                        mBinding.wskEdt.setText("0");
+                    }*/
+                    mBinding.ykpTxt.setText(df.format(result.data.endTicket));
+                 /*   if (result.data.endTicket != null) {// 已开票  未开票
+                    } else {
+                        mBinding.ykpTxt.setText("0");
+                    }*/
+                    mBinding.wkpTxt.setText(df.format(result.data.notTicket));
+                   /* if (result.data.notTicket != null) { //未开票  未收票
+                    } else {
+                        mBinding.wkpTxt.setText("0");
+                    }*/
+                    // 计算票款差额
+                    mBinding.diffmoneyTxt.setText(df.format(result.data.endTicket - result.data.endAmount));
+
+                }
+
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+            }
+        });
+
+
     }
 
 
@@ -170,10 +428,26 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
      * @return
      */
     private HashMap<String, Object> getPer() {
+        // openType：string  100-收款  101-付款  102-开票  103-收票
         HashMap<String, Object> map = new HashMap<>();
-        map.put("openType", type);
-        map.put("projectId", mBinding.mxbhTv.getText().toString());
+        switch (type) {
+            case "1":
+                map.put("openType", "100");
+                break;
+            case "2":
+                map.put("openType", "101");
+                break;
+            case "3":
+                map.put("openType", "102");
+                break;
+            case "4":
+                map.put("openType", "103");
+                break;
+        }
+        map.put("projectId", projectId);
+        map.put("projectNo", mBinding.mxbhTv.getText().toString());
         map.put("projectName", mBinding.xmmcEdt.getText().toString());
+        map.put("contractType", contractType);
         map.put("contractNo", mBinding.htbhEdt.getText().toString());
         map.put("contractName", mBinding.htmcEdt.getText().toString());
         map.put("endAmount", mBinding.yskTxt.getText().toString());
@@ -181,8 +455,8 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         map.put("endTicket", mBinding.ykpTxt.getText().toString());
         map.put("notTicket", mBinding.wkpTxt.getText().toString());
         map.put("notTicket", mBinding.wkpTxt.getText().toString());
-        //  map.put("diffMoney", ""); // 没有次设计
-        map.put("thisMoney", mBinding.bzjjeEdt.getText().toString());
+        map.put("diffMoney", mBinding.diffmoneyTxt.getText().toString());
+        map.put("thisAmount", mBinding.bzjjeEdt.getText().toString());
         //收付款明细
         map.put("companyMoneyPaymentVOS", paymentVOS);
         //开收票明细
@@ -247,13 +521,26 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
 
                 break;
 
-            case R.id.ysk_txt:// 收-付-款明细
-
+            case R.id.ysk_txt:// 历史收-付-款明细
+                if (companyMoneyPaymentVO.size() == 0) {
+                    showToast("该合同暂无已收款或已付款数据");
+                } else {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) companyMoneyPaymentVO);
+                    bundle.putString("type", type);
+                    openActivity(HistoryReceiptsPaymentsDetActivity.class, bundle);
+                }
                 break;
 
-            case R.id.ykp_txt: // 已开票 已收票
-
-
+            case R.id.ykp_txt: // 历史已开票 已收票
+                if (companyMoneyTicketVO.size() == 0) {
+                    showToast("该合同暂无已开票或已收票数据");
+                } else {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) companyMoneyTicketVO);
+                    bundle.putString("type", type);
+                    openActivity(HistoryInvoicedCollectActivity.class, bundle);
+                }
                 break;
             case R.id.bzjje_edt:// 本次收款 ，本次付款 ，本次开票，本次收票
                 if (type.equals("1") || type.equals("2")) { //
@@ -272,9 +559,10 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 if (isCheck()) {
                     subMitData();
                 }
-
                 break;
-
+            case R.id.htlx_cate_txt:// 合同类型
+                openActivity(ChoiceContractTypeActivity.class);
+                break;
 
         }
     }
@@ -286,7 +574,13 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();
-                msgDialog("申请提成功");
+                msgNocanseDialogBuilder("申请提成功,查看记录", (dialog, which) -> {
+                    dialog.dismiss();
+                    bundle = new Bundle();
+                    bundle.putString("type", type);
+                    openActivity(ApplicationCollectionLogActivity.class, bundle);
+
+                }).setCancelable(false).create().show();
             }
 
             @Override
@@ -312,7 +606,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 for (int i = 0; i < paymentVOS.size(); i++) {
                     money = money + Double.parseDouble(paymentVOS.get(i).amount);
                 }
-                mBinding.yskTxt.setText(df.format(money));
+                mBinding.bzjjeEdt.setText(df.format(money));
             }
 
         } else if (resultCode == 300) { // 审核人
@@ -340,8 +634,11 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 for (int i = 0; i < ticketVOS.size(); i++) {
                     money = money + Double.parseDouble(ticketVOS.get(i).amount);
                 }
-                mBinding.ykpTxt.setText(df.format(money));
+                mBinding.bzjjeEdt.setText(df.format(money));
             }
+        } else if (resultCode == AppConfig.num1000) {//选择合同类型的回传标识
+            contractType = data.getStringExtra("value");
+            mBinding.htlxCateTxt.setText(data.getStringExtra("title"));
         }
     }
 

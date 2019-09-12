@@ -16,9 +16,10 @@ import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.util.KeyBordUtil;
-import com.qymage.sys.databinding.ActivityBidPerformanceLvYueSzBinding;
+import com.qymage.sys.databinding.ActivityApplicationCollectionLogBinding;
+import com.qymage.sys.ui.adapter.AppCollectioLogAdapter;
 import com.qymage.sys.ui.adapter.BidPerFormLogAdapter;
-import com.qymage.sys.ui.adapter.ProjectApprovaLogAdapter;
+import com.qymage.sys.ui.entity.ApplicationCollectionLogList;
 import com.qymage.sys.ui.entity.BidLvYueSZListEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 
@@ -29,28 +30,28 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Response;
 
-/**
- * 投标支收 履约收支记录
+
+/***
+ *收款申请记录，付款申请记录 ，开票申请记录，收票申请记录 申请记录
  */
-public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerformanceLvYueSzBinding> implements RadioGroup.OnCheckedChangeListener {
+public class ApplicationCollectionLogActivity extends BBActivity<ActivityApplicationCollectionLogBinding> implements RadioGroup.OnCheckedChangeListener {
 
 
     private String bidType;
     private Intent mIntent;
     private int page = 1;
     public static int mType = 1;
-    List<BidLvYueSZListEnt> listdata = new ArrayList<>();
-    BidPerFormLogAdapter adapter;
+    List<ApplicationCollectionLogList> listdata = new ArrayList<>();
+    AppCollectioLogAdapter adapter;
     private String keyword = "";
     Bundle bundle;
-    public static String Tag = "BidPerformanceLvYueSZActivity";
+    public static String Tag = "ApplicationCollectionLogActivity";
 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_bid_performance_lv_yue_sz;
+        return R.layout.activity_application_collection_log;
     }
-
 
     @Override
     protected void initView() {
@@ -62,17 +63,17 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
             return;
         }
         switch (bidType) {
-            case "01":  // 投-支
-                mBinding.metitle.setcTxt("投标保证金支记录");
+            case "1":  //收款
+                mBinding.metitle.setcTxt("收款申请记录");
                 break;
-            case "02": // 投- 收
-                mBinding.metitle.setcTxt("投标保证金收记录");
+            case "2": // 付款
+                mBinding.metitle.setcTxt("付款申请记录");
                 break;
-            case "03":// 履约-支
-                mBinding.metitle.setcTxt("履约保证金支记录");
+            case "3":// 开票
+                mBinding.metitle.setcTxt("开票申请记录");
                 break;
-            case "04":// 履约 -收
-                mBinding.metitle.setcTxt("履约保证金收记录");
+            case "4":// 收票
+                mBinding.metitle.setcTxt("收票申请记录");
                 break;
         }
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
@@ -86,7 +87,7 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
             getListData(Constants.RequestMode.LOAD_MORE);
         });
         mBinding.refreshlayout.setEnableLoadMore(false);
-        adapter = new BidPerFormLogAdapter(R.layout.item_list_projectapprovalog, listdata);
+        adapter = new AppCollectioLogAdapter(R.layout.item_list_projectapprovalog, listdata);
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.radioGroup.setOnCheckedChangeListener(this);
         mBinding.pendingBtn.setChecked(true);
@@ -95,7 +96,7 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
             bundle.putString("Tag", Tag);
             bundle.putString("id", listdata.get(position).id);
             bundle.putString("type", bidType);
-            openActivity(BidPerFormTbLySZLoglDetActivity.class, bundle);
+            openActivity(AppColletionLoglDetActivity.class, bundle);
         });
         mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -114,61 +115,61 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             ProjectAppLogEnt appLogEnt = new ProjectAppLogEnt();
             appLogEnt.id = listdata.get(position).id;
-            appLogEnt.processInstId = listdata.get(position).processInstId;
+            appLogEnt.processInstId = listdata.get(position).processInstanceId;
 
             switch (view.getId()) {
                 case R.id.bnt1:
                     switch (bidType) { // 撤销
-                        case "01":  // 投-支
-                            auditAdd("3", AppConfig.status.value3, appLogEnt);
+                        case "1":  // 收款
+                            auditAdd("3", AppConfig.status.value10, appLogEnt);
                             break;
-                        case "02": // 投- 收
-                            auditAdd("3", AppConfig.status.value4, appLogEnt);
+                        case "2": //付款
+                            auditAdd("3", AppConfig.status.value9, appLogEnt);
                             break;
-                        case "03":// 履约-支
-                            auditAdd("3", AppConfig.status.value5, appLogEnt);
+                        case "3":// 开票
+                            auditAdd("3", AppConfig.status.value11, appLogEnt);
                             break;
-                        case "04":// 履约 -收
-                            auditAdd("3", AppConfig.status.value6, appLogEnt);
+                        case "4":// 收票
+                            auditAdd("3", AppConfig.status.value12, appLogEnt);
                             break;
                     }
                     break;
                 case R.id.bnt2:// 拒绝
                     switch (bidType) {
-                        case "01":
-                            auditAdd("2", AppConfig.status.value3, appLogEnt);
+                        case "1":
+                            auditAdd("2", AppConfig.status.value10, appLogEnt);
                             break;
-                        case "02":
-                            auditAdd("2", AppConfig.status.value4, appLogEnt);
+                        case "2":
+                            auditAdd("2", AppConfig.status.value9, appLogEnt);
                             break;
-                        case "03":
-                            auditAdd("2", AppConfig.status.value5, appLogEnt);
+                        case "3":
+                            auditAdd("2", AppConfig.status.value11, appLogEnt);
                             break;
-                        case "04":
-                            auditAdd("2", AppConfig.status.value6, appLogEnt);
+                        case "4":
+                            auditAdd("2", AppConfig.status.value12, appLogEnt);
                             break;
                     }
                     break;
                 case R.id.bnt3:// 同意
                     switch (bidType) {
-                        case "01":
-                            auditAdd("1", AppConfig.status.value3, appLogEnt);
+                        case "1":
+                            auditAdd("1", AppConfig.status.value10, appLogEnt);
                             break;
-                        case "02":
-                            auditAdd("1", AppConfig.status.value4, appLogEnt);
+                        case "2":
+                            auditAdd("1", AppConfig.status.value9, appLogEnt);
                             break;
-                        case "03":
-                            auditAdd("1", AppConfig.status.value5, appLogEnt);
+                        case "3":
+                            auditAdd("1", AppConfig.status.value11, appLogEnt);
                             break;
-                        case "04":
-                            auditAdd("1", AppConfig.status.value6, appLogEnt);
+                        case "4":
+                            auditAdd("1", AppConfig.status.value12, appLogEnt);
                             break;
                     }
                     break;
             }
         });
-
     }
+
 
     private String getKeyWord() {
         return mBinding.etSearch.getText().toString().trim();
@@ -176,9 +177,9 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
 
     private void getListData(Constants.RequestMode mode) {
         showLoading();
-        HttpUtil.bid_findByUser(getPer()).execute(new JsonCallback<Result<List<BidLvYueSZListEnt>>>() {
+        HttpUtil.money_listMoneyQuery(getPer()).execute(new JsonCallback<Result<List<ApplicationCollectionLogList>>>() {
             @Override
-            public void onSuccess(Result<List<BidLvYueSZListEnt>> result, Call call, Response response) {
+            public void onSuccess(Result<List<ApplicationCollectionLogList>> result, Call call, Response response) {
                 mBinding.emptylayout.showContent();
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
@@ -192,7 +193,7 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
                     }
                 } else if (mode == Constants.RequestMode.LOAD_MORE) {
                     if (result.data != null && result.data.size() > 0) {
-                        List<BidLvYueSZListEnt> list = result.data;
+                        List<ApplicationCollectionLogList> list = result.data;
                         listdata.addAll(list);
                     } else {
                         // 全部加载完成,没有数据了调用此方法
@@ -266,7 +267,7 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
         map.put("stats", mType + "");
         map.put("keyword", keyword);
         map.put("page", page + "");
-        map.put("bidType", bidType);
+        map.put("type", bidType);
         return map;
     }
 
@@ -280,10 +281,15 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
         }
     }
 
+    /**
+     * 审批处理成功
+     */
     @Override
     protected void successTreatment() {
         super.successTreatment();
         page = 1;
         getListData(Constants.RequestMode.FRIST);
     }
+
+
 }

@@ -14,7 +14,7 @@
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cTxt="投标保证金支记录" />
+            app:cTxt="收款申请记录" />
 
 
         <LinearLayout
@@ -60,7 +60,6 @@
                 android:textSize="@dimen/text_size_15"
                 android:visibility="gone" />
         </LinearLayout>
-
 
         <RadioGroup
             android:id="@+id/radio_group"
@@ -141,6 +140,5 @@
 
 
     </LinearLayout>
-
 
 </layout>

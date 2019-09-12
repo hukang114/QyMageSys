@@ -1,6 +1,7 @@
 package com.qymage.sys.ui.act;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -31,6 +32,7 @@ import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.PaymentInfo;
 import com.qymage.sys.ui.entity.ProjecInfoEnt;
 import com.qymage.sys.ui.entity.ReceiverInfo;
+import com.qymage.sys.ui.entity.TouBS_LvSProjecEnt;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,6 +65,7 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
     List<ProjecInfoEnt> infoEnts = new ArrayList<>();// 项目编号信息包含名称合同名称
     List<String> proList = new ArrayList<>();// 项目编号 项目名称
     List<GetCompanyInfoEnt> companyInfoEnts = new ArrayList<>();//单位信息
+    List<TouBS_LvSProjecEnt> sProjecEnts = new ArrayList<>();// 3.2投标/履约保证金-收查询对应支数据的接口 ，根据项目编号 和名称获得
 
 
     @Override
@@ -80,6 +83,11 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         if (type == null) {
             return;
         }
+        mBinding.metitle.setrTxtClick(v -> {
+            bundle = new Bundle();
+            bundle.putString("type", "0" + type);
+            openActivity(BidPerformanceLvYueSZActivity.class, bundle);
+        });
         mBinding.startDateTv.setOnClickListener(this);
         mBinding.endDateTv.setOnClickListener(this);
         mBinding.saveBtn.setOnClickListener(this);
@@ -120,11 +128,7 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         // 搜索项目编号
         mBinding.baoxiaoMoneyEdt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (!mBinding.baoxiaoMoneyEdt.getText().toString().equals("")) {
-                    getProjectNo(1, mBinding.baoxiaoMoneyEdt.getText().toString());
-                } else {
-                    showToast("请输入搜索关键字");
-                }
+                getProjectNo(1, mBinding.baoxiaoMoneyEdt.getText().toString());
                 return true;
             }
             return false;
@@ -132,15 +136,12 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         // 搜索项目名称
         mBinding.shenqingMoneyEdt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (!mBinding.shenqingMoneyEdt.getText().toString().equals("")) {
-                    getProjectNo(2, mBinding.shenqingMoneyEdt.getText().toString());
-                } else {
-                    showToast("请输入搜索关键字");
-                }
+                getProjectNo(2, mBinding.shenqingMoneyEdt.getText().toString());
                 return true;
             }
             return false;
         });
+        // 搜索收款方名称
         mBinding.skdwmcEdt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 getCompanyInfo(mBinding.skdwmcEdt.getText().toString());
@@ -148,7 +149,6 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
             }
             return false;
         });
-
 
     }
 
@@ -256,35 +256,40 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
     /**
      * 搜索项目编号或者项目名称
      */
-    private void getProjectNo(int type, String contnet) {
+    private void getProjectNo(int cate, String contnet) {
         HashMap<String, Object> hashMap = new HashMap<>();
-        if (type == 1) {
+        if (cate == 1) {
             hashMap.put("projectNo", contnet);//项目编号
         }
-        if (type == 2) {
+        if (cate == 2) {
             hashMap.put("projectName", contnet);//项目名称
         }
+        if (type.equals("2") || type.equals("4")) {
+            hashMap.put("bidType", "0" + type);
+        }
         showLoading();
-        HttpUtil.getProjectNo(new HashMap<>()).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
+        HttpUtil.getProjectNo(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
             @Override
             public void onSuccess(Result<List<ProjecInfoEnt>> result, Call call, Response response) {
                 closeLoading();
                 if (result.data != null && result.data.size() > 0) {
                     infoEnts.clear();
                     infoEnts.addAll(result.data);
-                    if (type == 1) {
+                    if (cate == 1) {
                         proList.clear();
                         for (int i = 0; i < infoEnts.size(); i++) {
                             proList.add(infoEnts.get(i).projectNo);
                         }
-                        setProDialog(type, proList);
-                    } else if (type == 2) {
+                        setProDialog(cate, proList);
+                    } else if (cate == 2) {
                         proList.clear();
                         for (int i = 0; i < infoEnts.size(); i++) {
                             proList.add(infoEnts.get(i).projectName);
                         }
-                        setProDialog(type, proList);
+                        setProDialog(cate, proList);
                     }
+                } else {
+                    showToast("尚未查询到项目编号或项目名称");
                 }
             }
 
@@ -315,6 +320,8 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
             title = "请选择公司名称";
         } else if (cate == 4) {
             title = "请选择收款单位名称";
+        } else if (cate == 5) {
+            title = "请选择保证金名称";
         }
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
             if (cate == 1 || cate == 2) {
@@ -328,12 +335,23 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
             } else if (cate == 3) {
                 companyId = infoEnts.get(options1).id;
                 mBinding.gsmcEdt.setText(infoEnts.get(options1).company_name);
-            } else if (cate == 4) {
-                mBinding.skdwmcEdt.setText(companyInfoEnts.get(options1).companyName);
+            } else if (cate == 4) { // 选择收款单位信息
+                mBinding.skdwmcEdt.setText(companyInfoEnts.get(options1).name);
                 mBinding.yhzhEdt.setText(companyInfoEnts.get(options1).account);
                 mBinding.khhEdt.setText(companyInfoEnts.get(options1).bank);
-            }
+            } else if (cate == 5) { // 填写保证金相关信息
+                mBinding.bzjmcEdt.setText(sProjecEnts.get(options1).amountName);
+                mBinding.skdwmcEdt.setText(sProjecEnts.get(options1).name);
+                mBinding.yhzhEdt.setText(sProjecEnts.get(options1).account);
+                mBinding.khhEdt.setText(sProjecEnts.get(options1).bank);
+                mBinding.bzjjeEdt.setText(sProjecEnts.get(options1).amount);
+                mBinding.startDateTv.setText(sProjecEnts.get(options1).date);
+                mBinding.endDateTv.setText(sProjecEnts.get(options1).endDate);
+                mBinding.gsmcEdt.setText(sProjecEnts.get(options1).companyName);
+                companyId = sProjecEnts.get(options1).companyId;
+                mBinding.baoxiaoContent.setText(sProjecEnts.get(options1).remark);
 
+            }
         })
                 .setTitleText(title)
                 .setDividerColor(Color.BLACK)
@@ -356,16 +374,28 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         HashMap<String, Object> map = new HashMap<>();
         map.put("projectId", projectId);
         map.put("bidType", "0" + type);
-        HttpUtil.bid_findByProject(map).execute(new JsonCallback<Result<String>>() {
+        HttpUtil.bid_findByProject(map).execute(new JsonCallback<Result<List<TouBS_LvSProjecEnt>>>() {
             @Override
-            public void onSuccess(Result<String> result, Call call, Response response) {
-
+            public void onSuccess(Result<List<TouBS_LvSProjecEnt>> result, Call call, Response response) {
+                closeLoading();
+                if (result.data != null && result.data.size() > 0) {
+                    sProjecEnts.clear();
+                    sProjecEnts.addAll(result.data);
+                    proList.clear();
+                    for (int i = 0; i < sProjecEnts.size(); i++) {
+                        proList.add(sProjecEnts.get(i).amountName);
+                    }
+                    setProDialog(5, proList);
+                } else {
+                    showToast("未查询到对应的保证金名称,请重新选择");
+                }
             }
 
             @Override
             public void onError(Call call, Response response, Exception e) {
                 super.onError(call, response, e);
-
+                closeLoading();
+                showToast("未查询到对应的保证金名称,请重新选择");
             }
         });
     }
@@ -386,7 +416,7 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
                     companyInfoEnts.addAll(result.data);
                     proList.clear();
                     for (int i = 0; i < companyInfoEnts.size(); i++) {
-                        proList.add(companyInfoEnts.get(i).companyName);
+                        proList.add(companyInfoEnts.get(i).name);
                     }
                     setProDialog(4, proList);
                 } else {
@@ -402,7 +432,6 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
             }
         });
 
-
     }
 
 
@@ -411,11 +440,16 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
      */
     private void subMitData() {
         showLoading();
-        HttpUtil.bid_submit(HttpConsts.BID_SUBMIT, getPer()).execute(new JsonCallback<Result<String>>() {
+        HttpUtil.bid_submit(getPer()).execute(new JsonCallback<Result<String>>() {
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();
-                msgDialog("申请提成功");
+                msgDialogBuilder("申请提交成功,立即查看!", (dialog, which) -> {
+                    bundle = new Bundle();
+                    bundle.putString("type", "0" + type);
+                    openActivity(BidPerformanceLvYueSZActivity.class, bundle);
+                    finish();
+                }).create().show();
             }
 
             @Override
@@ -491,7 +525,7 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         HashMap<String, Object> hashMap = new HashMap();
         hashMap.put("projectId", projectId);
         hashMap.put("companyId", companyId);
-        hashMap.put("bidType", type);
+        hashMap.put("bidType", "0" + type);
         hashMap.put("name", mBinding.skdwmcEdt.getText().toString());
         hashMap.put("bank", mBinding.khhEdt.getText().toString());
         hashMap.put("account", mBinding.yhzhEdt.getText().toString());

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        android:orientation="vertical">
+
+        <com.qymage.sys.common.widget.MeTitle
+            android:id="@+id/metitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cTxt="@string/det_txt" />
+
+        <com.qymage.sys.common.widget.FrameEmptyLayout
+            android:id="@+id/empty_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin3"
+                    android:indeterminateOnly="false"
+                    android:max="100"
+                    android:progressDrawable="@drawable/item_browse_progress_style" />
+
+                <com.qymage.sys.common.util.X5WebView
+                    android:id="@+id/wv_web_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </com.qymage.sys.common.widget.FrameEmptyLayout>
+
+    </LinearLayout>
+
+</layout>

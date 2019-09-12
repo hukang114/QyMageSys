@@ -161,7 +161,6 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
             @Override
             public void onSuccess(Result<List<JournalEntity>> result, Call call, Response response) {
                 closeLoading();
-                closeLoading();
                 mBinding.emptylayout.showContent();
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
@@ -183,7 +182,7 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                     }
                 }
                 adapter.notifyDataSetChanged();
-                
+
             }
 
             @Override

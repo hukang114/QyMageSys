@@ -33,10 +33,9 @@ public class MessageNotifAdapter extends BaseQuickAdapter<MessageNotifEnt, BaseV
 //        imageParams.width = (DisplayUtil.getScreenWidth(mContext) - DisplayUtil.dip2px(80)) / 2;
         imageParams.height = (DisplayUtil.getScreenWidth(mContext)) / 2;
         ivGoodsPicture.setLayoutParams(imageParams);
-
-        PicasooUtil.setImageResource(item.msg_pic, helper.getView(R.id.msg_img));
-        helper.setText(R.id.msg_title, item.msg_title)
-                .setText(R.id.date_time_tv,item.date_time);
+        PicasooUtil.setImageResource(item.photo, helper.getView(R.id.msg_img));
+        helper.setText(R.id.msg_title, item.noticeTitle)
+                .setText(R.id.date_time_tv, item.noticeDate);
 
     }
 }
