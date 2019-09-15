@@ -14,7 +14,7 @@
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cTxt="@string/htxq_txt" />
+            app:cTxt="@string/jiekuai_det_txt" />
 
         <ScrollView
             android:id="@+id/scrollview"
@@ -206,7 +206,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/refuse_tv"
+                android:id="@+id/bnt2"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="@dimen/margin15"
@@ -216,13 +216,23 @@
                 android:textColor="@color/blue_219" />
 
             <TextView
-                android:id="@+id/agree_tv"
+                android:id="@+id/bnt3"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="@dimen/margin15"
                 android:background="@drawable/jujue_btn_style"
                 android:gravity="center"
                 android:text="@string/agree_txt"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/bnt4"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:text="@string/app_repayment"
                 android:textColor="@color/white" />
         </LinearLayout>
 

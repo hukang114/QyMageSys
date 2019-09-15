@@ -103,10 +103,6 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
     @Override
     protected void initData() {
         super.initData();
-        orgList.add("技术部");
-        orgList.add("人事部");
-        orgList.add("财务部");
-        orgList.add("采购部");
         loan_quotaQuery();
 
     }
@@ -124,7 +120,7 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
                 closeLoading();
                 if (result.data != null) {
                     query = result.data;
-                    mBinding.loanQuotaTv.setText("借款总额度" + result.data.TotalAmount + "已借" + result.data.ceaseAmount + "剩余" + result.data.leftAmount);
+                    mBinding.loanQuotaTv.setText("借款总额度" + result.data.totalAmount + " 已借" + result.data.useAmount + " 剩余" + result.data.leftAmount);
                 }
             }
 
@@ -180,12 +176,13 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
      */
     private void quotaAdd() {
         showLoading();
-        HttpUtil.loan_quotaQuery(getPer()).execute(new JsonCallback<Result<QuotaQuery>>() {
+        HttpUtil.loan_quotaAdd(getPer()).execute(new JsonCallback<Result<QuotaQuery>>() {
             @Override
             public void onSuccess(Result<QuotaQuery> result, Call call, Response response) {
                 closeLoading();
-                msgDialogBuilder("恭喜您,借款申请成功!", (dialog, which) -> {
+                msgNocanseDialogBuilder("恭喜您,借款申请成功!", (dialog, which) -> {
                     dialog.dismiss();
+                    openActivity(MyLoanActivity.class);
                     finish();
                 }).setCancelable(false).create().show();
             }
@@ -202,13 +199,15 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
 
 
     private boolean isCheck() {
-        if (TextUtils.isEmpty(mBinding.shenqingrenEdt.getText().toString())) {
+      /*  if (TextUtils.isEmpty(mBinding.shenqingrenEdt.getText().toString())) {
             showToast("请填写申请人");
             return false;
         } else if (TextUtils.isEmpty(mBinding.bumTxt.getText().toString())) {
             showToast("请选择部门");
             return false;
-        } else if (TextUtils.isEmpty(mBinding.causeContent.getText().toString())) {
+        } else */
+
+        if (TextUtils.isEmpty(mBinding.causeContent.getText().toString())) {
             showToast("请填写申请事由");
             return false;
         } else if (TextUtils.isEmpty(mBinding.shenqingMoneyEdt.getText().toString())) {

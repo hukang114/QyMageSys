@@ -44,7 +44,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="@dimen/margin5"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_1"
@@ -87,7 +88,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_3"
@@ -457,10 +459,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginBottom="@dimen/margin50"
                         android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginTop="50dp"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginBottom="@dimen/margin50"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

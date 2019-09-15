@@ -13,18 +13,63 @@
         <com.qymage.sys.common.widget.MeTitle
             android:id="@+id/metitle"
             android:layout_width="match_parent"
-            app:cTxt="@string/afl_record_txt"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:cTxt="@string/afl_record_txt" />
+
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginLeft="@dimen/margin15"
+            android:layout_marginTop="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin15"
+            android:layout_marginBottom="@dimen/margin0"
+            android:background="@drawable/item_search_edt_bg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="@dimen/margin15"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@color/transparent"
+                android:drawableLeft="@mipmap/serach_ioc"
+                android:gravity="center"
+                android:hint="@string/srarch_txt"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size_15" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/serach_ioc"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/srarch_txt"
+                android:textSize="@dimen/text_size_15"
+                android:visibility="gone" />
+        </LinearLayout>
 
 
         <RadioGroup
+            android:id="@+id/radio_group"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/week_btn"
+                android:id="@+id/pending_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -32,35 +77,47 @@
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:text="@string/current_week"
+                android:text="待处理"
                 android:textColor="@color/shape_radiobutton_select"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <RadioButton
-                android:id="@+id/month_btn"
+                android:id="@+id/processed_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/join"
                 android:button="@null"
                 android:gravity="center"
-                android:text="@string/current_month"
+                android:text="已处理"
                 android:textColor="@color/shape_radiobutton_select"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <RadioButton
-                android:id="@+id/year_btn"
+                android:id="@+id/copy_to_me_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/join"
                 android:button="@null"
                 android:gravity="center"
-                android:text="@string/current_year"
+                android:text="抄送给我"
                 android:textColor="@color/shape_radiobutton_select"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
+            <RadioButton
+                android:id="@+id/yitijioa_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/join"
+                android:button="@null"
+                android:gravity="center"
+                android:text="已提交"
+                android:textColor="@color/shape_radiobutton_select"
+                android:textSize="14sp" />
         </RadioGroup>
+
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshlayout"

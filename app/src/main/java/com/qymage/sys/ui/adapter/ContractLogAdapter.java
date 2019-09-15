@@ -62,9 +62,13 @@ public class ContractLogAdapter extends BaseQuickAdapter<ChoiceContractLogEnt, B
         }
 
         if (ChoiceContractLogActivity.mType == 1) {
-            bnt1.setVisibility(View.VISIBLE);
+            bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.VISIBLE);
             bnt3.setVisibility(View.VISIBLE);
+        } else if (ChoiceContractLogActivity.mType == 4) {
+            bnt1.setVisibility(View.VISIBLE);
+            bnt2.setVisibility(View.GONE);
+            bnt3.setVisibility(View.GONE);
         } else {
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.GONE);

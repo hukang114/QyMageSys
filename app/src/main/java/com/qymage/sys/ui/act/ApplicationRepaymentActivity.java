@@ -46,7 +46,8 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
     QuotaQuery query;
     List<String> orgList = new ArrayList<>();
     private Intent mIntent;
-    private String TaskId;
+    private String processInstId;
+    private String id;
 
     @Override
     protected int getLayoutId() {
@@ -58,8 +59,9 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
         super.initView();
         mBinding.metitle.setlImgClick(v -> finish());
         mIntent = getIntent();
-        TaskId = mIntent.getStringExtra("TaskId");
-        if (TaskId == null) {
+        processInstId = mIntent.getStringExtra("processInstId");
+        id = mIntent.getStringExtra("id");
+        if (processInstId == null) {
             return;
         }
         mBinding.bumTxt.setOnClickListener(this);
@@ -101,10 +103,6 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
     @Override
     protected void initData() {
         super.initData();
-        orgList.add("技术部");
-        orgList.add("人事部");
-        orgList.add("财务部");
-        orgList.add("采购部");
         loan_quotaQuery();
 
     }
@@ -119,7 +117,7 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
                 closeLoading();
                 if (result.data != null) {
                     query = result.data;
-                    mBinding.loanQuotaTv.setText("借款总额度" + result.data.TotalAmount + "已借" + result.data.ceaseAmount + "剩余" + result.data.leftAmount);
+                    mBinding.loanQuotaTv.setText("借款总额度" + result.data.totalAmount + " 已借" + result.data.useAmount + " 剩余" + result.data.leftAmount);
                 }
             }
 
@@ -236,16 +234,17 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
      */
     private HashMap<String, Object> getPer() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userCode", getUserId());
+//        map.put("userCode", getUserId());
         map.put("cause", mBinding.causeContent.getText().toString());
         map.put("Amount", mBinding.shenqingMoneyEdt.getText().toString());
         map.put("payDate", mBinding.shiyongDateTv.getText().toString());
-        map.put("TaskId", TaskId);
-        map.put("appname", mBinding.shenqingrenEdt.getText().toString());
+        map.put("id", id);
+        map.put("processInstId", processInstId);
+//        map.put("appname", mBinding.shenqingrenEdt.getText().toString());
         ////审核人
-        map.put("auditor", auditorList);
+//        map.put("auditor", auditorList);
         //抄送人
-        map.put("copier", copierList);
+//        map.put("copier", copierList);
         return map;
 
     }

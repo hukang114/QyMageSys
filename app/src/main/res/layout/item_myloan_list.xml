@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin5"
     android:layout_marginLeft="@dimen/margin15"
     android:layout_marginRight="@dimen/margin15"
+    android:layout_marginBottom="@dimen/margin5"
     android:orientation="vertical"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/margin8"
@@ -23,19 +23,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/name_tv_bg"
+                android:layout_width="@dimen/margin40"
+                android:layout_height="@dimen/margin40"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_round_style"
+                android:gravity="center"
+                android:text="名字"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13"
+                android:visibility="visible" />
+
             <ImageView
                 android:id="@+id/head_img"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin10"
-                android:layout_toRightOf="@+id/head_img"
+                android:layout_toRightOf="@+id/name_tv_bg"
                 android:text="张三的借款"
                 android:textColor="@color/rizhi_color"
                 android:textSize="@dimen/text_size_16"
@@ -47,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/user_name"
                 android:layout_marginLeft="@dimen/margin10"
-                android:layout_toRightOf="@+id/head_img"
+                android:layout_toRightOf="@+id/name_tv_bg"
                 android:text="2019-01-01" />
 
         </RelativeLayout>
@@ -91,8 +104,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin5"
             android:layout_marginTop="@dimen/margin10"
+            android:layout_marginBottom="@dimen/margin5"
             android:orientation="horizontal">
 
 
@@ -114,14 +127,16 @@
 
                 <TextView
                     android:id="@+id/bnt1"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="26dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin10"
                     android:background="@drawable/jujue_btn_style"
                     android:gravity="center"
-                    android:text="@string/app_repayment"
+                    android:paddingLeft="@dimen/margin10"
+                    android:paddingRight="@dimen/margin10"
+                    android:text="@string/ce_xiao_txt"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -144,11 +159,25 @@
                     android:layout_height="26dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin10"
                     android:background="@drawable/jujue_btn_style"
                     android:gravity="center"
                     android:paddingLeft="@dimen/margin10"
                     android:paddingRight="@dimen/margin10"
                     android:text="@string/agree_txt"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/btn4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/jujue_btn_style"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/margin10"
+                    android:paddingRight="@dimen/margin10"
+                    android:text="@string/app_repayment"
                     android:textColor="@color/white" />
 
             </LinearLayout>

@@ -15,6 +15,7 @@ import com.qymage.sys.AppConfig;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.util.AppSignUtil;
 
+import java.io.File;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -116,6 +117,7 @@ public class HttpClient {
         return OkGo.post(mUrl + mUrlName)//
                 .upJson(gson.toJson(params))//AppSignUtil.genAppSign(params)
                 .tag(mUrlName);
+
 
     }
 

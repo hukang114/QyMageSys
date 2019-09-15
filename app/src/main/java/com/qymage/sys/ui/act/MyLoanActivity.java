@@ -1,6 +1,8 @@
 package com.qymage.sys.ui.act;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -42,7 +45,7 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
 
 
     private int page = 1;
-    private int mType = 1;
+    public static int mType = 1;
     List<MyLoanEnt> listdata = new ArrayList<>();
     MyLoanListAdapter adapter;
     private String stats = "1";// 1-待处理 2-已处理 3-抄送我  4-已提交
@@ -88,63 +91,37 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
             return false;
         });
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
-
+            ProjectAppLogEnt appLogEnt = new ProjectAppLogEnt();
+            appLogEnt.id = listdata.get(position).id;
+            appLogEnt.processInstId = listdata.get(position).processInstId;
             switch (view.getId()) {
-                case R.id.bnt1: // 申请还款
-                    bundle = new Bundle();
-                    bundle.putString("TaskId", listdata.get(position).TaskId);
-                    openActivity(ApplicationRepaymentActivity.class, bundle);
+                case R.id.bnt1:
+                    auditAdd("3", AppConfig.status.value13, appLogEnt);
                     break;
                 case R.id.bnt2:// 拒绝
-                    msgDialogBuilder("拒绝审批？", (dialog, which) -> {
-                        auditAdd("2", listdata.get(position).TaskId);
-                    }).create().show();
+                    auditAdd("2", AppConfig.status.value13, appLogEnt);
                     break;
                 case R.id.bnt3:// 同意
-                    msgDialogBuilder("同意审批？", (dialog, which) -> {
-                        auditAdd("1", listdata.get(position).TaskId);
-                    }).create().show();
-
+                    auditAdd("1", AppConfig.status.value13, appLogEnt);
                     break;
+                case R.id.btn4:// 申请还款
+                    bundle = new Bundle();
+                    bundle.putString("processInstId", listdata.get(position).processInstId);
+                    bundle.putString("id", listdata.get(position).id);
+                    openActivity(ApplicationRepaymentActivity.class, bundle);
+                    break;
+
             }
+        });
+
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            bundle = new Bundle();
+            bundle.putString("id", listdata.get(position).id);
+            openActivity(LoanDetailsActivity.class, bundle);
         });
 
     }
 
-    /**
-     * 审批操作
-     * type：类型  1—通过   2-拒绝 3-撤回
-     *
-     * @param type
-     */
-    private void auditAdd(String type, String taskId) {
-        showLoading();
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("userCode", getUserId());
-        hashMap.put("remarks", "");
-        hashMap.put("type", type);
-        hashMap.put("taskId", taskId);
-        HttpUtil.audit_auditAdd(hashMap).execute(new JsonCallback<Result<String>>() {
-            @Override
-            public void onSuccess(Result<String> result, Call call, Response response) {
-                closeLoading();
-                msgDialogBuilder(result.message, (dialog, which) -> {
-                    dialog.dismiss();
-                    setResult(200);
-                    finish();
-                }).setCancelable(false).create().show();
-            }
-
-            @Override
-            public void onError(Call call, Response response, Exception e) {
-                super.onError(call, response, e);
-                closeLoading();
-                showToast(e.getMessage());
-            }
-        });
-
-
-    }
 
     private String getKeyWord() {
         return mBinding.etSearch.getText().toString().trim();
@@ -257,7 +234,14 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
         return map;
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 200) {
+            page = 1;
+            getListData(Constants.RequestMode.FRIST);
+        }
+    }
 }
 
 

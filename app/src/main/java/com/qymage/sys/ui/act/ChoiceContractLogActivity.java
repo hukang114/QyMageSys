@@ -77,24 +77,21 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
             bundle = new Bundle();
             bundle.putString("Tag", Tag);
             bundle.putString("id", listdata.get(position).id);
-            openActivity(ProjectApprovaLoglDetActivity.class, bundle);
+            openActivity(ContractApplicationDetActivity.class, bundle);
         });
-        mBinding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                 /*   if (!getKeyWord().equals("")) {
-                    } else {
-                        showToast("请输入搜索关键字");
-                    }*/
-                    KeyBordUtil.hideSoftKeyboard(mBinding.etSearch);
-                    keyword = getKeyWord();
-                    page = 1;
-                    getListData(Constants.RequestMode.FRIST);
-                    return true;
-                }
-                return false;
+        mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+             /*   if (!getKeyWord().equals("")) {
+                } else {
+                    showToast("请输入搜索关键字");
+                }*/
+                KeyBordUtil.hideSoftKeyboard(mBinding.etSearch);
+                keyword = getKeyWord();
+                page = 1;
+                getListData(Constants.RequestMode.FRIST);
+                return true;
             }
+            return false;
         });
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {

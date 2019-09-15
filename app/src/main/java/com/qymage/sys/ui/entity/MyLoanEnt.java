@@ -15,11 +15,16 @@ public class MyLoanEnt {
     public String name;// 姓名
     public String orgName;// 所属部门名称
     public String cause;//  事由
-    public String Amount;//  金额
+    public String amount;//  金额
     public String useDate;//  使用日期
     public String pay;//  还款日期
     public int actStatus;// //审批状态
     public String portrait;
+    public String personName;
+    public String createTime;
+    public String deptName;
+    public String id;
+    public String processInstId;
 
 
     /**

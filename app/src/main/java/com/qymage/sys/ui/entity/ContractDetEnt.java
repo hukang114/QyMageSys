@@ -106,6 +106,7 @@ public class ContractDetEnt {
     public Object keyword;
     public Object stats;
     public String processInstId;
+    public int actStatus;
     public int regarding;
     public List<ContractDetailsBean> contractDetails;
     public List<ContractPayscaleBean> contractPayscale;

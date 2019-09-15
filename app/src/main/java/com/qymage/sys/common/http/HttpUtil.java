@@ -479,6 +479,78 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(HttpConsts.MONEY_MONEYQUERY, params);
     }
 
+    /**
+     * 9.5月报查询列表接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest log_ListMonQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOG_LISTMONQUERY, params);
+    }
+
+    /**
+     * 12.3借还款查询列表接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest loan_loanQueryDet(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOG_LOANQUERY_DET, params);
+    }
+
+    /**
+     * 8.1查询考勤配置
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest getSettingInfo(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.ATTENDANCE_SETTING_GETSETTINGINFO, params);
+    }
+
+
+    /**
+     * 8.2打卡
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest attendance_Clock(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.ATTENDANCE_CLOCK, params);
+    }
+
+    /**
+     * 8.3按天查询考勤
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest attendance_DaySearch(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.ATTENDANCE_DAYSEARCH, params);
+    }
+
+    /**
+     * 8.4我的考勤查询
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest attendance_ClockQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.ATTENDANCE_CLOCKQUERY, params);
+    }
+
+    /**
+     * 8.5排行查询接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest attendance_rankQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.ATTENDANCE_RANKQUERY, params);
+    }
+
+
 }
 
 

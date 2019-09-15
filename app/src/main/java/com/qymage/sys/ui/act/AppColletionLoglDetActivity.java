@@ -126,7 +126,6 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
         ProjectAppLogEnt appLogEnt = new ProjectAppLogEnt();
         appLogEnt.processInstId = info.processInstId;
         appLogEnt.id = info.id;
-
         switch (v.getId()) {
             case R.id.refuse_tv: // 拒绝
                 switch (bidType) {

@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 
+import com.bumptech.glide.Glide;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.baseFragment.FragmentLazy;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -27,6 +29,8 @@ import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -129,7 +133,10 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         });
 
 
+
     }
+
+
 
     @Override
     protected void initData() {
@@ -143,8 +150,60 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         } else if (workType == 2) {
             getweeklyQuery(mode);
         } else if (workType == 3) {
-
+            getListMonQuery(mode);
         }
+    }
+
+    /**
+     * 获取月报
+     */
+    private void getListMonQuery(Constants.RequestMode mode) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("logType", logType + "");
+        hashMap.put("page", page + "");
+        showLoading();
+        HttpUtil.log_ListMonQuery(hashMap).execute(new JsonCallback<Result<List<JournalEntity>>>() {
+            @Override
+            public void onSuccess(Result<List<JournalEntity>> result, Call call, Response response) {
+                closeLoading();
+                mBinding.emptylayout.showContent();
+                mBinding.refreshlayout.finishRefresh(); // 刷新完成
+                mBinding.refreshlayout.finishLoadMore();
+                if (mode == Constants.RequestMode.FRIST) {
+                    journalEntities.clear();
+                    if (result.data != null && result.data.size() > 0) {
+                        journalEntities.addAll(result.data);
+                    } else {
+                        mBinding.emptylayout.showEmpty();
+                    }
+                } else if (mode == Constants.RequestMode.LOAD_MORE) {
+                    if (result.data != null && result.data.size() > 0) {
+                        List<JournalEntity> list = result.data;
+                        journalEntities.addAll(list);
+                    } else {
+                        // 全部加载完成,没有数据了调用此方法
+                        mBinding.refreshlayout.finishLoadMoreWithNoMoreData();
+                        page--;
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                mBinding.refreshlayout.finishRefresh(); // 刷新完成
+                mBinding.refreshlayout.finishLoadMore();
+                showToast(e.getMessage());
+                mBinding.emptylayout.showError();
+                mBinding.emptylayout.setRetryListener(() -> {
+                    page = 1;
+                    getListMonQuery(Constants.RequestMode.FRIST);
+                });
+            }
+        });
+
     }
 
     /**

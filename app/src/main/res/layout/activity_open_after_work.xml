@@ -22,13 +22,18 @@
             android:layout_height="65dp"
             android:background="@color/white">
 
-            <ImageView
-                android:id="@+id/user_head_img"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+            <TextView
+                android:id="@+id/name_tv_bg"
+                android:layout_width="@dimen/margin40"
+                android:layout_height="@dimen/margin40"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/margin15"
-                android:src="@mipmap/ic_launcher" />
+                android:background="@drawable/btn_round_style"
+                android:gravity="center"
+                android:text="名字"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13"
+                android:visibility="visible" />
 
 
             <TextView
@@ -37,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin15"
                 android:layout_marginTop="@dimen/margin10"
-                android:layout_toRightOf="@+id/user_head_img"
+                android:layout_toRightOf="@+id/name_tv_bg"
                 android:text="用户昵称"
                 android:textColor="@color/rizhi_color"
                 android:textSize="@dimen/text_size_16"
@@ -51,7 +56,7 @@
                 android:layout_below="@+id/user_name_tv"
                 android:layout_marginLeft="@dimen/margin15"
                 android:layout_marginTop="@dimen/margin3"
-                android:layout_toRightOf="@+id/user_head_img"
+                android:layout_toRightOf="@+id/name_tv_bg"
                 android:text="@string/kaoqin_rules_txt"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_size_13" />
@@ -180,8 +185,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin10"
-                    android:paddingBottom="6dp"
-                    android:paddingRight="10dp">
+                    android:paddingRight="10dp"
+                    android:paddingBottom="6dp">
 
                     <TextView
                         android:id="@+id/work_shift_time_tv"
@@ -224,8 +229,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin48"
-                    android:paddingBottom="6dp"
                     android:paddingRight="10dp"
+                    android:paddingBottom="6dp"
                     android:visibility="gone">
 
                     <TextView
@@ -284,8 +289,8 @@
                             android:id="@+id/to_work_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="45dp"
                             android:layout_marginTop="@dimen/margin40"
+                            android:layout_marginRight="45dp"
                             android:gravity="center"
                             android:text="上班打卡"
                             android:textColor="@color/white"
@@ -296,8 +301,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/to_work_tv"
-                            android:layout_marginRight="45dp"
                             android:layout_marginTop="@dimen/margin5"
+                            android:layout_marginRight="45dp"
                             android:format12Hour="yyyy-MM-dd,HH:mm"
                             android:format24Hour="hh:mm:ss,EE"
                             android:gravity="center"
@@ -332,10 +337,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginRight="@dimen/margin15"
                                 android:layout_marginTop="@dimen/margin10"
-                                android:drawablePadding="@dimen/margin5"
+                                android:layout_marginRight="@dimen/margin15"
                                 android:drawableRight="@mipmap/loction_ioc_smaoo"
+                                android:drawablePadding="@dimen/margin5"
                                 android:gravity="center"
                                 android:text="从新定位"
                                 android:textColor="@color/colorAccent"
@@ -347,12 +352,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginRight="@dimen/margin15"
                                 android:layout_marginTop="@dimen/margin10"
+                                android:layout_marginRight="@dimen/margin15"
                                 android:gravity="center|top"
                                 android:hint="备注"
-                                android:minHeight="50dp"
                                 android:minWidth="@dimen/margin100"
+                                android:minHeight="50dp"
                                 android:textSize="@dimen/text_size_15" />
 
                         </LinearLayout>

@@ -23,6 +23,7 @@ import com.qymage.sys.ui.act.MyAttendanceActivity;
 import com.qymage.sys.ui.act.MyLoanActivity;
 import com.qymage.sys.ui.act.PersonalActivity;
 import com.qymage.sys.ui.act.ReimbursementActivity;
+import com.qymage.sys.ui.act.ReimbursementLogActivity;
 import com.qymage.sys.ui.act.SetUpActivity;
 import com.qymage.sys.ui.adapter.MyMenuAdapter;
 import com.qymage.sys.ui.entity.LoginEntity;
@@ -106,16 +107,13 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
                 openActivity(ChoiceContractLogActivity.class);
                 break;
             case "wdbx": // 我的报销
-                openActivity(ReimbursementActivity.class);
-
+                openActivity(ReimbursementLogActivity.class);
                 break;
-
             case "wdjhk": // 我的借还款
                 openActivity(MyLoanActivity.class);
                 break;
             case "wdkq": // 我的考勤
                 openActivity(MyAttendanceActivity.class);
-
                 break;
             case "seting": // 设置
                 openActivity(SetUpActivity.class);

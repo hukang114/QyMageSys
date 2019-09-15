@@ -44,7 +44,7 @@ public class HttpConsts {
     //12.4还款申请接口
     public static final String LOAN_PAYADD = "loan/payAdd";
     //借款查询接口 我的借款列表
-    public static final String LOAN_LOANQUERY = "loan/loanQuery";
+    public static final String LOAN_LOANQUERY = "loan/listLoanQuery";
     //请假申请提交接口
     public static final String LEAVE_SUBMIT = "leave/submit";
     //日报申请接口
@@ -56,7 +56,7 @@ public class HttpConsts {
     //9.4周报查询
     public static final String LOG_WEEKLYQUERY = "log/weeklyQuery";
     //9.8获取月报工作计划接口
-    public static final String LOG_YESQUERY = "log/yesQuery";
+    public static final String LOG_YESQUERY = "log/ListMonQuery";
     //9.7月报申请提交接口
     public static final String LOG_MONADD = "log/monAdd";
     //按条件查询人员你列表
@@ -82,13 +82,27 @@ public class HttpConsts {
     //2.12公告列表接口及详情
     public static final String NOTICE_LISTNOTICE = "notice/listNotice";
     //消息更新接口
-    public static final String NOTICE_MSGUDATE = "message/user/msgUdate";
+    public static final String NOTICE_MSGUDATE = "message/consume";
     //11.4按合同编号获取收付款/开票收票信息
     public static final String MONEY_GETRECEIVED = "money/getReceived";
     //11.2我的收款/付款/收票/开票查询列表接口
     public static final String MONEY_LISTMONEYQUERY = "money/listMoneyQuery";
     //11.3我的收款/付款/收票/开票查询详情接口
     public static final String MONEY_MONEYQUERY = "money/moneyQuery";
+    //9.5月报查询列表接口
+    public static final String LOG_LISTMONQUERY = "log/ListMonQuery";
+    //12.3借还款查询列表接口
+    public static final String LOG_LOANQUERY_DET = "loan/loanQuery";
+    //8.1查询考勤配置
+    public static final String ATTENDANCE_SETTING_GETSETTINGINFO = "attendance/setting/getSettingInfo";
+    //8.2打卡
+    public static final String ATTENDANCE_CLOCK = "attendance/clock";
+    //8.3按天查询考勤
+    public static final String ATTENDANCE_DAYSEARCH = "attendance/daySearch";
+    //8.4我的考勤查询
+    public static final String ATTENDANCE_CLOCKQUERY = "attendance/clockQuery";
+    //8.5排行查询接口
+    public static final String ATTENDANCE_RANKQUERY = "attendance/rankQuery";
 
 
 }

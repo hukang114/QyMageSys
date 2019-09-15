@@ -27,7 +27,7 @@ public class AskForLeaveRecordAdapter extends BaseQuickAdapter<AskForLeaveEntity
 
     @Override
     protected void convert(BaseViewHolder helper, AskForLeaveEntity item) {
-        PicasooUtil.setImageResource(item.headimg, helper.getView(R.id.afl_head_img), 360);
+    /*    PicasooUtil.setImageResource(item.headimg, helper.getView(R.id.afl_head_img), 360);
         if(item.result_type == 0){
             ((TextView)helper.getView(R.id.shenpi_jieguo_value)).setTextColor(Color.YELLOW);
         }else if(item.result_type == 1){
@@ -39,7 +39,7 @@ public class AskForLeaveRecordAdapter extends BaseQuickAdapter<AskForLeaveEntity
                 .setText(R.id.qingjia_leixing_value, item.afl_type)
                 .setText(R.id.qingjia_kaishi_value, item.start_time)
                 .setText(R.id.qingjia_jieshu_value, item.end_time)
-                .setText(R.id.shenpi_jieguo_value, item.result);
+                .setText(R.id.shenpi_jieguo_value, item.result);*/
 
     }
 
