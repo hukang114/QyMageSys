@@ -49,7 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.act.ReimbursementLogActivity"></activity>
+        <activity android:name=".ui.act.ReimbursementLogActivity" />
         <activity android:name=".ui.act.ApplicationCollectionLogActivity" />
         <activity android:name=".ui.act.BrowsePathActivity" />
         <activity android:name=".ui.act.BidPerformanceLvYueSZActivity" />
@@ -185,7 +185,8 @@
         <activity android:name=".ui.act.HistoryReceiptsPaymentsDetActivity" />
         <activity android:name=".ui.act.AppColletionLoglDetActivity" />
         <activity android:name=".ui.act.LoanDetailsActivity" />
-        <activity android:name=".ui.act.ASkForDetailsActivity"></activity>
+        <activity android:name=".ui.act.ASkForDetailsActivity" />
+        <activity android:name=".ui.act.RankingActivity"></activity>
     </application>
 
 </manifest>
