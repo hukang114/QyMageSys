@@ -1,9 +1,12 @@
 package com.qymage.sys.ui.act;
 
+import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -47,11 +50,10 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
 
     List<AskForLeaveEntity> listdata = new ArrayList<>();
     AskForLeaveRecordAdapter adapter;
-    private String stats = "1";// 1-待处理 2-已处理 3-抄送我  4-已提交
     private String keyword = "";
     private Bundle bundle;
     private int page = 1;
-    public static int mType = 1;
+    public static int mType = 1;// 1-待处理 2-已处理 3-抄送我  4-已提交
 
 
     @Override
@@ -60,6 +62,7 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
     }
 
 
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
     @Override
     protected void initView() {
         super.initView();
@@ -74,7 +77,7 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
             getListData(Constants.RequestMode.LOAD_MORE);
         });
         mBinding.refreshlayout.setEnableLoadMore(false);
-        adapter = new AskForLeaveRecordAdapter(R.layout.item_myloan_list, listdata);
+        adapter = new AskForLeaveRecordAdapter(R.layout.item_askforleave_list, listdata);
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.radioGroup.setOnCheckedChangeListener(this);
         mBinding.pendingBtn.setChecked(true);
@@ -94,31 +97,24 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
         });
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             ProjectAppLogEnt appLogEnt = new ProjectAppLogEnt();
-            appLogEnt.id = listdata.get(position).id;
-            appLogEnt.processInstId = listdata.get(position).processInstId;
+            appLogEnt.id = listdata.get(position).Id;
+            appLogEnt.processInstId = listdata.get(position).processInstanceId;
             switch (view.getId()) {
                 case R.id.bnt1:
-                    auditAdd("3", AppConfig.status.value13, appLogEnt);
+                    auditAdd("3", AppConfig.status.value7, appLogEnt);
                     break;
                 case R.id.bnt2:// 拒绝
-                    auditAdd("2", AppConfig.status.value13, appLogEnt);
+                    auditAdd("2", AppConfig.status.value7, appLogEnt);
                     break;
                 case R.id.bnt3:// 同意
-                    auditAdd("1", AppConfig.status.value13, appLogEnt);
+                    auditAdd("1", AppConfig.status.value7, appLogEnt);
                     break;
-                case R.id.btn4:// 申请还款
-                    bundle = new Bundle();
-                    bundle.putString("processInstId", listdata.get(position).processInstId);
-                    bundle.putString("id", listdata.get(position).id);
-                    openActivity(ApplicationRepaymentActivity.class, bundle);
-                    break;
-
             }
         });
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
             bundle = new Bundle();
-            bundle.putString("id", listdata.get(position).id);
+            bundle.putString("id", listdata.get(position).Id);
             openActivity(ASkForDetailsActivity.class, bundle);
         });
 
@@ -130,8 +126,8 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
     }
 
 
-    public String getmTypes() {
-        return stats;
+    public int getmTypes() {
+        return mType;
     }
 
 
@@ -142,7 +138,7 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
      */
     private void getListData(Constants.RequestMode mode) {
         showLoading();
-        HttpUtil.loan_loanQuery(getPer()).execute(new JsonCallback<Result<List<AskForLeaveEntity>>>() {
+        HttpUtil.leave_listSerch(getPer()).execute(new JsonCallback<Result<List<AskForLeaveEntity>>>() {
             @Override
             public void onSuccess(Result<List<AskForLeaveEntity>> result, Call call, Response response) {
                 mBinding.emptylayout.showContent();
@@ -229,9 +225,8 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
      */
     private HashMap<String, Object> getPer() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("stats", stats);
+        map.put("logType", mType + "");
         map.put("keyword", keyword);
-        map.put("userCode", getUserId());
         map.put("page", page + "");
         return map;
     }

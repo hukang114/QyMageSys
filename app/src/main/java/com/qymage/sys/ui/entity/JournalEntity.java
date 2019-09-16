@@ -42,5 +42,23 @@ public class JournalEntity implements Serializable {
     public String weekDay;
     public String nextWeek;
 
+    //- 月报-------------------------
+   /* Id  String
+    processInstanceId;：string 流程实例ID
+    createTime string  日期  2019-09-09 9:00
+    monthWork string 本月工作计划
+    submonthWork: String;//本月工作总结
+    nextMonthWeek  String  下月工作计划
+    selg  string  自我评级
+    actStatus：String //审批状态*/
+
+    public String processInstanceId;
+    public String createTime;
+    public String selg;
+    public String monthWork;
+    public String submonthWork;
+    public String nextMonthWeek;
+    public String Id;
+
 
 }

@@ -119,5 +119,54 @@
         android:textColor="@color/rizhi_content_color"
         android:textSize="@dimen/text_size_15" />
 
+    <LinearLayout
+        android:id="@+id/bottom_bnt_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bnt1"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin10"
+            android:background="@drawable/jujue_btn_style"
+            android:gravity="center"
+            android:paddingLeft="@dimen/margin10"
+            android:paddingRight="@dimen/margin10"
+            android:text="@string/cehui_txt"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/bnt2"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin10"
+            android:background="@drawable/jujue_btn_style"
+            android:gravity="center"
+            android:paddingLeft="@dimen/margin10"
+            android:paddingRight="@dimen/margin10"
+            android:text="@string/refuse_txt"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/bnt3"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/jujue_btn_style"
+            android:gravity="center"
+            android:paddingLeft="@dimen/margin10"
+            android:paddingRight="@dimen/margin10"
+            android:text="@string/agree_txt"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
 </LinearLayout>

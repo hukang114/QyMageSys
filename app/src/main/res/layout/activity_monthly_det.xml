@@ -14,13 +14,13 @@
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cTxt="@string/det_txt" />
+            app:cTxt="@string/yuebao_det" />
 
         <ScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                             android:layout_marginLeft="@dimen/margin10"
                             android:layout_marginTop="@dimen/margin10"
                             android:layout_toRightOf="@+id/name_tv_bg"
-                            android:text="张三的借款"
+                            android:text="张三的"
                             android:textColor="@color/rizhi_color"
                             android:textSize="@dimen/text_size_16"
                             android:textStyle="bold" />
@@ -92,7 +92,8 @@
                         android:layout_marginLeft="@dimen/margin15"
                         android:layout_marginTop="@dimen/margin10"
                         android:text="审批编号"
-                        android:textSize="@dimen/text_size_15" />
+                        android:textSize="@dimen/text_size_15"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/szbm_type"
@@ -178,15 +179,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin10"
                     android:layout_marginBottom="@dimen/margin10"
-                    android:background="@color/white"
-                    android:nestedScrollingEnabled="false"
-                    android:paddingTop="@dimen/margin10"
-                    android:paddingBottom="@dimen/margin10" />
-
+                    android:nestedScrollingEnabled="false" />
             </LinearLayout>
         </ScrollView>
 
         <LinearLayout
+            android:id="@+id/bottom_state_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin50"
             android:background="@color/white"
@@ -194,7 +192,21 @@
 
 
             <TextView
-                android:id="@+id/refuse_tv"
+                android:id="@+id/bnt1"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin10"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:paddingLeft="@dimen/margin10"
+                android:paddingRight="@dimen/margin10"
+                android:text="@string/cehui_txt"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/bnt2"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="@dimen/margin15"
@@ -203,9 +215,8 @@
                 android:text="@string/refuse_txt"
                 android:textColor="@color/blue_219" />
 
-
             <TextView
-                android:id="@+id/agree_tv"
+                android:id="@+id/bnt3"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="@dimen/margin15"
@@ -213,8 +224,8 @@
                 android:gravity="center"
                 android:text="@string/agree_txt"
                 android:textColor="@color/white" />
-        </LinearLayout>
 
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

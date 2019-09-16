@@ -40,7 +40,7 @@ public class SelectionDeparAdapter extends BaseQuickAdapter<GetTreeEnt, BaseView
         helper.addOnClickListener(R.id.frg_selc_all);
 
         TextView name_tv_bg = helper.getView(R.id.name_tv_bg);
-        if (item.portrait == null) {
+        if (item.userName != null) {
             head_img.setVisibility(View.GONE);
             name_tv_bg.setVisibility(View.VISIBLE);
             if (item.userName.length() >= 3) {

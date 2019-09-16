@@ -550,6 +550,56 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(HttpConsts.ATTENDANCE_RANKQUERY, params);
     }
 
+    /**
+     * 8.2考勤计算接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest attendance_Calculate(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.ATTENDANCE_CALCULATE, params);
+    }
+
+    /**
+     * 7.2查询我的请假接口列表
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest leave_listSerch(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LEAVE_LISTSERCH, params);
+    }
+
+    /**
+     * 77.3请假查询详情接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest leave_detalSerc(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LEAVE_DETALSERC, params);
+    }
+
+    /**
+     * 9.3日志接口查询详情
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest log_logQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOG_LOGQUERY, params);
+    }
+
+    /**
+     * 9.6月报查询详情接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest log_monQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.LOG_MONQUERY, params);
+    }
+
 
 }
 

@@ -16,7 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qymage.sys.common.callback.JsonCallback;
+import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
+import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.tools.ImageManager;
 import com.qymage.sys.common.tools.ToastUtil;
 import com.qymage.sys.common.util.AppSignUtil;
@@ -24,18 +27,22 @@ import com.qymage.sys.common.util.SPUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.PostRequest;
 import com.qymage.sys.common.widget.ProgressDialog;
+import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Response;
+
 /**
- *
  * 若需要采用Lazy方式加载的Fragment，初始化内容放到initData实现
  * 若不需要Lazy加载则initData方法内留空,初始化内容放到initViews即可
- *
+ * <p>
  * 注意事项 1:
  * 如果是与ViewPager一起使用，调用的是setUserVisibleHint。
- *
+ * <p>
  * 注意事项 2:
  * 如果是通过FragmentTransaction的show和hide的方法来控制显示，调用的是onHiddenChanged.
  * 针对初始就show的Fragment 为了触发onHiddenChanged事件 达到lazy效果 需要先hide再show
@@ -43,7 +50,7 @@ import java.util.Map;
  * @author vondear
  * @date 2015/11/21.
  */
-public abstract class FragmentLazy <VB extends ViewDataBinding> extends Fragment {
+public abstract class FragmentLazy<VB extends ViewDataBinding> extends Fragment {
 
     /**
      * 是否可见状态
@@ -74,7 +81,7 @@ public abstract class FragmentLazy <VB extends ViewDataBinding> extends Fragment
     public void onAttach(Context context) {
         super.onAttach(context);
         this.mContext = context;
-        mManager =new ImageManager(mContext);
+        mManager = new ImageManager(mContext);
     }
 
     @Override
@@ -84,7 +91,7 @@ public abstract class FragmentLazy <VB extends ViewDataBinding> extends Fragment
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // 若 viewpager 不设置 setOffscreenPageLimit 或设置数量不够
         // 销毁的Fragment onCreateView 每次都会执行(但实体类没有从内存销毁)
         // 导致initData反复执行,所以这里注释掉
@@ -92,15 +99,15 @@ public abstract class FragmentLazy <VB extends ViewDataBinding> extends Fragment
         // 取消 isFirstLoad = true的注释 , 因为上述的initData本身就是应该执行的
         // onCreateView执行 证明被移出过FragmentManager initData确实要执行.
         // 如果这里有数据累加的Bug 请在initViews方法里初始化您的数据 比如 list.clear();
-        if (mRootView==null){
+        if (mRootView == null) {
             mContext = getActivity();
             isFirstLoad = true;
-            mBinding = DataBindingUtil.inflate(inflater,this.getContentLayout(), container, false);
+            mBinding = DataBindingUtil.inflate(inflater, this.getContentLayout(), container, false);
             mRootView = mBinding.getRoot();
             baseInit();
             isPrepared = true;
             lazyLoad();
-        }else{
+        } else {
             ViewGroup parent = (ViewGroup) mRootView.getParent();
             if (null != parent) {
                 parent.removeView(mRootView);
@@ -174,24 +181,23 @@ public abstract class FragmentLazy <VB extends ViewDataBinding> extends Fragment
     protected abstract void initData();
 
 
-
-    public PostRequest postData(String url, Map<String, String> params){
-        if (getToken().equals("")||getToken()==null){
-        }else{
-            params.put("token",getToken());
+    public PostRequest postData(String url, Map<String, String> params) {
+        if (getToken().equals("") || getToken() == null) {
+        } else {
+            params.put("token", getToken());
         }
         params.put("sign", AppSignUtil.getgenAppSignValue(params));
-        return OkGo.post(Constants.base_url+url)//
+        return OkGo.post(Constants.base_url + url)//
                 .params(params)
                 .tag(this);
     }
 
 
-    public PostRequest postData(Map<String, String> params){
-        if (getToken()==null||getToken().equals("")){
-            params.put("token","null");
-        }else{
-            params.put("token",getToken());
+    public PostRequest postData(Map<String, String> params) {
+        if (getToken() == null || getToken().equals("")) {
+            params.put("token", "null");
+        } else {
+            params.put("token", getToken());
         }
         params.put("sign", AppSignUtil.getgenAppSignValue(params));
         return OkGo.post(Constants.base_url)//
@@ -204,7 +210,6 @@ public abstract class FragmentLazy <VB extends ViewDataBinding> extends Fragment
     public void onDestroy() {
         super.onDestroy();
     }
-
 
 
     protected void showToast(String msg) {
@@ -239,41 +244,43 @@ public abstract class FragmentLazy <VB extends ViewDataBinding> extends Fragment
         if (pBundle != null) {
             intent.putExtras(pBundle);
         }
-        startActivityForResult(intent,200);
+        startActivityForResult(intent, 200);
 //        startActivity(intent);
     }
 
-    public String getToken(){
-        return (String) SPUtils.get(mContext, Constants.token,"");
+    public String getToken() {
+        return (String) SPUtils.get(mContext, Constants.token, "");
     }
-    public String getOpenId(){
-        return (String) SPUtils.get(mContext, Constants.openid,"");
+
+    public String getOpenId() {
+        return (String) SPUtils.get(mContext, Constants.openid, "");
     }
-    public String getGesture_Pwd(){
-        return (String) SPUtils.get(mContext, getOpenId()+Constants.gesture_pwd,"");
+
+    public String getGesture_Pwd() {
+        return (String) SPUtils.get(mContext, getOpenId() + Constants.gesture_pwd, "");
     }
 
     protected String getUserId() {
         return (String) SPUtils.get(mContext, Constants.userid, "");
     }
 
-    public boolean IsLogin(){
+    public boolean IsLogin() {
         return !getToken().equals("");
     }
 
     /**
      * 没有登录启动登录页面
+     *
      * @return
      */
-    public boolean isLogin(Class tClass){
-        if (getToken().equals("")||getToken()==null){
+    public boolean isLogin(Class tClass) {
+        if (getToken().equals("") || getToken() == null) {
             openActivity(tClass);
             return false;
-        }else{
+        } else {
             return true;
         }
     }
-
 
 
     private ProgressDialog mProgressDialog;
@@ -294,30 +301,100 @@ public abstract class FragmentLazy <VB extends ViewDataBinding> extends Fragment
 
 
     private AlertDialog msgDialog;
+
     protected void msgDialog(String msg) {
         dismissMsgDialog();
         msgDialog = new AlertDialog.Builder(mContext).setTitle("提示")
                 .setMessage(msg)
-                .setPositiveButton("确定",(dialog, which) -> {
+                .setPositiveButton("确定", (dialog, which) -> {
                     dismissMsgDialog();
                 })
                 .create();
         msgDialog.show();
     }
+
     protected AlertDialog.Builder msgDialogBuilder(String msg, DialogInterface.OnClickListener lis) {
         dismissMsgDialog();
         return new AlertDialog.Builder(mContext).setTitle("提示")
-                .setPositiveButton("确定",lis)
-                .setNegativeButton("取消",(dialogInterface, i) -> dialogInterface.dismiss())
+                .setPositiveButton("确定", lis)
+                .setNegativeButton("取消", (dialogInterface, i) -> dialogInterface.dismiss())
                 .setMessage(msg);
     }
-    protected void dismissMsgDialog(){
+
+    protected void dismissMsgDialog() {
         if (msgDialog != null) {
             msgDialog.dismiss();
             msgDialog = null;
         }
     }
-
     //======================================================================================
+
+    // 审批的同意处理
+
+    /**
+     * @param type     1 同意 2  拒绝 3  撤销
+     * @param modeType 审批的模块的类型
+     * @param item     审批需的参数对象
+     */
+    protected void auditAdd(String type, int modeType, ProjectAppLogEnt item) {
+        if (type.equals("3")) {
+            msgDialogBuilder("确认撤销？", (dialog, which) -> {
+                dialog.dismiss();
+                subMitAudit(type, modeType, item);
+            }).create().show();
+        } else if (type.equals("2")) {
+            msgDialogBuilder("拒绝审批？", (dialog, which) -> {
+                dialog.dismiss();
+                subMitAudit(type, modeType, item);
+            }).create().show();
+        } else if (type.equals("1")) {
+            msgDialogBuilder("同意审批？", (dialog, which) -> {
+                dialog.dismiss();
+                subMitAudit(type, modeType, item);
+            }).create().show();
+        }
+
+    }
+
+    /**
+     * @param type     1 同意 2  拒绝 3  审批
+     * @param modeType 审批的模块的类型
+     * @param item     审批需的参数对象
+     */
+    private void subMitAudit(String type, int modeType, ProjectAppLogEnt item) {
+        showLoading();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Id", item.id);
+        hashMap.put("remarks", "");
+        hashMap.put("type", type);
+        hashMap.put("processInstanceId", item.processInstId);
+        hashMap.put("modeType", modeType);
+        HttpUtil.audit_auditAdd(hashMap).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+                closeLoading();
+                msgDialogBuilder(result.message, (dialog, which) -> {
+                    dialog.dismiss();
+                    successTreatment();
+                }).setCancelable(false).create().show();
+                successTreatment();
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 审批功的处理
+     */
+    protected void successTreatment() {
+
+    }
+
 
 }

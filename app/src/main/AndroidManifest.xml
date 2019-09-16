@@ -30,7 +30,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- 用于加快GPS首次定位 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -49,6 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.act.MyAttendanceListActivity"></activity>
         <activity android:name=".ui.act.ReimbursementLogActivity" />
         <activity android:name=".ui.act.ApplicationCollectionLogActivity" />
         <activity android:name=".ui.act.BrowsePathActivity" />
@@ -78,7 +79,7 @@
         </provider> <!-- 百度地图及地位 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="UqGsNVSNT1CuzRYtG1UTL2blBcCtAe83" />
+            android:value="E89ScdBuKFDLjiBoZq0omWsLEDucBUKy" />
 
         <service
             android:name="com.baidu.location.f"
@@ -186,7 +187,8 @@
         <activity android:name=".ui.act.AppColletionLoglDetActivity" />
         <activity android:name=".ui.act.LoanDetailsActivity" />
         <activity android:name=".ui.act.ASkForDetailsActivity" />
-        <activity android:name=".ui.act.RankingActivity"></activity>
+        <activity android:name=".ui.act.RankingActivity" />
+        <activity android:name=".ui.act.MonthlyDetailsActivity" />
     </application>
 
 </manifest>

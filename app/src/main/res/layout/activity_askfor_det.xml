@@ -59,7 +59,7 @@
                             android:layout_marginLeft="@dimen/margin10"
                             android:layout_marginTop="@dimen/margin10"
                             android:layout_toRightOf="@+id/name_tv_bg"
-                            android:text="张三的借款"
+                            android:text="张三的"
                             android:textColor="@color/rizhi_color"
                             android:textSize="@dimen/text_size_16"
                             android:textStyle="bold" />

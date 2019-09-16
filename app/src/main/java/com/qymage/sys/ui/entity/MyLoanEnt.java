@@ -18,7 +18,7 @@ public class MyLoanEnt {
     public String amount;//  金额
     public String useDate;//  使用日期
     public String pay;//  还款日期
-    public int actStatus;// //审批状态
+    public String actStatus;// //审批状态
     public String portrait;
     public String personName;
     public String createTime;

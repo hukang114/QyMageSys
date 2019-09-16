@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.qymage.sys.AppConfig;
@@ -15,9 +16,12 @@ import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityProjectApprovaLoglDetBinding;
+import com.qymage.sys.ui.adapter.ProcessListAdapter;
 import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.leo.click.SingleClick;
 import okhttp3.Call;
@@ -32,13 +36,15 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
     private String Tag;
     private String id;
     private Intent mIntent;
-    ProjectApprovaLoglDetEnt.DataInfo info;
-
+    ProjectApprovaLoglDetEnt info;
+    List<ProjectApprovaLoglDetEnt.ActivityVoListBean> voListBeans = new ArrayList<>();
+    ProcessListAdapter listAdapter;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_project_approva_logl_det;
     }
+
 
     @Override
     protected void initView() {
@@ -49,7 +55,9 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
         id = mIntent.getStringExtra("id");
         mBinding.refuseTv.setOnClickListener(this);
         mBinding.agreeTv.setOnClickListener(this);
-
+        mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
+        mBinding.recyclerview.setAdapter(listAdapter);
     }
 
 
@@ -65,13 +73,16 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
     private void project_findById() {
         showLoading();
         HttpUtil.project_findById(getPer()).execute(new JsonCallback<Result<ProjectApprovaLoglDetEnt>>() {
-
             @Override
             public void onSuccess(Result<ProjectApprovaLoglDetEnt> result, Call call, Response response) {
                 closeLoading();
                 if (result.data != null) {
-                    setDataShow(result.data.dataInfo);
-                    info = result.data.dataInfo;
+                    setDataShow(result.data);
+                    info = result.data;
+                    if (result.data.activityVoList != null) {
+                        voListBeans.addAll(result.data.activityVoList);
+                        listAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -87,22 +98,20 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
     }
 
 
-    private void setDataShow(ProjectApprovaLoglDetEnt.DataInfo item) {
-        if (item.persion == null) {
-            if (item.persion.length() >= 3) {
-                String strh = item.persion.substring(item.persion.length() - 2, item.persion.length());   //截取
+    private void setDataShow(ProjectApprovaLoglDetEnt item) {
+        if (item.personName != null) {
+            if (item.personName.length() >= 3) {
+                String strh = item.personName.substring(item.personName.length() - 2, item.personName.length());   //截取
                 mBinding.nameTvBg.setText(strh);
             } else {
-                mBinding.nameTvBg.setText(item.persion);
+                mBinding.nameTvBg.setText(item.personName);
             }
         }
         mBinding.userName.setText(item.persion + item.projectType);
-        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待处理" : 2 == item.actStatus ? "已处理" :
-                3 == item.actStatus ? "抄送给我" : 4 == item.actStatus ? "已处理" : "";
-        mBinding.actstatusTv.setText(status);
-        mBinding.spbhTv.setText("审批编号：" + item.projectNo);
-        mBinding.szbmType.setText("所在部门：" + item.number);
-        mBinding.projType.setText("项目类型：" + item.projectType);
+        mBinding.actstatusTv.setText(item.actStatus);
+        mBinding.spbhTv.setText("编号：" + item.id);
+        mBinding.szbmType.setText("所在部门：" + item.projectTypeName);
+        mBinding.projType.setText("项目类型：" + item.projectTypeName);
         mBinding.projNumber.setText("项目编号：" + item.projectNo);
         mBinding.projName.setText("项目名称：" + item.projectName);
         mBinding.persionName.setText("负责人：" + item.persion);
@@ -155,7 +164,7 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
         hashMap.put("Id", info.id);
         hashMap.put("remarks", "");
         hashMap.put("type", type);
-        hashMap.put("processInstanceId", info.processInstanceId);
+        hashMap.put("processInstanceId", info.processInstId);
         hashMap.put("modeType", AppConfig.status.value1);
         HttpUtil.audit_auditAdd(hashMap).execute(new JsonCallback<Result<String>>() {
             @Override

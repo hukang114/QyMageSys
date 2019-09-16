@@ -43,6 +43,7 @@ public class RankingActivity extends BBActivity<ActivityRankingBinding> {
     @Override
     protected void initView() {
         super.initView();
+        mBinding.metitle.setlTxtClick(v -> finish());
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         mBinding.refreshlayout.setEnableLoadMore(false);
         mBinding.refreshlayout.setOnRefreshListener(refreshLayout -> {
@@ -71,6 +72,8 @@ public class RankingActivity extends BBActivity<ActivityRankingBinding> {
 
             @Override
             public void onSuccess(Result<RankingKaoQing> result, Call call, Response response) {
+                closeLoading();
+                mBinding.refreshlayout.finishRefresh();
                 if (result.data != null) {
                     mBinding.emptylayout.showContent();
                     mBinding.averageManHour.setText("平均工时：" + result.data.avgHours);
@@ -89,6 +92,8 @@ public class RankingActivity extends BBActivity<ActivityRankingBinding> {
             public void onError(Call call, Response response, Exception e) {
                 super.onError(call, response, e);
                 closeLoading();
+                closeLoading();
+                mBinding.refreshlayout.finishRefresh();
                 showToast(e.getMessage());
                 mBinding.emptylayout.showError();
                 mBinding.emptylayout.setRetryListener(() -> {

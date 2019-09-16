@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.baseFragment.FragmentLazy;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -23,6 +25,8 @@ import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.databinding.FragmentJournalBinding;
+import com.qymage.sys.ui.act.ASkForDetailsActivity;
+import com.qymage.sys.ui.act.MonthlyDetailsActivity;
 import com.qymage.sys.ui.adapter.JournalAdapter;
 import com.qymage.sys.ui.entity.JournalEntity;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
@@ -50,11 +54,12 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
     private long startime = 0;
     private long endtime = 0;
     public static int workType = 1;
-    private int logType = 1;// logType String  1-待处理 2-已处理 3-抄送我  4-已提交
+    public static int logType = 1;// logType String  1-待处理 2-已处理 3-抄送我  4-已提交
 
     List<JournalEntity> journalEntities = new ArrayList<>();
     JournalAdapter adapter;
     private int page = 1;
+    private Bundle bundle;
 
 
     @Override
@@ -131,18 +136,50 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
             page = 1;
             getAllTypeData(Constants.RequestMode.FRIST);
         });
-
-
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            ProjectAppLogEnt item = new ProjectAppLogEnt();
+            int state = 0;
+            if (workType == 1) { // 日报
+                item.id = journalEntities.get(position).id;
+                item.processInstId = journalEntities.get(position).processInstId;
+                state = AppConfig.status.value2;
+            } else if (workType == 3) { // 月报
+                item.id = journalEntities.get(position).id;
+                item.processInstId = journalEntities.get(position).processInstId;
+                state = AppConfig.status.value14;
+            }
+            switch (view.getId()) {
+                case R.id.bnt1: // 撤销
+                    auditAdd("3", state, item);
+                    break;
+                case R.id.bnt2:// 拒绝
+                    auditAdd("2", state, item);
+                    break;
+                case R.id.bnt3:// 同意
+                    auditAdd("1", state, item);
+                    break;
+            }
+        });
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            bundle = new Bundle();
+            if (workType == 3) {
+                bundle.putString("id", journalEntities.get(position).id);
+            } else {
+                bundle.putString("id", journalEntities.get(position).Id);
+            }
+            if (workType != 2) {
+                bundle.putString("workType", workType + "");
+                openActivity(MonthlyDetailsActivity.class, bundle);
+            }
+        });
 
     }
-
 
 
     @Override
     protected void initData() {
         getAllTypeData(Constants.RequestMode.FRIST);
     }
-
 
     private void getAllTypeData(Constants.RequestMode mode) {
         if (workType == 1) {
@@ -258,7 +295,6 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                 });
             }
         });
-
     }
 
 
@@ -316,7 +352,6 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
 
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -332,6 +367,17 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                 break;
 
         }
+    }
+
+
+    /**
+     * 审批处理成功回调
+     */
+    @Override
+    protected void successTreatment() {
+        super.successTreatment();
+        page = 1;
+        getAllTypeData(Constants.RequestMode.FRIST);
     }
 
     /**

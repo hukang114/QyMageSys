@@ -13,6 +13,7 @@ import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.ui.act.ChoiceContractLogActivity;
 import com.qymage.sys.ui.act.ProjectApprovaLoglActivity;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
+import com.qymage.sys.ui.fragment.JournalFragment;
 
 import java.util.List;
 
@@ -60,15 +61,21 @@ public class ProjectApprovaLogAdapter extends BaseQuickAdapter<ProjectAppLogEnt,
             }
         }
         helper.addOnClickListener(R.id.bnt1).addOnClickListener(R.id.bnt2).addOnClickListener(R.id.bnt3);
+
         if (ProjectApprovaLoglActivity.mType == 1) {
-            bnt1.setVisibility(View.VISIBLE);
+            bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.VISIBLE);
             bnt3.setVisibility(View.VISIBLE);
+        } else if (ProjectApprovaLoglActivity.mType == 4) {
+            bnt1.setVisibility(View.VISIBLE);
+            bnt2.setVisibility(View.GONE);
+            bnt3.setVisibility(View.GONE);
         } else {
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
         }
+
 //
 //        switch (item.actStatus) {
 //            case 1:

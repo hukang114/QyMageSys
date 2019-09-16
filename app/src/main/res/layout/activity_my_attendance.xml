@@ -24,6 +24,7 @@
             android:background="@color/white">
 
             <RadioGroup
+                android:id="@+id/radiogroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -31,6 +32,7 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/week_btn"
                     android:layout_width="70dp"
                     android:layout_height="35dp"
                     android:background="@drawable/radio_button_left"
@@ -41,6 +43,7 @@
                     android:textSize="@dimen/text_size_16" />
 
                 <RadioButton
+                    android:id="@+id/month_btn"
                     android:layout_width="70dp"
                     android:layout_height="35dp"
                     android:background="@drawable/radio_button_right"
@@ -51,18 +54,44 @@
                     android:textSize="@dimen/text_size_16" />
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/kaoqing_date_tv"
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/margin15"
-                android:drawableLeft="@mipmap/rili_ioc"
-                android:gravity="center"
-                android:text="2019-8-26"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/text_size_13" />
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/lift_sub_ioc"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/kaoqing_date_tv"
+                    android:src="@mipmap/lift_sub_ioc" />
+
+                <TextView
+                    android:id="@+id/kaoqing_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin5"
+                    android:layout_marginRight="@dimen/margin5"
+                    android:layout_toLeftOf="@+id/right_ioc_add"
+                    android:gravity="center"
+                    android:text="2019-8-26"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_size_13" />
+
+                <ImageView
+                    android:id="@+id/right_ioc_add"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:src="@mipmap/right_ioc_add" />
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <View
@@ -76,14 +105,18 @@
             android:layout_height="65dp"
             android:background="@drawable/share_btn_bg">
 
-            <ImageView
-                android:id="@+id/user_head_img"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+            <TextView
+                android:id="@+id/name_tv_bg"
+                android:layout_width="@dimen/margin40"
+                android:layout_height="@dimen/margin40"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin15"
-                android:src="@mipmap/ic_launcher" />
-
+                android:layout_marginLeft="@dimen/margin10"
+                android:background="@drawable/btn_round_style"
+                android:gravity="center"
+                android:text="名字"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/user_name_tv"
@@ -91,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin15"
                 android:layout_marginTop="@dimen/margin10"
-                android:layout_toRightOf="@+id/user_head_img"
+                android:layout_toRightOf="@+id/name_tv_bg"
                 android:text="用户昵称"
                 android:textColor="@color/rizhi_color"
                 android:textSize="@dimen/text_size_16"
@@ -105,7 +138,7 @@
                 android:layout_below="@+id/user_name_tv"
                 android:layout_marginLeft="@dimen/margin15"
                 android:layout_marginTop="@dimen/margin3"
-                android:layout_toRightOf="@+id/user_head_img"
+                android:layout_toRightOf="@+id/name_tv_bg"
                 android:text="@string/kaoqin_guiz_tv"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_size_13" />
@@ -117,8 +150,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/user_name_tv"
                 android:layout_marginLeft="@dimen/margin50"
-                android:layout_marginRight="@dimen/margin15"
                 android:layout_marginTop="@dimen/margin2"
+                android:layout_marginRight="@dimen/margin15"
                 android:layout_toRightOf="@+id/kaoqin_rules_tv"
                 android:gravity="center"
                 android:text="指数:21"
@@ -130,10 +163,10 @@
                 android:id="@+id/ranking_num_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_below="@+id/user_name_tv"
-                android:layout_marginRight="@dimen/margin15"
+                android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/margin2"
+                android:layout_marginRight="@dimen/margin15"
                 android:gravity="center"
                 android:text="排行:2"
                 android:textColor="@color/colorAccent"
@@ -159,8 +192,8 @@
                         android:id="@+id/phone_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:enabled="false"
                         android:hint="10小时" />
                 </LinearLayout>
@@ -182,8 +215,8 @@
                         android:id="@+id/jon_num_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:hint="0小时" />
                 </LinearLayout>
 
@@ -204,8 +237,8 @@
                         android:id="@+id/username_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:hint="0天" />
                 </LinearLayout>
 
@@ -226,8 +259,8 @@
                         android:id="@+id/sex_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:hint="0天" />
                 </LinearLayout>
 
@@ -248,8 +281,8 @@
                         android:id="@+id/station_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:hint="0次" />
                 </LinearLayout>
 
@@ -270,8 +303,8 @@
                         android:id="@+id/birthday_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:hint="0次" />
                 </LinearLayout>
 
@@ -289,10 +322,11 @@
                         android:text="旷工" />
 
                     <TextView
+                        android:id="@+id/absent_tv"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:hint="0次" />
                 </LinearLayout>
 
@@ -310,10 +344,11 @@
                         android:text="异常" />
 
                     <TextView
+                        android:id="@+id/abnormal_tv"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:hint="0次" />
                 </LinearLayout>
 
@@ -331,10 +366,11 @@
                         android:text="请假" />
 
                     <TextView
+                        android:id="@+id/leave_tv"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:hint="0次" />
                 </LinearLayout>
 
@@ -352,19 +388,20 @@
                         android:text="出差" />
 
                     <TextView
+                        android:id="@+id/business_tv"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="@dimen/margin5"
                         android:drawableRight="@mipmap/down_ioc"
+                        android:drawablePadding="@dimen/margin5"
                         android:hint="0次" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginBottom="@dimen/margin50"
                     android:layout_marginLeft="@dimen/margin10"
                     android:layout_marginRight="@dimen/margin10"
+                    android:layout_marginBottom="@dimen/margin50"
                     android:background="@color/div_color" />
 
 

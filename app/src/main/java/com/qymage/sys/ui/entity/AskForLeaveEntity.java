@@ -1,7 +1,5 @@
 package com.qymage.sys.ui.entity;
 
-import java.util.List;
-
 /**
  * Created by admin on 2019/8/24.
  * <p>
@@ -10,41 +8,57 @@ import java.util.List;
 
 public class AskForLeaveEntity {
 
+    public String processInstanceId;
+    public String actStatus;
+    public ProcessListBean processList;
+    public String endDate;
+    public String photo;
+    public String cause;
+    public double ofTime;
+    public String userCode;
+    public SendListBean sendList;
+    public String leaveType;
+    public String leaveName;
+    public String name;
+    public String Id;
+    public String startDate;
+    public String createDate;
+    public String msgId;
+    public String read;//消息状态  0未读  1已读
 
-    public String TaskId;//   任务ID
-    public String userCode;//  工号
-    public String name;// 姓名
-    public String orgName;// 所属部门名称
-    public String cause;//  事由
-    public String amount;//  金额
-    public String useDate;//  使用日期
-    public String pay;//  还款日期
-    public int actStatus;// //审批状态
-    public String portrait;
-    public String personName;
-    public String createTime;
-    public String deptName;
-    public String id;
-    public String processInstId;
-
-
-    /**
-     * processList : [{"date":"name","node":" 审核状态","name":"战士","remarks":"备注"}]
-     */
-    public List<MyLoanEnt.ProcessListEntity> processList;
-
-    public class ProcessListEntity {
+    public static class ProcessListBean {
         /**
-         * date : name
-         * node :  审核状态
-         * name : 战士
-         * remarks : 备注
+         * date : null
+         * node : null
+         * processInstanceId : 197527
+         * createdDate : null
+         * comment  : null
+         * name : 部门经理
+         * businessKey : null
+         * userName : null
+         * userId : null
+         * status : null
          */
+
         public String date;
         public String node;
+        public String processInstanceId;
+        public String createdDate;
+        public String comment;
         public String name;
-        public String remarks;
+        public String businessKey;
+        public String userName;
+        public String userId;
+        public String status;
     }
 
+    public static class SendListBean {
+        /**
+         * name : 孔俊智
+         * userId : 1099100700000000036
+         */
 
+        public String name;
+        public String userId;
+    }
 }

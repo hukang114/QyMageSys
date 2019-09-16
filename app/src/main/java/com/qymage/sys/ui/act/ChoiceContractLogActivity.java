@@ -94,21 +94,18 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
             return false;
         });
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
+            ProjectAppLogEnt item = new ProjectAppLogEnt();
+            item.id = listdata.get(position).id;
+            item.processInstId = listdata.get(position).processInstId;
             switch (view.getId()) {
                 case R.id.bnt1:
-                    msgDialogBuilder("确认撤销？", (dialog, which) -> {
-                        auditAdd("3", listdata.get(position));
-                    }).create().show();
+                    auditAdd("3", AppConfig.status.value8, item);
                     break;
                 case R.id.bnt2:// 拒绝
-                    msgDialogBuilder("拒绝审批？", (dialog, which) -> {
-                        auditAdd("2", listdata.get(position));
-                    }).create().show();
+                    auditAdd("2", AppConfig.status.value8, item);
                     break;
                 case R.id.bnt3:// 同意
-                    msgDialogBuilder("同意审批？", (dialog, which) -> {
-                        auditAdd("1", listdata.get(position));
-                    }).create().show();
+                    auditAdd("1", AppConfig.status.value8, item);
                     break;
             }
         });
@@ -117,43 +114,6 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
             bundle.putString("id", listdata.get(position).id);
             openActivity(ContractApplicationDetActivity.class, bundle);
         });
-    }
-
-
-    /**
-     * 撤销 拒绝 同意
-     *
-     * @param type
-     * @param item
-     */
-    private void auditAdd(String type, ChoiceContractLogEnt item) {
-        showLoading();
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("Id", item.id);
-        hashMap.put("remarks", "");
-        hashMap.put("type", type);
-        hashMap.put("processInstanceId", item.processInstId);
-        hashMap.put("modeType", AppConfig.status.value8);
-        HttpUtil.audit_auditAdd(hashMap).execute(new JsonCallback<Result<String>>() {
-            @Override
-            public void onSuccess(Result<String> result, Call call, Response response) {
-                closeLoading();
-                msgDialogBuilder(result.message, (dialog, which) -> {
-                    dialog.dismiss();
-                    setResult(200);
-                    finish();
-                }).setCancelable(false).create().show();
-            }
-
-            @Override
-            public void onError(Call call, Response response, Exception e) {
-                super.onError(call, response, e);
-                closeLoading();
-                showToast(e.getMessage());
-            }
-        });
-
-
     }
 
 

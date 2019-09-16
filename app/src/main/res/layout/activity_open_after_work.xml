@@ -156,11 +156,11 @@
                 <TextView
                     android:id="@+id/centet_div"
                     android:layout_width="0.5dp"
-                    android:layout_height="115dp"
+                    android:layout_height="155dp"
                     android:layout_below="@id/tvDot"
                     android:layout_centerHorizontal="true"
                     android:background="#999"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvDot_e"
@@ -228,7 +228,7 @@
                     android:id="@+id/closing_relayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin48"
+                    android:layout_marginTop="@dimen/margin38"
                     android:paddingRight="10dp"
                     android:paddingBottom="6dp"
                     android:visibility="gone">
@@ -267,9 +267,9 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/daka_relayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -330,7 +330,8 @@
                                 android:gravity="center"
                                 android:paddingLeft="@dimen/margin10"
                                 android:text="已进入考勤范围摩根中心"
-                                android:textColor="@color/item_color" />
+                                android:textColor="@color/item_color"
+                                android:textSize="@dimen/text_size_12" />
 
                             <TextView
                                 android:id="@+id/locate_btn"

@@ -38,9 +38,7 @@ public class MyLoanListAdapter extends BaseQuickAdapter<MyLoanEnt, BaseViewHolde
         TextView bnt3 = helper.getView(R.id.bnt3);
         TextView bnt4 = helper.getView(R.id.btn4);
 
-        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待还款" : 2 == item.actStatus ? "正在审批中" : "";
-
-        helper.setText(R.id.status_tv, status)
+        helper.setText(R.id.status_tv, item.actStatus)
                 .setText(R.id.user_name, item.personName + "借款")
                 .setText(R.id.crate_time, item.useDate)
                 .setText(R.id.proj_type, "申请事由：" + item.cause)
@@ -57,6 +55,7 @@ public class MyLoanListAdapter extends BaseQuickAdapter<MyLoanEnt, BaseViewHolde
                 helper.setText(R.id.name_tv_bg, item.personName);
             }
         }
+
 
         switch (MyLoanActivity.mType) {
             case 1:

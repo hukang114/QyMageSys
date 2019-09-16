@@ -23,6 +23,7 @@ import com.qymage.sys.common.allpay.wxpay.Constants;
 import com.qymage.sys.common.allpay.wxpay.WXPayUtil;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.http.LogUtils;
+import com.qymage.sys.common.util.SjLocationService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -46,6 +47,7 @@ import cn.jpush.android.api.JPushInterface;
 public class AppApplication extends Application {
 
     public static AppApplication sInstance;
+    public SjLocationService mLocationService;
 
     static {
         //设置全局的Header构建器
@@ -90,6 +92,8 @@ public class AppApplication extends Application {
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
+        mLocationService = new SjLocationService(getApplicationContext());
+
     }
 
     private void initWeiXin() {

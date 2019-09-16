@@ -230,6 +230,7 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
                     finish();
                 }).create().show();
             }
+
             @Override
             public void onError(Call call, Response response, Exception e) {
                 super.onError(call, response, e);

@@ -26,7 +26,6 @@ public class AppConfig {
     public static final String DCMI_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
     // 选择合同类型的回传标识
     public static final int num1000 = 1000;
-
     // 工作模块的id
 
     public interface status {
