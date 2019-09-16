@@ -12,6 +12,7 @@ import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityAskforDetBinding;
 import com.qymage.sys.databinding.ActivityMonthlyDetBinding;
@@ -61,6 +62,8 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         if (id == null) {
             return;
         }
+        showToast(id + "");
+        LogUtils.e("id" + id);
         if (workType.equals("1")) {
             mBinding.metitle.setcTxt("日报详情");
         } else if (workType.equals("2")) {
@@ -119,8 +122,10 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
      * 获取月报详情
      */
     private void getMonthlDet() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("Id", id);
         showLoading();
-        HttpUtil.log_monQuery(getPer()).execute(new JsonCallback<Result<DayWeekMonthDet>>() {
+        HttpUtil.log_monQuery(map).execute(new JsonCallback<Result<DayWeekMonthDet>>() {
             @Override
             public void onSuccess(Result<DayWeekMonthDet> result, Call call, Response response) {
                 closeLoading();
@@ -171,9 +176,12 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
      */
     private void getDayDet() {
         showLoading();
-        HttpUtil.log_logQuery(getPer()).execute(new JsonCallback<Result<DayWeekMonthDet>>() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        HttpUtil.log_logQuery(map).execute(new JsonCallback<Result<DayWeekMonthDet>>() {
             @Override
             public void onSuccess(Result<DayWeekMonthDet> result, Call call, Response response) {
+                closeLoading();
                 if (result.data != null) {
                     info = result.data;
                     setDataShow();
@@ -199,7 +207,6 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         } else {
             map.put("Id", id);
         }
-
         return map;
     }
 

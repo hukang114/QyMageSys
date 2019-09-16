@@ -163,9 +163,9 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         adapter.setOnItemClickListener((adapter, view, position) -> {
             bundle = new Bundle();
             if (workType == 3) {
-                bundle.putString("id", journalEntities.get(position).id);
-            } else {
                 bundle.putString("id", journalEntities.get(position).Id);
+            } else {
+                bundle.putString("id", journalEntities.get(position).id);
             }
             if (workType != 2) {
                 bundle.putString("workType", workType + "");
