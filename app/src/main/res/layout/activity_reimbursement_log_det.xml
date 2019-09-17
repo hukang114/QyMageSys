@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.qymage.sys.common.widget.MeTitle
+            android:id="@+id/metitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cTxt="@string/baoxiao_det" />
+
+        <ScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin8"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/margin60"
+                        android:layout_marginLeft="@dimen/margin15">
+
+                        <TextView
+                            android:id="@+id/name_tv_bg"
+                            android:layout_width="@dimen/margin45"
+                            android:layout_height="@dimen/margin45"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_round_style"
+                            android:gravity="center"
+                            android:text="名字"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_13"
+                            android:visibility="visible" />
+
+
+                        <TextView
+                            android:id="@+id/user_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin10"
+                            android:layout_marginTop="@dimen/margin10"
+                            android:layout_toRightOf="@+id/name_tv_bg"
+                            android:text="张三的"
+                            android:textColor="@color/rizhi_color"
+                            android:textSize="@dimen/text_size_16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/actstatus_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/user_name"
+                            android:layout_marginLeft="@dimen/margin10"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:layout_toRightOf="@+id/name_tv_bg"
+                            android:text="审批状态"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/div_color" />
+
+
+                    <TextView
+                        android:id="@+id/spbh_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin10"
+                        android:text="审批编号"
+                        android:textSize="@dimen/text_size_15"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/szbm_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="所在部门"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/proj_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="项目类型"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/proj_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="项目编号"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/proj_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="项目名称"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/persion_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="负责人"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/appaly_content_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="预算金额"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+
+
+                    <TextView
+                        android:id="@+id/date_time_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="日期"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/introduction_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="项目介绍"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/remark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:layout_marginBottom="@dimen/margin20"
+                        android:text="baizhu"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginBottom="@dimen/margin10"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/bottom_state_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin50"
+            android:background="@color/white"
+            android:gravity="end|center"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/bnt1"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin10"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:paddingLeft="@dimen/margin10"
+                android:paddingRight="@dimen/margin10"
+                android:text="@string/cehui_txt"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/bnt2"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@drawable/tongyi_btn_style"
+                android:gravity="center"
+                android:text="@string/refuse_txt"
+                android:textColor="@color/blue_219" />
+
+            <TextView
+                android:id="@+id/bnt3"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:text="@string/agree_txt"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/bnt4"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:text="@string/app_repayment"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>

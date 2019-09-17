@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qymage.sys.R;
 import com.qymage.sys.common.util.PicasooUtil;
+import com.qymage.sys.ui.act.AskForLeaveRecordlActivity;
 import com.qymage.sys.ui.act.MyLoanActivity;
 import com.qymage.sys.ui.entity.AskForLeaveEntity;
 import com.qymage.sys.ui.entity.JournalEntity;
@@ -49,7 +50,7 @@ public class AskForLeaveRecordAdapter extends BaseQuickAdapter<AskForLeaveEntity
                 .setText(R.id.appaly_content_tv, "请假时间：" + item.startDate + "-" + item.endDate)
                 .setText(R.id.date_time_tv, " 时长：" + item.ofTime);
 
-        switch (MyLoanActivity.mType) {
+        switch (AskForLeaveRecordlActivity.mType) {
             case 1:
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.colorAccent));
                 bnt1.setVisibility(View.GONE);

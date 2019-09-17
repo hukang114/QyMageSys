@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class AppConfig {
 
-    //public static final String HOST = "http://livenewtest.yunbaozb.com";//50050
+    //public static final String HOST = "http://livenewtest.yunbaozb.com";//50050 ，，120.79.18.66:8085
     public static final String HOST = "http://120.79.18.66:8085";
     //http://192.51.188.17
     //外部sd卡
@@ -29,7 +29,6 @@ public class AppConfig {
     // 工作模块的id
 
     public interface status {
-
         final int value1 = 1;//
         final int value2 = 2;//
         final int value3 = 3;//

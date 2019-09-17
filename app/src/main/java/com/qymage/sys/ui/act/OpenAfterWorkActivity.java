@@ -468,6 +468,9 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                 closeLoading();
                 getDaySearch();
                 showToast("打开成功");
+                if (clockMode == 2) { // 下班打卡成功，填写日志
+                    openActivity(DailyReportActivity.class);
+                }
             }
 
             @Override

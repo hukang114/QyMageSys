@@ -20,7 +20,7 @@ public class AskForLeaveEntity {
     public String leaveType;
     public String leaveName;
     public String name;
-    public String Id;
+    public String id;
     public String startDate;
     public String createDate;
     public String msgId;

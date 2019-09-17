@@ -28,6 +28,7 @@ import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.entity.DayLogListEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
+import com.qymage.sys.ui.entity.HasClockOutEnt;
 import com.qymage.sys.ui.entity.ProjecInfoEnt;
 
 import java.io.Serializable;
@@ -135,7 +136,29 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 , ""
                 , defLogList));
         adapter.notifyDataSetChanged();
+        gethasClockOut();
 
+    }
+
+    //查询是否有下班考勤数据
+    private void gethasClockOut() {
+        showLoading();
+        HttpUtil.attendance_HasClockOut(new HashMap<>()).execute(new JsonCallback<Result<HasClockOutEnt>>() {
+            @Override
+            public void onSuccess(Result<HasClockOutEnt> result, Call call, Response response) {
+                closeLoading();
+                if (result.data != null) {
+                    mBinding.tv4x.setText(result.data.weekDay);
+                    mBinding.tv42x.setText(result.data.dayWork);
+                }
+            }
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
 
     }
 

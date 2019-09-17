@@ -414,7 +414,6 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
             } else {
                 mBinding.endDateTv.setText(desc);
             }
-
         }
 
     }

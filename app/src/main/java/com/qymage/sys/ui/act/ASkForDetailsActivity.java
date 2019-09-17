@@ -150,21 +150,21 @@ public class ASkForDetailsActivity extends BBActivity<ActivityAskforDetBinding> 
 
 
     private void setDataShow() {
-        if (item.personName != null) {
-            if (item.personName.length() >= 3) {
-                String strh = item.personName.substring(item.personName.length() - 2, item.personName.length());   //截取
+        if (item.name != null) {
+            if (item.name.length() >= 3) {
+                String strh = item.name.substring(item.name.length() - 2, item.name.length());   //截取
                 mBinding.nameTvBg.setText(strh);
             } else {
-                mBinding.nameTvBg.setText(item.personName);
+                mBinding.nameTvBg.setText(item.name);
             }
         }
-        mBinding.userName.setText(item.personName + "请假申请");
+        mBinding.userName.setText(item.name + "请假申请");
         mBinding.actstatusTv.setText(item.actStatus);
 //        mBinding.szbmType.setText("合同名称：" + item.contractName);
         mBinding.szbmType.setVisibility(View.GONE);
 //        mBinding.projType.setText("合同类型：" + item.contractTypeName);
         mBinding.projType.setVisibility(View.GONE);
-        mBinding.projNumber.setText("创建时间：" + item.createTime);
+        mBinding.projNumber.setText("创建时间：" + item.createDate);
         mBinding.projName.setText("请假类型：" + item.leaveName);
         mBinding.persionName.setText("开始时间：" + item.startDate);
         mBinding.appalyContentTv.setText("结束时间：" + item.endDate);

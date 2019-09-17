@@ -97,7 +97,7 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
         });
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             ProjectAppLogEnt appLogEnt = new ProjectAppLogEnt();
-            appLogEnt.id = listdata.get(position).Id;
+            appLogEnt.id = listdata.get(position).id;
             appLogEnt.processInstId = listdata.get(position).processInstanceId;
             switch (view.getId()) {
                 case R.id.bnt1:
@@ -114,7 +114,7 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
             bundle = new Bundle();
-            bundle.putString("id", listdata.get(position).Id);
+            bundle.putString("id", listdata.get(position).id);
             openActivity(ASkForDetailsActivity.class, bundle);
         });
 

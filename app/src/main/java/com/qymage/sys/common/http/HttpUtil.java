@@ -600,6 +600,36 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(HttpConsts.LOG_MONQUERY, params);
     }
 
+    /**
+     * 5.2获取报销记录详情
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest baoxiao_findById(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.BAOXIAO_FINDBYID, params);
+    }
+
+
+    /**
+     * 5.1获取我的报销记录
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest expense_findByUser(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.BAOXIAO_FINDBYUSER, params);
+    }
+
+    /**
+     * 8.2查询是否有下班考勤数据
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest attendance_HasClockOut(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.ATTENDANCE_HASCLOCKOUT, params);
+    }
 
 }
 

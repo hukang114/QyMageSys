@@ -134,7 +134,7 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
             case "yue":// 月报
                 openActivity(MonthReportActivity.class);
                 break;
-            case "ribao":
+            case "ribao":// 日报
                 openActivity(DailyReportActivity.class);
                 break;
         }

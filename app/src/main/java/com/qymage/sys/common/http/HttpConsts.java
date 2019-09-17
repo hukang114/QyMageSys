@@ -109,12 +109,16 @@ public class HttpConsts {
     public static final String LEAVE_LISTSERCH = "leave/listSerch";
     //7.3请假查询详情接口
     public static final String LEAVE_DETALSERC = "leave/detalSerch";
-
     //9.3日志接口查询详情
     public static final String LOG_LOGQUERY = "log/logQuery";
-
     //9.6月报查询详情接口
     public static final String LOG_MONQUERY = "log/monQuery";
+    //5.2获取报销记录详情
+    public static final String BAOXIAO_FINDBYID = "expense/findById";
+    //5.1获取我的报销记录
+    public static final String BAOXIAO_FINDBYUSER = "expense/findByUser";
+    //8.2查询是否有下班考勤数据
+    public static final String ATTENDANCE_HASCLOCKOUT = "attendance/hasClockOut";
 
 
 }

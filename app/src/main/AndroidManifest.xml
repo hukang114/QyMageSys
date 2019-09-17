@@ -49,7 +49,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.act.MyAttendanceListActivity"></activity>
+        <activity android:name=".ui.act.ReimbursementLogDetActivity"></activity>
+        <activity android:name=".ui.act.MyAttendanceListActivity" />
         <activity android:name=".ui.act.ReimbursementLogActivity" />
         <activity android:name=".ui.act.ApplicationCollectionLogActivity" />
         <activity android:name=".ui.act.BrowsePathActivity" />
