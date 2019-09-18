@@ -204,6 +204,9 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
                         android:hint="选择项目编号"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
@@ -248,6 +251,9 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
                         android:hint="请输入项目名称"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
@@ -716,7 +722,8 @@
                         android:gravity="center_vertical|end"
                         android:text="如何设置"
                         android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -797,7 +804,8 @@
                         android:gravity="center_vertical|end"
                         android:text="如何设置"
                         android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -841,10 +849,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginTop="50dp"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginBottom="@dimen/margin50"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginTop="50dp"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

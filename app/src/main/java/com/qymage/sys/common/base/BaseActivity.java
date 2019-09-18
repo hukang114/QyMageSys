@@ -303,11 +303,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
     public void showLoading() {
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
+        if (!isFinishing()) {
+            if (mProgressDialog != null) {
+                mProgressDialog.dismiss();
+            }
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.show();
         }
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.show();
     }
 
     public void closeLoading() {

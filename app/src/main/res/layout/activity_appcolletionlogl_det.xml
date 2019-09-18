@@ -167,8 +167,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin15"
                         android:layout_marginTop="@dimen/margin5"
-                        android:layout_marginBottom="@dimen/margin20"
                         android:text="项目介绍"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+                    <TextView
+                        android:id="@+id/colname_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin20"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="收款方名称"
                         android:textColor="@color/rizhi_content_color"
                         android:textSize="@dimen/text_size_15" />
                 </LinearLayout>
@@ -177,18 +186,32 @@
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin10"
                     android:layout_marginBottom="@dimen/margin10"
+                    android:layout_marginTop="@dimen/margin10"
                     android:layout_weight="1" />
             </LinearLayout>
         </ScrollView>
 
         <LinearLayout
+            android:id="@+id/bottom_state_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin50"
             android:background="@color/white"
             android:gravity="end|center">
 
+            <TextView
+                android:id="@+id/bnt1"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin10"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:paddingLeft="@dimen/margin10"
+                android:paddingRight="@dimen/margin10"
+                android:text="@string/cehui_txt"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/refuse_tv"

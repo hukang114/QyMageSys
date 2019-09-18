@@ -41,9 +41,16 @@ public class AppColletionLoglDet {
     public Object keyword;
     public String stats;
     public String processInstId;
-    public int actStatus;
-    public List<BidPerFormDetEnt.ActivityVoListBean> activityVoList;
-    public List<BidPerFormDetEnt.SendListBean> sendList;
+    public String actStatus;
+    public String contractNo;
+    public String contractName;
+    public List<AppColletionLoglDet.ActivityVoBean> activityVo;
+    public List<AppColletionLoglDet.SendListBean> sendList;
+    public String thisMoney;
+    public String contractType;
+    public String payName;
+    public String colName;
+
 
     public List<BidPerFormDetEnt.FileListBean> fileList;
 
@@ -57,7 +64,7 @@ public class AppColletionLoglDet {
         public String filePath;
     }
 
-    public static class ActivityVoListBean {
+    public static class ActivityVoBean {
         /**
          * id : 1172064669692579842
          * processInstanceId : 177597
@@ -82,8 +89,10 @@ public class AppColletionLoglDet {
         public String actType;
         public String actId;
         public String businessKey;
-        public String createdDate;
-        public String updatedDate;
+        public long createdDate;
+        public long updatedDate;
+        public String userId;
+        public String userName;
     }
 
     public static class SendListBean {

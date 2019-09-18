@@ -3,6 +3,7 @@ package com.qymage.sys.ui.act;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.qymage.sys.AppConfig;
@@ -14,11 +15,15 @@ import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityContractApplicationDetBinding;
 import com.qymage.sys.databinding.ActivityLoanDetBinding;
+import com.qymage.sys.ui.adapter.ProcessListAdapter;
 import com.qymage.sys.ui.entity.ContractDetEnt;
 import com.qymage.sys.ui.entity.LoanQueryDetEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
+import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.leo.click.SingleClick;
 import okhttp3.Call;
@@ -35,6 +40,8 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
     private Intent mIntent;
     Bundle bundle;
     LoanQueryDetEnt info;
+    List<ProjectApprovaLoglDetEnt.ActivityVoListBean> voListBeans = new ArrayList<>();
+    ProcessListAdapter listAdapter;
 
 
     @Override
@@ -56,6 +63,9 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
         mBinding.bnt3.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
         mBinding.bnt4.setOnClickListener(this);
+        mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
+        mBinding.recyclerview.setAdapter(listAdapter);
         switch (MyLoanActivity.mType) {
             case 1:
                 mBinding.bnt1.setVisibility(View.GONE);
@@ -101,6 +111,7 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
                 if (result.data != null) {
                     info = result.data;
                     setDataShow(result.data);
+                    setAddList();
                 } else {
                     return;
                 }
@@ -114,6 +125,32 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
                 showToast(e.getMessage());
             }
         });
+
+    }
+
+
+    private void setAddList() {
+        if (info.activityVoList != null) {
+            for (int i = 0; i < info.activityVoList.size(); i++) {
+                ProjectApprovaLoglDetEnt.ActivityVoListBean bean = new ProjectApprovaLoglDetEnt.ActivityVoListBean();
+                bean.id = info.activityVoList.get(i).id;
+                bean.processInstanceId = info.activityVoList.get(i).processInstanceId;
+                bean.processDefId = info.activityVoList.get(i).processDefId;
+                bean.assignee = info.activityVoList.get(i).assignee;
+                bean.name = info.activityVoList.get(i).name;
+                bean.status = info.activityVoList.get(i).status;
+                bean.comment = info.activityVoList.get(i).comment;
+                bean.actType = info.activityVoList.get(i).actType;
+                bean.actId = info.activityVoList.get(i).actId;
+                bean.businessKey = info.activityVoList.get(i).businessKey;
+                bean.createdDate = info.activityVoList.get(i).createdDate;
+                bean.updatedDate = info.activityVoList.get(i).updatedDate;
+                bean.userId = info.activityVoList.get(i).userId;
+                bean.userName = info.activityVoList.get(i).userName;
+                voListBeans.add(bean);
+            }
+            listAdapter.notifyDataSetChanged();
+        }
 
     }
 

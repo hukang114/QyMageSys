@@ -51,7 +51,7 @@ public class ProcessListAdapter extends BaseQuickAdapter<ProjectApprovaLoglDetEn
                 name_tv.setText(item.userName);
             }
         }
-        if (item.actType.equals("startEvent")) {
+        if (item.actType != null && item.actType.equals("startEvent")) {
             helper.setText(R.id.user_name, item.userName + "发起审批");
             helper.setText(R.id.time_tv, DateUtil.formatMillsTo(item.createdDate));
         } else {

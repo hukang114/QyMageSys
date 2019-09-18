@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qymage.sys.R;
 import com.qymage.sys.common.util.VerifyUtils;
+import com.qymage.sys.ui.act.ApplicationCollectionLogActivity;
 import com.qymage.sys.ui.act.BidPerformanceLvYueSZActivity;
 import com.qymage.sys.ui.entity.ApplicationCollectionLogList;
 import com.qymage.sys.ui.entity.BidLvYueSZListEnt;
@@ -59,11 +60,11 @@ public class AppCollectioLogAdapter extends BaseQuickAdapter<ApplicationCollecti
             }
         }
         helper.addOnClickListener(R.id.bnt1).addOnClickListener(R.id.bnt2).addOnClickListener(R.id.bnt3);
-        if (BidPerformanceLvYueSZActivity.mType == 1) {
+        if (ApplicationCollectionLogActivity.mType == 1) {
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.VISIBLE);
             bnt3.setVisibility(View.VISIBLE);
-        } else if (BidPerformanceLvYueSZActivity.mType == 4) {
+        } else if (ApplicationCollectionLogActivity.mType == 4) {
             bnt1.setVisibility(View.VISIBLE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);

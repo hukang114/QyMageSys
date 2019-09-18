@@ -1,6 +1,7 @@
 package com.qymage.sys.ui.act;
 
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.qymage.sys.AppConfig;
@@ -13,11 +14,15 @@ import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityAppcolletionloglDetBinding;
 import com.qymage.sys.databinding.ActivityApplicationCollectionLogBinding;
 import com.qymage.sys.databinding.ActivityBidperformtblyszloglDetBinding;
+import com.qymage.sys.ui.adapter.ProcessListAdapter;
 import com.qymage.sys.ui.entity.AppColletionLoglDet;
 import com.qymage.sys.ui.entity.BidPerFormDetEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
+import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cn.leo.click.SingleClick;
 import okhttp3.Call;
@@ -34,6 +39,8 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
     private Intent mIntent;
     AppColletionLoglDet info;
     private String bidType;
+    List<ProjectApprovaLoglDetEnt.ActivityVoListBean> voListBeans = new ArrayList<>();
+    ProcessListAdapter listAdapter;
 
 
     @Override
@@ -51,6 +58,22 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
         id = mIntent.getStringExtra("id");
         mBinding.refuseTv.setOnClickListener(this);
         mBinding.agreeTv.setOnClickListener(this);
+        if (ApplicationCollectionLogActivity.mType == 1) {
+            mBinding.bnt1.setVisibility(View.GONE);
+            mBinding.refuseTv.setVisibility(View.VISIBLE);
+            mBinding.agreeTv.setVisibility(View.VISIBLE);
+        } else if (ApplicationCollectionLogActivity.mType == 4) {
+            mBinding.bnt1.setVisibility(View.VISIBLE);
+            mBinding.refuseTv.setVisibility(View.GONE);
+            mBinding.agreeTv.setVisibility(View.GONE);
+        } else {
+            mBinding.bottomStateLayout.setVisibility(View.GONE);
+        }
+        mBinding.bnt1.setOnClickListener(this);
+        mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
+        mBinding.recyclerview.setAdapter(listAdapter);
+
 
     }
 
@@ -74,6 +97,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
                 if (result.data != null) {
                     setDataShow(result.data);
                     info = result.data;
+                    setAddList();
                 }
             }
 
@@ -84,6 +108,34 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
                 showToast(e.getMessage());
             }
         });
+
+    }
+
+    /**
+     * 设置审批流程
+     */
+    private void setAddList() {
+        if (info.activityVo != null) {
+            for (int i = 0; i < info.activityVo.size(); i++) {
+                ProjectApprovaLoglDetEnt.ActivityVoListBean bean = new ProjectApprovaLoglDetEnt.ActivityVoListBean();
+                bean.id = info.activityVo.get(i).id;
+                bean.processInstanceId = info.activityVo.get(i).processInstanceId;
+                bean.processDefId = info.activityVo.get(i).processDefId;
+                bean.assignee = info.activityVo.get(i).assignee;
+                bean.name = info.activityVo.get(i).name;
+                bean.status = info.activityVo.get(i).status;
+                bean.comment = info.activityVo.get(i).comment;
+                bean.actType = info.activityVo.get(i).actType;
+                bean.actId = info.activityVo.get(i).actId;
+                bean.businessKey = info.activityVo.get(i).businessKey;
+                bean.createdDate = info.activityVo.get(i).createdDate;
+                bean.updatedDate = info.activityVo.get(i).updatedDate;
+                bean.userId = info.activityVo.get(i).userId;
+                bean.userName = info.activityVo.get(i).userName;
+                voListBeans.add(bean);
+            }
+            listAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -98,17 +150,17 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
             }
         }
         mBinding.userName.setText(item.personName + "申请");
-        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待处理" : 2 == item.actStatus ? "已处理" :
-                3 == item.actStatus ? "抄送给我" : 4 == item.actStatus ? "已处理" : "";
-        mBinding.actstatusTv.setText(status);
-        mBinding.szbmType.setText("保证金名称：" + item.amountName);
-        mBinding.projType.setText("付款单位名称：" + item.name);
+        mBinding.actstatusTv.setText(item.actStatus);
+        mBinding.spbhTv.setText("编号id：" + item.id);
+        mBinding.szbmType.setText("合同编号：" + item.contractNo);
+        mBinding.projType.setText("合同名称：" + item.contractName);
         mBinding.projNumber.setText("项目编号：" + item.projectNo);
         mBinding.projName.setText("项目名称：" + item.projectName);
         mBinding.persionName.setText("公司名称：" + item.companyName);
-        mBinding.appalyContentTv.setText("金额：" + item.amount);
+        mBinding.appalyContentTv.setText("金额：" + item.thisMoney);
         mBinding.dateTimeTv.setText("日期：" + item.date);
-        mBinding.introductionTv.setText("备注：" + item.remark);
+        mBinding.introductionTv.setText("付款方名称：" + item.payName);
+        mBinding.colnameTv.setText("收款方名称：" + item.colName);
 
     }
 
@@ -127,6 +179,23 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
         appLogEnt.processInstId = info.processInstId;
         appLogEnt.id = info.id;
         switch (v.getId()) {
+            case R.id.bnt1: // 撤销
+                switch (bidType) {
+                    case "01":
+                        auditAdd("3", AppConfig.status.value3, appLogEnt);
+                        break;
+                    case "02":
+                        auditAdd("3", AppConfig.status.value4, appLogEnt);
+                        break;
+                    case "03":
+                        auditAdd("3", AppConfig.status.value5, appLogEnt);
+                        break;
+                    case "04":
+                        auditAdd("3", AppConfig.status.value6, appLogEnt);
+                        break;
+                }
+
+                break;
             case R.id.refuse_tv: // 拒绝
                 switch (bidType) {
                     case "01":

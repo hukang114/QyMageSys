@@ -687,7 +687,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                     break;
             }
         } else if (resultCode == RESULT_CANCELED) {
-            showToast("取消选择");
+
         }
     }
 

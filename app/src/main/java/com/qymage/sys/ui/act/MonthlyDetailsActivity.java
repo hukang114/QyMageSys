@@ -62,7 +62,6 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         if (id == null) {
             return;
         }
-        showToast(id + "");
         LogUtils.e("id" + id);
         if (workType.equals("1")) {
             mBinding.metitle.setcTxt("日报详情");
@@ -148,23 +147,23 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
     }
 
     private void setAddList() {
-        if (info.activityVoList != null) {
-            for (int i = 0; i < info.activityVoList.size(); i++) {
+        if (info.activityVo != null) {
+            for (int i = 0; i < info.activityVo.size(); i++) {
                 ProjectApprovaLoglDetEnt.ActivityVoListBean bean = new ProjectApprovaLoglDetEnt.ActivityVoListBean();
-                bean.id = info.activityVoList.get(i).id;
-                bean.processInstanceId = info.activityVoList.get(i).processInstanceId;
-                bean.processDefId = info.activityVoList.get(i).processDefId;
-                bean.assignee = info.activityVoList.get(i).assignee;
-                bean.name = info.activityVoList.get(i).name;
-                bean.status = info.activityVoList.get(i).status;
-                bean.comment = info.activityVoList.get(i).comment;
-                bean.actType = info.activityVoList.get(i).actType;
-                bean.actId = info.activityVoList.get(i).actId;
-                bean.businessKey = info.activityVoList.get(i).businessKey;
-                bean.createdDate = info.activityVoList.get(i).createdDate;
-                bean.updatedDate = info.activityVoList.get(i).updatedDate;
-                bean.userId = info.activityVoList.get(i).userId;
-                bean.userName = info.activityVoList.get(i).userName;
+                bean.id = info.activityVo.get(i).id;
+                bean.processInstanceId = info.activityVo.get(i).processInstanceId;
+                bean.processDefId = info.activityVo.get(i).processDefId;
+                bean.assignee = info.activityVo.get(i).assignee;
+                bean.name = info.activityVo.get(i).name;
+                bean.status = info.activityVo.get(i).status;
+                bean.comment = info.activityVo.get(i).comment;
+                bean.actType = info.activityVo.get(i).actType;
+                bean.actId = info.activityVo.get(i).actId;
+                bean.businessKey = info.activityVo.get(i).businessKey;
+                bean.createdDate = info.activityVo.get(i).createdDate;
+                bean.updatedDate = info.activityVo.get(i).updatedDate;
+                bean.userId = info.activityVo.get(i).userId;
+                bean.userName = info.activityVo.get(i).userName;
                 voListBeans.add(bean);
             }
             listAdapter.notifyDataSetChanged();

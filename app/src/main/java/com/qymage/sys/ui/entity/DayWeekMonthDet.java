@@ -42,9 +42,9 @@ public class DayWeekMonthDet {
     public String Id;
     public String userName;
 
-    public List<ActivityVoListBean> activityVoList;
+    public List<ActivityVoBean> activityVo;
 
-    public static class ActivityVoListBean {
+    public static class ActivityVoBean {
         /**
          * id : 1171709251275427842
          * processInstanceId : 150077

@@ -3,6 +3,8 @@ package com.qymage.sys.ui.act;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -60,7 +62,7 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
     @Override
     protected void onStart() {
         super.onStart();
-        initLocation();
+
     }
 
     @Override
@@ -106,6 +108,7 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
         mBinding.remarksBtn.setOnClickListener(this);
         mBinding.kaoqingDateTv.setOnClickListener(this);
         mBinding.locateBtn.setOnClickListener(this);
+        initLocation();
 
     }
 
@@ -116,7 +119,10 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
     }
 
     private void initLocation() {
-        showLoading();
+        if (locationService != null && mListener != null) {
+            locationService.stop();
+            locationService.unregisterListener(mListener);
+        }
         locationService = ((AppApplication) getApplication()).mLocationService;
         locationService.setLocationOption(locationService.getDefaultLocationClientOption());
         //获取locationservice实例，建议应用中只初始化1个location实例，然后使用
@@ -125,6 +131,20 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
         locationService.start();
     }
 
+    // handler对象，用来接收消息~
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 1:
+                    getDaySearch();
+                    break;
+            }
+
+        }
+    };
+
+
     /*****
      * 定位结果回调，重写onReceiveLocation方法，
      */
@@ -132,7 +152,6 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
         @Override
         public void onReceiveLocation(BDLocation location) {
             // TODO Auto-generated method stub
-            closeLoading();
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
                 /**
                  * 时间也可以使用systemClock.elapsedRealtime()方法 获取的是自从开机以来，每次回调的时间；
@@ -149,7 +168,9 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                 locationaddress = location.getAddrStr();
                 mBinding.locationAddressTv.setText("当前位置" + locationaddress);
                 LogUtils.e("当前位置：" + locationaddress);
-                getDaySearch();
+                Message msg = handler.obtainMessage();
+                msg.what = 1;
+                handler.sendMessage(msg);
             } else {
                 //定位失败
                 mBinding.locationAddressTv.setText("手机定位获取位置失败,检查定位服务是否开启高精度模式");
@@ -263,9 +284,10 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
      * 按天查询考勤
      */
     private void getDaySearch() {
+        showLoading();
+        LogUtils.e("定位成功按天查询考勤");
         HashMap<String, Object> map = new HashMap<>();
         map.put("clockDate", mBinding.kaoqingDateTv.getText().toString());
-        showLoading();
         HttpUtil.attendance_DaySearch(map).execute(new JsonCallback<Result<DaySearchEnt>>() {
             @Override
             public void onSuccess(Result<DaySearchEnt> result, Call call, Response response) {
@@ -442,11 +464,7 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
 
                 break;
             case R.id.locate_btn:// 从新定位
-                if (locationService != null) {
-                    locationService.stop();
-                    showLoading();
-                    locationService.start();
-                }
+                initLocation();
                 break;
             case R.id.remarks_btn:// 备注
                 showNotesDialog();

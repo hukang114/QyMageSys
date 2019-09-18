@@ -82,8 +82,10 @@ public class BidPerFormDetEnt {
         public String actType;
         public String actId;
         public String businessKey;
-        public String createdDate;
-        public String updatedDate;
+        public long createdDate;
+        public long updatedDate;
+        public String userId;
+        public String userName;
     }
 
     public static class SendListBean {
