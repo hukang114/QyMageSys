@@ -26,14 +26,21 @@ import java.util.List;
  */
 public class ProcessListAdapter extends BaseQuickAdapter<ProjectApprovaLoglDetEnt.ActivityVoListBean, BaseViewHolder> {
 
+    List<ProjectApprovaLoglDetEnt.ActivityVoListBean> data;
 
     public ProcessListAdapter(int layoutResId, @Nullable List<ProjectApprovaLoglDetEnt.ActivityVoListBean> data) {
         super(layoutResId, data);
+        this.data = data;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, ProjectApprovaLoglDetEnt.ActivityVoListBean item) {
         TextView name_tv = helper.getView(R.id.tvDot);
+        TextView centet_div = helper.getView(R.id.centet_div);
+        if (helper.getAdapterPosition() == data.size() - 1) {
+            centet_div.setVisibility(View.GONE);
+        }
+
         if (item.userName != null) {
             if (item.userName.length() >= 3) {
                 String strh = item.userName.substring(item.userName.length() - 2, item.userName.length());   //截取
@@ -49,7 +56,7 @@ public class ProcessListAdapter extends BaseQuickAdapter<ProjectApprovaLoglDetEn
             if (item.id != null) {
                 String status = VerifyUtils.isEmpty(item.status) ? "" : "1" == item.status ? "同意" : "2" == item.status ? "拒绝" :
                         "3" == item.status ? "撤销" : "";
-                helper.setText(R.id.user_name, item.userName + "(" + status + ")");
+                helper.setText(R.id.user_name, item.name + "(" + status + ")");
                 helper.setText(R.id.time_tv, DateUtil.formatMillsTo(item.createdDate));
             } else {
                 helper.setText(R.id.user_name, "正在等待" + item.userName + "审批");

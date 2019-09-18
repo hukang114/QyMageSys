@@ -16,7 +16,7 @@ public class ProjectAppLogEnt {
     public String amount; // 预算价格
     public String date; //申请日期（YYYY-MM-dd）
     public String introduction; // 项目介绍
-    public int actStatus;//审批状态
+    public String actStatus;//审批状态
     public String portrait;
     public String projectTypeName;// 类型名称
     public String personName;// 提交人姓名

@@ -103,7 +103,7 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
         });
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
-                case R.id.bnt1:
+                case R.id.bnt1:// 撤回
                     auditAdd("3", AppConfig.status.value1, listdata.get(position));
                     break;
                 case R.id.bnt2:// 拒绝

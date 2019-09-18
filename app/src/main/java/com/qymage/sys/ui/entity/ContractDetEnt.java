@@ -177,7 +177,7 @@ public class ContractDetEnt {
         public String processInstanceId;
         public String processDefId;
         public String assignee;
-        public Object name;
+        public String name;
         public String status;
         public String comment;
         public String actType;
@@ -185,6 +185,8 @@ public class ContractDetEnt {
         public String businessKey;
         public long createdDate;
         public long updatedDate;
+        public String userId;
+        public String userName;
     }
 
     public static class SendListBean {

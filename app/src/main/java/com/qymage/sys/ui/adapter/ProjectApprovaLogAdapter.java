@@ -37,10 +37,7 @@ public class ProjectApprovaLogAdapter extends BaseQuickAdapter<ProjectAppLogEnt,
         TextView bnt3 = helper.getView(R.id.bnt3);
         ImageView head_img = helper.getView(R.id.head_img);
 
-        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待处理" : 2 == item.actStatus ? "已处理" :
-                3 == item.actStatus ? "抄送给我" : 4 == item.actStatus ? "已处理" : "";
-
-        helper.setText(R.id.status_tv, status)
+        helper.setText(R.id.status_tv, item.actStatus)
                 .setText(R.id.user_name, item.persion + "提交" + item.projectTypeName + "申请")
                 .setText(R.id.proj_type, "项目类型：" + item.projectTypeName)
                 .setText(R.id.proj_name, "项目名称：" + item.projectName)

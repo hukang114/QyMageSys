@@ -17,6 +17,7 @@ import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityProjectApprovaLoglDetBinding;
 import com.qymage.sys.ui.adapter.ProcessListAdapter;
+import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
 
 import java.util.ArrayList;
@@ -55,9 +56,21 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
         id = mIntent.getStringExtra("id");
         mBinding.refuseTv.setOnClickListener(this);
         mBinding.agreeTv.setOnClickListener(this);
+        mBinding.bnt1.setOnClickListener(this);
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
+        if (ProjectApprovaLoglActivity.mType == 1) {
+            mBinding.bnt1.setVisibility(View.GONE);
+            mBinding.refuseTv.setVisibility(View.VISIBLE);
+            mBinding.agreeTv.setVisibility(View.VISIBLE);
+        } else if (ProjectApprovaLoglActivity.mType == 4) {
+            mBinding.bnt1.setVisibility(View.VISIBLE);
+            mBinding.refuseTv.setVisibility(View.GONE);
+            mBinding.agreeTv.setVisibility(View.GONE);
+        } else {
+            mBinding.bottomStateLayout.setVisibility(View.GONE);
+        }
     }
 
 
@@ -107,7 +120,7 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
                 mBinding.nameTvBg.setText(item.personName);
             }
         }
-        mBinding.userName.setText(item.persion + item.projectType);
+        mBinding.userName.setText(item.personName + item.projectTypeName);
         mBinding.actstatusTv.setText(item.actStatus);
         mBinding.spbhTv.setText("编号：" + item.id);
         mBinding.szbmType.setText("所在部门：" + item.projectTypeName);
@@ -131,62 +144,28 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
     @SingleClick(2000)
     @Override
     public void onClick(View v) {
+        ProjectAppLogEnt item = new ProjectAppLogEnt();
+        item.id = info.id;
+        item.processInstId = info.processInstId;
         switch (v.getId()) {
             case R.id.refuse_tv: // 拒绝
-                if (info != null) {
-                    msgDialogBuilder("拒绝审批？", (dialog, which) -> {
-                        auditAdd("2");
-                    }).create().show();
-                }
+                auditAdd("2", AppConfig.status.value1, item);
                 break;
-
             case R.id.agree_tv:// 同意
-                if (info != null) {
-                    msgDialogBuilder("同意审批？", (dialog, which) -> {
-                        auditAdd("1");
-                    }).create().show();
-                }
+                auditAdd("1", AppConfig.status.value1, item);
+                break;
+            case R.id.bnt1:
+                auditAdd("3", AppConfig.status.value1, item);
                 break;
         }
 
     }
 
 
-    /**
-     * 审批操作
-     * type：类型  1—通过   2-拒绝 3-撤回
-     *
-     * @param type
-     */
-    private void auditAdd(String type) {
-        showLoading();
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("Id", info.id);
-        hashMap.put("remarks", "");
-        hashMap.put("type", type);
-        hashMap.put("processInstanceId", info.processInstId);
-        hashMap.put("modeType", AppConfig.status.value1);
-        HttpUtil.audit_auditAdd(hashMap).execute(new JsonCallback<Result<String>>() {
-            @Override
-            public void onSuccess(Result<String> result, Call call, Response response) {
-                closeLoading();
-                msgDialogBuilder(result.message, (dialog, which) -> {
-                    dialog.dismiss();
-                    setResult(200);
-                    finish();
-                }).setCancelable(false).create().show();
-            }
-
-            @Override
-            public void onError(Call call, Response response, Exception e) {
-                super.onError(call, response, e);
-                closeLoading();
-                showToast(e.getMessage());
-            }
-        });
-
-
+    @Override
+    protected void successTreatment() {
+        super.successTreatment();
+        setResult(200);
+        finish();
     }
-
-
 }

@@ -187,11 +187,25 @@
         </ScrollView>
 
         <LinearLayout
+            android:id="@+id/bottom_state_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin50"
             android:background="@color/white"
             android:gravity="end|center">
 
+            <TextView
+                android:id="@+id/bnt1"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin10"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:paddingLeft="@dimen/margin10"
+                android:paddingRight="@dimen/margin10"
+                android:text="@string/cehui_txt"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/refuse_tv"
@@ -213,6 +227,7 @@
                 android:gravity="center"
                 android:text="@string/agree_txt"
                 android:textColor="@color/white" />
+
         </LinearLayout>
 
 

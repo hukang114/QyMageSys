@@ -23,6 +23,7 @@ import com.qymage.sys.databinding.ActivityContractApplicationBinding;
 import com.qymage.sys.databinding.ActivityContractApplicationDetBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
+import com.qymage.sys.ui.adapter.ProcessListAdapter;
 import com.qymage.sys.ui.entity.AppColletionLoglDet;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
 import com.qymage.sys.ui.entity.ContractDetEnt;
@@ -32,6 +33,7 @@ import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.PaymentInfo;
 import com.qymage.sys.ui.entity.ProjecInfoEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
+import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
 import com.qymage.sys.ui.entity.ReceiverInfo;
 
 import java.io.Serializable;
@@ -55,13 +57,13 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
     private Intent mIntent;
     Bundle bundle;
     ContractDetEnt info;
-
+    List<ProjectApprovaLoglDetEnt.ActivityVoListBean> voListBeans = new ArrayList<>();
+    ProcessListAdapter listAdapter;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_contract_application_det;
     }
-
 
     @Override
     protected void initView() {
@@ -75,6 +77,9 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
         mBinding.refuseTv.setOnClickListener(this);
         mBinding.agreeTv.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
+        mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
+        mBinding.recyclerview.setAdapter(listAdapter);
         if (ChoiceContractLogActivity.mType == 1) {
             mBinding.bnt1.setVisibility(View.GONE);
             mBinding.refuseTv.setVisibility(View.VISIBLE);
@@ -103,10 +108,10 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
                 if (result.data != null) {
                     info = result.data;
                     setDataShow(result.data);
+                    setAddList();
                 } else {
                     return;
                 }
-
             }
 
             @Override
@@ -116,6 +121,34 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
                 showToast(e.getMessage());
             }
         });
+
+    }
+
+    /**
+     * 设置审批流程
+     */
+    private void setAddList() {
+        if (info.activityVoList != null) {
+            for (int i = 0; i < info.activityVoList.size(); i++) {
+                ProjectApprovaLoglDetEnt.ActivityVoListBean bean = new ProjectApprovaLoglDetEnt.ActivityVoListBean();
+                bean.id = info.activityVoList.get(i).id;
+                bean.processInstanceId = info.activityVoList.get(i).processInstanceId;
+                bean.processDefId = info.activityVoList.get(i).processDefId;
+                bean.assignee = info.activityVoList.get(i).assignee;
+                bean.name = info.activityVoList.get(i).name;
+                bean.status = info.activityVoList.get(i).status;
+                bean.comment = info.activityVoList.get(i).comment;
+                bean.actType = info.activityVoList.get(i).actType;
+                bean.actId = info.activityVoList.get(i).actId;
+                bean.businessKey = info.activityVoList.get(i).businessKey;
+                bean.createdDate = info.activityVoList.get(i).createdDate;
+                bean.updatedDate = info.activityVoList.get(i).updatedDate;
+                bean.userId = info.activityVoList.get(i).userId;
+                bean.userName = info.activityVoList.get(i).userName;
+                voListBeans.add(bean);
+            }
+            listAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -165,6 +198,12 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
         }
     }
 
+    @Override
+    protected void successTreatment() {
+        super.successTreatment();
+        setResult(200);
+        finish();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
