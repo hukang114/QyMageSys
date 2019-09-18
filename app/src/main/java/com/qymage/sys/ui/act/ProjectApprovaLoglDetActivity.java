@@ -41,6 +41,7 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
     List<ProjectApprovaLoglDetEnt.ActivityVoListBean> voListBeans = new ArrayList<>();
     ProcessListAdapter listAdapter;
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_project_approva_logl_det;

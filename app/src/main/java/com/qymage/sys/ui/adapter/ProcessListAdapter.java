@@ -26,19 +26,21 @@ import java.util.List;
  */
 public class ProcessListAdapter extends BaseQuickAdapter<ProjectApprovaLoglDetEnt.ActivityVoListBean, BaseViewHolder> {
 
-    List<ProjectApprovaLoglDetEnt.ActivityVoListBean> data;
+    List<ProjectApprovaLoglDetEnt.ActivityVoListBean> listdata;
 
     public ProcessListAdapter(int layoutResId, @Nullable List<ProjectApprovaLoglDetEnt.ActivityVoListBean> data) {
         super(layoutResId, data);
-        this.data = data;
+        this.listdata = data;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, ProjectApprovaLoglDetEnt.ActivityVoListBean item) {
         TextView name_tv = helper.getView(R.id.tvDot);
         TextView centet_div = helper.getView(R.id.centet_div);
-        if (helper.getAdapterPosition() == data.size() - 1) {
+        if (helper.getPosition() == listdata.size() - 1) {
             centet_div.setVisibility(View.GONE);
+        } else {
+            centet_div.setVisibility(View.VISIBLE);
         }
 
         if (item.userName != null) {
@@ -54,8 +56,8 @@ public class ProcessListAdapter extends BaseQuickAdapter<ProjectApprovaLoglDetEn
             helper.setText(R.id.time_tv, DateUtil.formatMillsTo(item.createdDate));
         } else {
             if (item.id != null) {
-                String status = VerifyUtils.isEmpty(item.status) ? "" : "1" == item.status ? "同意" : "2" == item.status ? "拒绝" :
-                        "3" == item.status ? "撤销" : "";
+                String status = VerifyUtils.isEmpty(item.status) ? "" : item.status.equals("1") ? "同意" : item.status.equals("2") ? "拒绝" :
+                        item.status.equals("3") ? "撤销" : "";
                 helper.setText(R.id.user_name, item.name + "(" + status + ")");
                 helper.setText(R.id.time_tv, DateUtil.formatMillsTo(item.createdDate));
             } else {

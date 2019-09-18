@@ -148,22 +148,22 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
 
         mBinding.xmbhEdt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (!mBinding.xmbhEdt.getText().toString().equals("")) {
-                    getProjectNo(1, mBinding.xmbhEdt.getText().toString());
+                getProjectNo(1, mBinding.xmbhEdt.getText().toString());
+             /*   if (!mBinding.xmbhEdt.getText().toString().equals("")) {
                 } else {
                     showToast("请输入搜索关键字");
-                }
+                }*/
                 return true;
             }
             return false;
         });
         mBinding.xmmcEdt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (!mBinding.xmbhEdt.getText().toString().equals("")) {
-                    getProjectNo(2, mBinding.xmbhEdt.getText().toString());
+                getProjectNo(2, mBinding.xmbhEdt.getText().toString());
+              /*  if (!mBinding.xmbhEdt.getText().toString().equals("")) {
                 } else {
                     showToast("请输入搜索关键字");
-                }
+                }*/
                 return true;
             }
             return false;

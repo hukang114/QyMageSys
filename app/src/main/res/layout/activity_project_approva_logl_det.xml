@@ -14,7 +14,7 @@
             android:id="@+id/metitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cTxt="@string/det_txt" />
+            app:cTxt="@string/lxxq_txt" />
 
         <ScrollView
             android:layout_width="match_parent"
