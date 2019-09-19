@@ -200,6 +200,9 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         switch (type) {
             case "1":
                 mBinding.metitle.setcTxt("收款申请");
+                //添加收款申请默认审批人
+                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType6)));
+                auditorListAdapter.notifyDataSetChanged();
                 break;
             case "2":
                 mBinding.metitle.setcTxt("付款申请");
@@ -207,10 +210,16 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 mBinding.yskTxt.setHint("已付款");
                 mBinding.wfkTv.setText("未付款");
                 mBinding.bcsfksTv.setText("本次付款(元)");
+                //添加付款申请默认审批人
+                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType5)));
+                auditorListAdapter.notifyDataSetChanged();
                 break;
             case "3":
                 mBinding.metitle.setcTxt("开票申请");
                 mBinding.bcsfksTv.setText("本次开票");
+                //添加开票申请默认审批人
+                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType7)));
+                auditorListAdapter.notifyDataSetChanged();
                 break;
             case "4":
                 mBinding.metitle.setcTxt("收票申请");
@@ -218,7 +227,9 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 mBinding.ykpTxt.setHint("已收票");
                 mBinding.wkpTv.setText("未收票");
                 mBinding.bcsfksTv.setText("本次收票");
-
+                //添加收票申请请默认审批人
+                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType8)));
+                auditorListAdapter.notifyDataSetChanged();
                 break;
         }
     }

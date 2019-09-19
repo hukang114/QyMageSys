@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -112,6 +113,9 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
     protected void initData() {
         super.initData();
         getProType();
+        //添加立项默认审批人
+        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType3)));
+        auditorListAdapter.notifyDataSetChanged();
 
     }
 

@@ -31,66 +31,77 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="5dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/msg_img"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin150"
-                android:src="@mipmap/icon_default_image" />
+                android:id="@+id/unread_msg_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/red_msg_ioc" />
 
-            <TextView
-                android:id="@+id/msg_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin10"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@string/app_name"
-                android:textColor="@color/rizhi_color"
-                android:textSize="@dimen/text_size_15" />
+                android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="@dimen/margin10"
-                android:layout_marginRight="@dimen/margin10"
-                android:background="@color/div_color" />
-
-
-            <RelativeLayout
-                android:id="@+id/det_relayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/msg_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin150"
+                    android:src="@mipmap/icon_default_image" />
 
                 <TextView
+                    android:id="@+id/msg_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_margin="@dimen/margin10"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="点击查看"
+                    android:text="@string/app_name"
                     android:textColor="@color/rizhi_color"
-                    android:textSize="@dimen/text_size_13" />
+                    android:textSize="@dimen/text_size_15" />
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="@dimen/margin10"
                     android:layout_marginRight="@dimen/margin10"
-                    android:src="@mipmap/menu_ioc" />
+                    android:background="@color/div_color" />
 
 
-            </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/det_relayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/margin10"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="点击查看"
+                        android:textColor="@color/rizhi_color"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin10"
+                        android:src="@mipmap/menu_ioc" />
 
 
-        </LinearLayout>
+                </RelativeLayout>
 
+
+            </LinearLayout>
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 

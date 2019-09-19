@@ -333,7 +333,8 @@
                         android:gravity="center_vertical|end"
                         android:text="如何设置"
                         android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
 
@@ -415,7 +416,8 @@
                         android:gravity="center_vertical|end"
                         android:text="如何设置"
                         android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
 
@@ -459,10 +461,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginTop="50dp"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginBottom="@dimen/margin50"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginTop="50dp"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

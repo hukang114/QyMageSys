@@ -492,16 +492,33 @@
                     android:background="@color/white"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginTop="@dimen/margin10"
-                        android:text="@string/fujian_txt"
-                        android:textColor="@color/rizhi_color"
-                        android:textSize="@dimen/text_size_15"
-                        android:textStyle="bold" />
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin10"
+                            android:text="@string/fujian_txt"
+                            android:textColor="@color/rizhi_color"
+                            android:textSize="@dimen/text_size_15"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/fujian_img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginRight="@dimen/margin26"
+                            android:src="@mipmap/add_baoxiao_ioc" />
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -519,14 +536,6 @@
                             android:background="@color/white"
                             android:nestedScrollingEnabled="false" />
 
-                        <ImageView
-                            android:id="@+id/fujian_img"
-                            android:layout_width="@dimen/margin50"
-                            android:layout_height="@dimen/margin50"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/margin15"
-                            android:layout_marginRight="@dimen/margin15"
-                            android:src="@mipmap/tupian" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -622,7 +631,8 @@
                         android:gravity="center_vertical|end"
                         android:text="如何设置"
                         android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
 
@@ -705,7 +715,8 @@
                         android:gravity="center_vertical|end"
                         android:text="如何设置"
                         android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
 
@@ -750,10 +761,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginTop="50dp"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginBottom="@dimen/margin50"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginTop="50dp"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

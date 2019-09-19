@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin5"
     android:layout_marginLeft="@dimen/margin15"
     android:layout_marginRight="@dimen/margin15"
-    android:layout_marginBottom="@dimen/margin5"
     android:orientation="vertical"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/margin8"
@@ -68,6 +68,14 @@
                 android:text="2019-01-01"
                 android:visibility="gone" />
 
+            <ImageView
+                android:id="@+id/unread_msg_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/red_msg_ioc" />
+
+
         </RelativeLayout>
 
         <TextView
@@ -109,8 +117,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin10"
             android:layout_marginBottom="@dimen/margin5"
+            android:layout_marginTop="@dimen/margin10"
             android:orientation="horizontal">
 
 

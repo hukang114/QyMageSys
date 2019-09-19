@@ -50,6 +50,12 @@ public class AskForLeaveRecordAdapter extends BaseQuickAdapter<AskForLeaveEntity
                 .setText(R.id.appaly_content_tv, "请假时间：" + item.startDate + "-" + item.endDate)
                 .setText(R.id.date_time_tv, " 时长：" + item.ofTime);
 
+        if (item.read == 0) {
+            helper.setVisible(R.id.unread_msg_img, true);
+        } else {
+            helper.setVisible(R.id.unread_msg_img, false);
+        }
+
         switch (AskForLeaveRecordlActivity.mType) {
             case 1:
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.colorAccent));

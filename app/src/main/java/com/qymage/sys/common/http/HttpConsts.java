@@ -120,5 +120,8 @@ public class HttpConsts {
     //8.2查询是否有下班考勤数据
     public static final String ATTENDANCE_HASCLOCKOUT = "attendance/hasClockOut";
 
+    //默认审批人查询接口
+    public static final String WF_AUDITQUERY = "audit/auditQuery";
+
 
 }

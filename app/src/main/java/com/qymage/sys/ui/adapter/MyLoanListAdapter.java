@@ -56,6 +56,11 @@ public class MyLoanListAdapter extends BaseQuickAdapter<MyLoanEnt, BaseViewHolde
             }
         }
 
+        if (item.read == 0) {
+            helper.setVisible(R.id.unread_msg_img, true);
+        } else {
+            helper.setVisible(R.id.unread_msg_img, false);
+        }
 
         switch (MyLoanActivity.mType) {
             case 1:

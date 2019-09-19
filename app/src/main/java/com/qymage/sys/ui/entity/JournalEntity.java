@@ -58,7 +58,9 @@ public class JournalEntity implements Serializable {
     public String monthWork;
     public String submonthWork;
     public String nextMonthWeek;
-    public String Id;
+
+    public String msgId;// 消息id
+    public int read;// 消息状态  0未读  1已读
 
 
 }

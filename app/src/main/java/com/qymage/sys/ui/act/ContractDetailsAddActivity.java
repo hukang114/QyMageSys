@@ -17,6 +17,10 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
+import com.qymage.sys.common.callback.JsonCallback;
+import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.databinding.ActivityContractDetailsAddBinding;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -26,9 +30,12 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.leo.click.SingleClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 /**
@@ -64,9 +71,16 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
             return;
         }
         setAdapter();
-        for (int i = 1; i <= 100; i++) {
-            shuilv_list.add(i + "%");
-        }
+
+//        for (int i = 1; i <= 100; i++) {
+//            shuilv_list.add(i + "%");
+//        }
+        shuilv_list.add(3 + "%");
+        shuilv_list.add(6 + "%");
+        shuilv_list.add(9 + "%");
+        shuilv_list.add(11 + "%");
+        shuilv_list.add(13 + "%");
+
         mBinding.metitle.setrTxtClick(v -> {
             bundle = new Bundle();
             bundle.putSerializable("data", (Serializable) listdata);
@@ -78,12 +92,61 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
 
     }
 
+    /**
+     * 税率计算
+     *
+     * @param num
+     * @return
+     */
+    private double number(float num, double amount) {
+        double taxrate = 0.00;
+
+        double b = (num / 100);
+        LogUtils.e("b=" + b);
+
+        if (num == 3) {
+            taxrate = amount / 1.03 * b;
+        } else if (num == 6) {
+            taxrate = amount / 1.06 * b;
+        } else if (num == 9) {
+            taxrate = amount / 1.09 * b;
+        } else if (num == 11) {
+            taxrate = amount / 1.11 * b;
+        } else if (num == 13) {
+            taxrate = amount / 1.13 * b;
+        }
+        return taxrate;
+
+    }
+
 
     @Override
     protected void initData() {
         super.initData();
+        getTaxrateType();
 
     }
+
+    /**
+     * 获取合同的税率
+     */
+    private void getTaxrateType() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("type", "taxrateType");
+        HttpUtil.getEnum(map).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+            }
+        });
+
+    }
+
 
     @SingleClick(2000)
     @Override
@@ -170,7 +233,7 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 listdata.get(position).taxRate = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
-                listdata.get(position).taxes = df.format((Double.parseDouble(listdata.get(position).taxRate + "") / 100) * Double.parseDouble(listdata.get(position).amount));
+                listdata.get(position).taxes = df.format(number(listdata.get(position).taxRate, Double.parseDouble(listdata.get(position).amount)));
                 adapter.notifyDataSetChanged();
             }
         })
@@ -190,7 +253,7 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
 
 
     private void setCalculation(int position) {
-        listdata.get(position).taxes = df.format((Double.parseDouble(listdata.get(position).taxRate + "") / 100) * Double.parseDouble(listdata.get(position).amount));
+        listdata.get(position).taxes = df.format(number(listdata.get(position).taxRate, Double.parseDouble(listdata.get(position).amount)));
         if (mBinding.recyclerview.getScrollState() == RecyclerView.SCROLL_STATE_IDLE || (mBinding.recyclerview.isComputingLayout() == false)) {
         }
 //        new Handler().postDelayed(new Runnable() {

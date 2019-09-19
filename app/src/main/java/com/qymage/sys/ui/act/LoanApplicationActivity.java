@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -103,6 +104,9 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
     @Override
     protected void initData() {
         super.initData();
+        //添加借款申请默认审批人
+        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType13)));
+        auditorListAdapter.notifyDataSetChanged();
         loan_quotaQuery();
 
     }

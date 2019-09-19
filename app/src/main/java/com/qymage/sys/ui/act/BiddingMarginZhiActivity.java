@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -160,20 +161,32 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
             case "1":// 投标保证金支
                 mBinding.metitle.setcTxt(this.getResources().getString(R.string.toubiaozhi_txt));
                 mBinding.bzjmcLayout.setVisibility(View.GONE);
+                //添加投标保证金支默认审批人
+                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType10)));
+                auditorListAdapter.notifyDataSetChanged();
                 break;
             case "2"://投标保证金收
                 mBinding.metitle.setcTxt("投标保证金收");
                 mBinding.skdwmcTv.setText("付款单位名称");
                 mBinding.skdwmcEdt.setHint("请输入付款单位名称");
+                //添加投标保证金收默认审批人
+                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType9)));
+                auditorListAdapter.notifyDataSetChanged();
                 break;
             case "3":// 履约保证金支
                 mBinding.metitle.setcTxt(this.getResources().getString(R.string.lybzjz_txt));
                 mBinding.bzjmcLayout.setVisibility(View.GONE);
+                //添加履约保证金支默认审批人
+                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType11)));
+                auditorListAdapter.notifyDataSetChanged();
                 break;
             case "4"://履约保证金收
                 mBinding.metitle.setcTxt(this.getResources().getString(R.string.lybzjs_txt));
                 mBinding.skdwmcTv.setText("付款单位名称");
                 mBinding.skdwmcEdt.setHint("请输入付款单位名称");
+                //添加履约保证金收默认审批人
+                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType12)));
+                auditorListAdapter.notifyDataSetChanged();
                 break;
         }
     }

@@ -7,10 +7,14 @@ import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.google.gson.Gson;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BaseActivity;
+import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.util.HackyViewPager;
+import com.qymage.sys.common.util.SPUtils;
 import com.qymage.sys.ui.adapter.HomeViewPagerAdapter;
+import com.qymage.sys.ui.entity.LoginEntity;
 import com.qymage.sys.ui.fragment.JournalFragment;
 import com.qymage.sys.ui.fragment.MyFragment;
 import com.qymage.sys.ui.fragment.NewsFragment;
@@ -26,11 +30,17 @@ public class MainActivity extends BaseActivity {
     public static RadioButton tab1, tab2, tab3, tab4;
     public RadioGroup radioGroup;
 
+    public static LoginEntity.InfoBean infoBean;
+    Gson gson = new Gson();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        if (!SPUtils.get(this, Constants.userinfo, "").toString().equals("")) {
+            infoBean = gson.fromJson(SPUtils.get(this, Constants.userinfo, "").toString(), LoginEntity.InfoBean.class);
+        }
         instance = this;
         checkVersion();
     }
@@ -106,6 +116,27 @@ public class MainActivity extends BaseActivity {
      */
     private void checkVersion() {
 
+    }
+
+
+    /**
+     * 更具用户按钮权限返回对应的流程定义ID
+     *
+     * @param btnType
+     * @return
+     */
+    public static String processDefId(String btnType) {
+        String processDefId = "";
+        if (infoBean.processAppBtnVo != null && infoBean.processAppBtnVo.size() > 0) {
+
+            for (int i = 0; i < infoBean.processAppBtnVo.size(); i++) {
+                if (infoBean.processAppBtnVo.get(i).btnType.equals(btnType)) {
+                    processDefId = infoBean.processAppBtnVo.get(i).processDefId;
+                    break;
+                }
+            }
+        }
+        return processDefId;
     }
 
 

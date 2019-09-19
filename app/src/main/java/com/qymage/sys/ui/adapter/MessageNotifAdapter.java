@@ -36,6 +36,11 @@ public class MessageNotifAdapter extends BaseQuickAdapter<MessageNotifEnt, BaseV
         PicasooUtil.setImageResource(item.photo, helper.getView(R.id.msg_img));
         helper.setText(R.id.msg_title, item.noticeTitle)
                 .setText(R.id.date_time_tv, item.noticeDate);
+        if (item.read == 0) {
+            helper.setVisible(R.id.unread_msg_img, true);
+        } else {
+            helper.setVisible(R.id.unread_msg_img, false);
+        }
 
     }
 }

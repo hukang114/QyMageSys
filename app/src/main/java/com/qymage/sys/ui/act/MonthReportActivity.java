@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -33,7 +34,7 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * 月报
+ * 月报提交
  */
 public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> implements View.OnClickListener {
 
@@ -94,6 +95,9 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
     @Override
     protected void initData() {
         super.initData();
+        //添加月报提交默认审批人
+        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType16)));
+        auditorListAdapter.notifyDataSetChanged();
         // 获取月报数据展示
         yesQuery();
     }

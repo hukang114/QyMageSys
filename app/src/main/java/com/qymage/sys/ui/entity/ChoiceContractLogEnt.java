@@ -108,4 +108,7 @@ public class ChoiceContractLogEnt implements Serializable {
     public int regarding;
     public String personName;
     public String contractTypeName;
+    public String msgId;// 消息id
+    public int read;// 消息状态  0未读  1已读
+    public String actStatus;
 }

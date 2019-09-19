@@ -57,6 +57,14 @@ public class ProjectApprovaLogAdapter extends BaseQuickAdapter<ProjectAppLogEnt,
                 name_tv_bg.setText(item.personName);
             }
         }
+
+        if (item.read == 0) {
+            helper.setVisible(R.id.unread_msg_img, true);
+        } else {
+            helper.setVisible(R.id.unread_msg_img, false);
+        }
+
+
         helper.addOnClickListener(R.id.bnt1).addOnClickListener(R.id.bnt2).addOnClickListener(R.id.bnt3);
 
         if (ProjectApprovaLoglActivity.mType == 1) {

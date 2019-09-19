@@ -103,7 +103,17 @@ public class SetUpActivity extends BBActivity<ActivitySetUpBinding> implements V
         dialog.show();
         dialog.findViewById(R.id.tv_outlogin).setOnClickListener(view1 -> {
             dialog.dismiss();
-            sendOutLogin();
+            closeLoading();
+            showToast("退出登录成功");
+            SPUtils.remove(SetUpActivity.this, Constants.token);
+            SPUtils.remove(SetUpActivity.this, Constants.openid);
+            SPUtils.remove(SetUpActivity.this, Constants.userid);
+            EventBus.getDefault().post(new MyEvtnTools(MeventKey.OUTLOGIN));
+            // 需要从新登录
+            AppManager.getInstance().finishAllActivity();
+            openActivity(LoginActivity.class);
+            finish();
+//            sendOutLogin();
         });
         dialog.findViewById(R.id.tv_cancel).setOnClickListener(v -> dialog.dismiss());
     }

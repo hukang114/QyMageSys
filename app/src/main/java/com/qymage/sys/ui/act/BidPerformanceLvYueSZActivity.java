@@ -96,6 +96,9 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
             bundle.putString("id", listdata.get(position).id);
             bundle.putString("type", bidType);
             openActivity(BidPerFormTbLySZLoglDetActivity.class, bundle);
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
         mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -168,6 +171,18 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
             }
         });
 
+    }
+
+    /**
+     * 消息更新成功
+     *
+     * @param position
+     */
+    @Override
+    protected void msgUpdateSuccess(int position) {
+        super.msgUpdateSuccess(position);
+        listdata.get(position).read = 1;
+        adapter.notifyDataSetChanged();
     }
 
     private String getKeyWord() {

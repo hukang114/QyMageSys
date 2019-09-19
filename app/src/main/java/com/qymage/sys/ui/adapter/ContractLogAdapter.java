@@ -39,7 +39,7 @@ public class ContractLogAdapter extends BaseQuickAdapter<ChoiceContractLogEnt, B
         String status = VerifyUtils.isEmpty(item.stats) ? "" : 1 == item.stats ? "待处理" : 2 == item.stats ? "已处理" :
                 3 == item.stats ? "抄送给我" : 4 == item.stats ? "已处理" : "";
 
-        helper.setText(R.id.status_tv, status)
+        helper.setText(R.id.status_tv, item.actStatus)
                 .setText(R.id.user_name, item.personName + "提交" + item.contractTypeName + "合同申请")
                 .setText(R.id.proj_type, "合同编号：" + item.contractNo)
                 .setText(R.id.proj_name, "合同名称：" + item.contractName)
@@ -59,6 +59,11 @@ public class ContractLogAdapter extends BaseQuickAdapter<ChoiceContractLogEnt, B
             } else {
                 name_tv_bg.setText(item.personName);
             }
+        }
+        if (item.read == 0) {
+            helper.setVisible(R.id.unread_msg_img, true);
+        } else {
+            helper.setVisible(R.id.unread_msg_img, false);
         }
 
         if (ChoiceContractLogActivity.mType == 1) {

@@ -58,6 +58,7 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
         return R.layout.activity_contract_payment_ra;
     }
 
+
     @Override
     protected void initView() {
         super.initView();
@@ -197,7 +198,7 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
                 adapter.notifyDataSetChanged();
             }
         })
-                .setTitleText("请选择利率")
+                .setTitleText("请选择付款比例")
                 .setDividerColor(Color.BLACK)
                 .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
                 .setContentTextSize(18)

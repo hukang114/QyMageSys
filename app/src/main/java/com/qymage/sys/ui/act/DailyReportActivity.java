@@ -17,6 +17,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
@@ -138,6 +139,11 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
         adapter.notifyDataSetChanged();
         gethasClockOut();
 
+        //添加日报提交默认审批人
+        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType15)));
+        auditorListAdapter.notifyDataSetChanged();
+
+
     }
 
     //查询是否有下班考勤数据
@@ -152,6 +158,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                     mBinding.tv42x.setText(result.data.dayWork);
                 }
             }
+
             @Override
             public void onError(Call call, Response response, Exception e) {
                 super.onError(call, response, e);

@@ -30,6 +30,7 @@ import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
+import com.qymage.sys.AppConfig;
 import com.qymage.sys.BuildConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
@@ -178,6 +179,9 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
     @Override
     protected void initData() {
         super.initData();
+        //添加请假申请默认审批人
+        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType14)));
+        auditorListAdapter.notifyDataSetChanged();
         getQingJia();
 
     }

@@ -631,6 +631,17 @@ public class HttpUtil {
         return HttpClient.getInstance().postData(HttpConsts.ATTENDANCE_HASCLOCKOUT, params);
     }
 
+    /**
+     * 默认审批人查询接口
+     *
+     * @param params
+     * @return
+     */
+    public static PostRequest wf_auditQuery(Map<String, Object> params) {
+        return HttpClient.getInstance().postData(HttpConsts.WF_AUDITQUERY, params);
+    }
+
+
 }
 
 

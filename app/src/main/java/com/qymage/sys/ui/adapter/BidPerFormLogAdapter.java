@@ -40,7 +40,7 @@ public class BidPerFormLogAdapter extends BaseQuickAdapter<BidLvYueSZListEnt, Ba
         String status = VerifyUtils.isEmpty(item.stats) ? "" : 1 == item.stats ? "待处理" : 2 == item.stats ? "已处理" :
                 3 == item.stats ? "抄送给我" : 4 == item.stats ? "已处理" : "";
 
-        helper.setText(R.id.status_tv, item.stats)
+        helper.setText(R.id.status_tv, item.actStatus)
                 .setText(R.id.user_name, item.personName + "提交" + "申请")
                 .setText(R.id.proj_type, "公司名称：" + item.companyName)
                 .setText(R.id.proj_name, "项目名称：" + item.projectName)
@@ -73,6 +73,12 @@ public class BidPerFormLogAdapter extends BaseQuickAdapter<BidLvYueSZListEnt, Ba
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
+        }
+
+        if (item.read == 0) {
+            helper.setVisible(R.id.unread_msg_img, true);
+        } else {
+            helper.setVisible(R.id.unread_msg_img, false);
         }
 //
 //        switch (item.actStatus) {

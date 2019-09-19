@@ -116,10 +116,24 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
             bundle = new Bundle();
             bundle.putString("id", listdata.get(position).id);
             openActivity(ASkForDetailsActivity.class, bundle);
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
 
     }
 
+    /**
+     * 消息更新成功
+     *
+     * @param position
+     */
+    @Override
+    protected void msgUpdateSuccess(int position) {
+        super.msgUpdateSuccess(position);
+        listdata.get(position).read = 1;
+        adapter.notifyDataSetChanged();
+    }
 
     private String getKeyWord() {
         return mBinding.etSearch.getText().toString().trim();

@@ -12,12 +12,14 @@ import java.util.List;
 public class MessageNotifEnt {
 
 
-    public String Id;
+    public String id;
     public String noticeTitle;
     public String noticeDate;
     public String noticeType;
     public String noticeContent;
     public String photo;
+    public String msgId;// 消息id
+    public int read;// 消息状态  0未读  1已读
 
     public List<FileListBean> fileList;
 

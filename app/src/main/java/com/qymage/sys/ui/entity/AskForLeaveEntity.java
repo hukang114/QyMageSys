@@ -9,7 +9,6 @@ package com.qymage.sys.ui.entity;
 public class AskForLeaveEntity {
 
     public String processInstanceId;
-    public String actStatus;
     public ProcessListBean processList;
     public String endDate;
     public String photo;
@@ -24,7 +23,8 @@ public class AskForLeaveEntity {
     public String startDate;
     public String createDate;
     public String msgId;
-    public String read;//消息状态  0未读  1已读
+    public int read;//消息状态  0未读  1已读
+    public String actStatus;////审批状态
 
     public static class ProcessListBean {
         /**

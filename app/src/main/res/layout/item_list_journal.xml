@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin10"
     android:layout_marginLeft="@dimen/margin15"
     android:layout_marginRight="@dimen/margin15"
-    android:layout_marginBottom="@dimen/margin10"
     android:background="@drawable/item_rizhi_bg_style"
     android:orientation="vertical"
     android:padding="@dimen/margin10">
@@ -56,6 +56,13 @@
             android:layout_marginTop="@dimen/margin5"
             android:layout_toRightOf="@+id/name_tv_bg"
             android:text="2019-01-01" />
+
+        <ImageView
+            android:id="@+id/unread_msg_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/red_msg_ioc" />
 
     </RelativeLayout>
 
@@ -123,8 +130,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin10"
         android:layout_marginBottom="@dimen/margin5"
+        android:layout_marginTop="@dimen/margin10"
         android:orientation="horizontal">
 
         <TextView

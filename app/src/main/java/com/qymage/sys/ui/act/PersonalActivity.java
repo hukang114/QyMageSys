@@ -37,6 +37,9 @@ import java.util.Date;
 
 import cn.leo.click.SingleClick;
 
+/**
+ * 个人中心
+ */
 public class PersonalActivity extends BBActivity<ActivityPersonalBinding> implements View.OnClickListener, TakePhoto.TakeResultListener, InvokeListener {
 
 

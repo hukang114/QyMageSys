@@ -39,7 +39,7 @@ public class AppCollectioLogAdapter extends BaseQuickAdapter<ApplicationCollecti
         String status = VerifyUtils.isEmpty(item.stats) ? "" : 1 == item.stats ? "待处理" : 2 == item.stats ? "已处理" :
                 3 == item.stats ? "抄送给我" : 4 == item.stats ? "已处理" : "";
 
-        helper.setText(R.id.status_tv, status)
+        helper.setText(R.id.status_tv, item.actStatus)
                 .setText(R.id.user_name, item.personName + "提交" + "申请")
                 .setText(R.id.proj_type, "项目类型：" + item.contractName)
                 .setText(R.id.proj_name, "项目名称：" + item.projectName)
@@ -59,6 +59,12 @@ public class AppCollectioLogAdapter extends BaseQuickAdapter<ApplicationCollecti
                 name_tv_bg.setText(item.personName);
             }
         }
+        if (item.read == 0) {
+            helper.setVisible(R.id.unread_msg_img, true);
+        } else {
+            helper.setVisible(R.id.unread_msg_img, false);
+        }
+
         helper.addOnClickListener(R.id.bnt1).addOnClickListener(R.id.bnt2).addOnClickListener(R.id.bnt3);
         if (ApplicationCollectionLogActivity.mType == 1) {
             bnt1.setVisibility(View.GONE);

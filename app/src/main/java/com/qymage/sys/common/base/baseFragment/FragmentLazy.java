@@ -397,4 +397,33 @@ public abstract class FragmentLazy<VB extends ViewDataBinding> extends Fragment 
     }
 
 
+    /**
+     * 更新消息
+     *
+     * @param msgId
+     */
+    protected void msgUdate(String msgId, int position) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("msgId", msgId);
+        HttpUtil.msgUdate(hashMap).execute(new JsonCallback<Result<String>>() {
+            @Override
+            public void onSuccess(Result<String> result, Call call, Response response) {
+                msgUpdateSuccess(position);
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+            }
+        });
+    }
+
+    /**
+     * 更新消息成的处理
+     */
+    protected void msgUpdateSuccess(int position) {
+
+    }
+
+
 }

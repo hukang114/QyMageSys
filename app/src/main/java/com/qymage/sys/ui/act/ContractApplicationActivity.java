@@ -175,6 +175,9 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     @Override
     protected void initData() {
         super.initData();
+        //添加合同默认审批人
+        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType4)));
+        auditorListAdapter.notifyDataSetChanged();
 
     }
 

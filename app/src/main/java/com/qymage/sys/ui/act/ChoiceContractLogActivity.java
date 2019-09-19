@@ -77,6 +77,9 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
             bundle.putString("Tag", Tag);
             bundle.putString("id", listdata.get(position).id);
             openActivity(ContractApplicationDetActivity.class, bundle);
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
         mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -115,6 +118,17 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
         });
     }
 
+    /**
+     * 消息更新成功
+     *
+     * @param position
+     */
+    @Override
+    protected void msgUpdateSuccess(int position) {
+        super.msgUpdateSuccess(position);
+        listdata.get(position).read = 1;
+        adapter.notifyDataSetChanged();
+    }
 
     private String getKeyWord() {
         return mBinding.etSearch.getText().toString().trim();

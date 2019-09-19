@@ -61,10 +61,22 @@ public class MessageNotifActivity extends BBActivity<ActivityMessageNotifBinding
             bundle3.putString("title", "详情");
             bundle3.putString("content", listdata.get(position).noticeContent);
             openActivity(BrowsePathActivity.class, bundle3);
-            msgUdate(listdata.get(position).Id);
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
     }
 
+
+    /**
+     * 消息更新成功
+     */
+    @Override
+    protected void msgUpdateSuccess(int position) {
+        super.msgUpdateSuccess(position);
+        listdata.get(position).read = 1;
+        notifAdapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void initData() {
@@ -113,26 +125,6 @@ public class MessageNotifActivity extends BBActivity<ActivityMessageNotifBinding
                     page = 1;
                     get_listNotice(Constants.RequestMode.FRIST);
                 });
-            }
-        });
-    }
-
-    /**
-     * 更新消息
-     *
-     * @param msgId
-     */
-    private void msgUdate(String msgId) {
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("msgId", msgId);
-        HttpUtil.msgUdate(hashMap).execute(new JsonCallback<Result<String>>() {
-            @Override
-            public void onSuccess(Result<String> result, Call call, Response response) {
-            }
-
-            @Override
-            public void onError(Call call, Response response, Exception e) {
-                super.onError(call, response, e);
             }
         });
     }

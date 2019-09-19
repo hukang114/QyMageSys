@@ -52,4 +52,7 @@ public class BidLvYueSZListEnt {
     public String personName;
     public int stats;
     public String processInstId;
+    public String msgId;// 消息id
+    public int read;// 消息状态  0未读  1已读
+    public String actStatus;////审批状态
 }

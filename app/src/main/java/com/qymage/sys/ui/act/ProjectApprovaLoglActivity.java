@@ -86,6 +86,9 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
             bundle.putString("Tag", Tag);
             bundle.putString("id", listdata.get(position).id);
             openActivity(ProjectApprovaLoglDetActivity.class, bundle);
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
         mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -115,6 +118,19 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
             }
         });
 
+    }
+
+
+    /**
+     * 消息更新成功
+     *
+     * @param position
+     */
+    @Override
+    protected void msgUpdateSuccess(int position) {
+        super.msgUpdateSuccess(position);
+        listdata.get(position).read = 1;
+        adapter.notifyDataSetChanged();
     }
 
     /**

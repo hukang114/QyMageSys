@@ -21,6 +21,8 @@ public class ProjectAppLogEnt {
     public String projectTypeName;// 类型名称
     public String personName;// 提交人姓名
     public String processInstId;
+    public String msgId;// 消息id
+    public int read;// 消息状态  0未读  1已读
 
 
 }

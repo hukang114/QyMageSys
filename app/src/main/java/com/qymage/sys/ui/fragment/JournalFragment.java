@@ -168,19 +168,24 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         });
         adapter.setOnItemClickListener((adapter, view, position) -> {
             bundle = new Bundle();
-            if (workType == 3) {
-                bundle.putString("id", journalEntities.get(position).Id);
-            } else {
-                bundle.putString("id", journalEntities.get(position).id);
-            }
+            bundle.putString("id", journalEntities.get(position).id);
             if (workType != 2) {
                 bundle.putString("workType", workType + "");
                 openActivity(MonthlyDetailsActivity.class, bundle);
+                if (journalEntities.get(position).read == 0) { // 跟新消息
+                    msgUdate(journalEntities.get(position).msgId, position);
+                }
             }
         });
 
     }
 
+    @Override
+    protected void msgUpdateSuccess(int position) {
+        super.msgUpdateSuccess(position);
+        journalEntities.get(position).read = 1;
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void initData() {

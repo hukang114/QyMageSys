@@ -97,6 +97,10 @@ public class ApplicationCollectionLogActivity extends BBActivity<ActivityApplica
             bundle.putString("id", listdata.get(position).id);
             bundle.putString("type", bidType);
             openActivity(AppColletionLoglDetActivity.class, bundle);
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
+
         });
         mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -168,6 +172,18 @@ public class ApplicationCollectionLogActivity extends BBActivity<ActivityApplica
                     break;
             }
         });
+    }
+
+    /**
+     * 消息更新成功
+     *
+     * @param position
+     */
+    @Override
+    protected void msgUpdateSuccess(int position) {
+        super.msgUpdateSuccess(position);
+        listdata.get(position).read = 1;
+        adapter.notifyDataSetChanged();
     }
 
 
