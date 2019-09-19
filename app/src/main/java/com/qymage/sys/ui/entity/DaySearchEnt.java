@@ -44,7 +44,6 @@ public class DaySearchEnt {
     public String userId;
     public String clockInResult;
     public String clockInTime;
-    public String clockOutStatus;
     public String clockOutTime;
     public String clockInScope;
     public int clockInStatus;
@@ -52,6 +51,6 @@ public class DaySearchEnt {
     public String endTime;
     public int isCurrentDate;
     public String clockOutResult;
-    public int clockOutStats;
+    public int clockOutStatus;
     public String clockOutRemark;
 }

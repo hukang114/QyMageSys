@@ -21,6 +21,7 @@ import com.qymage.sys.ui.entity.DayWeekMonthDet;
 import com.qymage.sys.ui.entity.LoanQueryDetEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
+import com.qymage.sys.ui.fragment.JournalFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,7 +77,7 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         mBinding.bnt2.setOnClickListener(this);
         mBinding.bnt3.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
-        switch (MyLoanActivity.mType) {
+        switch (JournalFragment.logType) {
             case 1:
                 mBinding.bnt1.setVisibility(View.GONE);
                 mBinding.bnt2.setVisibility(View.VISIBLE);
@@ -259,10 +260,11 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         if (info != null) {
             appLogEnt = new ProjectAppLogEnt();
             appLogEnt.processInstId = info.processInstanceId;
-            appLogEnt.id = info.Id;
             if (workType.equals("1")) {
+                appLogEnt.id = info.id;
                 status = AppConfig.status.value2;
             } else if (workType.equals("3")) {
+                appLogEnt.id = info.Id;
                 status = AppConfig.status.value14;
             }
 

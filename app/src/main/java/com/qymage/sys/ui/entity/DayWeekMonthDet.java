@@ -23,6 +23,7 @@ public class DayWeekMonthDet {
     public String jobWord;//  本周工作总结
     public String nextWork;//  下周工作计划
     public String actStatus; //审批状态
+    public String id;
 
     // 周报===================
     public String userCode;//工号
@@ -41,6 +42,7 @@ public class DayWeekMonthDet {
     public String leadGrade;//  领导打分
     public String Id;
     public String userName;
+
 
     public List<ActivityVoBean> activityVo;
 

@@ -393,17 +393,17 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
         String clockOutType = VerifyUtils.isEmpty(dayEnt.clockOutType) ? "" : 1 == dayEnt.clockOutType ? "在岗" : 2 == dayEnt.clockOutType ? "出差" :
                 3 == dayEnt.clockOutType ? "请假" : "";
         // 下班考勤状态
-        String clockOutStats = VerifyUtils.isEmpty(dayEnt.clockOutStats) ? "" : 1 == dayEnt.clockOutStats ? "正常" : 2 == dayEnt.clockOutStats ? "迟到" :
-                3 == dayEnt.clockOutStats ? "早退" : 4 == dayEnt.clockOutStats ? "旷工" : "";
+        String clockOutStatus = VerifyUtils.isEmpty(dayEnt.clockOutStatus) ? "" : 1 == dayEnt.clockOutStatus ? "正常" : 2 == dayEnt.clockOutStatus ? "迟到" :
+                3 == dayEnt.clockOutStatus ? "早退" : 4 == dayEnt.clockOutStatus ? "旷工" : "";
         //下班考勤结果
         String clockOutResult = VerifyUtils.isEmpty(dayEnt.clockOutResult) ? "" : "早退" + dayEnt.clockOutResult + "分钟";
-        if (dayEnt.clockOutStats == 1) {
+        if (dayEnt.clockOutStatus == 1) {
             clockOutResult = "";
-        } else if (dayEnt.clockOutStats == 2) {
+        } else if (dayEnt.clockOutStatus == 2) {
             clockOutResult = "迟到" + dayEnt.clockOutResult + "分钟";
-        } else if (dayEnt.clockOutStats == 3) {
+        } else if (dayEnt.clockOutStatus == 3) {
             clockOutResult = "早退" + dayEnt.clockOutResult + "分钟";
-        } else if (dayEnt.clockOutStats == 4) {
+        } else if (dayEnt.clockOutStatus == 4) {
             clockOutResult = "旷工" + dayEnt.clockOutResult + "天";
         }
         // 下班考勤地址
@@ -411,7 +411,7 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
         // 下班打卡备注
         String clockOutRemark = VerifyUtils.isEmpty(dayEnt.clockOutRemark) ? "" : "备注：" + dayEnt.clockOutRemark;
         // 设置下班打卡状态显示
-        mBinding.closingAddressTv.setText(clockOutType + " " + clockOutStats + " " + clockOutResult + "\n" + clockOutAddr + " \n" + clockOutRemark);
+        mBinding.closingAddressTv.setText(clockOutType + " " + clockOutStatus + " " + clockOutResult + "\n" + clockOutAddr + " \n" + clockOutRemark);
 
     }
 

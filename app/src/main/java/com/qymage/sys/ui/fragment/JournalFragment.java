@@ -41,6 +41,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.leo.click.SingleClick;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -136,28 +137,33 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
             page = 1;
             getAllTypeData(Constants.RequestMode.FRIST);
         });
-        adapter.setOnItemClickListener((adapter, view, position) -> {
-            ProjectAppLogEnt item = new ProjectAppLogEnt();
-            int state = 0;
-            if (workType == 1) { // 日报
-                item.id = journalEntities.get(position).id;
-                item.processInstId = journalEntities.get(position).processInstId;
-                state = AppConfig.status.value2;
-            } else if (workType == 3) { // 月报
-                item.id = journalEntities.get(position).id;
-                item.processInstId = journalEntities.get(position).processInstId;
-                state = AppConfig.status.value14;
-            }
-            switch (view.getId()) {
-                case R.id.bnt1: // 撤销
-                    auditAdd("3", state, item);
-                    break;
-                case R.id.bnt2:// 拒绝
-                    auditAdd("2", state, item);
-                    break;
-                case R.id.bnt3:// 同意
-                    auditAdd("1", state, item);
-                    break;
+
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @SingleClick(2000)
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                ProjectAppLogEnt item = new ProjectAppLogEnt();
+                int state = 0;
+                if (workType == 1) { // 日报
+                    item.id = journalEntities.get(position).id;
+                    item.processInstId = journalEntities.get(position).processInstanceId;
+                    state = AppConfig.status.value2;
+                } else if (workType == 3) { // 月报
+                    item.id = journalEntities.get(position).id;
+                    item.processInstId = journalEntities.get(position).processInstanceId;
+                    state = AppConfig.status.value14;
+                }
+                switch (view.getId()) {
+                    case R.id.bnt1: // 撤销
+                        auditAdd("3", state, item);
+                        break;
+                    case R.id.bnt2:// 拒绝
+                        auditAdd("2", state, item);
+                        break;
+                    case R.id.bnt3:// 同意
+                        auditAdd("1", state, item);
+                        break;
+                }
             }
         });
         adapter.setOnItemClickListener((adapter, view, position) -> {
