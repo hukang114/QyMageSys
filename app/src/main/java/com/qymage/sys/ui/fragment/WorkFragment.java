@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.baseFragment.BBFragment;
 import com.qymage.sys.common.base.baseFragment.FragmentLazy;
+import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.FragmentWorkBinding;
+import com.qymage.sys.ui.act.MainActivity;
 import com.qymage.sys.ui.adapter.WorkListAdapter;
 import com.qymage.sys.ui.entity.WorkListEnt;
 
@@ -62,6 +64,9 @@ public class WorkFragment extends FragmentLazy<FragmentWorkBinding> {
 
     @Override
     protected void initData() {
+
+        mBinding.corporateNameTv.setText(VerifyUtils.isEmpty(MainActivity.infoBean.deptName) ? this.getResources().getString(R.string.app_name) : MainActivity.infoBean.deptName);
+
 
         List<WorkListEnt.DataBaen> baenList1 = new ArrayList<>();
         baenList1.add(new WorkListEnt.DataBaen("shangban", "上班打卡", R.mipmap.shangban));

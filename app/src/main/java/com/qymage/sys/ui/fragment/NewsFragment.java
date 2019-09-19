@@ -18,6 +18,7 @@ import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.FragmentNewsBinding;
 import com.qymage.sys.ui.act.ApplicationCollectionLogActivity;
 import com.qymage.sys.ui.act.AskForLeaveRecordlActivity;
@@ -158,6 +159,7 @@ public class NewsFragment extends FragmentLazy<FragmentNewsBinding> {
 
     @Override
     protected void initData() {
+        mBinding.deptnameTv.setText(VerifyUtils.isEmpty(MainActivity.infoBean.deptName) ? this.getResources().getString(R.string.app_name) : MainActivity.infoBean.deptName);
         getMessage_User_Msg();
     }
 
