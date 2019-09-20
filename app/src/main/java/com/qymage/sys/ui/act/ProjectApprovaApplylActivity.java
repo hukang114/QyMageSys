@@ -114,10 +114,16 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
         super.initData();
         getProType();
         //添加立项默认审批人
-        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType3)));
-        auditorListAdapter.notifyDataSetChanged();
+        getAuditQuery(MainActivity.processDefId(AppConfig.btnType3));
 
     }
+
+    @Override
+    protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
+        auditorList.addAll(listdata);
+        auditorListAdapter.notifyDataSetChanged();
+    }
+
 
     /**
      * 获取项目类型

@@ -190,6 +190,7 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
     @Override
     protected void initData() {
         getAllTypeData(Constants.RequestMode.FRIST);
+        getleadType();
     }
 
     private void getAllTypeData(Constants.RequestMode mode) {

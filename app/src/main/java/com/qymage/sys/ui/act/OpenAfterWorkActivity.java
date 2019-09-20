@@ -210,7 +210,8 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                             } else {
                                 mBinding.clockImgBg.setImageResource(R.mipmap.abnormal_dk_bg);
                                 mBinding.toWorkTv.setText("异常打开");
-                                mBinding.locationAddressTv.setText("不在打卡考勤范围内");
+                                String clockInAddr = VerifyUtils.isEmpty(dayEnt) ? "" : dayEnt.clockInAddr;
+                                mBinding.locationAddressTv.setText("不在打卡考勤范围内" + "\n考勤范围:" + clockInAddr);
                             }
                         } else if (clockType == 2) {
                             mBinding.toWorkTv.setText("出差打卡");
@@ -240,7 +241,8 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                             } else {
                                 mBinding.clockImgBg.setImageResource(R.mipmap.abnormal_dk_bg);
                                 mBinding.toWorkTv.setText("异常打开");
-                                mBinding.locationAddressTv.setText("不在打卡考勤范围内");
+                                String clockInAddr = VerifyUtils.isEmpty(dayEnt) ? "" : dayEnt.clockInAddr;
+                                mBinding.locationAddressTv.setText("不在打卡考勤范围内" + "\n考勤范围:" + clockInAddr);
                             }
                         } else if (clockType == 2) {
                             mBinding.toWorkTv.setText("出差打卡");
@@ -296,6 +298,15 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                     dayEnt = result.data;
                     //是否当天时间 1-是、0-否
                     if (dayEnt.isCurrentDate == 1) {
+                        // 显示上班信息
+                        mBinding.workShiftClockTime.setVisibility(View.GONE);
+                        mBinding.workShiftAddressTv.setVisibility(View.GONE);
+                        mBinding.centetDiv.setVisibility(View.GONE);
+                        // 下班
+                        // 显示下班信息
+                        mBinding.tvDotE.setVisibility(View.GONE);
+                        mBinding.closingRelayout.setVisibility(View.GONE);
+                        //-------------
                         mBinding.dakaRelayout.setVisibility(View.VISIBLE);
                         mBinding.radioGroup.setVisibility(View.VISIBLE);
                         if (dayEnt.clockInTime == null || dayEnt.beginTime.equals("")) { // 上班打卡时间不存在，
@@ -324,12 +335,20 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                                 mBinding.metitle.setcTxt("考勤打卡");
                             }
                         }
-                    } else {
+                    } else { // 不是当天
                         // 隐藏打卡按钮
                         mBinding.dakaRelayout.setVisibility(View.GONE);
                         // 隐藏打卡类型
                         mBinding.radioGroup.setVisibility(View.GONE);
                         mBinding.metitle.setcTxt("考勤打卡");
+                        // 显示上班信息
+                        mBinding.workShiftClockTime.setVisibility(View.VISIBLE);
+                        mBinding.workShiftAddressTv.setVisibility(View.VISIBLE);
+                        mBinding.centetDiv.setVisibility(View.VISIBLE);
+                        // 下班
+                        // 显示下班信息
+                        mBinding.tvDotE.setVisibility(View.VISIBLE);
+                        mBinding.closingRelayout.setVisibility(View.VISIBLE);
                     }
 
                     if (dayEnt.isCurrentDate == 1) {

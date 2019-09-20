@@ -19,7 +19,10 @@ public class LeaveType {
      * label : 年假
      * value : 01
      */
-
     public String label;
     public String value;
+    public boolean isCheck = false;
+
+    
+
 }

@@ -24,6 +24,7 @@ import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.databinding.ActivityContractApplicationBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
+import com.qymage.sys.ui.adapter.FileListAdapter;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
 import com.qymage.sys.ui.entity.ContractPayEnt;
 import com.qymage.sys.ui.entity.FileListEnt;
@@ -56,6 +57,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     List<GetTreeEnt> copierList = new ArrayList<>();// 抄送人
 
     List<FileListEnt> fileList = new ArrayList<>();// 上传附件
+    FileListAdapter fileListAdapter;// 文件适配器
 
     AuditorListAdapter auditorListAdapter;// 审批人适配器
     CopierListAdapter copierListAdapter;// 抄送人适配器
@@ -85,8 +87,12 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     protected void initView() {
         super.initView();
         mBinding.metitle.setlTxtClick(v -> finish());
-        mBinding.metitle.setrTxtClick(v -> {
-            openActivity(ChoiceContractLogActivity.class);
+        mBinding.metitle.setrTxtClick(new View.OnClickListener() {
+            @SingleClick(2000)
+            @Override
+            public void onClick(View v) {
+                openActivity(ChoiceContractLogActivity.class);
+            }
         });
         mBinding.htmxEdt.setOnClickListener(this);
         mBinding.fkblsmEdt.setOnClickListener(this);
@@ -104,6 +110,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         layoutb.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         mBinding.sprRecyclerview.setLayoutManager(layouta);
         mBinding.csrRecyclerview.setLayoutManager(layoutb);
+        mBinding.fujianRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         // 审批人
         auditorListAdapter = new AuditorListAdapter(R.layout.item_list_auditor, auditorList);
         mBinding.sprRecyclerview.setAdapter(auditorListAdapter);
@@ -115,7 +122,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
                     break;
             }
         });
-
+        // 抄送人
         copierListAdapter = new CopierListAdapter(R.layout.item_list_auditor, copierList);
         mBinding.csrRecyclerview.setAdapter(copierListAdapter);
         copierListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -123,6 +130,17 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
                 case R.id.caccel_ioc:
                     copierList.remove(position);
                     copierListAdapter.notifyDataSetChanged();
+                    break;
+            }
+        });
+        // 文件适配器
+        fileListAdapter = new FileListAdapter(R.layout.item_file_list, fileList);
+        mBinding.fujianRecyclerview.setAdapter(fileListAdapter);
+        fileListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.file_del_img:
+                    fileList.remove(position);
+                    fileListAdapter.notifyDataSetChanged();
                     break;
             }
         });
@@ -176,11 +194,19 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     protected void initData() {
         super.initData();
         //添加合同默认审批人
-        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType4)));
-        auditorListAdapter.notifyDataSetChanged();
-
+        getAuditQuery(MainActivity.processDefId(AppConfig.btnType4));
     }
 
+    /**
+     * 拿到默认的审批人
+     *
+     * @param listdata
+     */
+    @Override
+    protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
+        auditorList.addAll(listdata);
+        auditorListAdapter.notifyDataSetChanged();
+    }
 
     /**
      * 搜索项目编号或者项目名称
@@ -288,7 +314,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
                 openActivity(SelectionDepartmentActivity.class, bundle);
                 break;
             case R.id.fujian_img:// 添加附件
-
+                openFileChoose();
                 break;
             case R.id.skfxx_edt:// 收款方信息
                 bundle = new Bundle();
@@ -315,6 +341,18 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
                 }
                 break;
         }
+    }
+
+    /**
+     * 拿到上传成功的文件数据
+     *
+     * @param fileListEnts
+     * @return
+     */
+    @Override
+    protected void updateFileSuccess(List<FileListEnt> fileListEnts) {
+        fileList.addAll(fileListEnts);
+        fileListAdapter.notifyDataSetChanged();
     }
 
     /**

@@ -91,8 +91,8 @@ public class MyFragment extends FragmentLazy<FragmentMyBinding> implements BaseQ
 
     private void setInfoShow() {
         mBinding.userNameTv.setText(infoBean.userName);
-        mBinding.jobNumber.setText("工号：" + infoBean.userCode);
-        mBinding.corporateNameTv.setText(infoBean.deptName);
+        mBinding.jobNumber.setText("工号：" + infoBean.userAccount);
+        mBinding.corporateNameTv.setText(infoBean.companyName);
         mBinding.departmentTv.setText(infoBean.userPost);
         PicasooUtil.displayFromSDCard(infoBean.portrait, mBinding.userHead, 360);
 

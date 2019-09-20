@@ -41,6 +41,7 @@ public class LoginEntity implements Serializable {
         public String portrait;// 头像
         public String birthday;
         public String moblie;
+        public String companyName;
 
 
        /* processAppBtnVo:[{//权限
@@ -59,7 +60,7 @@ public class LoginEntity implements Serializable {
          */
         public List<ProcessAppBtnVoEntity> processAppBtnVo;
 
-        public class ProcessAppBtnVoEntity {
+        public class ProcessAppBtnVoEntity implements Serializable {
             /**
              * createdDate : 1568278331000
              * processName : log_approve_process

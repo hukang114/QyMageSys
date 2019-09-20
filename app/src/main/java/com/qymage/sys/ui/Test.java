@@ -10,66 +10,90 @@ public class Test {
 
 
     /**
-     * code : 200
-     * data : {"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcHAiLCJwYXlsb2FkIjp7InVzZXJJZCI6IjEwOTkxMDA3MDAwMDAwMDAwMzYiLCJ1c2VyQWNjb3VudCI6ImFwcCIsInVzZXJOYW1lIjoi5a2U5L-K5pm6IiwicGFydElkIjoiMTA5OTEwMDcwMDAwMDAwMDAzNiIsInVzZXJQb3N0IjpudWxsLCJkZXB0SWQiOm51bGwsImRlcHROYW1lIjpudWxsLCJwcm9jZXNzQXBwQnRuVm8iOlt7ImlkIjoiMTMiLCJidG5MYWJsZSI6IuaXpeaKpSIsImJ0blR5cGUiOiIxNSIsInByb2Nlc3NEZWZJZCI6ImxvZ19hcHByb3ZlX3Byb2Nlc3M6MToxMDI1ODUiLCJwcm9jZXNzS2V5IjoibG9nX2FwcHJvdmVfcHJvY2VzcyIsInByb2Nlc3NOYW1lIjoibG9nX2FwcHJvdmVfcHJvY2VzcyIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiIxIiwiYnRuTGFibGUiOiLnq4vpobnnlLPor7ciLCJidG5UeXBlIjoiMDMiLCJwcm9jZXNzRGVmSWQiOiJwcm9qZWN0X3pmcjo1OjIwMDA1NiIsInByb2Nlc3NLZXkiOiJwcm9qZWN0X3pmciIsInByb2Nlc3NOYW1lIjoicHJvamVjdF96ZnIiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfSx7ImlkIjoiMTAiLCJidG5MYWJsZSI6IuWxpee6puS_neivgemHkeaUtiIsImJ0blR5cGUiOiIxMiIsInByb2Nlc3NEZWZJZCI6InBlcmZvcm1hbmNlX2NvbWVfcHJvY2VzczoyOjIwMDA4MCIsInByb2Nlc3NLZXkiOiJwZXJmb3JtYW5jZV9jb21lX3Byb2Nlc3MiLCJwcm9jZXNzTmFtZSI6InBlcmZvcm1hbmNlX2NvbWVfcHJvY2VzcyIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiIxMSIsImJ0bkxhYmxlIjoi5YCf5qy-55Sz6K-3IiwiYnRuVHlwZSI6IjEzIiwicHJvY2Vzc0RlZklkIjoibXVsdGktc2lnbi1wcm9jZXNzOjE6Nzc1MDQiLCJwcm9jZXNzS2V5IjoibXVsdGktc2lnbi1wcm9jZXNzIiwicHJvY2Vzc05hbWUiOiJtdWx0aS1zaWduLXByb2Nlc3MiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfSx7ImlkIjoiMTIiLCJidG5MYWJsZSI6Iuivt-WBh-eUs-ivtyIsImJ0blR5cGUiOiIxNCIsInByb2Nlc3NEZWZJZCI6ImxlYXZlX3Byb2Nlc3M6ODoyMDAwODQiLCJwcm9jZXNzS2V5IjoibGVhdmVfcHJvY2VzcyIsInByb2Nlc3NOYW1lIjoibGVhdmVfcHJvY2VzcyIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiIxNCIsImJ0bkxhYmxlIjoi5pyI5oqlIiwiYnRuVHlwZSI6IjE2IiwicHJvY2Vzc0RlZklkIjoibW9udGhfbG9nX3Byb2Nlc3M6MjoyMDAwMTYiLCJwcm9jZXNzS2V5IjoibW9udGhfbG9nX3Byb2Nlc3MiLCJwcm9jZXNzTmFtZSI6Im1vbnRoX2xvZ19wcm9jZXNzIiwicHJvY2Vzc1ZlcnNpb24iOjEsImNyZWF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwLCJ1cGRhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMH0seyJpZCI6IjIiLCJidG5MYWJsZSI6IuWQiOWQjOeUs-ivtyIsImJ0blR5cGUiOiIwNCIsInByb2Nlc3NEZWZJZCI6Ilx0XHJcbnByb2Nlc3MtMTozOjIwMDA1MiIsInByb2Nlc3NLZXkiOiJwcm9jZXNzLTEiLCJwcm9jZXNzTmFtZSI6InByb2Nlc3MtMSIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiIzIiwiYnRuTGFibGUiOiLmlLbmrL7nlLPor7ciLCJidG5UeXBlIjoiMDYiLCJwcm9jZXNzRGVmSWQiOiJwcm9jZXNzX2NvbDoxOjE3MjUxNCIsInByb2Nlc3NLZXkiOiJwcm9jZXNzX2NvbCIsInByb2Nlc3NOYW1lIjoicHJvY2Vzc19jb2wiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfSx7ImlkIjoiNCIsImJ0bkxhYmxlIjoi5LuY5qy-55Sz6K-3IiwiYnRuVHlwZSI6IjA1IiwicHJvY2Vzc0RlZklkIjoicHJvY2Vzc19wYXk6MToxNzI1MTAiLCJwcm9jZXNzS2V5IjoicHJvY2Vzc19wYXkiLCJwcm9jZXNzTmFtZSI6InByb2Nlc3NfcGF5IiwicHJvY2Vzc1ZlcnNpb24iOjEsImNyZWF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwLCJ1cGRhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMH0seyJpZCI6IjUiLCJidG5MYWJsZSI6IuW8gOelqOeUs-ivtyIsImJ0blR5cGUiOiIwNyIsInByb2Nlc3NEZWZJZCI6InByb2Nlc3NfSW52b2ljZToxOjE3NTA1NCIsInByb2Nlc3NLZXkiOiJwcm9jZXNzX0ludm9pY2UiLCJwcm9jZXNzTmFtZSI6InByb2Nlc3NfSW52b2ljZSIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiI2IiwiYnRuTGFibGUiOiLmlLbnpajnlLPor7ciLCJidG5UeXBlIjoiMDgiLCJwcm9jZXNzRGVmSWQiOiJwcm9jZXNzX2NvbGxlY3Q6MToxNzUwNjEiLCJwcm9jZXNzS2V5IjoicHJvY2Vzc19JbnZvaWNlIiwicHJvY2Vzc05hbWUiOiJwcm9jZXNzX0ludm9pY2UiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfSx7ImlkIjoiNyIsImJ0bkxhYmxlIjoi5oqV5qCH5L-d6K-B6YeR5pS2IiwiYnRuVHlwZSI6IjA5IiwicHJvY2Vzc0RlZklkIjoiYmlkX2NvbWVfcHJvY2VzczozOjIwMDA2NCIsInByb2Nlc3NLZXkiOiJiaWRfY29tZV9wcm9jZXNzIiwicHJvY2Vzc05hbWUiOiJiaWRfY29tZV9wcm9jZXNzIiwicHJvY2Vzc1ZlcnNpb24iOjEsImNyZWF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwLCJ1cGRhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMH0seyJpZCI6IjgiLCJidG5MYWJsZSI6IuaKleagh-S_neivgemHkeaUryIsImJ0blR5cGUiOiIxMCIsInByb2Nlc3NEZWZJZCI6ImJpZF9vdXRfcHJvY2Vzczo1OjIwMDA2MCIsInByb2Nlc3NLZXkiOiJiaWRfb3V0X3Byb2Nlc3MiLCJwcm9jZXNzTmFtZSI6ImJpZF9vdXRfcHJvY2VzcyIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiI5IiwiYnRuTGFibGUiOiLlsaXnuqbkv53or4Hph5HmlK8iLCJidG5UeXBlIjoiMTEiLCJwcm9jZXNzRGVmSWQiOiJwZXJmb3JtYW5jZV9vdXRfcHJvY2VzczoyOjIwMDA2OCIsInByb2Nlc3NLZXkiOiJwZXJmb3JtYW5jZV9vdXRfcHJvY2VzcyIsInByb2Nlc3NOYW1lIjoicGVyZm9ybWFuY2Vfb3V0X3Byb2Nlc3MiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfV19LCJleHAiOjE1Njk1MTIyNDEsImlhdCI6MTU2ODkwNzQ0MX0.ha3Dz-cp07NCO8Rs2ZLximk3Uvife7SyByPbO622F21lD0MAlnAP8Tl94PWFvpi2qtsW_EJ9EjLn6zfKlLYwmA","info":{"deptName":null,"partId":"1099100700000000036","userAccount":"app","userPost":null,"deptId":null,"processAppBtnVo":[{"createdDate":1568278331000,"processName":"log_approve_process","processKey":"log_approve_process","id":"13","updatedDate":1568278331000,"btnType":"15","processDefId":"log_approve_process:1:102585","processVersion":1,"btnLable":"日报"},{"createdDate":1568278331000,"processName":"project_zfr","processKey":"project_zfr","id":"1","updatedDate":1568278331000,"btnType":"03","processDefId":"project_zfr:5:200056","processVersion":1,"btnLable":"立项申请"},{"createdDate":1568278331000,"processName":"performance_come_process","processKey":"performance_come_process","id":"10","updatedDate":1568278331000,"btnType":"12","processDefId":"performance_come_process:2:200080","processVersion":1,"btnLable":"履约保证金收"},{"createdDate":1568278331000,"processName":"multi-sign-process","processKey":"multi-sign-process","id":"11","updatedDate":1568278331000,"btnType":"13","processDefId":"multi-sign-process:1:77504","processVersion":1,"btnLable":"借款申请"},{"createdDate":1568278331000,"processName":"leave_process","processKey":"leave_process","id":"12","updatedDate":1568278331000,"btnType":"14","processDefId":"leave_process:8:200084","processVersion":1,"btnLable":"请假申请"},{"createdDate":1568278331000,"processName":"month_log_process","processKey":"month_log_process","id":"14","updatedDate":1568278331000,"btnType":"16","processDefId":"month_log_process:2:200016","processVersion":1,"btnLable":"月报"},{"createdDate":1568278331000,"processName":"process-1","processKey":"process-1","id":"2","updatedDate":1568278331000,"btnType":"04","processDefId":"\t\r\nprocess-1:3:200052","processVersion":1,"btnLable":"合同申请"},{"createdDate":1568278331000,"processName":"process_col","processKey":"process_col","id":"3","updatedDate":1568278331000,"btnType":"06","processDefId":"process_col:1:172514","processVersion":1,"btnLable":"收款申请"},{"createdDate":1568278331000,"processName":"process_pay","processKey":"process_pay","id":"4","updatedDate":1568278331000,"btnType":"05","processDefId":"process_pay:1:172510","processVersion":1,"btnLable":"付款申请"},{"createdDate":1568278331000,"processName":"process_Invoice","processKey":"process_Invoice","id":"5","updatedDate":1568278331000,"btnType":"07","processDefId":"process_Invoice:1:175054","processVersion":1,"btnLable":"开票申请"},{"createdDate":1568278331000,"processName":"process_Invoice","processKey":"process_Invoice","id":"6","updatedDate":1568278331000,"btnType":"08","processDefId":"process_collect:1:175061","processVersion":1,"btnLable":"收票申请"},{"createdDate":1568278331000,"processName":"bid_come_process","processKey":"bid_come_process","id":"7","updatedDate":1568278331000,"btnType":"09","processDefId":"bid_come_process:3:200064","processVersion":1,"btnLable":"投标保证金收"},{"createdDate":1568278331000,"processName":"bid_out_process","processKey":"bid_out_process","id":"8","updatedDate":1568278331000,"btnType":"10","processDefId":"bid_out_process:5:200060","processVersion":1,"btnLable":"投标保证金支"},{"createdDate":1568278331000,"processName":"performance_out_process","processKey":"performance_out_process","id":"9","updatedDate":1568278331000,"btnType":"11","processDefId":"performance_out_process:2:200068","processVersion":1,"btnLable":"履约保证金支"}],"userName":"孔俊智","userId":"1099100700000000036"}}
      * success : true
+     * code : 200
      * message : 请求成功
+     * data : {"processInstanceId":"240085","actStatus":"审批中","weekPalyList":{},"submonthWork":"高灿","user0code":"1099100700000000036","userName":"孔俊智","leadGrade":"","sendList":[{"userName":"孔俊智","userId":"1099100700000000036"}],"activityVo":[{"processInstanceId":"240085","createdDate":1568863659000,"businessKey":"1099301000000000016","name":"月报审批流程","comment":null,"userName":null,"userId":"240087","status":null},{"processInstanceId":"240085","createdDate":1568864349000,"businessKey":"1099301000000000016","name":"经理审批","comment":"","userName":null,"userId":"240091","status":"1"},{"processInstanceId":"240085","createdDate":1568863964000,"businessKey":"1099301000000000016","name":"经理审批","comment":"","userName":null,"userId":"240103","status":"1"},{"processInstanceId":"240085","createdDate":null,"businessKey":null,"name":"管理层审批","comment":null,"userName":null,"userId":"240106","status":null}],"leadComment":"","createTime":"2019-09-19 11:27:33.0","selg":"好","monthWork":"","nextMonthWeek":"","Id":"1099301000000000016","weekTatalkList":{}}
      */
-    public int code;
-    public DataEntity data;
+
     public boolean success;
+    public int code;
     public String message;
+    public DataBean data;
 
-    public class DataEntity {
+    public static class DataBean {
         /**
-         * token : eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcHAiLCJwYXlsb2FkIjp7InVzZXJJZCI6IjEwOTkxMDA3MDAwMDAwMDAwMzYiLCJ1c2VyQWNjb3VudCI6ImFwcCIsInVzZXJOYW1lIjoi5a2U5L-K5pm6IiwicGFydElkIjoiMTA5OTEwMDcwMDAwMDAwMDAzNiIsInVzZXJQb3N0IjpudWxsLCJkZXB0SWQiOm51bGwsImRlcHROYW1lIjpudWxsLCJwcm9jZXNzQXBwQnRuVm8iOlt7ImlkIjoiMTMiLCJidG5MYWJsZSI6IuaXpeaKpSIsImJ0blR5cGUiOiIxNSIsInByb2Nlc3NEZWZJZCI6ImxvZ19hcHByb3ZlX3Byb2Nlc3M6MToxMDI1ODUiLCJwcm9jZXNzS2V5IjoibG9nX2FwcHJvdmVfcHJvY2VzcyIsInByb2Nlc3NOYW1lIjoibG9nX2FwcHJvdmVfcHJvY2VzcyIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiIxIiwiYnRuTGFibGUiOiLnq4vpobnnlLPor7ciLCJidG5UeXBlIjoiMDMiLCJwcm9jZXNzRGVmSWQiOiJwcm9qZWN0X3pmcjo1OjIwMDA1NiIsInByb2Nlc3NLZXkiOiJwcm9qZWN0X3pmciIsInByb2Nlc3NOYW1lIjoicHJvamVjdF96ZnIiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfSx7ImlkIjoiMTAiLCJidG5MYWJsZSI6IuWxpee6puS_neivgemHkeaUtiIsImJ0blR5cGUiOiIxMiIsInByb2Nlc3NEZWZJZCI6InBlcmZvcm1hbmNlX2NvbWVfcHJvY2VzczoyOjIwMDA4MCIsInByb2Nlc3NLZXkiOiJwZXJmb3JtYW5jZV9jb21lX3Byb2Nlc3MiLCJwcm9jZXNzTmFtZSI6InBlcmZvcm1hbmNlX2NvbWVfcHJvY2VzcyIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiIxMSIsImJ0bkxhYmxlIjoi5YCf5qy-55Sz6K-3IiwiYnRuVHlwZSI6IjEzIiwicHJvY2Vzc0RlZklkIjoibXVsdGktc2lnbi1wcm9jZXNzOjE6Nzc1MDQiLCJwcm9jZXNzS2V5IjoibXVsdGktc2lnbi1wcm9jZXNzIiwicHJvY2Vzc05hbWUiOiJtdWx0aS1zaWduLXByb2Nlc3MiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfSx7ImlkIjoiMTIiLCJidG5MYWJsZSI6Iuivt-WBh-eUs-ivtyIsImJ0blR5cGUiOiIxNCIsInByb2Nlc3NEZWZJZCI6ImxlYXZlX3Byb2Nlc3M6ODoyMDAwODQiLCJwcm9jZXNzS2V5IjoibGVhdmVfcHJvY2VzcyIsInByb2Nlc3NOYW1lIjoibGVhdmVfcHJvY2VzcyIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiIxNCIsImJ0bkxhYmxlIjoi5pyI5oqlIiwiYnRuVHlwZSI6IjE2IiwicHJvY2Vzc0RlZklkIjoibW9udGhfbG9nX3Byb2Nlc3M6MjoyMDAwMTYiLCJwcm9jZXNzS2V5IjoibW9udGhfbG9nX3Byb2Nlc3MiLCJwcm9jZXNzTmFtZSI6Im1vbnRoX2xvZ19wcm9jZXNzIiwicHJvY2Vzc1ZlcnNpb24iOjEsImNyZWF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwLCJ1cGRhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMH0seyJpZCI6IjIiLCJidG5MYWJsZSI6IuWQiOWQjOeUs-ivtyIsImJ0blR5cGUiOiIwNCIsInByb2Nlc3NEZWZJZCI6Ilx0XHJcbnByb2Nlc3MtMTozOjIwMDA1MiIsInByb2Nlc3NLZXkiOiJwcm9jZXNzLTEiLCJwcm9jZXNzTmFtZSI6InByb2Nlc3MtMSIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiIzIiwiYnRuTGFibGUiOiLmlLbmrL7nlLPor7ciLCJidG5UeXBlIjoiMDYiLCJwcm9jZXNzRGVmSWQiOiJwcm9jZXNzX2NvbDoxOjE3MjUxNCIsInByb2Nlc3NLZXkiOiJwcm9jZXNzX2NvbCIsInByb2Nlc3NOYW1lIjoicHJvY2Vzc19jb2wiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfSx7ImlkIjoiNCIsImJ0bkxhYmxlIjoi5LuY5qy-55Sz6K-3IiwiYnRuVHlwZSI6IjA1IiwicHJvY2Vzc0RlZklkIjoicHJvY2Vzc19wYXk6MToxNzI1MTAiLCJwcm9jZXNzS2V5IjoicHJvY2Vzc19wYXkiLCJwcm9jZXNzTmFtZSI6InByb2Nlc3NfcGF5IiwicHJvY2Vzc1ZlcnNpb24iOjEsImNyZWF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwLCJ1cGRhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMH0seyJpZCI6IjUiLCJidG5MYWJsZSI6IuW8gOelqOeUs-ivtyIsImJ0blR5cGUiOiIwNyIsInByb2Nlc3NEZWZJZCI6InByb2Nlc3NfSW52b2ljZToxOjE3NTA1NCIsInByb2Nlc3NLZXkiOiJwcm9jZXNzX0ludm9pY2UiLCJwcm9jZXNzTmFtZSI6InByb2Nlc3NfSW52b2ljZSIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiI2IiwiYnRuTGFibGUiOiLmlLbnpajnlLPor7ciLCJidG5UeXBlIjoiMDgiLCJwcm9jZXNzRGVmSWQiOiJwcm9jZXNzX2NvbGxlY3Q6MToxNzUwNjEiLCJwcm9jZXNzS2V5IjoicHJvY2Vzc19JbnZvaWNlIiwicHJvY2Vzc05hbWUiOiJwcm9jZXNzX0ludm9pY2UiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfSx7ImlkIjoiNyIsImJ0bkxhYmxlIjoi5oqV5qCH5L-d6K-B6YeR5pS2IiwiYnRuVHlwZSI6IjA5IiwicHJvY2Vzc0RlZklkIjoiYmlkX2NvbWVfcHJvY2VzczozOjIwMDA2NCIsInByb2Nlc3NLZXkiOiJiaWRfY29tZV9wcm9jZXNzIiwicHJvY2Vzc05hbWUiOiJiaWRfY29tZV9wcm9jZXNzIiwicHJvY2Vzc1ZlcnNpb24iOjEsImNyZWF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwLCJ1cGRhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMH0seyJpZCI6IjgiLCJidG5MYWJsZSI6IuaKleagh-S_neivgemHkeaUryIsImJ0blR5cGUiOiIxMCIsInByb2Nlc3NEZWZJZCI6ImJpZF9vdXRfcHJvY2Vzczo1OjIwMDA2MCIsInByb2Nlc3NLZXkiOiJiaWRfb3V0X3Byb2Nlc3MiLCJwcm9jZXNzTmFtZSI6ImJpZF9vdXRfcHJvY2VzcyIsInByb2Nlc3NWZXJzaW9uIjoxLCJjcmVhdGVkRGF0ZSI6MTU2ODI3ODMzMTAwMCwidXBkYXRlZERhdGUiOjE1NjgyNzgzMzEwMDB9LHsiaWQiOiI5IiwiYnRuTGFibGUiOiLlsaXnuqbkv53or4Hph5HmlK8iLCJidG5UeXBlIjoiMTEiLCJwcm9jZXNzRGVmSWQiOiJwZXJmb3JtYW5jZV9vdXRfcHJvY2VzczoyOjIwMDA2OCIsInByb2Nlc3NLZXkiOiJwZXJmb3JtYW5jZV9vdXRfcHJvY2VzcyIsInByb2Nlc3NOYW1lIjoicGVyZm9ybWFuY2Vfb3V0X3Byb2Nlc3MiLCJwcm9jZXNzVmVyc2lvbiI6MSwiY3JlYXRlZERhdGUiOjE1NjgyNzgzMzEwMDAsInVwZGF0ZWREYXRlIjoxNTY4Mjc4MzMxMDAwfV19LCJleHAiOjE1Njk1MTIyNDEsImlhdCI6MTU2ODkwNzQ0MX0.ha3Dz-cp07NCO8Rs2ZLximk3Uvife7SyByPbO622F21lD0MAlnAP8Tl94PWFvpi2qtsW_EJ9EjLn6zfKlLYwmA
-         * info : {"deptName":null,"partId":"1099100700000000036","userAccount":"app","userPost":null,"deptId":null,"processAppBtnVo":[{"createdDate":1568278331000,"processName":"log_approve_process","processKey":"log_approve_process","id":"13","updatedDate":1568278331000,"btnType":"15","processDefId":"log_approve_process:1:102585","processVersion":1,"btnLable":"日报"},{"createdDate":1568278331000,"processName":"project_zfr","processKey":"project_zfr","id":"1","updatedDate":1568278331000,"btnType":"03","processDefId":"project_zfr:5:200056","processVersion":1,"btnLable":"立项申请"},{"createdDate":1568278331000,"processName":"performance_come_process","processKey":"performance_come_process","id":"10","updatedDate":1568278331000,"btnType":"12","processDefId":"performance_come_process:2:200080","processVersion":1,"btnLable":"履约保证金收"},{"createdDate":1568278331000,"processName":"multi-sign-process","processKey":"multi-sign-process","id":"11","updatedDate":1568278331000,"btnType":"13","processDefId":"multi-sign-process:1:77504","processVersion":1,"btnLable":"借款申请"},{"createdDate":1568278331000,"processName":"leave_process","processKey":"leave_process","id":"12","updatedDate":1568278331000,"btnType":"14","processDefId":"leave_process:8:200084","processVersion":1,"btnLable":"请假申请"},{"createdDate":1568278331000,"processName":"month_log_process","processKey":"month_log_process","id":"14","updatedDate":1568278331000,"btnType":"16","processDefId":"month_log_process:2:200016","processVersion":1,"btnLable":"月报"},{"createdDate":1568278331000,"processName":"process-1","processKey":"process-1","id":"2","updatedDate":1568278331000,"btnType":"04","processDefId":"\t\r\nprocess-1:3:200052","processVersion":1,"btnLable":"合同申请"},{"createdDate":1568278331000,"processName":"process_col","processKey":"process_col","id":"3","updatedDate":1568278331000,"btnType":"06","processDefId":"process_col:1:172514","processVersion":1,"btnLable":"收款申请"},{"createdDate":1568278331000,"processName":"process_pay","processKey":"process_pay","id":"4","updatedDate":1568278331000,"btnType":"05","processDefId":"process_pay:1:172510","processVersion":1,"btnLable":"付款申请"},{"createdDate":1568278331000,"processName":"process_Invoice","processKey":"process_Invoice","id":"5","updatedDate":1568278331000,"btnType":"07","processDefId":"process_Invoice:1:175054","processVersion":1,"btnLable":"开票申请"},{"createdDate":1568278331000,"processName":"process_Invoice","processKey":"process_Invoice","id":"6","updatedDate":1568278331000,"btnType":"08","processDefId":"process_collect:1:175061","processVersion":1,"btnLable":"收票申请"},{"createdDate":1568278331000,"processName":"bid_come_process","processKey":"bid_come_process","id":"7","updatedDate":1568278331000,"btnType":"09","processDefId":"bid_come_process:3:200064","processVersion":1,"btnLable":"投标保证金收"},{"createdDate":1568278331000,"processName":"bid_out_process","processKey":"bid_out_process","id":"8","updatedDate":1568278331000,"btnType":"10","processDefId":"bid_out_process:5:200060","processVersion":1,"btnLable":"投标保证金支"},{"createdDate":1568278331000,"processName":"performance_out_process","processKey":"performance_out_process","id":"9","updatedDate":1568278331000,"btnType":"11","processDefId":"performance_out_process:2:200068","processVersion":1,"btnLable":"履约保证金支"}],"userName":"孔俊智","userId":"1099100700000000036"}
+         * processInstanceId : 240085
+         * actStatus : 审批中
+         * weekPalyList : {}
+         * submonthWork : 高灿
+         * user0code : 1099100700000000036
+         * userName : 孔俊智
+         * leadGrade :
+         * sendList : [{"userName":"孔俊智","userId":"1099100700000000036"}]
+         * activityVo : [{"processInstanceId":"240085","createdDate":1568863659000,"businessKey":"1099301000000000016","name":"月报审批流程","comment":null,"userName":null,"userId":"240087","status":null},{"processInstanceId":"240085","createdDate":1568864349000,"businessKey":"1099301000000000016","name":"经理审批","comment":"","userName":null,"userId":"240091","status":"1"},{"processInstanceId":"240085","createdDate":1568863964000,"businessKey":"1099301000000000016","name":"经理审批","comment":"","userName":null,"userId":"240103","status":"1"},{"processInstanceId":"240085","createdDate":null,"businessKey":null,"name":"管理层审批","comment":null,"userName":null,"userId":"240106","status":null}]
+         * leadComment :
+         * createTime : 2019-09-19 11:27:33.0
+         * selg : 好
+         * monthWork :
+         * nextMonthWeek :
+         * Id : 1099301000000000016
+         * weekTatalkList : {}
          */
-        public String token;
-        public InfoEntity info;
 
-        public class InfoEntity {
+        public String processInstanceId;
+        public String actStatus;
+        public WeekPalyListBean weekPalyList;
+        public String submonthWork;
+        public String user0code;
+        public String userName;
+        public String leadGrade;
+        public String leadComment;
+        public String createTime;
+        public String selg;
+        public String monthWork;
+        public String nextMonthWeek;
+        public String Id;
+        public WeekTatalkListBean weekTatalkList;
+        public List<SendListBean> sendList;
+        public List<ActivityVoBean> activityVo;
+
+        public static class WeekPalyListBean {
+        }
+
+        public static class WeekTatalkListBean {
+        }
+
+        public static class SendListBean {
             /**
-             * deptName : null
-             * partId : 1099100700000000036
-             * userAccount : app
-             * userPost : null
-             * deptId : null
-             * processAppBtnVo : [{"createdDate":1568278331000,"processName":"log_approve_process","processKey":"log_approve_process","id":"13","updatedDate":1568278331000,"btnType":"15","processDefId":"log_approve_process:1:102585","processVersion":1,"btnLable":"日报"},{"createdDate":1568278331000,"processName":"project_zfr","processKey":"project_zfr","id":"1","updatedDate":1568278331000,"btnType":"03","processDefId":"project_zfr:5:200056","processVersion":1,"btnLable":"立项申请"},{"createdDate":1568278331000,"processName":"performance_come_process","processKey":"performance_come_process","id":"10","updatedDate":1568278331000,"btnType":"12","processDefId":"performance_come_process:2:200080","processVersion":1,"btnLable":"履约保证金收"},{"createdDate":1568278331000,"processName":"multi-sign-process","processKey":"multi-sign-process","id":"11","updatedDate":1568278331000,"btnType":"13","processDefId":"multi-sign-process:1:77504","processVersion":1,"btnLable":"借款申请"},{"createdDate":1568278331000,"processName":"leave_process","processKey":"leave_process","id":"12","updatedDate":1568278331000,"btnType":"14","processDefId":"leave_process:8:200084","processVersion":1,"btnLable":"请假申请"},{"createdDate":1568278331000,"processName":"month_log_process","processKey":"month_log_process","id":"14","updatedDate":1568278331000,"btnType":"16","processDefId":"month_log_process:2:200016","processVersion":1,"btnLable":"月报"},{"createdDate":1568278331000,"processName":"process-1","processKey":"process-1","id":"2","updatedDate":1568278331000,"btnType":"04","processDefId":"\t\r\nprocess-1:3:200052","processVersion":1,"btnLable":"合同申请"},{"createdDate":1568278331000,"processName":"process_col","processKey":"process_col","id":"3","updatedDate":1568278331000,"btnType":"06","processDefId":"process_col:1:172514","processVersion":1,"btnLable":"收款申请"},{"createdDate":1568278331000,"processName":"process_pay","processKey":"process_pay","id":"4","updatedDate":1568278331000,"btnType":"05","processDefId":"process_pay:1:172510","processVersion":1,"btnLable":"付款申请"},{"createdDate":1568278331000,"processName":"process_Invoice","processKey":"process_Invoice","id":"5","updatedDate":1568278331000,"btnType":"07","processDefId":"process_Invoice:1:175054","processVersion":1,"btnLable":"开票申请"},{"createdDate":1568278331000,"processName":"process_Invoice","processKey":"process_Invoice","id":"6","updatedDate":1568278331000,"btnType":"08","processDefId":"process_collect:1:175061","processVersion":1,"btnLable":"收票申请"},{"createdDate":1568278331000,"processName":"bid_come_process","processKey":"bid_come_process","id":"7","updatedDate":1568278331000,"btnType":"09","processDefId":"bid_come_process:3:200064","processVersion":1,"btnLable":"投标保证金收"},{"createdDate":1568278331000,"processName":"bid_out_process","processKey":"bid_out_process","id":"8","updatedDate":1568278331000,"btnType":"10","processDefId":"bid_out_process:5:200060","processVersion":1,"btnLable":"投标保证金支"},{"createdDate":1568278331000,"processName":"performance_out_process","processKey":"performance_out_process","id":"9","updatedDate":1568278331000,"btnType":"11","processDefId":"performance_out_process:2:200068","processVersion":1,"btnLable":"履约保证金支"}]
              * userName : 孔俊智
              * userId : 1099100700000000036
              */
-            public String deptName;
-            public String partId;
-            public String userAccount;
-            public String userPost;
-            public String deptId;
+
             public String userName;
             public String userId;
-            public List<ProcessAppBtnVoEntity> processAppBtnVo;
+        }
 
-            public class ProcessAppBtnVoEntity {
-                /**
-                 * createdDate : 1568278331000
-                 * processName : log_approve_process
-                 * processKey : log_approve_process
-                 * id : 13
-                 * updatedDate : 1568278331000
-                 * btnType : 15
-                 * processDefId : log_approve_process:1:102585
-                 * processVersion : 1
-                 * btnLable : 日报
-                 */
-                public long createdDate;
-                public String processName;
-                public String processKey;
-                public String id;
-                public long updatedDate;
-                public String btnType;
-                public String processDefId;
-                public int processVersion;
-                public String btnLable;
-            }
+        public static class ActivityVoBean {
+            /**
+             * processInstanceId : 240085
+             * createdDate : 1568863659000
+             * businessKey : 1099301000000000016
+             * name : 月报审批流程
+             * comment : null
+             * userName : null
+             * userId : 240087
+             * status : null
+             */
+
+            public String processInstanceId;
+            public long createdDate;
+            public String businessKey;
+            public String name;
+            public Object comment;
+            public Object userName;
+            public String userId;
+            public Object status;
         }
     }
 }

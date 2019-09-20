@@ -65,7 +65,7 @@ public class WorkFragment extends FragmentLazy<FragmentWorkBinding> {
     @Override
     protected void initData() {
 
-        mBinding.corporateNameTv.setText(VerifyUtils.isEmpty(MainActivity.infoBean.deptName) ? this.getResources().getString(R.string.app_name) : MainActivity.infoBean.deptName);
+        mBinding.corporateNameTv.setText(VerifyUtils.isEmpty(MainActivity.infoBean.companyName) ? this.getResources().getString(R.string.app_name) : MainActivity.infoBean.companyName);
 
 
         List<WorkListEnt.DataBaen> baenList1 = new ArrayList<>();

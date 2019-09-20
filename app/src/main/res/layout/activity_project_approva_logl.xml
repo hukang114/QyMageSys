@@ -82,7 +82,6 @@
                 android:layout_weight="1"
                 android:background="@drawable/join"
                 android:button="@null"
-                android:checked="true"
                 android:gravity="center"
                 android:text="待处理"
                 android:textColor="@color/shape_radiobutton_select"

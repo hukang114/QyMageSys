@@ -96,10 +96,15 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
     protected void initData() {
         super.initData();
         //添加月报提交默认审批人
-        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType16)));
-        auditorListAdapter.notifyDataSetChanged();
+        getAuditQuery(MainActivity.processDefId(AppConfig.btnType16));
         // 获取月报数据展示
         yesQuery();
+    }
+
+    @Override
+    protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
+        auditorList.addAll(listdata);
+        auditorListAdapter.notifyDataSetChanged();
     }
 
     /**

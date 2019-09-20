@@ -38,7 +38,7 @@ public class ProjectApprovaLogAdapter extends BaseQuickAdapter<ProjectAppLogEnt,
         ImageView head_img = helper.getView(R.id.head_img);
 
         helper.setText(R.id.status_tv, item.actStatus)
-                .setText(R.id.user_name, item.persion + "提交" + item.projectTypeName + "申请")
+                .setText(R.id.user_name, item.personName + "提交" + item.projectTypeName + "申请")
                 .setText(R.id.proj_type, "项目类型：" + item.projectTypeName)
                 .setText(R.id.proj_name, "项目名称：" + item.projectName)
                 .setText(R.id.appaly_content_tv, "预算申请：" + item.amount)
@@ -58,12 +58,6 @@ public class ProjectApprovaLogAdapter extends BaseQuickAdapter<ProjectAppLogEnt,
             }
         }
 
-        if (item.read == 0) {
-            helper.setVisible(R.id.unread_msg_img, true);
-        } else {
-            helper.setVisible(R.id.unread_msg_img, false);
-        }
-
 
         helper.addOnClickListener(R.id.bnt1).addOnClickListener(R.id.bnt2).addOnClickListener(R.id.bnt3);
 
@@ -71,14 +65,21 @@ public class ProjectApprovaLogAdapter extends BaseQuickAdapter<ProjectAppLogEnt,
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.VISIBLE);
             bnt3.setVisibility(View.VISIBLE);
+            if (item.read == 0) {
+                helper.setVisible(R.id.unread_msg_img, true);
+            } else {
+                helper.setVisible(R.id.unread_msg_img, false);
+            }
         } else if (ProjectApprovaLoglActivity.mType == 4) {
             bnt1.setVisibility(View.VISIBLE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
+            helper.setVisible(R.id.unread_msg_img, false);
         } else {
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
+            helper.setVisible(R.id.unread_msg_img, false);
         }
 
 //

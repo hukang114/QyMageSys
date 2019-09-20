@@ -117,7 +117,19 @@ public class HttpClient {
         return OkGo.post(mUrl + mUrlName)//
                 .upJson(gson.toJson(params))//AppSignUtil.genAppSign(params)
                 .tag(mUrlName);
+    }
 
+    /**
+     * 文件上传方法
+     *
+     * @param mUrlName
+     * @param file
+     * @return
+     */
+    public PostRequest postUploadFile(String mUrlName, File file) {
+        return OkGo.post(mUrl + mUrlName)//
+                .params("fileName", file)
+                .tag(mUrlName);
 
     }
 

@@ -51,6 +51,7 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
     private String stats = "1";// 1-待处理 2-已处理 3-抄送我  4-已提交
     private String keyword = "";
     private Bundle bundle;
+    public static String assignees = "";// 借款人的id
 
     @Override
     protected int getLayoutId() {

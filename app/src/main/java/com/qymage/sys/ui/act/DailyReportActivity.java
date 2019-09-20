@@ -140,10 +140,15 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
         gethasClockOut();
 
         //添加日报提交默认审批人
-        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType15)));
+        getAuditQuery(MainActivity.processDefId(AppConfig.btnType15));
+
+
+    }
+
+    @Override
+    protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
+        auditorList.addAll(listdata);
         auditorListAdapter.notifyDataSetChanged();
-
-
     }
 
     //查询是否有下班考勤数据
@@ -326,22 +331,22 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
 
             day_log_htbh_tv.setOnEditorActionListener((v, actionId, event) -> {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    if (!day_log_htbh_tv.getText().toString().equals("")) {
-                        getContract(1, day_log_htbh_tv.getText().toString(), helper.getAdapterPosition());
+                    getContract(1, day_log_htbh_tv.getText().toString(), helper.getAdapterPosition());
+                  /*  if (!day_log_htbh_tv.getText().toString().equals("")) {
                     } else {
                         showToast("请输入搜索关键字");
-                    }
+                    }*/
                     return true;
                 }
                 return false;
             });
             hetong_mingchen.setOnEditorActionListener((v, actionId, event) -> {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    if (!hetong_mingchen.getText().toString().equals("")) {
-                        getContract(2, hetong_mingchen.getText().toString(), helper.getAdapterPosition());
+                    getContract(2, hetong_mingchen.getText().toString(), helper.getAdapterPosition());
+                 /*   if (!hetong_mingchen.getText().toString().equals("")) {
                     } else {
                         showToast("请输入搜索关键字");
-                    }
+                    }*/
                     return true;
                 }
                 return false;

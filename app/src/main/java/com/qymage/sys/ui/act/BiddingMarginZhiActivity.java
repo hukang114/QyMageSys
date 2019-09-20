@@ -25,6 +25,7 @@ import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.databinding.ActivityBiddingMarginZhiBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
+import com.qymage.sys.ui.adapter.FileListAdapter;
 import com.qymage.sys.ui.entity.CompanyMoneyPaymentVOS;
 import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
 import com.qymage.sys.ui.entity.FileListEnt;
@@ -62,6 +63,7 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
     List<GetTreeEnt> copierList = new ArrayList<>();// 抄送人
     AuditorListAdapter auditorListAdapter;// 审批人适配器
     CopierListAdapter copierListAdapter;// 抄送人适配器
+    FileListAdapter fileListAdapter;// 文件适配器
     private Bundle bundle;
     List<ProjecInfoEnt> infoEnts = new ArrayList<>();// 项目编号信息包含名称合同名称
     List<String> proList = new ArrayList<>();// 项目编号 项目名称
@@ -84,10 +86,14 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         if (type == null) {
             return;
         }
-        mBinding.metitle.setrTxtClick(v -> {
-            bundle = new Bundle();
-            bundle.putString("type", "0" + type);
-            openActivity(BidPerformanceLvYueSZActivity.class, bundle);
+        mBinding.metitle.setrTxtClick(new View.OnClickListener() {
+            @SingleClick(2000)
+            @Override
+            public void onClick(View v) {
+                bundle = new Bundle();
+                bundle.putString("type", "0" + type);
+                openActivity(BidPerformanceLvYueSZActivity.class, bundle);
+            }
         });
         mBinding.startDateTv.setOnClickListener(this);
         mBinding.endDateTv.setOnClickListener(this);
@@ -95,15 +101,16 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         mBinding.sprImg.setOnClickListener(this);
         mBinding.csrImg.setOnClickListener(this);
         mBinding.gsmcEdt.setOnClickListener(this);
+        mBinding.fujianImg.setOnClickListener(this);
         LinearLayoutManager layouta = new LinearLayoutManager(this);
         layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         LinearLayoutManager layoutb = new LinearLayoutManager(this);
         layoutb.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         LinearLayoutManager layoutc = new LinearLayoutManager(this);
-        layoutc.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
+        layoutc.setOrientation(LinearLayoutManager.VERTICAL);//设置为横向排列
         mBinding.sprRecyclerview.setLayoutManager(layouta);
         mBinding.csrRecyclerview.setLayoutManager(layoutb);
-        mBinding.fujianRecyclerview.setLayoutManager(layoutc);
+        mBinding.fujianRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         // 审批人
         auditorListAdapter = new AuditorListAdapter(R.layout.item_list_auditor, auditorList);
         mBinding.sprRecyclerview.setAdapter(auditorListAdapter);
@@ -123,6 +130,17 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
                 case R.id.caccel_ioc:
                     copierList.remove(position);
                     copierListAdapter.notifyDataSetChanged();
+                    break;
+            }
+        });
+        // 文件适配器
+        fileListAdapter = new FileListAdapter(R.layout.item_file_list, fileList);
+        mBinding.fujianRecyclerview.setAdapter(fileListAdapter);
+        fileListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.file_del_img:
+                    fileList.remove(position);
+                    fileListAdapter.notifyDataSetChanged();
                     break;
             }
         });
@@ -162,35 +180,36 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
                 mBinding.metitle.setcTxt(this.getResources().getString(R.string.toubiaozhi_txt));
                 mBinding.bzjmcLayout.setVisibility(View.GONE);
                 //添加投标保证金支默认审批人
-                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType10)));
-                auditorListAdapter.notifyDataSetChanged();
+                getAuditQuery(MainActivity.processDefId(AppConfig.btnType10));
                 break;
             case "2"://投标保证金收
                 mBinding.metitle.setcTxt("投标保证金收");
                 mBinding.skdwmcTv.setText("付款单位名称");
                 mBinding.skdwmcEdt.setHint("请输入付款单位名称");
                 //添加投标保证金收默认审批人
-                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType9)));
-                auditorListAdapter.notifyDataSetChanged();
+                getAuditQuery(MainActivity.processDefId(AppConfig.btnType9));
                 break;
             case "3":// 履约保证金支
                 mBinding.metitle.setcTxt(this.getResources().getString(R.string.lybzjz_txt));
                 mBinding.bzjmcLayout.setVisibility(View.GONE);
                 //添加履约保证金支默认审批人
-                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType11)));
-                auditorListAdapter.notifyDataSetChanged();
+                getAuditQuery(MainActivity.processDefId(AppConfig.btnType11));
                 break;
             case "4"://履约保证金收
                 mBinding.metitle.setcTxt(this.getResources().getString(R.string.lybzjs_txt));
                 mBinding.skdwmcTv.setText("付款单位名称");
                 mBinding.skdwmcEdt.setHint("请输入付款单位名称");
                 //添加履约保证金收默认审批人
-                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType12)));
-                auditorListAdapter.notifyDataSetChanged();
+                getAuditQuery(MainActivity.processDefId(AppConfig.btnType12));
                 break;
         }
     }
 
+    @Override
+    protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
+        auditorList.addAll(listdata);
+        auditorListAdapter.notifyDataSetChanged();
+    }
 
     @SingleClick(2000)
     @Override
@@ -217,7 +236,7 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
                 openActivity(SelectionDepartmentActivity.class, bundle);
                 break;
             case R.id.fujian_img:// 添加附件
-
+                openFileChoose();
                 break;
             case R.id.gsmc_edt:
                 // 选择公司
@@ -230,6 +249,18 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
                 break;
 
         }
+    }
+
+    /**
+     * 拿到上传成功的文件数据
+     *
+     * @param fileListEnts
+     * @return
+     */
+    @Override
+    protected void updateFileSuccess(List<FileListEnt> fileListEnts) {
+        fileList.addAll(fileListEnts);
+        fileListAdapter.notifyDataSetChanged();
     }
 
     /**

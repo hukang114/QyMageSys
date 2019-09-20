@@ -60,24 +60,26 @@ public class ContractLogAdapter extends BaseQuickAdapter<ChoiceContractLogEnt, B
                 name_tv_bg.setText(item.personName);
             }
         }
-        if (item.read == 0) {
-            helper.setVisible(R.id.unread_msg_img, true);
-        } else {
-            helper.setVisible(R.id.unread_msg_img, false);
-        }
 
         if (ChoiceContractLogActivity.mType == 1) {
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.VISIBLE);
             bnt3.setVisibility(View.VISIBLE);
+            if (item.read == 0) {
+                helper.setVisible(R.id.unread_msg_img, true);
+            } else {
+                helper.setVisible(R.id.unread_msg_img, false);
+            }
         } else if (ChoiceContractLogActivity.mType == 4) {
             bnt1.setVisibility(View.VISIBLE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
+            helper.setVisible(R.id.unread_msg_img, false);
         } else {
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
+            helper.setVisible(R.id.unread_msg_img, false);
         }
 
 

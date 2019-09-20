@@ -72,6 +72,7 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
         adapter = new ContractLogAdapter(R.layout.item_list_projectapprovalog, listdata);
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.radioGroup.setOnCheckedChangeListener(this);
+        mBinding.pendingBtn.setChecked(true);
         adapter.setOnItemClickListener((adapter, view, position) -> {
             bundle = new Bundle();
             bundle.putString("Tag", Tag);
@@ -184,8 +185,7 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
     @Override
     protected void initData() {
         super.initData();
-        page = 1;
-        getListData(Constants.RequestMode.FRIST);
+//        getListData(Constants.RequestMode.FRIST);
 
     }
 

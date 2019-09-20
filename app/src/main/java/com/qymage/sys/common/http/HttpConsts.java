@@ -123,5 +123,8 @@ public class HttpConsts {
     //默认审批人查询接口
     public static final String WF_AUDITQUERY = "audit/auditQuery";
 
+    //3.2文件上传接口
+    public static final String FILE_UPLOAD = "file/upload";
+
 
 }

@@ -23,6 +23,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
@@ -37,6 +38,7 @@ import com.qymage.sys.ui.act.ReceiverInfoActivity;
 import com.qymage.sys.ui.act.SelectionDepartmentActivity;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
+import com.qymage.sys.ui.adapter.FileListAdapter;
 import com.qymage.sys.ui.entity.CompanyMoneyPaymentVOS;
 import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
@@ -70,6 +72,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
     List<CompanyMoneyPaymentVOS> paymentVOS = new ArrayList<>();// 收款 付款明细
     List<CompanyMoneyTicketVOS> ticketVOS = new ArrayList<>();// //开 -收 票明细
     List<FileListEnt> fileList = new ArrayList<>();// 上传附件
+    FileListAdapter fileListAdapter;// 文件适配器
     List<GetTreeEnt> auditorList = new ArrayList<>();// 审核人
     List<GetTreeEnt> copierList = new ArrayList<>();// 抄送人
     AuditorListAdapter auditorListAdapter;// 审批人适配器
@@ -117,7 +120,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         LinearLayoutManager layoutb = new LinearLayoutManager(this);
         layoutb.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         LinearLayoutManager layoutc = new LinearLayoutManager(this);
-        layoutc.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
+        layoutc.setOrientation(LinearLayoutManager.VERTICAL);//设置为横向排列
         mBinding.sprRecyclerview.setLayoutManager(layouta);
         mBinding.csrRecyclerview.setLayoutManager(layoutb);
         mBinding.fujianRecyclerview.setLayoutManager(layoutc);
@@ -140,6 +143,17 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 case R.id.caccel_ioc:
                     copierList.remove(position);
                     copierListAdapter.notifyDataSetChanged();
+                    break;
+            }
+        });
+        // 文件适配器
+        fileListAdapter = new FileListAdapter(R.layout.item_file_list, fileList);
+        mBinding.fujianRecyclerview.setAdapter(fileListAdapter);
+        fileListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.file_del_img:
+                    fileList.remove(position);
+                    fileListAdapter.notifyDataSetChanged();
                     break;
             }
         });
@@ -201,8 +215,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             case "1":
                 mBinding.metitle.setcTxt("收款申请");
                 //添加收款申请默认审批人
-                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType6)));
-                auditorListAdapter.notifyDataSetChanged();
+                getAuditQuery(MainActivity.processDefId(AppConfig.btnType6));
                 break;
             case "2":
                 mBinding.metitle.setcTxt("付款申请");
@@ -211,15 +224,13 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 mBinding.wfkTv.setText("未付款");
                 mBinding.bcsfksTv.setText("本次付款(元)");
                 //添加付款申请默认审批人
-                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType5)));
-                auditorListAdapter.notifyDataSetChanged();
+                getAuditQuery(MainActivity.processDefId(AppConfig.btnType5));
                 break;
             case "3":
                 mBinding.metitle.setcTxt("开票申请");
                 mBinding.bcsfksTv.setText("本次开票");
                 //添加开票申请默认审批人
-                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType7)));
-                auditorListAdapter.notifyDataSetChanged();
+                getAuditQuery(MainActivity.processDefId(AppConfig.btnType7));
                 break;
             case "4":
                 mBinding.metitle.setcTxt("收票申请");
@@ -228,10 +239,16 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 mBinding.wkpTv.setText("未收票");
                 mBinding.bcsfksTv.setText("本次收票");
                 //添加收票申请请默认审批人
-                auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType8)));
-                auditorListAdapter.notifyDataSetChanged();
+                getAuditQuery(MainActivity.processDefId(AppConfig.btnType8));
                 break;
         }
+    }
+
+
+    @Override
+    protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
+        auditorList.addAll(listdata);
+        auditorListAdapter.notifyDataSetChanged();
     }
 
 
@@ -541,7 +558,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 openActivity(SelectionDepartmentActivity.class, bundle);
                 break;
             case R.id.fujian_img:// 添加附件
-                openFileChooseProcess();
+                openFileChoose();
                 break;
 
             case R.id.ysk_txt:// 历史收-付-款明细
@@ -616,23 +633,18 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
 
     }
 
-
     /**
-     * 打开系统文件
+     * 拿到上传成功的文件数据
+     *
+     * @param fileListEnts
+     * @return
      */
-    private void openFileChooseProcess() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        //intent.setType(“image/*”);//选择图片
-        //intent.setType(“audio/*”); //选择音频
-        //intent.setType(“video/*”); //选择视频 （mp4 3gp 是android支持的视频格式）
-        //intent.setType(“video/*;image/*”);//同时选择视频和图片
-        intent.setType("*/*");//无类型限制
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, 0);
+    @Override
+    protected void updateFileSuccess(List<FileListEnt> fileListEnts) {
+        fileList.addAll(fileListEnts);
+        fileListAdapter.notifyDataSetChanged();
     }
 
-
-    String path;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -679,157 +691,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         } else if (resultCode == AppConfig.num1000) {//选择合同类型的回传标识
             contractType = data.getStringExtra("value");
             mBinding.htlxCateTxt.setText(data.getStringExtra("title"));
-        } else if (resultCode == RESULT_OK) {// 选择文件回调
-            switch (requestCode) {
-                case 0:
-                    Uri result = data == null || resultCode != RESULT_OK ? null : data.getData();
-                    if ("file".equalsIgnoreCase(result.getScheme())) {//使用第三方应用打开
-                        path = result.getPath();
-                        showToast(path + "11111");
-                        return;
-                    }
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
-                        path = getPath(this, result);
-                        showToast(path);
-                    } else {//4.4以下下系统调用方法
-                        path = getRealPathFromURI(result);
-                        showToast(path + "222222");
-                    }
-                    break;
-            }
-        } else if (resultCode == RESULT_CANCELED) {
-
         }
-    }
-
-
-    public String getRealPathFromURI(Uri contentUri) {
-        String res = null;
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-        if (null != cursor && cursor.moveToFirst()) {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            res = cursor.getString(column_index);
-            cursor.close();
-        }
-        return res;
-    }
-
-
-    /**
-     * 专为Android4.4设计的从Uri获取文件绝对路径，以前的方法已不好使
-     */
-    @SuppressLint("NewApi")
-    public String getPath(final Context context, final Uri uri) {
-
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
-        // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
-            // ExternalStorageProvider
-            if (isExternalStorageDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-                }
-            }
-            // DownloadsProvider
-            else if (isDownloadsDocument(uri)) {
-
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
-            }
-            // MediaProvider
-            else if (isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
-
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{split[1]};
-
-                return getDataColumn(context, contentUri, selection, selectionArgs);
-            }
-        }
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            return getDataColumn(context, uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-        return null;
-    }
-
-    /**
-     * Get the value of the data column for this Uri. This is useful for
-     * MediaStore Uris, and other file-based ContentProviders.
-     *
-     * @param context       The context.
-     * @param uri           The Uri to query.
-     * @param selection     (Optional) Filter used in the query.
-     * @param selectionArgs (Optional) Selection arguments used in the query.
-     * @return The value of the _data column, which is typically a file path.
-     */
-    public String getDataColumn(Context context, Uri uri, String selection,
-                                String[] selectionArgs) {
-
-        Cursor cursor = null;
-        final String column = "_data";
-        final String[] projection = {column};
-
-        try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-                    null);
-            if (cursor != null && cursor.moveToFirst()) {
-                final int column_index = cursor.getColumnIndexOrThrow(column);
-                return cursor.getString(column_index);
-            }
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-        return null;
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is ExternalStorageProvider.
-     */
-    public boolean isExternalStorageDocument(Uri uri) {
-        return "com.android.externalstorage.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     */
-    public boolean isDownloadsDocument(Uri uri) {
-        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     */
-    public boolean isMediaDocument(Uri uri) {
-        return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
 

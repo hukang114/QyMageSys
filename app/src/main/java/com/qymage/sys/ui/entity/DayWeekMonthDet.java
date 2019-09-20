@@ -1,5 +1,7 @@
 package com.qymage.sys.ui.entity;
 
+import com.qymage.sys.ui.Test;
+
 import java.util.List;
 
 /**

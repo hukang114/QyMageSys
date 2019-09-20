@@ -71,9 +71,7 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         } else if (workType.equals("3")) {
             mBinding.metitle.setcTxt("月报详情");
         }
-        mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
-        mBinding.recyclerview.setAdapter(listAdapter);
+        mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(MonthlyDetailsActivity.this));
         mBinding.bnt2.setOnClickListener(this);
         mBinding.bnt3.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
@@ -148,6 +146,12 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
     }
 
     private void setAddList() {
+
+        listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
+        mBinding.recyclerview.setAdapter(listAdapter);
+
+        LogUtils.e("Tag=" + info.activityVo.size());
+
         if (info.activityVo != null) {
             for (int i = 0; i < info.activityVo.size(); i++) {
                 ProjectApprovaLoglDetEnt.ActivityVoListBean bean = new ProjectApprovaLoglDetEnt.ActivityVoListBean();
@@ -167,7 +171,10 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
                 bean.userName = info.activityVo.get(i).userName;
                 voListBeans.add(bean);
             }
+            if (listAdapter != null) {
+            }
             listAdapter.notifyDataSetChanged();
+
         }
     }
 

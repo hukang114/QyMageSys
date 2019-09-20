@@ -1,9 +1,21 @@
 package com.qymage.sys.common.base;
 
+import android.annotation.SuppressLint;
+import android.content.ContentUris;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Message;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 
 
 import com.qymage.sys.AppConfig;
@@ -13,9 +25,12 @@ import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.common.tools.Tools;
 import com.qymage.sys.common.util.AppManager;
+import com.qymage.sys.ui.entity.FileListEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
+import com.qymage.sys.ui.fragment.NewsFragment;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -155,6 +170,11 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
      * 更新消息成的处理
      */
     protected void msgUpdateSuccess(int position) {
+        if (NewsFragment.mHander != null) {
+            Message message = NewsFragment.mHander.obtainMessage();
+            message.what = 100;
+            NewsFragment.mHander.sendMessage(message);
+        }
 
     }
 
@@ -165,9 +185,7 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
      *
      * @param processDefId
      */
-    protected List<GetTreeEnt> getAuditQuery(String processDefId) {
-
-        List<GetTreeEnt> list = new ArrayList<>();
+    protected void getAuditQuery(String processDefId) {
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("processDefId", processDefId);
@@ -175,8 +193,7 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
             @Override
             public void onSuccess(Result<List<GetTreeEnt>> result, Call call, Response response) {
                 if (result.data != null && result.data.size() > 0) {
-                    list.addAll(result.data);
-                    LogUtils.e("获取审批人" + result.message);
+                    getAuditQuerySuccess(result.data);
                 } else {
                     LogUtils.e("获取审批人：" + result.message);
                 }
@@ -188,8 +205,246 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
                 LogUtils.e("获取审批人：" + e.getMessage());
             }
         });
-        return list;
     }
 
+    /**
+     * 获取默认审批人成功
+     *
+     * @param listdata
+     */
+    protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
+
+    }
+
+
+    //===============文件选择处理=======================
+
+
+    /**
+     * 文件上传
+     *
+     * @param path
+     */
+    private void uploadFile(String path) {
+        showLoading();
+        File file = new File(path);
+        HttpUtil.file_Upload(file).execute(new JsonCallback<Result<List<FileListEnt>>>() {
+            @Override
+            public void onSuccess(Result<List<FileListEnt>> result, Call call, Response response) {
+                closeLoading();
+                if (result.data != null && result.data.size() > 0) {
+                    updateFileSuccess(result.data);
+                } else {
+                    showToast(result.message);
+                }
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                closeLoading();
+                showToast(e.getMessage());
+            }
+        });
+
+    }
+
+    /**
+     * 返回上传成功的文件数据
+     *
+     * @param fileListEnts
+     * @return
+     */
+    protected void updateFileSuccess(List<FileListEnt> fileListEnts) {
+
+    }
+
+    protected void openFileChoose() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        //intent.setType(“image/*”);//选择图片
+        //intent.setType(“audio/*”); //选择音频
+        //intent.setType(“video/*”); //选择视频 （mp4 3gp 是android支持的视频格式）
+        //intent.setType(“video/*;image/*”);//同时选择视频和图片
+        intent.setType("*/*");//无类型限制
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, 0);
+    }
+
+    String path;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {// 选择文件回调
+            switch (requestCode) {
+                case 0:
+                    Uri result = data == null || resultCode != RESULT_OK ? null : data.getData();
+                    if ("file".equalsIgnoreCase(result.getScheme())) {//使用第三方应用打开
+                        path = result.getPath();
+                        uploadFile(path);
+                        return;
+                    }
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
+                        try {
+                            path = getPath(this, result);
+                            if (path != null) {
+                                uploadFile(path);
+                            } else {
+                                showToast("选择文件为空");
+                            }
+
+                        } catch (Exception e) {
+                            showToast("文件选择获取失败,请选择其他类型的文件");
+                        }
+                    } else {//4.4以下下系统调用方法
+                        try {
+                            path = getRealPathFromURI(result);
+                            if (path != null) {
+                                uploadFile(path);
+                            } else {
+                                showToast("选择的文件为空");
+                            }
+                        } catch (Exception e) {
+                            showToast("文件选择获取失败,请选择其他类型的文件");
+                        }
+
+                    }
+                    break;
+            }
+        } else if (resultCode == RESULT_CANCELED) {
+
+        }
+    }
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String res = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if (null != cursor && cursor.moveToFirst()) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+            cursor.close();
+        }
+        return res;
+    }
+
+
+    /**
+     * 专为Android4.4设计的从Uri获取文件绝对路径，以前的方法已不好使
+     */
+    @SuppressLint("NewApi")
+    public String getPath(final Context context, final Uri uri) {
+
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                return getDataColumn(context, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[]{split[1]};
+
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            return getDataColumn(context, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+        return null;
+    }
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context       The context.
+     * @param uri           The Uri to query.
+     * @param selection     (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    public String getDataColumn(Context context, Uri uri, String selection,
+                                String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {column};
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    //===============文件选择处理=======================
 
 }

@@ -5,6 +5,7 @@ import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
 
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -639,6 +640,16 @@ public class HttpUtil {
      */
     public static PostRequest wf_auditQuery(Map<String, Object> params) {
         return HttpClient.getInstance().postData(HttpConsts.WF_AUDITQUERY, params);
+    }
+
+    /**
+     * 3.2文件上传接口
+     *
+     * @param file
+     * @return
+     */
+    public static PostRequest file_Upload(File file) {
+        return HttpClient.getInstance().postUploadFile(HttpConsts.FILE_UPLOAD, file);
     }
 
 

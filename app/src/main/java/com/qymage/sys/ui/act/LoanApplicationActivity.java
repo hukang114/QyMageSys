@@ -105,10 +105,15 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
     protected void initData() {
         super.initData();
         //添加借款申请默认审批人
-        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType13)));
-        auditorListAdapter.notifyDataSetChanged();
+        getAuditQuery(MainActivity.processDefId(AppConfig.btnType13));
         loan_quotaQuery();
 
+    }
+
+    @Override
+    protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
+        auditorList.addAll(listdata);
+        auditorListAdapter.notifyDataSetChanged();
     }
 
     /**

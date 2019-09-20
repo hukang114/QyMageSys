@@ -653,23 +653,15 @@
                             android:src="@mipmap/add_baoxiao_ioc" />
                     </RelativeLayout>
 
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/fujian_recyclerview"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin80"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/margin10"
                         android:background="@color/white"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/fujian_recyclerview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:background="@color/white"
-                            android:nestedScrollingEnabled="false" />
-
-                    </LinearLayout>
+                        android:minHeight="@dimen/margin80"
+                        android:nestedScrollingEnabled="false" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -849,10 +841,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginBottom="@dimen/margin50"
                         android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginTop="50dp"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginBottom="@dimen/margin50"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

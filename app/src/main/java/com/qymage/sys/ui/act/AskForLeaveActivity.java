@@ -180,10 +180,15 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
     protected void initData() {
         super.initData();
         //添加请假申请默认审批人
-        auditorList.addAll(getAuditQuery(MainActivity.processDefId(AppConfig.btnType14)));
-        auditorListAdapter.notifyDataSetChanged();
+        getAuditQuery(MainActivity.processDefId(AppConfig.btnType14));
         getQingJia();
 
+    }
+
+    @Override
+    protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
+        auditorList.addAll(listdata);
+        auditorListAdapter.notifyDataSetChanged();
     }
 
     private void getQingJia() {
@@ -470,8 +475,6 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
             }
         });
     }
-
-
 
 
     //======获取照片相关==================================

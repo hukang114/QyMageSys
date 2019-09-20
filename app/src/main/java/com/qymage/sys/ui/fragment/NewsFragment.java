@@ -3,6 +3,8 @@ package com.qymage.sys.ui.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +20,7 @@ import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.MyTimeTask;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.FragmentNewsBinding;
 import com.qymage.sys.ui.act.ApplicationCollectionLogActivity;
@@ -38,6 +41,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -49,9 +53,13 @@ public class NewsFragment extends FragmentLazy<FragmentNewsBinding> {
 
 
     List<NewsEntity> newsEntities = new ArrayList<>();
+    public static Handler mHander;
 
     NewsAdapter adapter;
     Bundle bundle;
+    private static final int TIMER = 999;
+    private static final int TIMES = 10000; //10秒执行一次
+    private MyTimeTask task;
 
 
     // TODO: Rename and change types and number of parameters
@@ -67,7 +75,7 @@ public class NewsFragment extends FragmentLazy<FragmentNewsBinding> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            mHander = new mHander();
         }
     }
 
@@ -159,17 +167,27 @@ public class NewsFragment extends FragmentLazy<FragmentNewsBinding> {
 
     @Override
     protected void initData() {
-        mBinding.deptnameTv.setText(VerifyUtils.isEmpty(MainActivity.infoBean.deptName) ? this.getResources().getString(R.string.app_name) : MainActivity.infoBean.deptName);
+        mBinding.deptnameTv.setText(VerifyUtils.isEmpty(MainActivity.infoBean.companyName) ? this.getResources().getString(R.string.app_name) : MainActivity.infoBean.companyName);
         getMessage_User_Msg();
+        setTimer();
+    }
+
+    private void setTimer() {
+        task = new MyTimeTask(TIMES, new TimerTask() {
+            @Override
+            public void run() {
+                mHander.sendEmptyMessage(TIMER);
+                //或者发广播，启动服务都是可以的
+            }
+        });
+        task.start();
     }
 
 
     private void getMessage_User_Msg() {
-        showLoading();
         HttpUtil.message_User_Msg(new HashMap<>()).execute(new JsonCallback<Result<List<NewsEntity>>>() {
             @Override
             public void onSuccess(Result<List<NewsEntity>> result, Call call, Response response) {
-                closeLoading();
                 mBinding.emptylayout.showContent();
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 if (result.data != null && result.data.size() > 0) {
@@ -184,7 +202,6 @@ public class NewsFragment extends FragmentLazy<FragmentNewsBinding> {
             @Override
             public void onError(Call call, Response response, Exception e) {
                 super.onError(call, response, e);
-                closeLoading();
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 showToast(e.getMessage());
                 mBinding.emptylayout.showError();
@@ -194,8 +211,32 @@ public class NewsFragment extends FragmentLazy<FragmentNewsBinding> {
             }
         });
 
-
     }
 
 
+    class mHander extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 100:
+                    getMessage_User_Msg();
+                    break;
+                case TIMER:
+                    //在此执行定时操作
+                    getMessage_User_Msg();
+                    break;
+            }
+        }
+    }
+
+    private void stopTimer() {
+        task.stop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopTimer();
+    }
 }

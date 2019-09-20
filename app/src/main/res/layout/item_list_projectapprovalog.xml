@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin5"
     android:layout_marginLeft="@dimen/margin15"
     android:layout_marginRight="@dimen/margin15"
+    android:layout_marginBottom="@dimen/margin5"
     android:orientation="vertical"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/margin8"
@@ -117,8 +117,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin5"
             android:layout_marginTop="@dimen/margin10"
+            android:layout_marginBottom="@dimen/margin5"
             android:orientation="horizontal">
 
 
@@ -150,7 +150,8 @@
                     android:paddingLeft="@dimen/margin10"
                     android:paddingRight="@dimen/margin10"
                     android:text="@string/cehui_txt"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/bnt2"
@@ -164,7 +165,8 @@
                     android:paddingLeft="@dimen/margin10"
                     android:paddingRight="@dimen/margin10"
                     android:text="@string/refuse_txt"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/bnt3"
@@ -177,7 +179,8 @@
                     android:paddingLeft="@dimen/margin10"
                     android:paddingRight="@dimen/margin10"
                     android:text="@string/agree_txt"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:visibility="invisible" />
 
             </LinearLayout>
 

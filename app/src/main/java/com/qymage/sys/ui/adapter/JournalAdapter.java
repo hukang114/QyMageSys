@@ -52,13 +52,6 @@ public class JournalAdapter extends BaseQuickAdapter<JournalEntity, BaseViewHold
             }
             bottom_bnt_layout.setVisibility(View.VISIBLE);
 
-            if (item.read == 0) {
-                helper.setVisible(R.id.unread_msg_img, true);
-            } else {
-                helper.setVisible(R.id.unread_msg_img, false);
-            }
-
-
         } else if (mType == 2) {
             helper.setText(R.id.jrgzjh_tv, "上周工作计划");
             helper.setText(R.id.mrgzjh_tv, "本周工作总结");
@@ -69,7 +62,6 @@ public class JournalAdapter extends BaseQuickAdapter<JournalEntity, BaseViewHold
                     .setText(R.id.today_content_tv, item.weekDay)
                     .setText(R.id.tomorrow_plan_tv, item.nextWeek);
             bottom_bnt_layout.setVisibility(View.GONE);
-            helper.setVisible(R.id.unread_msg_img, false);
         } else if (mType == 3) {
             helper.setText(R.id.jrgzjh_tv, "本月工作计划");
             helper.setText(R.id.mrgzjh_tv, "本月工作总结");
@@ -80,11 +72,6 @@ public class JournalAdapter extends BaseQuickAdapter<JournalEntity, BaseViewHold
                     .setText(R.id.today_content_tv, item.submonthWork)
                     .setText(R.id.tomorrow_plan_tv, item.nextMonthWeek);
             bottom_bnt_layout.setVisibility(View.VISIBLE);
-            if (item.read == 0) {
-                helper.setVisible(R.id.unread_msg_img, true);
-            } else {
-                helper.setVisible(R.id.unread_msg_img, false);
-            }
         }
         if (item.userName != null && item.userName.length() >= 3) {
             String strh = item.userName.substring(item.userName.length() - 2, item.userName.length());   //截取
@@ -98,14 +85,21 @@ public class JournalAdapter extends BaseQuickAdapter<JournalEntity, BaseViewHold
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.VISIBLE);
             bnt3.setVisibility(View.VISIBLE);
+            if (item.read == 0) {
+                helper.setVisible(R.id.unread_msg_img, true);
+            } else {
+                helper.setVisible(R.id.unread_msg_img, false);
+            }
         } else if (JournalFragment.logType == 4) {
             bnt1.setVisibility(View.VISIBLE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
+            helper.setVisible(R.id.unread_msg_img, false);
         } else {
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
+            helper.setVisible(R.id.unread_msg_img, false);
         }
 
     }
