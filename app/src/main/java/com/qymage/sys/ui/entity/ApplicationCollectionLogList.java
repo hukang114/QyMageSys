@@ -95,7 +95,7 @@ public class ApplicationCollectionLogList {
     public Object colInvocieAddress;
     public String colContacts;
     public String colPhone;
-    public String createTime;
+    public long createTime;
     public Object createBy;
     public Object updateTime;
     public Object updateBy;

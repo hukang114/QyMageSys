@@ -19,7 +19,7 @@ import java.util.List;
 public class AppColletionLoglDet {
 
 
-    public String createTime;
+    public long createTime;
     public String createBy;
     public String updateTime;
     public String updateBy;
@@ -52,6 +52,10 @@ public class AppColletionLoglDet {
     public List<AppColletionLoglDet.SendListBean> sendList;
     public String thisMoney;
     public String thisAmount;
+    public String notMoney;
+    public String notTicket;
+    public String notAmount;
+    public String diffMoney;
     public String contractType;
     // 收款方信息
     public String payName;

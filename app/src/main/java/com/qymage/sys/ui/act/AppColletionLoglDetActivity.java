@@ -11,6 +11,7 @@ import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityAppcolletionloglDetBinding;
 import com.qymage.sys.databinding.ActivityApplicationCollectionLogBinding;
@@ -172,31 +173,38 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
         }
         mBinding.userName.setText(item.userName + "提交申请");
         mBinding.actstatusTv.setText(item.actStatus);
-        mBinding.spbhTv.setText("编号id：" + item.id);
+        mBinding.spbhTv.setText("票款差额：" + item.diffMoney);
         mBinding.szbmType.setText("合同编号：" + item.contractNo);
         mBinding.projType.setText("合同名称：" + item.contractName);
         mBinding.projNumber.setText("项目编号：" + item.projectNo);
         mBinding.projName.setText("项目名称：" + item.projectName);
-        mBinding.persionName.setText("公司名称：" + item.companyName);
-        mBinding.appalyContentTv.setText("金额：" + item.thisMoney);
-        mBinding.dateTimeTv.setText("日期：" + item.date);
+        mBinding.persionName.setText("申请日期：" + DateUtil.formatMillsTo(item.createTime));
+
         switch (bidType) {
             case "1":
+                mBinding.appalyContentTv.setText("未收款：" + item.notAmount);
+                mBinding.dateTimeTv.setText("未开票：" + item.notTicket);
                 mBinding.endamountTv.setText("已收款：" + item.endAmount);
                 mBinding.endticketTv.setText("已开票：" + item.endTicket);
                 mBinding.thismoneyTv.setText("本次收款：" + item.thisAmount);
                 break;
             case "2":
+                mBinding.appalyContentTv.setText("未付款：" + item.notAmount);
+                mBinding.dateTimeTv.setText("未收票：" + item.notTicket);
                 mBinding.endamountTv.setText("已付款：" + item.endAmount);
                 mBinding.endticketTv.setText("已收票：" + item.endTicket);
                 mBinding.thismoneyTv.setText("本次付款：" + item.thisAmount);
                 break;
             case "3":
+                mBinding.appalyContentTv.setText("未收款：" + item.notAmount);
+                mBinding.dateTimeTv.setText("未开票：" + item.notTicket);
                 mBinding.endamountTv.setText("已收款：" + item.endAmount);
                 mBinding.endticketTv.setText("已开票：" + item.endTicket);
                 mBinding.thismoneyTv.setText("本次开票：" + item.thisAmount);
                 break;
             case "4":
+                mBinding.appalyContentTv.setText("未付款：" + item.notAmount);
+                mBinding.dateTimeTv.setText("未收票：" + item.notTicket);
                 mBinding.endamountTv.setText("已付款：" + item.endAmount);
                 mBinding.endticketTv.setText("已收票：" + item.endTicket);
                 mBinding.thismoneyTv.setText("本次收票：" + item.thisAmount);

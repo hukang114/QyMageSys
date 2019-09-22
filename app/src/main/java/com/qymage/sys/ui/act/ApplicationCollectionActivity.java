@@ -100,10 +100,14 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         if (type == null) {
             return;
         }
-        mBinding.metitle.setrTxtClick(v -> {
-            bundle = new Bundle();
-            bundle.putString("type", type);
-            openActivity(ApplicationCollectionLogActivity.class, bundle);
+        mBinding.metitle.setrTxtClick(new View.OnClickListener() {
+            @SingleClick(2000)
+            @Override
+            public void onClick(View v) {
+                bundle = new Bundle();
+                bundle.putString("type", type);
+                openActivity(ApplicationCollectionLogActivity.class, bundle);
+            }
         });
         mBinding.skfxxEdt.setOnClickListener(this);
         mBinding.fkfxxEdt.setOnClickListener(this);
