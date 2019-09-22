@@ -16,6 +16,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
+import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityHistoryInvoicedCollectBinding;
 import com.qymage.sys.databinding.ActivityInvoicedCollectBinding;
 import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
@@ -79,12 +80,15 @@ public class HistoryInvoicedCollectActivity extends BBActivity<ActivityHistoryIn
             @Override
             protected void convert(ViewHolder holder, GetReceivedInfoEnt.CompanyMoneyTicketVOBean item, int position) {
 
-                holder.setText(R.id.date_tv, item.paymentTime);
-                holder.setText(R.id.shuijin_tv, df.format(item.taxes));
-
+                holder.setText(R.id.shuijin_tv, item.taxes);
+                if (item.paymentTime != null && item.paymentTime.length() > 11) {
+                    holder.setText(R.id.date_tv, item.paymentTime.substring(0, 10));
+                } else {
+                    holder.setText(R.id.date_tv, item.paymentTime);
+                }
                 EditText jine_edt = holder.getView(R.id.jine_edt);
                 jine_edt.setText(item.amount);
-                holder.setText(R.id.shui_lv_tv, item.taxeRate + "%");
+                holder.setText(R.id.shui_lv_tv, VerifyUtils.isEmpty(item.taxeRate) ? "" : item.taxeRate + "%");
                 holder.setIsRecyclable(false);
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾

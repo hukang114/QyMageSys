@@ -63,6 +63,13 @@
                 android:layout_toRightOf="@+id/name_tv_bg"
                 android:text="2019-01-01" />
 
+            <ImageView
+                android:id="@+id/unread_msg_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/red_msg_ioc" />
+
         </RelativeLayout>
 
         <TextView

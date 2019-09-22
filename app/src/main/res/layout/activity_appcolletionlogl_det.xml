@@ -161,34 +161,175 @@
                         android:textColor="@color/rizhi_content_color"
                         android:textSize="@dimen/text_size_15" />
 
-                    <TextView
-                        android:id="@+id/introduction_tv"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginTop="@dimen/margin5"
-                        android:text="项目介绍"
-                        android:textColor="@color/rizhi_content_color"
-                        android:textSize="@dimen/text_size_15" />
-                    <TextView
-                        android:id="@+id/colname_tv"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/endamount_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="已收款已付款"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/endamount_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin20"
-                        android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginTop="@dimen/margin5"
-                        android:text="收款方名称"
-                        android:textColor="@color/rizhi_content_color"
-                        android:textSize="@dimen/text_size_15" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/endticket_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="已开/收票"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/endticket_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/thismoney_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="本次收付开收款"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/thismoney_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/payname_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="付款方名称"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/fk_mx_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/colname_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="收款方名称"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/sk_mx_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin15"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/file_list_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="附件大小"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/file_list_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin10"
                     android:layout_marginTop="@dimen/margin10"
-                    android:layout_weight="1" />
+                    android:layout_marginBottom="@dimen/margin10"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:paddingTop="@dimen/margin10"
+                    android:paddingBottom="@dimen/margin10" />
             </LinearLayout>
         </ScrollView>
 

@@ -31,4 +31,7 @@ public class PaymentInfo implements Serializable {
         this.payPhone = payPhone;
     }
 
+    public PaymentInfo() {
+
+    }
 }

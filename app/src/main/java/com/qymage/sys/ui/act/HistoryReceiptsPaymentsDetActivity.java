@@ -81,6 +81,8 @@ public class HistoryReceiptsPaymentsDetActivity extends BBActivity<ActivityHisto
             }
 
         };
+        mBinding.recyclerview.setAdapter(adapter);
     }
+
 
 }

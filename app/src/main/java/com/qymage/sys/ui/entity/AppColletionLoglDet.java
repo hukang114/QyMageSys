@@ -1,10 +1,13 @@
 package com.qymage.sys.ui.entity;
 
+import com.qymage.sys.ui.Test2;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 类名：
- * 类描述：
+ * 类描述：收款申请详情-付款申请详情-开票申请详情-收票申请详情
  * 创建人：J.S
  * 修改人：J.S
  * 创建时间：2019/9/131:09
@@ -36,6 +39,7 @@ public class AppColletionLoglDet {
     public String remark;
     public String endDate;
     public String personName;
+    public String userName;
     public String auditor;
     public Object copier;
     public Object keyword;
@@ -47,12 +51,101 @@ public class AppColletionLoglDet {
     public List<AppColletionLoglDet.ActivityVoBean> activityVo;
     public List<AppColletionLoglDet.SendListBean> sendList;
     public String thisMoney;
+    public String thisAmount;
     public String contractType;
+    // 收款方信息
     public String payName;
+    public String payRemark;
+    public String payBank;
+    public String payAccount;
+    public String payCreditCode;
+    public String payInvoicePhone;
+    public String payInvoiceAddress;
+    public String payContacts;
+    public String payPhone;
+    // 付款方信息
     public String colName;
+    public String colBank;
+    public String colAccount;
+    public String colCreditCode;
+    public String colInvoicePhone;
+    public String colInvoiceAddress;
+    public String colPhone;
+    public String colContacts;
+    public String endAmount;
+    public String endTicket;
+
+    public List<CompanyMoneyTicketVOSBean> companyMoneyTicketVOS;
+    public List<CompanyMoneyPaymentVOSBean> companyMoneyPaymentVOS;
+    public List<ThiscompanyMoneyPaymentVOSBean> thiscompanyMoneyPaymentVOS;
+    public List<ThisompanyMoneyTicketVOBean> thisompanyMoneyTicketVO;
 
 
-    public List<BidPerFormDetEnt.FileListBean> fileList;
+    // 本次开票本次收票
+    public static class ThisompanyMoneyTicketVOBean {
+        /**
+         * id : 1099301100000000001
+         * companyMoneyId : 1099300900000000021
+         * amount : 100.00
+         * taxeRate : 7.0
+         * taxes : 7.00
+         * paymentTime : 2019-09-22 00:00:00.0
+         * total : null
+         */
+
+        public String id;
+        public String companyMoneyId;
+        public String amount;
+        public double taxeRate;
+        public double taxes;
+        public String paymentTime;
+        public String total;
+    }
+
+    /**
+     * 本次收款 本次付款
+     */
+    public static class ThiscompanyMoneyPaymentVOSBean {
+        /**
+         * id : 1099301000000000030
+         * companyMoneyId : 1099300900000000018
+         * amount : 100.00
+         * paymentTime : 2019-09-22 00:00:00.0
+         * remarks : 测试
+         * total : null
+         */
+
+        public String id;
+        public String companyMoneyId;
+        public String amount;
+        public String paymentTime;
+        public String remarks;
+        public Object total;
+    }
+
+    //收付款明细
+    public static class CompanyMoneyPaymentVOSBean implements Serializable {
+        /**
+         * Id : 1212
+         * amount : 20
+         */
+        public String Id;
+        public String amount;// 金额
+        public String paymentTime;// 收付款日期
+        public String remarks;// 备注
+    }
+
+    //收票开票明细
+    public static class CompanyMoneyTicketVOSBean implements Serializable {
+        public String Id;//
+        public String amount;//金额
+        public String taxeRate;// 税率
+        public String taxes;// 税金
+        public String paymentTime;//  日期
+    }
+
+
+    public List<AppColletionLoglDet.FileListBean> fileList;
 
     public static class FileListBean {
         /**

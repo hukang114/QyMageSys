@@ -88,10 +88,11 @@ public class ReceiptsPaymentsDetActivity extends BBActivity<ActivityReceiptsPaym
 
                 EditText remarks_edt = holder.getView(R.id.remarks_edt);
                 remarks_edt.setText(item.remarks);
-
-                holder.setText(R.id.date_tv, item.date);
-
-
+                if (item.date != null && item.date.length() > 11) {
+                    holder.setText(R.id.date_tv, item.date.substring(0, 10));
+                } else {
+                    holder.setText(R.id.date_tv, item.date);
+                }
                 holder.setOnClickListener(R.id.date_tv, v -> {
                     setOnClick(position);
                 });

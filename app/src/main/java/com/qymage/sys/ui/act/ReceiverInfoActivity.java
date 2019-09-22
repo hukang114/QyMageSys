@@ -40,6 +40,7 @@ public class ReceiverInfoActivity extends BBActivity<ActivityReceiverInfoBinding
     private Bundle bundle;
     List<GetCompanyInfoEnt> companyInfoEnts = new ArrayList<>();//单位信息
     List<String> proList = new ArrayList<>();//
+    private String type_det;
 
     @Override
     protected int getLayoutId() {
@@ -55,6 +56,14 @@ public class ReceiverInfoActivity extends BBActivity<ActivityReceiverInfoBinding
         if (type == null) {
             return;
         }
+        try {
+            type_det = mIntent.getStringExtra("type_det");
+            if (type_det != null) {
+                mBinding.metitle.setrTxt("");
+            }
+        } catch (Exception e) {
+        }
+
         mBinding.metitle.setrTxtClick(v -> {
             if (type.equals("1")) { // 收款信息
                 receiverInfo.colName = mBinding.skfmcEdt.getText().toString();

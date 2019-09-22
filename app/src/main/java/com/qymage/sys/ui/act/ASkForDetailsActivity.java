@@ -124,23 +124,23 @@ public class ASkForDetailsActivity extends BBActivity<ActivityAskforDetBinding> 
     }
 
     private void setAddList() {
-        if (item.activityVoList != null) {
-            for (int i = 0; i < item.activityVoList.size(); i++) {
+        if (item.activityVo != null) {
+            for (int i = 0; i < item.activityVo.size(); i++) {
                 ProjectApprovaLoglDetEnt.ActivityVoListBean bean = new ProjectApprovaLoglDetEnt.ActivityVoListBean();
-                bean.id = item.activityVoList.get(i).id;
-                bean.processInstanceId = item.activityVoList.get(i).processInstanceId;
-                bean.processDefId = item.activityVoList.get(i).processDefId;
-                bean.assignee = item.activityVoList.get(i).assignee;
-                bean.name = item.activityVoList.get(i).name;
-                bean.status = item.activityVoList.get(i).status;
-                bean.comment = item.activityVoList.get(i).comment;
-                bean.actType = item.activityVoList.get(i).actType;
-                bean.actId = item.activityVoList.get(i).actId;
-                bean.businessKey = item.activityVoList.get(i).businessKey;
-                bean.createdDate = item.activityVoList.get(i).createdDate;
-                bean.updatedDate = item.activityVoList.get(i).updatedDate;
-                bean.userId = item.activityVoList.get(i).userId;
-                bean.userName = item.activityVoList.get(i).userName;
+                bean.id = item.activityVo.get(i).id;
+                bean.processInstanceId = item.activityVo.get(i).processInstanceId;
+                bean.processDefId = item.activityVo.get(i).processDefId;
+                bean.assignee = item.activityVo.get(i).assignee;
+                bean.name = item.activityVo.get(i).name;
+                bean.status = item.activityVo.get(i).status;
+                bean.comment = item.activityVo.get(i).comment;
+                bean.actType = item.activityVo.get(i).actType;
+                bean.actId = item.activityVo.get(i).actId;
+                bean.businessKey = item.activityVo.get(i).businessKey;
+                bean.createdDate = item.activityVo.get(i).createdDate;
+                bean.updatedDate = item.activityVo.get(i).updatedDate;
+                bean.userId = item.activityVo.get(i).userId;
+                bean.userName = item.activityVo.get(i).userName;
                 voListBeans.add(bean);
             }
             listAdapter.notifyDataSetChanged();

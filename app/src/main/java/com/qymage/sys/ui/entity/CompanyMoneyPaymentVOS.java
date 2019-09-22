@@ -20,7 +20,8 @@ public class CompanyMoneyPaymentVOS implements Serializable {
         this.date = date;
         this.remarks = remarks;
     }
-    
 
 
+    public CompanyMoneyPaymentVOS() {
+    }
 }

@@ -38,4 +38,7 @@ public class ReceiverInfo implements Serializable {
         this.colContacts = colContacts;
         this.colPhone = colPhone;
     }
+
+    public ReceiverInfo() {
+    }
 }

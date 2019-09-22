@@ -50,6 +50,7 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
     List<String> shuilv_list = new ArrayList<>();
     DecimalFormat df = new DecimalFormat("0.00");
     private Bundle bundle;
+    private String type_det;
 
 
     @Override
@@ -70,8 +71,15 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
         if (listdata == null) {
             return;
         }
+        try {
+            type_det = mInstant.getStringExtra("type_det");
+            if (type_det != null) {
+                mBinding.bottonLayout.setVisibility(View.GONE);
+                mBinding.metitle.setrTxt("");
+            }
+        } catch (Exception e) {
+        }
         setAdapter();
-
 //        for (int i = 1; i <= 100; i++) {
 //            shuilv_list.add(i + "%");
 //        }

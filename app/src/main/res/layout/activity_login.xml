@@ -31,8 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="@dimen/margin50"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -40,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginRight="30dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="0dp">
@@ -55,7 +55,7 @@
                     android:background="@null"
                     android:hint="@string/login_username_num_txt"
                     android:inputType="text"
-                    android:maxLength="11"
+                    android:maxLength="20"
                     android:singleLine="true"
                     android:text=""
                     android:textColor="@color/item_color"
@@ -83,8 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginTop="@dimen/margin20"
+                android:layout_marginRight="30dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="0dp">
@@ -125,8 +125,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="45dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="45dp"
                 android:orientation="horizontal"
                 android:visibility="visible">
 
@@ -146,8 +146,8 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginTop="@dimen/margin20"
+                android:layout_marginRight="30dp"
                 android:background="@drawable/login_btn_style"
                 android:text="@string/login"
                 android:textColor="@color/white"

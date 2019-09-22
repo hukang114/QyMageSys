@@ -40,7 +40,7 @@ public class AppCollectioLogAdapter extends BaseQuickAdapter<ApplicationCollecti
                 3 == item.stats ? "抄送给我" : 4 == item.stats ? "已处理" : "";
 
         helper.setText(R.id.status_tv, item.actStatus)
-                .setText(R.id.user_name, item.personName + "提交" + "申请")
+                .setText(R.id.user_name, item.userName + "提交" + "申请")
                 .setText(R.id.proj_type, "项目类型：" + item.contractName)
                 .setText(R.id.proj_name, "项目名称：" + item.projectName)
                 .setText(R.id.appaly_content_tv, "金额：" + item.thisAmount)
@@ -49,14 +49,14 @@ public class AppCollectioLogAdapter extends BaseQuickAdapter<ApplicationCollecti
 
         TextView name_tv_bg = helper.getView(R.id.name_tv_bg);
 
-        if (item.personName != null) {
+        if (item.userName != null) {
             head_img.setVisibility(View.GONE);
             name_tv_bg.setVisibility(View.VISIBLE);
-            if (item.personName.length() >= 3) {
-                String strh = item.personName.substring(item.personName.length() - 2, item.personName.length());   //截取
+            if (item.userName.length() >= 3) {
+                String strh = item.userName.substring(item.userName.length() - 2, item.userName.length());   //截取
                 name_tv_bg.setText(strh);
             } else {
-                name_tv_bg.setText(item.personName);
+                name_tv_bg.setText(item.userName);
             }
         }
         if (item.read == 0) {

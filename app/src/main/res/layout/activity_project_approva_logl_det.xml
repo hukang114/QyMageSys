@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             app:cTxt="@string/lxxq_txt" />
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -156,9 +156,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin15"
                         android:layout_marginTop="@dimen/margin5"
-                        android:text="日期"
+                        android:text="合同日期"
                         android:textColor="@color/rizhi_content_color"
                         android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/createtime_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="申请日期"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+
 
                     <TextView
                         android:id="@+id/introduction_tv"
@@ -184,7 +195,7 @@
                     android:paddingBottom="@dimen/margin10" />
 
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
         <LinearLayout
             android:id="@+id/bottom_state_layout"

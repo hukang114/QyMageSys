@@ -18,6 +18,7 @@ import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityContractApplicationBinding;
 import com.qymage.sys.databinding.ActivityContractApplicationDetBinding;
@@ -59,6 +60,13 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
     ContractDetEnt info;
     List<ProjectApprovaLoglDetEnt.ActivityVoListBean> voListBeans = new ArrayList<>();
     ProcessListAdapter listAdapter;
+    ReceiverInfo receiverInfo;//收款方信息
+    PaymentInfo paymentInfo; // 付款方信息
+    List<ContractDetAddEnt> listdata = new ArrayList<>();// h合同明细
+    List<ContractPayEnt> listbil = new ArrayList<>();// 付款比列
+    List<FileListEnt> fileList = new ArrayList<>();// 上传附件
+
+
 
     @Override
     protected int getLayoutId() {
@@ -77,6 +85,11 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
         mBinding.refuseTv.setOnClickListener(this);
         mBinding.agreeTv.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
+        mBinding.fkMxTv.setOnClickListener(this);
+        mBinding.skMxTv.setOnClickListener(this);
+        mBinding.contractdetailsBtn.setOnClickListener(this);
+        mBinding.contractpayscaleBtn.setOnClickListener(this);
+        mBinding.fileListBtn.setOnClickListener(this);
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
@@ -162,19 +175,54 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
                 mBinding.nameTvBg.setText(item.personName);
             }
         }
-        mBinding.userName.setText(item.personName + "申请");
-        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待处理" : 2 == item.actStatus ? "已处理" :
-                3 == item.actStatus ? "抄送给我" : 4 == item.actStatus ? "已处理" : "";
-        mBinding.actstatusTv.setText(status);
+        mBinding.userName.setText(item.personName + "提交合同申请");
+        mBinding.actstatusTv.setText(item.actStatus);
         mBinding.szbmType.setText("合同名称：" + item.contractName);
         mBinding.projType.setText("合同类型：" + item.contractTypeName);
         mBinding.projNumber.setText("项目编号：" + item.projectNo);
         mBinding.projName.setText("项目名称：" + item.projectName);
         mBinding.persionName.setText("付款方名称：" + item.payName);
+        mBinding.colnameTv.setText("收款方名称：" + item.colName);
+        mBinding.contractdetailsTv.setText("合同明细：" + df.format(contDetNum()) + "元");
+        mBinding.contractpayscaleTv.setText("付款比例：" + df.format(Payscale()) + "元");
+        if (item.fileList != null) {
+            mBinding.fileListTv.setText("合同附件" + item.fileList.size() + "个");
+        } else {
+            mBinding.fileListTv.setText("合同附件");
+        }
         mBinding.appalyContentTv.setText("合同金额：" + item.amount);
-        mBinding.dateTimeTv.setText("日期：" + item.date);
+        mBinding.dateTimeTv.setText("合同日期：" + item.date);
+        mBinding.createtimeTv.setText("申请日期：" + DateUtil.formatMillsTo(item.createTime));
         mBinding.introductionTv.setText("付款备注：" + item.payRemark);
 
+
+    }
+
+
+    private double Payscale() {
+        double num = 0;
+        if (info != null && info.contractPayscale != null && info.contractPayscale.size() > 0) {
+            for (int i = 0; i < info.contractPayscale.size(); i++) {
+                num += info.contractPayscale.get(i).amount;
+            }
+        }
+        return num;
+
+    }
+
+    /**
+     * 统计合同明细
+     *
+     * @return
+     */
+    private double contDetNum() {
+        double num = 0;
+        if (info != null && info.contractDetails != null && info.contractDetails.size() > 0) {
+            for (int i = 0; i < info.contractDetails.size(); i++) {
+                num += info.contractDetails.get(i).amount;
+            }
+        }
+        return num;
     }
 
 
@@ -194,6 +242,94 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
                 break;
             case R.id.bnt1:
                 auditAdd("3", AppConfig.status.value8, appLogEnt);
+                break;
+            case R.id.fk_mx_tv:// 查看付款方信息
+                if (info != null) {
+                    paymentInfo = new PaymentInfo();
+                    paymentInfo.payName = VerifyUtils.isEmpty(info.payName) ? "" : info.payName;
+                    paymentInfo.payBank = VerifyUtils.isEmpty(info.payBank) ? "" : info.payBank;
+                    paymentInfo.payAccount = VerifyUtils.isEmpty(info.payAccount) ? "" : info.payAccount;
+                    paymentInfo.payCreditCode = VerifyUtils.isEmpty(info.payCreditCode) ? "" : info.payCreditCode;
+                    paymentInfo.payInvoicePhone = VerifyUtils.isEmpty(info.payInvoicePhone) ? "" : info.payInvoicePhone;
+                    paymentInfo.payInvoiceAddress = VerifyUtils.isEmpty(info.payInvoiceAddress) ? "" : info.payInvoiceAddress;
+                    paymentInfo.payContacts = VerifyUtils.isEmpty(info.payContacts) ? "" : info.payContacts;
+                    paymentInfo.payPhone = VerifyUtils.isEmpty(info.payPhone) ? "" : info.payPhone;
+                    bundle = new Bundle();
+                    bundle.putString("type_det", "det");
+                    bundle.putString("type", "2");
+                    bundle.putSerializable("data", paymentInfo);
+                    openActivity(ReceiverInfoActivity.class, bundle);
+                } else {
+                    showToast("尚未获取到数据");
+                }
+                break;
+            case R.id.sk_mx_tv:// 查看收款放信息
+                if (info != null) {
+                    receiverInfo = new ReceiverInfo();
+                    receiverInfo.colName = VerifyUtils.isEmpty(info.colName) ? "" : info.colName;
+                    receiverInfo.colBank = VerifyUtils.isEmpty(info.colBank) ? "" : info.colBank;
+                    receiverInfo.colAccount = VerifyUtils.isEmpty(info.colAccount) ? "" : info.colAccount;
+                    receiverInfo.colCreditCode = VerifyUtils.isEmpty(info.colCreditCode) ? "" : info.colCreditCode;
+                    receiverInfo.colInvoicePhone = VerifyUtils.isEmpty(info.colInvoicePhone) ? "" : info.colInvoicePhone;
+                    receiverInfo.colInvoiceAddress = VerifyUtils.isEmpty(info.colInvoiceAddress) ? "" : info.colInvoiceAddress;
+                    receiverInfo.colContacts = VerifyUtils.isEmpty(info.colContacts) ? "" : info.colContacts;
+                    receiverInfo.colPhone = VerifyUtils.isEmpty(info.colPhone) ? "" : info.colPhone;
+                    bundle.putString("type_det", "det");
+                    bundle.putString("type", "1");
+                    bundle.putSerializable("data", receiverInfo);
+                    openActivity(ReceiverInfoActivity.class, bundle);
+                } else {
+                    showToast("尚未获取到数据");
+                }
+                break;
+            case R.id.contractdetails_btn:
+                if (info != null && info.contractDetails != null && info.contractDetails.size() > 0) {
+                    listdata.clear();
+                    for (int i = 0; i < info.contractDetails.size(); i++) {
+                        ContractDetAddEnt addEnt = new ContractDetAddEnt();
+                        addEnt.amount = info.contractDetails.get(i).amount + "";
+                        addEnt.taxes = info.contractDetails.get(i).taxes + "";
+                        addEnt.taxRate = info.contractDetails.get(i).taxRate;
+                        listdata.add(addEnt);
+                    }
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) listdata);
+                    bundle.putString("type_det", "det");
+                    openActivity(ContractDetailsAddActivity.class, bundle);
+                } else {
+                    showToast("暂无合同明细数据");
+                }
+                break;
+            case R.id.contractpayscale_btn:
+                if (info != null && info.contractPayscale != null && info.contractPayscale.size() > 0) {
+                    listbil.clear();
+                    for (int i = 0; i < info.contractPayscale.size(); i++) {
+                        ContractPayEnt ent = new ContractPayEnt();
+                        ent.date = info.contractPayscale.get(i).date;
+                        ent.amount = info.contractPayscale.get(i).amount + "";
+                        ent.payScale = info.contractPayscale.get(i).payScale;
+                        listbil.add(ent);
+                    }
+                    bundle = new Bundle();
+                    bundle.putString("type_det", "det");
+                    bundle.putSerializable("data", (Serializable) listbil);
+                    openActivity(ContractPaymentRaActivity.class, bundle);
+                } else {
+                    showToast("暂无付款比例数据");
+                }
+                break;
+            case R.id.file_list_btn:
+                if (info != null && info.fileList != null && info.fileList.size() > 0) {
+                    fileList.clear();
+                    for (int i = 0; i < info.fileList.size(); i++) {
+                        fileList.add(new FileListEnt(info.fileList.get(i).fileName, info.fileList.get(i).filePath));
+                    }
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) fileList);
+                    openActivity(ListAttachmentsActivity.class, bundle);
+                } else {
+                    showToast("该合同暂无上传附件");
+                }
                 break;
         }
     }

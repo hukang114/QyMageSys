@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             app:cTxt="@string/qjxq_tvt" />
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -176,12 +176,12 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/margin10"
                     android:layout_marginBottom="@dimen/margin10"
                     android:nestedScrollingEnabled="false" />
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
         <LinearLayout
             android:id="@+id/bottom_state_layout"

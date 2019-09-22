@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 添加付款比列
  */
 
-public class ContractPayEnt implements Serializable{
+public class ContractPayEnt implements Serializable {
 
 //    date:Date，//付款日期
 //    payScale:Double,//比例（百分比）
@@ -18,7 +18,10 @@ public class ContractPayEnt implements Serializable{
     public int payScale;
     public String amount;
 
-    public ContractPayEnt( String date, int payScale, String amount) {
+    public ContractPayEnt() {
+    }
+
+    public ContractPayEnt(String date, int payScale, String amount) {
         this.date = date;
         this.payScale = payScale;
         this.amount = amount;

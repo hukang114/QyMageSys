@@ -66,7 +66,7 @@ public class ContractDetEnt {
      * regarding : 0
      */
 
-    public Object createTime;
+    public long createTime;
     public Object createBy;
     public Object updateTime;
     public Object updateBy;
@@ -98,15 +98,15 @@ public class ContractDetEnt {
     public String colInvoiceAddress;
     public String colPhone;
     public String colContacts;
-    public Object endAmount;
-    public Object endTicket;
+    public String endAmount;
+    public String endTicket;
     public String personName;
     public Object auditor;
     public Object copier;
     public Object keyword;
     public Object stats;
     public String processInstId;
-    public int actStatus;
+    public String actStatus;
     public int regarding;
     public List<ContractDetailsBean> contractDetails;
     public List<ContractPayscaleBean> contractPayscale;
@@ -136,7 +136,7 @@ public class ContractDetEnt {
 
         public String id;
         public String contractId;
-        public String taxRate;
+        public int taxRate;
         public double amount;
         public double taxes;
     }
@@ -153,7 +153,7 @@ public class ContractDetEnt {
         public String id;
         public String contractId;
         public String date;
-        public String payScale;
+        public int payScale;
         public double amount;
     }
 

@@ -51,6 +51,7 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
     List<String> shuilv_list = new ArrayList<>();
     DecimalFormat df = new DecimalFormat("0.00");
     private Bundle bundle;
+    private String type_det;
 
 
     @Override
@@ -68,6 +69,14 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
         mBinding.delImg.setOnClickListener(this);
         mInstant = getIntent();
         listdata = (List<ContractPayEnt>) mInstant.getSerializableExtra("data");
+        try {
+            type_det = mInstant.getStringExtra("type_det");
+            if (type_det != null) {
+                mBinding.metitle.setcTxt("");
+                mBinding.bottonLayout.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+        }
         if (listdata == null) {
             return;
         }

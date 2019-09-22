@@ -14,6 +14,7 @@ import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityProjectApprovaLoglDetBinding;
 import com.qymage.sys.ui.adapter.ProcessListAdapter;
@@ -30,6 +31,7 @@ import okhttp3.Response;
 
 /**
  * 立项记录详情
+ * 立项详情
  */
 public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApprovaLoglDetBinding> implements View.OnClickListener {
 
@@ -121,17 +123,21 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
                 mBinding.nameTvBg.setText(item.personName);
             }
         }
-        mBinding.userName.setText(item.personName + item.projectTypeName);
+        mBinding.userName.setText(item.personName + "提交" + item.projectTypeName + "申请");
         mBinding.actstatusTv.setText(item.actStatus);
-        mBinding.spbhTv.setText("编号：" + item.id);
-        mBinding.szbmType.setText("所在部门：" + item.projectTypeName);
+//        mBinding.spbhTv.setText("编号Id：" + item.id);
+        mBinding.spbhTv.setVisibility(View.GONE);
+        mBinding.szbmType.setText("负责人：" + item.persion);
         mBinding.projType.setText("项目类型：" + item.projectTypeName);
         mBinding.projNumber.setText("项目编号：" + item.projectNo);
         mBinding.projName.setText("项目名称：" + item.projectName);
-        mBinding.persionName.setText("负责人：" + item.persion);
+//        mBinding.persionName.setText("负责人：" + item.persion);
+        mBinding.persionName.setVisibility(View.GONE);
         mBinding.appalyContentTv.setText("预算金额：" + item.amount);
-        mBinding.dateTimeTv.setText("日期：" + item.date);
+        mBinding.dateTimeTv.setText("合同日期：" + item.date);
+        mBinding.createtimeTv.setText("申请日期：" + DateUtil.formatMillsTo(item.createTime));
         mBinding.introductionTv.setText("项目介绍：" + item.introduction);
+
 
     }
 

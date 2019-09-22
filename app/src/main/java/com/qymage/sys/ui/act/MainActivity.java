@@ -45,6 +45,13 @@ public class MainActivity extends BaseActivity {
         checkVersion();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        instance = null;
+
+    }
+
     private void initView() {
         viewpager = findViewById(R.id.viewpager);
         radioGroup = findViewById(R.id.radiogroup);
@@ -104,13 +111,6 @@ public class MainActivity extends BaseActivity {
         return super.onKeyUp(keyCode, event);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        instance = null;
-
-    }
-
     /**
      * 检测版本更新
      */
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity {
      */
     public static String processDefId(String btnType) {
         String processDefId = "";
-        if (infoBean.processAppBtnVo != null && infoBean.processAppBtnVo.size() > 0) {
+        if (infoBean != null && infoBean.processAppBtnVo != null && infoBean.processAppBtnVo.size() > 0) {
 
             for (int i = 0; i < infoBean.processAppBtnVo.size(); i++) {
                 if (infoBean.processAppBtnVo.get(i).btnType.equals(btnType)) {

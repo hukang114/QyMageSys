@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             app:cTxt="@string/htxq_txt" />
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -131,14 +131,136 @@
                         android:text="项目名称"
                         android:textSize="@dimen/text_size_15" />
 
-                    <TextView
-                        android:id="@+id/persion_name"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginTop="@dimen/margin5"
-                        android:text="负责人"
-                        android:textSize="@dimen/text_size_15" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/persion_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="付款方名称"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/fk_mx_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/colname_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="收款方名称"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/sk_mx_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/contractdetails_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="合同明细"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/contractdetails_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/contractpayscale_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="付款比例"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/contractpayscale_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/file_list_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="附件大小"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/file_list_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/appaly_content_tv"
@@ -157,7 +279,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin15"
                         android:layout_marginTop="@dimen/margin5"
-                        android:text="日期"
+                        android:text="合同日期"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/createtime_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="申请日期"
                         android:textColor="@color/rizhi_content_color"
                         android:textSize="@dimen/text_size_15" />
 
@@ -176,12 +308,13 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/margin10"
                     android:layout_marginBottom="@dimen/margin10"
+                    android:background="@color/white"
                     android:nestedScrollingEnabled="false" />
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
         <LinearLayout
             android:id="@+id/bottom_state_layout"

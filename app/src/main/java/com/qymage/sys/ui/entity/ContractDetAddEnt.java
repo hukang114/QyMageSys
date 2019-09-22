@@ -19,9 +19,14 @@ public class ContractDetAddEnt implements Serializable {
     public String taxes;
 
 
+    public ContractDetAddEnt() {
+    }
+
     public ContractDetAddEnt(String amount, int taxRate, String taxes) {
         this.amount = amount;
         this.taxRate = taxRate;
         this.taxes = taxes;
     }
+
+
 }

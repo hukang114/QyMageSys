@@ -95,9 +95,12 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
             @Override
             protected void convert(ViewHolder holder, CompanyMoneyTicketVOS item, int position) {
 
-                holder.setText(R.id.date_tv, item.paymentTime);
+                if (item.paymentTime != null && item.paymentTime.length() > 11) {
+                    holder.setText(R.id.date_tv, item.paymentTime.substring(0, 10));
+                } else {
+                    holder.setText(R.id.date_tv, item.paymentTime);
+                }
                 holder.setText(R.id.shuijin_tv, df.format(item.taxes));
-
 
                 EditText jine_edt = holder.getView(R.id.jine_edt);
                 jine_edt.setText(item.amount);

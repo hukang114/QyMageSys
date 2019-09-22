@@ -31,9 +31,9 @@ public class ASkForDetEnt {
     public String createDate;
     public String personName;
     public String createTime;
-    public List<ActivityVoListBean> activityVoList;
+    public List<ActivityVoBean> activityVo;
 
-    public static class ActivityVoListBean implements Serializable {
+    public static class ActivityVoBean implements Serializable {
         /**
          * id : 1173134876833968129
          * processInstanceId : 197505

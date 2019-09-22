@@ -210,7 +210,7 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                             } else {
                                 mBinding.clockImgBg.setImageResource(R.mipmap.abnormal_dk_bg);
                                 mBinding.toWorkTv.setText("异常打开");
-                                String clockInAddr = VerifyUtils.isEmpty(dayEnt) ? "" : dayEnt.clockInAddr;
+                                String clockInAddr = VerifyUtils.isEmpty(settingInfo) ? "" : settingInfo.address;
                                 mBinding.locationAddressTv.setText("不在打卡考勤范围内" + "\n考勤范围:" + clockInAddr);
                             }
                         } else if (clockType == 2) {
@@ -241,7 +241,7 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                             } else {
                                 mBinding.clockImgBg.setImageResource(R.mipmap.abnormal_dk_bg);
                                 mBinding.toWorkTv.setText("异常打开");
-                                String clockInAddr = VerifyUtils.isEmpty(dayEnt) ? "" : dayEnt.clockInAddr;
+                                String clockInAddr = VerifyUtils.isEmpty(settingInfo) ? "" : settingInfo.address;
                                 mBinding.locationAddressTv.setText("不在打卡考勤范围内" + "\n考勤范围:" + clockInAddr);
                             }
                         } else if (clockType == 2) {

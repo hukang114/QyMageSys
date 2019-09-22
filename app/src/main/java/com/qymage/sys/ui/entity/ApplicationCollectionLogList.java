@@ -116,5 +116,6 @@ public class ApplicationCollectionLogList {
     public String msgId;// 消息id
     public int read;// 消息状态  0未读  1已读
     public String actStatus;//审批状态
+    public String userName;
 
 }

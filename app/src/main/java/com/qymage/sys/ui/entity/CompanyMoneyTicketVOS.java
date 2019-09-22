@@ -15,6 +15,9 @@ public class CompanyMoneyTicketVOS implements Serializable {
     public double taxes;//税金
     public String paymentTime;//日期
 
+    public CompanyMoneyTicketVOS() {
+    }
+
     public CompanyMoneyTicketVOS(String amount, double taxRate, double taxes, String paymentTime) {
         this.amount = amount;
         this.taxRate = taxRate;
