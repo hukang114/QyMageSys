@@ -60,6 +60,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight="1"
             android:background="@drawable/add_htmx_btn_style"
+            android:enabled="false"
             android:gravity="center"
             android:hint="@string/jine_txt"
             android:textColor="@color/rizhi_color"

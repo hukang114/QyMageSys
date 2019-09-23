@@ -227,7 +227,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 openActivity(SelectionDepartmentActivity.class, bundle);
                 break;
             case R.id.save_btn:
-                showToast(DateUtil.DateToWeek(System.currentTimeMillis()));
+//                showToast(DateUtil.DateToWeek(System.currentTimeMillis()));
                 if (isCheck()) {
                     subMitData();
                 }

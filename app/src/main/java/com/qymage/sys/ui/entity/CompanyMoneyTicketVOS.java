@@ -11,14 +11,14 @@ import java.io.Serializable;
 public class CompanyMoneyTicketVOS implements Serializable {
 
     public String amount;//金额
-    public double taxRate;//税率
+    public int taxRate;//税率
     public double taxes;//税金
     public String paymentTime;//日期
 
     public CompanyMoneyTicketVOS() {
     }
 
-    public CompanyMoneyTicketVOS(String amount, double taxRate, double taxes, String paymentTime) {
+    public CompanyMoneyTicketVOS(String amount, int taxRate, double taxes, String paymentTime) {
         this.amount = amount;
         this.taxRate = taxRate;
         this.taxes = taxes;

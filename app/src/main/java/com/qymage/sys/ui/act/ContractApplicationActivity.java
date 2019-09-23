@@ -21,6 +21,7 @@ import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.databinding.ActivityContractApplicationBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
@@ -298,9 +299,16 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
 
                 break;
             case R.id.fkblsm_edt:// 付款比列
-                bundle = new Bundle();
-                bundle.putSerializable("data", (Serializable) listbil);
-                openActivity(ContractPaymentRaActivity.class, bundle);
+                if (TextUtils.isEmpty(mBinding.htjeEdt.getText().toString())) {
+                    showToast("请输入合同金额");
+                } else if (Double.parseDouble(mBinding.htjeEdt.getText().toString()) <= 0) {
+                    showToast("请输入合同有效金额");
+                } else {
+                    bundle = new Bundle();
+                    bundle.putString("htjeMoney", mBinding.htjeEdt.getText().toString());
+                    bundle.putSerializable("data", (Serializable) listbil);
+                    openActivity(ContractPaymentRaActivity.class, bundle);
+                }
                 break;
             case R.id.spr_img:// 添加审批人
                 bundle = new Bundle();
@@ -417,10 +425,8 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
             copierListAdapter.notifyDataSetChanged();
         } else if (resultCode == 500) { // 获取收款方信息
             receiverInfo = (ReceiverInfo) data.getSerializableExtra("data");
-            showToast(receiverInfo.colName);
         } else if (resultCode == 600) {// 获取付款方信息
             paymentInfo = (PaymentInfo) data.getSerializableExtra("data");
-            showToast(paymentInfo.payName);
         } else if (resultCode == 700) { //付款比列
             listbil.clear();
             List<ContractPayEnt> list = (List<ContractPayEnt>) data.getSerializableExtra("data");
@@ -430,7 +436,63 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
             contractType = data.getStringExtra("value");
             mBinding.htlxCateTxt.setText(data.getStringExtra("title"));
         }
+        setRecPayInfoShow();
     }
+
+
+    /**
+     * 显示付款方名称和收款方名称 统计付款比例
+     */
+    private void setRecPayInfoShow() {
+        //收款方名称
+        if (receiverInfo != null && receiverInfo.colName != null) {
+            mBinding.skfxxEdt.setText(receiverInfo.colName);
+        }
+        //付款方名称
+        if (paymentInfo != null && paymentInfo.payName != null) {
+            mBinding.fkfxxEdt.setText(paymentInfo.payName);
+        }
+
+        // 付款比例
+        int sumpayScale = 0;
+        if (listbil.size() > 0) {
+            for (int i = 0; i < listbil.size(); i++) {
+                // 付款比例
+                sumpayScale += listbil.get(i).payScale;
+            }
+        }
+        mBinding.fkblsmEdt.setText(sumpayScale + "%");
+
+        if (sumpayScale > 100) {
+            showToast("付款比例不能超过100%");
+        }
+
+        // 合同明细
+        double sum = 0;
+        if (listdata.size() > 0) {
+            for (int i = 0; i < listdata.size(); i++) {
+                if (listdata.get(i).amount != null && !listdata.get(i).amount.equals("")) {
+                    sum += Double.parseDouble(listdata.get(i).amount);
+                }
+            }
+        }
+        mBinding.htmxEdt.setText(df.format(sum));
+
+    }
+
+    private double hkblMoney() {
+        double sum = 0;
+        if (listbil.size() > 0) {
+            for (int i = 0; i < listbil.size(); i++) {
+                // 付款比例总金额
+                if (listbil.get(i).amount != null) {
+                    sum += Double.parseDouble(listbil.get(i).amount);
+                }
+            }
+        }
+        return sum;
+    }
+
 
     /**
      * 根据合同类型获取合同编号
@@ -543,17 +605,23 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         } else if (listbil.size() == 0) {
             showToast("请填写付款比例");
             return false;
-        } else if (receiverInfo.colName == null) {
+        } else if (Double.parseDouble(mBinding.htjeEdt.getText().toString()) != Double.parseDouble(mBinding.htmxEdt.getText().toString())) {
+            showToast("合同金额与合同明细金额不一致");
+            return false;
+        } else if (Integer.parseInt(mBinding.fkblsmEdt.getText().toString().replace("%", "")) > 100) {
+            showToast("付款比例不能超过100%");
+            return false;
+        } else if (Double.parseDouble(mBinding.htjeEdt.getText().toString()) != hkblMoney()) {
+            showToast("合同金额与付款总比例的金额不一致");
+            return false;
+        } else if (receiverInfo.colName == null || receiverInfo.colName.equals("")) {
             showToast("请填写收款方信息");
             return false;
-        } else if (paymentInfo.payName == null) {
+        } else if (paymentInfo.payName == null || paymentInfo.payName.equals("")) {
             showToast("请填写付款方信息");
             return false;
         } else if (auditorList.size() == 0) {
             showToast("请选择审批人");
-            return false;
-        } else if (copierList.size() == 0) {
-            showToast("请选择抄送人");
             return false;
         } else {
             return true;

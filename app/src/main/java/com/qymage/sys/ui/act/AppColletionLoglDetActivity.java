@@ -410,7 +410,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
                             ben.amount = info.thisompanyMoneyTicketVO.get(i).amount;
                             ben.paymentTime = info.thisompanyMoneyTicketVO.get(i).paymentTime;
                             ben.taxes = info.thisompanyMoneyTicketVO.get(i).taxes;
-                            ben.taxRate = info.thisompanyMoneyTicketVO.get(i).taxeRate;
+                            ben.taxRate = (int) info.thisompanyMoneyTicketVO.get(i).taxeRate;
                             ticketVOS.add(ben);
                         }
                         bundle = new Bundle();

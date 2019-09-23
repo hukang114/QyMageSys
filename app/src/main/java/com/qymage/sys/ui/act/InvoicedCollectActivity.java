@@ -17,6 +17,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
+import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.databinding.ActivityInvoicedCollectBinding;
 import com.qymage.sys.ui.entity.CompanyMoneyPaymentVOS;
 import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
@@ -75,9 +76,12 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
         }
         setAdapter();
 
-        for (int i = 1; i <= 100; i++) {
-            shuilv_list.add(i + "%");
-        }
+        shuilv_list.add(3 + "%");
+        shuilv_list.add(6 + "%");
+        shuilv_list.add(9 + "%");
+        shuilv_list.add(11 + "%");
+        shuilv_list.add(13 + "%");
+
         mBinding.metitle.setrTxtClick(v -> {
             bundle = new Bundle();
             bundle.putSerializable("data", (Serializable) ticketVOS);
@@ -184,7 +188,8 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 ticketVOS.get(position).taxRate = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
-                ticketVOS.get(position).taxes = ticketVOS.get(position).taxRate / 100 * Double.parseDouble(ticketVOS.get(position).amount);
+                ticketVOS.get(position).taxes = number(ticketVOS.get(position).taxRate, Double.parseDouble(ticketVOS.get(position).amount));
+
                 adapter.notifyDataSetChanged();
             }
         })
@@ -202,13 +207,43 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
         pvOptions.show();
     }
 
+
+    /**
+     * 税率计算
+     *
+     * @param num
+     * @return
+     */
+    private double number(float num, double amount) {
+        double taxrate = 0.00;
+
+        double b = (num / 100);
+        LogUtils.e("b=" + b);
+
+        if (num == 3) {
+            taxrate = amount / 1.03 * b;
+        } else if (num == 6) {
+            taxrate = amount / 1.06 * b;
+        } else if (num == 9) {
+            taxrate = amount / 1.09 * b;
+        } else if (num == 11) {
+            taxrate = amount / 1.11 * b;
+        } else if (num == 13) {
+            taxrate = amount / 1.13 * b;
+        }
+        return taxrate;
+
+    }
+
+
     /**
      * 输入金额计算税金
      *
      * @param position
      */
     private void setCalculation(int position) {
-        ticketVOS.get(position).taxes = (ticketVOS.get(position).taxRate / 100) * Double.parseDouble(ticketVOS.get(position).amount);
+        ticketVOS.get(position).taxes = number(ticketVOS.get(position).taxRate, Double.parseDouble(ticketVOS.get(position).amount));
+
         if (mBinding.recyclerview.getScrollState() == RecyclerView.SCROLL_STATE_IDLE || (mBinding.recyclerview.isComputingLayout() == false)) {
         }
 //        new Handler().postDelayed(new Runnable() {

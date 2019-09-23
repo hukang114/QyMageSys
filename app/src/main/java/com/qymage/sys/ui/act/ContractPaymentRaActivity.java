@@ -52,6 +52,7 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
     DecimalFormat df = new DecimalFormat("0.00");
     private Bundle bundle;
     private String type_det;
+    private double htjeMoney = 0; // 合同金额
 
 
     @Override
@@ -71,6 +72,7 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
         listdata = (List<ContractPayEnt>) mInstant.getSerializableExtra("data");
         try {
             type_det = mInstant.getStringExtra("type_det");
+            htjeMoney = Double.parseDouble(mInstant.getStringExtra("htjeMoney"));
             if (type_det != null) {
                 mBinding.metitle.setcTxt("");
                 mBinding.bottonLayout.setVisibility(View.GONE);
@@ -100,7 +102,7 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
     @Override
     protected void initData() {
         super.initData();
-        getEnum();
+//        getEnum();
 
     }
 
@@ -204,6 +206,8 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 listdata.get(position).payScale = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
+                float pays = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
+                listdata.get(position).amount = df.format(htjeMoney * (pays / 100));
                 adapter.notifyDataSetChanged();
             }
         })
