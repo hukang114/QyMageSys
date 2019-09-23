@@ -8,6 +8,10 @@ import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.qymage.sys.common.callback.JsonCallback;
+import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.tools.ToastUtil;
 import com.qymage.sys.ui.act.ApplicationCollectionActivity;
 import com.qymage.sys.R;
 import com.qymage.sys.ui.act.ApplicationRepaymentActivity;
@@ -22,9 +26,14 @@ import com.qymage.sys.ui.act.OpenAfterWorkActivity;
 import com.qymage.sys.ui.act.PerformanceBondShouActivity;
 import com.qymage.sys.ui.act.PerformanceBondZhiActivity;
 import com.qymage.sys.ui.act.ProjectApprovaApplylActivity;
+import com.qymage.sys.ui.entity.HasClockOutEnt;
 import com.qymage.sys.ui.entity.WorkListEnt;
 
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * Created by admin on 2019/8/24.
@@ -135,9 +144,29 @@ public class WorkListAdapter extends BaseQuickAdapter<WorkListEnt, BaseViewHolde
                 openActivity(MonthReportActivity.class);
                 break;
             case "ribao":// 日报
-                openActivity(DailyReportActivity.class);
+                getChkout();
                 break;
         }
+    }
+
+    private void getChkout() {
+        HttpUtil.attendance_HasClockOut(new HashMap<>()).execute(new JsonCallback<Result<HasClockOutEnt>>() {
+            @Override
+            public void onSuccess(Result<HasClockOutEnt> result, Call call, Response response) {
+                if (result.data != null && result.data.clockOut == 1) {
+                    openActivity(DailyReportActivity.class);
+                } else {
+                    ToastUtil.showToast(mContext, "您今天还没有打过下班卡");
+                }
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                ToastUtil.showToast(mContext, e.getMessage());
+            }
+        });
+
     }
 
 

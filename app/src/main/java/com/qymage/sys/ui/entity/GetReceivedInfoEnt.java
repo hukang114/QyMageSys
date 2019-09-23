@@ -61,7 +61,7 @@ public class GetReceivedInfoEnt implements Serializable {
     public static class CompanyMoneyTicketVOBean implements Serializable {
         public String Id;//
         public String amount;//金额
-        public String taxeRate;// 税率
+        public String taxRate;// 税率
         public String taxes;// 税金
         public String paymentTime;//  日期
     }

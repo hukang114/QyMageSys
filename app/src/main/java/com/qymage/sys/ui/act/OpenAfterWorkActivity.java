@@ -2,6 +2,7 @@ package com.qymage.sys.ui.act;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -309,13 +310,13 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                         //-------------
                         mBinding.dakaRelayout.setVisibility(View.VISIBLE);
                         mBinding.radioGroup.setVisibility(View.VISIBLE);
-                        if (dayEnt.clockInTime == null || dayEnt.beginTime.equals("")) { // 上班打卡时间不存在，
+                        if (dayEnt.clockInTime == null || dayEnt.clockInTime.equals("")) { // 上班打卡时间不存在，
                             clockMode = 1;// 显示上班打卡
                             mBinding.toWorkTv.setText("上班打开");
                             mBinding.metitle.setcTxt("上班打开");
                         } else {
                             // 显示下班打卡
-                            // 显示上班信息
+                            // 显示下班信息
                             mBinding.workShiftClockTime.setVisibility(View.VISIBLE);
                             mBinding.workShiftAddressTv.setVisibility(View.VISIBLE);
                             mBinding.centetDiv.setVisibility(View.VISIBLE);
@@ -323,6 +324,9 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                                 clockMode = 2;
                                 mBinding.toWorkTv.setText("下班打开");
                                 mBinding.metitle.setcTxt("下班打开");
+                                // 显示下班打开时间
+                                mBinding.tvDotE.setVisibility(View.VISIBLE);
+                                mBinding.closingRelayout.setVisibility(View.VISIBLE);
                             } else { // 打卡流程已完成
                                 // 显示下班信息
                                 mBinding.tvDotE.setVisibility(View.VISIBLE);
@@ -463,7 +467,10 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                 super.onError(call, response, e);
                 closeLoading();
                 showToast(e.getMessage());
-
+                msgDialogBuilder(e.getMessage(), (dialog, which) -> {
+                    dialog.dismiss();
+                    finish();
+                }).create().show();
             }
         });
 
@@ -504,10 +511,14 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
             public void onSuccess(Result<RankBackEnt> result, Call call, Response response) {
                 closeLoading();
                 getDaySearch();
-                showToast("打开成功");
+                showToast("打卡成功");
                 if (clockMode == 2) { // 下班打卡成功，填写日志
                     openActivity(DailyReportActivity.class);
+                } else { // 上班打卡成功
+                    String weekDay = VerifyUtils.isEmpty(result.data.weekDay) ? "暂无" : result.data.weekDay;
+                    msgDialog("今日工作计划[" + result.data.dayWork + "]\n\n" + "本周工作计划[" + weekDay + "]");
                 }
+
             }
 
             @Override

@@ -1,6 +1,7 @@
 package com.qymage.sys.common.base;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -16,17 +17,30 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 import com.qymage.sys.AppConfig;
+import com.qymage.sys.R;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.common.tools.Tools;
 import com.qymage.sys.common.util.AppManager;
+import com.qymage.sys.ui.act.MyLoanActivity;
+import com.qymage.sys.ui.adapter.LeaveTypeAdapter;
 import com.qymage.sys.ui.entity.FileListEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
+import com.qymage.sys.ui.entity.LeaveType;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 import com.qymage.sys.ui.fragment.NewsFragment;
 
@@ -52,6 +66,7 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
     protected DateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     protected DateFormat DEFAULT_NYR = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     protected DecimalFormat df = new DecimalFormat("0.00");
+
 
     @Override
     public void onCreate(Bundle arg0) {
@@ -80,8 +95,140 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
     }
 
 
+    //===========================审批的处理开始=====================================================
+    // 打分的数据集合
+    List<LeaveType> leaveTypes = new ArrayList<>();
+    // 打分的适配器
+    LeaveTypeAdapter typeAdapter;
+
     /**
-     * @param type     1 同意 2  拒绝 3  审批
+     * 月报打分页面需要提前调用改方法，的时候需要先获取领导打分数据
+     */
+    protected void getleadType() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("type", "leadType");
+        HttpUtil.getEnum(hashMap).execute(new JsonCallback<Result<List<LeaveType>>>() {
+            @Override
+            public void onSuccess(Result<List<LeaveType>> result, Call call, Response response) {
+                if (result.data != null && result.data.size() > 0) {
+                    leaveTypes.clear();
+                    leaveTypes.addAll(result.data);
+                }
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+            }
+        });
+
+    }
+
+
+    private void showCommentsDialog(String type, int modeType, ProjectAppLogEnt item) {
+        //1、使用Dialog、设置style
+        final Dialog dialog = new Dialog(this, R.style.DialogTheme);
+        //2、设置布局
+        View view = View.inflate(this, R.layout.dialog_remarks, null);
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        //设置弹出位置
+        window.setGravity(Gravity.BOTTOM);
+        //设置弹出动画
+        window.setWindowAnimations(R.style.main_menu_animStyle);
+        //设置对话框大小
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+        EditText editText = dialog.findViewById(R.id.notes_edt);
+        EditText comments_edt = dialog.findViewById(R.id.comments_edt);
+        TextView df_tv = dialog.findViewById(R.id.df_tv);
+        RecyclerView recyclerView = dialog.findViewById(R.id.recyclerview);
+        LinearLayoutManager layouta = new LinearLayoutManager(this);
+        layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
+        recyclerView.setLayoutManager(layouta);
+        //// 月报提交需要打分和提交评语 同意 的时候执行
+        if (modeType == AppConfig.status.value14 && type.equals("1")) { // 月报提交需要打分和提交评语 同意 的时候执行
+            comments_edt.setVisibility(View.VISIBLE);
+            df_tv.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            if (leaveTypes != null && leaveTypes.size() > 0) {
+                typeAdapter = new LeaveTypeAdapter(R.layout.item_list_leavetype, leaveTypes);
+                recyclerView.setAdapter(typeAdapter);
+                typeAdapter.setOnItemChildClickListener((adapter, view12, position) -> {
+                    switch (view12.getId()) {
+                        case R.id.frg_selc_all:
+                            for (int i = 0; i < leaveTypes.size(); i++) {
+                                if (i == position) {
+                                    if (leaveTypes.get(position).isCheck) {
+                                        leaveTypes.get(position).isCheck = true;
+                                    } else {
+                                        leaveTypes.get(position).isCheck = true;
+                                    }
+                                } else {
+                                    leaveTypes.get(i).isCheck = false;
+                                }
+                            }
+                            typeAdapter.notifyDataSetChanged();
+                            break;
+                    }
+                });
+            }
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            comments_edt.setVisibility(View.GONE);
+            df_tv.setVisibility(View.GONE);
+        }
+        TextView submit_btn = dialog.findViewById(R.id.submit_btn);
+        submit_btn.setOnClickListener(v -> {
+            if (type.equals("2")) { // 拒绝审批
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    showToast("请填写拒绝的原因");
+                } else {
+                    dialog.dismiss();
+                    subMitAudit(type,
+                            modeType,
+                            item,
+                            editText.getText().toString(),
+                            comments_edt.getText().toString(),
+                            getSelectVal(),
+                            MyLoanActivity.assignees);
+                }
+            } else {
+                dialog.dismiss();
+                subMitAudit(type,
+                        modeType,
+                        item,
+                        editText.getText().toString(),
+                        comments_edt.getText().toString(),
+                        getSelectVal(),
+                        MyLoanActivity.assignees);
+            }
+
+
+        });
+
+    }
+
+    /**
+     * 获取选择的打分值
+     *
+     * @return
+     */
+    private String getSelectVal() {
+        String val = "";
+        for (int i = 0; i < leaveTypes.size(); i++) {
+            if (leaveTypes.get(i).isCheck) {
+                val = leaveTypes.get(i).value;
+            }
+        }
+        return val;
+    }
+
+
+    // 审批的同意处理
+
+    /**
+     * @param type     1 同意 2  拒绝 3  撤销
      * @param modeType 审批的模块的类型
      * @param item     审批需的参数对象
      */
@@ -89,28 +236,36 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
         if (type.equals("3")) {
             msgDialogBuilder("确认撤销？", (dialog, which) -> {
                 dialog.dismiss();
-                subMitAudit(type, modeType, item);
+                showCommentsDialog(type, modeType, item);
             }).create().show();
         } else if (type.equals("2")) {
             msgDialogBuilder("拒绝审批？", (dialog, which) -> {
                 dialog.dismiss();
-                subMitAudit(type, modeType, item);
+                showCommentsDialog(type, modeType, item);
             }).create().show();
         } else if (type.equals("1")) {
             msgDialogBuilder("同意审批？", (dialog, which) -> {
                 dialog.dismiss();
-                subMitAudit(type, modeType, item);
+                showCommentsDialog(type, modeType, item);
             }).create().show();
         }
-
     }
 
+
     /**
-     * @param type     1 同意 2  拒绝 3  撤销
+     * @param type     1 同意 2  拒绝 3  审批
      * @param modeType 审批的模块的类型
      * @param item     审批需的参数对象
+     *                 id  String  id
+     *                 examType：类型  1—通过   2-拒绝 3-撤回
+     *                 remarks String  备注
+     *                 processInstanceId String 流程实例ID
+     *                 modeType String  模块id
+     *                 assignees String  借款接口(传借款人id)
+     *                 leadComment String 领导评语（月报）
+     *                 leadGrade string  领导打分（月报）
      */
-    private void subMitAudit(String type, int modeType, ProjectAppLogEnt item) {
+    private void subMitAudit(String type, int modeType, ProjectAppLogEnt item, String remarks, String leadComment, String leadGrade, String assignees) {
         showLoading();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("id", item.id);
@@ -118,11 +273,15 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
         hashMap.put("type", type);
         hashMap.put("processInstanceId", item.processInstId);
         hashMap.put("modeType", modeType);
+        hashMap.put("assignees", assignees);
+        hashMap.put("remarks", remarks);
+        hashMap.put("leadComment", leadComment);
+        hashMap.put("leadGrade", leadGrade);
         HttpUtil.audit_auditAdd(hashMap).execute(new JsonCallback<Result<String>>() {
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();
-                msgNocanseDialogBuilder(result.message, (dialog, which) -> {
+                msgDialogBuilder(result.message, (dialog, which) -> {
                     dialog.dismiss();
                     successTreatment();
                 }).setCancelable(false).create().show();
@@ -144,6 +303,8 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
     protected void successTreatment() {
 
     }
+
+    //-=========================审批处理结束=======================================
 
     /**
      * 更新消息
@@ -186,7 +347,6 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
      * @param processDefId
      */
     protected void getAuditQuery(String processDefId) {
-
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("processDefId", processDefId);
         HttpUtil.wf_auditQuery(hashMap).execute(new JsonCallback<Result<List<GetTreeEnt>>>() {

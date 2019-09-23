@@ -42,11 +42,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qymage.sys.BuildConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
+import com.qymage.sys.common.callback.JsonCallback;
+import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.common.tools.FileSizeUtil;
 import com.qymage.sys.common.tools.Tools;
 import com.qymage.sys.databinding.ActivityReimbursementBinding;
 import com.qymage.sys.ui.adapter.ReimbntAdapter;
+import com.qymage.sys.ui.entity.ContractTypeEnt;
 import com.qymage.sys.ui.entity.DayLogListEnt;
 import com.qymage.sys.ui.entity.ReimburEntCoust;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -57,9 +61,12 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.leo.click.SingleClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 /**
@@ -80,6 +87,7 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
     private Intent mIntent;
     private int select_Position;// 传递过来的合同明细位置
     Bundle bundle;
+    List<ContractTypeEnt> typeEnts = new ArrayList<>();
 
 
     @Override
@@ -121,9 +129,40 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
             coustList.get(0).stringList.add("add");
             reimbntAdapter.notifyDataSetChanged();
         }
-        dataResult.add("销售部");
-        dataResult.add("行政部");
-        dataResult.add("技术部");
+        getExpenseType();
+
+    }
+
+    /**
+     * 获取报销类型
+     */
+    private void getExpenseType() {
+        showLoading();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("type", "ExpenseType");
+        HttpUtil.getEnum(hashMap).execute(new JsonCallback<Result<List<ContractTypeEnt>>>() {
+            @Override
+            public void onSuccess(Result<List<ContractTypeEnt>> result, Call call, Response response) {
+                closeLoading();
+                typeEnts.clear();
+                dataResult.clear();
+                if (result.data != null && result.data.size() > 0) {
+                    typeEnts.addAll(result.data);
+                    for (int i = 0; i < typeEnts.size(); i++) {
+                        dataResult.add(typeEnts.get(i).label);
+                    }
+                } else {
+                    showToast(result.message);
+                }
+            }
+
+            @Override
+            public void onError(Call call, Response response, Exception e) {
+                super.onError(call, response, e);
+                showToast(e.getMessage());
+                closeLoading();
+            }
+        });
 
     }
 
@@ -154,7 +193,7 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
             case R.id.add_new_btn:// 新增一条
                 stringList = new ArrayList<>();
                 stringList.add("add");
-                coustList.add(new DayLogListEnt.SubMoneyListEntity("", "", "", "", stringList));
+                coustList.add(new DayLogListEnt.SubMoneyListEntity("", "", "", "", stringList, ""));
                 reimbntAdapter.notifyDataSetChanged();
                 break;
             case R.id.save_btn:
@@ -177,9 +216,9 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
 
     private void setMemberLevel(int position) {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
-            coustList.get(position).type = dataResult.get(options1);
+            coustList.get(position).type = typeEnts.get(options1).value;
+            coustList.get(position).typeName = dataResult.get(options1);
             reimbntAdapter.notifyDataSetChanged();
-
         })
                 .setTitleText("请选择报销类型")
                 .setDividerColor(Color.BLACK)
@@ -229,7 +268,7 @@ public class ReimbursementActivity extends BBActivity<ActivityReimbursementBindi
                 delete_btn.setVisibility(View.GONE);
             }
             helper.setText(R.id.baoxiao_money_edt, item.amount)
-                    .setText(R.id.baoxiao_cate_txt, item.type)
+                    .setText(R.id.baoxiao_cate_txt, item.typeName)
                     .setText(R.id.baoxiao_content, item.detailed)
                     .setText(R.id.baoxiao_id_tv, "报销明细(" + (helper.getAdapterPosition() + 1) + ")");
             helper.addOnClickListener(R.id.delete_btn).addOnClickListener(R.id.baoxiao_cate_txt);

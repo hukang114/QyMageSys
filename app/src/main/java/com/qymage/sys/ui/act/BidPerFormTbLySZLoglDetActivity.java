@@ -10,6 +10,7 @@ import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityBidperformtblyszloglDetBinding;
 import com.qymage.sys.databinding.ActivityProjectApprovaLoglDetBinding;
@@ -27,7 +28,7 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * 投标保证及 支-收  履约保证金 支-收详情
+ * 投标保证金及 支-收  履约保证金 支-收详情
  */
 public class BidPerFormTbLySZLoglDetActivity extends BBActivity<ActivityBidperformtblyszloglDetBinding> implements View.OnClickListener {
 
@@ -60,7 +61,6 @@ public class BidPerFormTbLySZLoglDetActivity extends BBActivity<ActivityBidperfo
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
-
     }
 
 
@@ -136,17 +136,54 @@ public class BidPerFormTbLySZLoglDetActivity extends BBActivity<ActivityBidperfo
             }
         }
         mBinding.userName.setText(item.personName + "申请");
-        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待处理" : 2 == item.actStatus ? "已处理" :
-                3 == item.actStatus ? "抄送给我" : 4 == item.actStatus ? "已处理" : "";
+//        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待处理" : 2 == item.actStatus ? "已处理" :
+////                3 == item.actStatus ? "抄送给我" : 4 == item.actStatus ? "已处理" : "";
+
         mBinding.actstatusTv.setText(item.actStatus);
+        mBinding.spbhTv.setVisibility(View.GONE);
         mBinding.szbmType.setText("保证金名称：" + item.amountName);
-        mBinding.projType.setText("付款单位名称：" + item.name);
+        if (bidType.equals("01") || bidType.equals("03")) {
+            mBinding.projType.setText("收款单位名称：" + item.name);
+        } else {
+            mBinding.projType.setText("付款单位名称：" + item.name);
+        }
+        mBinding.bankTv.setText("开户行：" + item.bank);
+        mBinding.accountTv.setText("银行账号：" + item.account);
         mBinding.projNumber.setText("项目编号：" + item.projectNo);
         mBinding.projName.setText("项目名称：" + item.projectName);
         mBinding.persionName.setText("公司名称：" + item.companyName);
         mBinding.appalyContentTv.setText("金额：" + item.amount);
-        mBinding.dateTimeTv.setText("日期：" + item.date);
+        mBinding.endTimeTv.setText("结束日期：" + item.endDate);
+        mBinding.createtimeTv.setText("申请日期：" + DateUtil.formatMillsTo(item.createTime));
+        if (bidType.equals("01") || bidType.equals("02")) {
+            mBinding.fileLayout.setVisibility(View.GONE);
+            mBinding.dateTimeTv.setVisibility(View.GONE);
+        } else {
+            mBinding.dateTimeTv.setText("开始日期：" + item.date);
+            if (item.fileList != null) {
+                mBinding.fileListTv.setText("申请附件" + item.fileList.size() + "个");
+            } else {
+                mBinding.fileListTv.setText("申请附件");
+            }
+        }
         mBinding.introductionTv.setText("备注：" + item.remark);
+
+
+        if (BidPerformanceLvYueSZActivity.mType == 1) {
+            mBinding.bnt1.setVisibility(View.GONE);
+            mBinding.refuseTv.setVisibility(View.VISIBLE);
+            mBinding.agreeTv.setVisibility(View.VISIBLE);
+        } else if (BidPerformanceLvYueSZActivity.mType == 4) {
+            mBinding.refuseTv.setVisibility(View.GONE);
+            mBinding.agreeTv.setVisibility(View.GONE);
+            if (item.canCancelTask == 1) {
+                mBinding.bnt1.setVisibility(View.VISIBLE);
+            } else {
+                mBinding.bnt1.setVisibility(View.GONE);
+            }
+        } else {
+            mBinding.bottomStateLayout.setVisibility(View.GONE);
+        }
 
 
     }

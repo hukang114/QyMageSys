@@ -205,6 +205,7 @@
                         android:layout_marginRight="@dimen/margin20"
                         android:layout_toRightOf="@+id/tv_9"
                         android:background="@color/white"
+                        android:enabled="false"
                         android:gravity="center_vertical|end"
                         android:hint="@string/hkje_txt"
                         android:textColor="@color/item_color"

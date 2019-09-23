@@ -63,17 +63,7 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
-        if (ProjectApprovaLoglActivity.mType == 1) {
-            mBinding.bnt1.setVisibility(View.GONE);
-            mBinding.refuseTv.setVisibility(View.VISIBLE);
-            mBinding.agreeTv.setVisibility(View.VISIBLE);
-        } else if (ProjectApprovaLoglActivity.mType == 4) {
-            mBinding.bnt1.setVisibility(View.VISIBLE);
-            mBinding.refuseTv.setVisibility(View.GONE);
-            mBinding.agreeTv.setVisibility(View.GONE);
-        } else {
-            mBinding.bottomStateLayout.setVisibility(View.GONE);
-        }
+
     }
 
 
@@ -137,7 +127,21 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
         mBinding.dateTimeTv.setText("合同日期：" + item.date);
         mBinding.createtimeTv.setText("申请日期：" + DateUtil.formatMillsTo(item.createTime));
         mBinding.introductionTv.setText("项目介绍：" + item.introduction);
-
+        if (ProjectApprovaLoglActivity.mType == 1) {
+            mBinding.bnt1.setVisibility(View.GONE);
+            mBinding.refuseTv.setVisibility(View.VISIBLE);
+            mBinding.agreeTv.setVisibility(View.VISIBLE);
+        } else if (ProjectApprovaLoglActivity.mType == 4) {
+            mBinding.refuseTv.setVisibility(View.GONE);
+            mBinding.agreeTv.setVisibility(View.GONE);
+            if (item.canCancelTask == 1) {
+                mBinding.bnt1.setVisibility(View.VISIBLE);
+            } else {
+                mBinding.bnt1.setVisibility(View.GONE);
+            }
+        } else {
+            mBinding.bottomStateLayout.setVisibility(View.GONE);
+        }
 
     }
 

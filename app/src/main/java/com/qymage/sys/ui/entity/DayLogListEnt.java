@@ -43,14 +43,16 @@ public class DayLogListEnt implements Serializable {
         public String type;//报销类别  1-交通费、2-市内交通、3-过路费用、4-加油费用、5-停/洗车费、6-住宿费用、7-业务餐费、8-礼品费用、9-快递费用
         public String detailed;// 明细
         public String photo;
+        public String typeName;
         public List<String> stringList;
 
-        public SubMoneyListEntity(String amount, String type, String detailed, String photo, List<String> stringList) {
+        public SubMoneyListEntity(String amount, String type, String detailed, String photo, List<String> stringList, String typeName) {
             this.amount = amount;
             this.type = type;
             this.detailed = detailed;
             this.photo = photo;
             this.stringList = stringList;
+            this.typeName = typeName;
         }
     }
 

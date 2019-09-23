@@ -66,34 +66,6 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
-        switch (MyLoanActivity.mType) {
-            case 1:
-                mBinding.bnt1.setVisibility(View.GONE);
-                mBinding.bnt2.setVisibility(View.VISIBLE);
-                mBinding.bnt3.setVisibility(View.VISIBLE);
-                mBinding.bnt4.setVisibility(View.GONE);
-                break;
-            case 2:
-                mBinding.bnt1.setVisibility(View.GONE);
-                mBinding.bnt2.setVisibility(View.GONE);
-                mBinding.bnt3.setVisibility(View.GONE);
-                mBinding.bnt4.setVisibility(View.GONE);
-                break;
-            case 3:
-                mBinding.bnt1.setVisibility(View.GONE);
-                mBinding.bnt2.setVisibility(View.GONE);
-                mBinding.bnt3.setVisibility(View.GONE);
-                mBinding.bnt4.setVisibility(View.GONE);
-                break;
-            case 4:
-                mBinding.bnt1.setVisibility(View.VISIBLE);
-                mBinding.bnt2.setVisibility(View.GONE);
-                mBinding.bnt3.setVisibility(View.GONE);
-                mBinding.bnt4.setVisibility(View.VISIBLE);
-                break;
-            default:
-                break;
-        }
 
 
     }
@@ -165,9 +137,9 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
             }
         }
         mBinding.userName.setText(item.personName + "申请");
-        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待处理" : 2 == item.actStatus ? "已处理" :
-                3 == item.actStatus ? "抄送给我" : 4 == item.actStatus ? "已处理" : "";
-        mBinding.actstatusTv.setText(status);
+//        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待处理" : 2 == item.actStatus ? "已处理" :
+//                3 == item.actStatus ? "抄送给我" : 4 == item.actStatus ? "已处理" : "";
+        mBinding.actstatusTv.setText(item.actStatus);
 //        mBinding.szbmType.setText("合同名称：" + item.contractName);
         mBinding.szbmType.setVisibility(View.GONE);
 //        mBinding.projType.setText("合同类型：" + item.contractTypeName);
@@ -178,6 +150,48 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
         mBinding.appalyContentTv.setText("借款金额：" + item.amount);
         mBinding.dateTimeTv.setText("借款时间：" + item.createTime);
         mBinding.introductionTv.setText("借款事由：" + item.cause);
+        switch (MyLoanActivity.mType) {
+            case 1:
+                mBinding.bnt1.setVisibility(View.GONE);
+                if (item.returnStatus == 1) {
+                    mBinding.bnt4.setVisibility(View.VISIBLE);
+                    mBinding.bnt2.setVisibility(View.GONE);
+                    mBinding.bnt3.setVisibility(View.GONE);
+                } else {
+                    mBinding.bnt2.setVisibility(View.VISIBLE);
+                    mBinding.bnt3.setVisibility(View.VISIBLE);
+                    mBinding.bnt4.setVisibility(View.GONE);
+                }
+                break;
+            case 2:
+                mBinding.bnt1.setVisibility(View.GONE);
+                mBinding.bnt2.setVisibility(View.GONE);
+                mBinding.bnt3.setVisibility(View.GONE);
+                mBinding.bnt4.setVisibility(View.GONE);
+                break;
+            case 3:
+                mBinding.bnt1.setVisibility(View.GONE);
+                mBinding.bnt2.setVisibility(View.GONE);
+                mBinding.bnt3.setVisibility(View.GONE);
+                mBinding.bnt4.setVisibility(View.GONE);
+                break;
+            case 4:
+                mBinding.bnt2.setVisibility(View.GONE);
+                mBinding.bnt3.setVisibility(View.GONE);
+                if (item.canCancelTask == 1) {
+                    mBinding.bnt1.setVisibility(View.VISIBLE);
+                } else {
+                    mBinding.bnt1.setVisibility(View.GONE);
+                }
+                if (item.returnStatus == 1) {
+                    mBinding.bnt4.setVisibility(View.VISIBLE);
+                } else {
+                    mBinding.bnt4.setVisibility(View.GONE);
+                }
+                break;
+            default:
+                break;
+        }
 
     }
 

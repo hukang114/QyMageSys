@@ -99,8 +99,12 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
     protected void initView() {
         // 关闭当前的页面
         mBinding.metitle.setlTxtClick(v -> finish());
-        mBinding.metitle.setrTxtClick(v -> {
-            openActivity(AskForLeaveRecordlActivity.class);
+        mBinding.metitle.setrTxtClick(new View.OnClickListener() {
+            @SingleClick(2000)
+            @Override
+            public void onClick(View v) {
+                openActivity(AskForLeaveRecordlActivity.class);
+            }
         });
         LinearLayoutManager layouta = new LinearLayoutManager(this);
         layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
@@ -333,7 +337,6 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
         return hashMap;
     }
 
-
     private void subMitData() {
         showLoading();
         HttpUtil.leave_Submit(getPer()).execute(new JsonCallback<Result<String>>() {
@@ -342,6 +345,7 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
                 closeLoading();
                 msgDialogBuilder("请假申请提交成功", (dialog, which) -> {
                     dialog.dismiss();
+                    openActivity(AskForLeaveRecordlActivity.class);
                     finish();
                 }).setCancelable(false).create().show();
             }
@@ -375,9 +379,6 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
             return false;
         } else if (auditorList.size() == 0) {
             showToast("请选择审批人");
-            return false;
-        } else if (copierList.size() == 0) {
-            showToast("请选择抄送人");
             return false;
         } else {
             return true;

@@ -32,6 +32,10 @@ public class ASkForDetEnt {
     public String personName;
     public String createTime;
     public List<ActivityVoBean> activityVo;
+    public String processInstId;
+    public int canCancelTask;
+    public String id;
+
 
     public static class ActivityVoBean implements Serializable {
         /**

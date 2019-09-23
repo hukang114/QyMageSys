@@ -58,7 +58,10 @@ public class LoanQueryDetEnt {
     public String processInstId;
     public List<ActivityVoListBean> activityVoList;
     public List<SendListBean> sendList;
-    public int actStatus;
+    public String actStatus;
+    public int returnStatus;// 还款状态
+    public int canCancelTask;// 撤回状态
+
 
     public static class ActivityVoListBean implements Serializable {
         /**

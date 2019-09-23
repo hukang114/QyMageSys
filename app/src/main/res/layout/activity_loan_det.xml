@@ -179,7 +179,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin10"
                     android:layout_marginBottom="@dimen/margin10"
-                    android:nestedScrollingEnabled="false" />
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingTop="@dimen/margin10"
+                    android:paddingBottom="@dimen/margin10" />
             </LinearLayout>
         </ScrollView>
 

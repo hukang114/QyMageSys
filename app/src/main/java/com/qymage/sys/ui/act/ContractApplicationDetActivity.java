@@ -67,7 +67,6 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
     List<FileListEnt> fileList = new ArrayList<>();// 上传附件
 
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_contract_application_det;
@@ -93,17 +92,6 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
-        if (ChoiceContractLogActivity.mType == 1) {
-            mBinding.bnt1.setVisibility(View.GONE);
-            mBinding.refuseTv.setVisibility(View.VISIBLE);
-            mBinding.agreeTv.setVisibility(View.VISIBLE);
-        } else if (ChoiceContractLogActivity.mType == 4) {
-            mBinding.bnt1.setVisibility(View.VISIBLE);
-            mBinding.refuseTv.setVisibility(View.GONE);
-            mBinding.agreeTv.setVisibility(View.GONE);
-        } else {
-            mBinding.bottomStateLayout.setVisibility(View.GONE);
-        }
 
 
     }
@@ -195,6 +183,21 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
         mBinding.createtimeTv.setText("申请日期：" + DateUtil.formatMillsTo(item.createTime));
         mBinding.introductionTv.setText("付款备注：" + item.payRemark);
 
+        if (ChoiceContractLogActivity.mType == 1) {
+            mBinding.bnt1.setVisibility(View.GONE);
+            mBinding.refuseTv.setVisibility(View.VISIBLE);
+            mBinding.agreeTv.setVisibility(View.VISIBLE);
+        } else if (ChoiceContractLogActivity.mType == 4) {
+            mBinding.refuseTv.setVisibility(View.GONE);
+            mBinding.agreeTv.setVisibility(View.GONE);
+            if (item.canCancelTask == 1) {
+                mBinding.bnt1.setVisibility(View.VISIBLE);
+            } else {
+                mBinding.bnt1.setVisibility(View.GONE);
+            }
+        } else {
+            mBinding.bottomStateLayout.setVisibility(View.GONE);
+        }
 
     }
 

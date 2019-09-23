@@ -56,25 +56,31 @@ public class MyLoanListAdapter extends BaseQuickAdapter<MyLoanEnt, BaseViewHolde
             }
         }
 
-        if (item.read == 0) {
-            helper.setVisible(R.id.unread_msg_img, true);
-        } else {
-            helper.setVisible(R.id.unread_msg_img, false);
-        }
-
         switch (MyLoanActivity.mType) {
             case 1:
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.colorAccent));
                 bnt1.setVisibility(View.GONE);
-                bnt2.setVisibility(View.VISIBLE);
-                bnt3.setVisibility(View.VISIBLE);
-                bnt4.setVisibility(View.GONE);
+                if (item.returnStatus == 1) {
+                    bnt4.setVisibility(View.VISIBLE);
+                    bnt2.setVisibility(View.GONE);
+                    bnt3.setVisibility(View.GONE);
+                } else {
+                    bnt2.setVisibility(View.VISIBLE);
+                    bnt3.setVisibility(View.VISIBLE);
+                    bnt4.setVisibility(View.GONE);
+                }
+                if (item.read == 0) {
+                    helper.setVisible(R.id.unread_msg_img, true);
+                } else {
+                    helper.setVisible(R.id.unread_msg_img, false);
+                }
                 break;
             case 2:
                 bnt1.setVisibility(View.GONE);
                 bnt2.setVisibility(View.GONE);
                 bnt3.setVisibility(View.GONE);
                 bnt4.setVisibility(View.GONE);
+                helper.setVisible(R.id.unread_msg_img, false);
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
                 break;
             case 3:
@@ -82,13 +88,23 @@ public class MyLoanListAdapter extends BaseQuickAdapter<MyLoanEnt, BaseViewHolde
                 bnt2.setVisibility(View.GONE);
                 bnt3.setVisibility(View.GONE);
                 bnt4.setVisibility(View.GONE);
+                helper.setVisible(R.id.unread_msg_img, false);
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
                 break;
             case 4:
-                bnt1.setVisibility(View.VISIBLE);
                 bnt2.setVisibility(View.GONE);
                 bnt3.setVisibility(View.GONE);
-                bnt4.setVisibility(View.VISIBLE);
+                if (item.canCancelTask == 1) {
+                    bnt1.setVisibility(View.VISIBLE);
+                } else {
+                    bnt1.setVisibility(View.GONE);
+                }
+                if (item.returnStatus == 1) {
+                    bnt4.setVisibility(View.VISIBLE);
+                } else {
+                    bnt4.setVisibility(View.GONE);
+                }
+                helper.setVisible(R.id.unread_msg_img, false);
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
                 break;
             default:

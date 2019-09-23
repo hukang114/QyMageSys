@@ -398,6 +398,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/start_time_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin55"
                     android:layout_marginTop="@dimen/margin5"
@@ -486,6 +487,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/file_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin5"

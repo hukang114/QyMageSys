@@ -111,4 +111,5 @@ public class ChoiceContractLogEnt implements Serializable {
     public String msgId;// 消息id
     public int read;// 消息状态  0未读  1已读
     public String actStatus;
+    public int canCancelTask;
 }

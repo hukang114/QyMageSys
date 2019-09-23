@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -43,7 +44,7 @@ import okhttp3.Response;
 
 
 /**
- * 日报
+ * 日报 提交
  */
 public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> implements View.OnClickListener {
 
@@ -125,7 +126,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 , ""
                 , ""
                 , ""
-                , defpiclist));
+                , defpiclist, ""));
         // 添加一条默认的合同空数据
         dayLogListEnts.add(new DayLogListEnt(
                 ""
@@ -189,7 +190,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                         , ""
                         , ""
                         , ""
-                        , defpiclist));
+                        , defpiclist, ""));
                 // 添加一条默认的合同空数据
                 dayLogListEnts.add(new DayLogListEnt(
                         ""
@@ -226,10 +227,11 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 openActivity(SelectionDepartmentActivity.class, bundle);
                 break;
             case R.id.save_btn:
+                showToast(DateUtil.DateToWeek(System.currentTimeMillis()));
                 if (isCheck()) {
                     subMitData();
                 }
-
+                break;
         }
 
     }
@@ -274,7 +276,26 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
 
 
     private boolean isCheck() {
-        return true;
+        if (TextUtils.isEmpty(mBinding.mingriGongzuoJihua.getText().toString())) {
+            showToast("请填写明日工作计划");
+            return false;
+        } else {
+            if (DateUtil.DateToWeek(System.currentTimeMillis()).contains("星期五")) {
+                if (TextUtils.isEmpty(mBinding.benzhouGongzuozongjie.getText().toString())) {
+                    showToast("请填写本周工作总结");
+                    return false;
+                } else if (TextUtils.isEmpty(mBinding.xiazhouJihua.getText().toString())) {
+                    showToast("请填写下周工作总结");
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+
+
     }
 
 

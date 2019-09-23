@@ -45,7 +45,7 @@ public class DateUtil {
         return sDateTime;
     }
 
-    public static CharSequence formatNYR(long duration) {
+    public static String formatNYR(long duration) {
         getSimpleDateFormat("yyyy-MM-dd");
         // 前面的lSysTime是秒数，先乘1000得到毫秒数，再转为java.util.Date类型
         Date dt2 = new Date(duration);

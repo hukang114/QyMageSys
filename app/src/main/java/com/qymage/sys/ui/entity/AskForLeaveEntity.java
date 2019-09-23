@@ -25,6 +25,8 @@ public class AskForLeaveEntity {
     public String msgId;
     public int read;//消息状态  0未读  1已读
     public String actStatus;////审批状态
+    public int canCancelTask;
+    public String processInstId;
 
     public static class ProcessListBean {
         /**

@@ -71,10 +71,15 @@ public class ContractLogAdapter extends BaseQuickAdapter<ChoiceContractLogEnt, B
                 helper.setVisible(R.id.unread_msg_img, false);
             }
         } else if (ChoiceContractLogActivity.mType == 4) {
-            bnt1.setVisibility(View.VISIBLE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
             helper.setVisible(R.id.unread_msg_img, false);
+            if (item.canCancelTask == 1) {
+                bnt1.setVisibility(View.VISIBLE);
+            } else {
+                bnt1.setVisibility(View.GONE);
+            }
+
         } else {
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.GONE);

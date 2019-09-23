@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qymage.sys.R;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.common.util.PicasooUtil;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.ui.act.BidPerformanceLvYueSZActivity;
@@ -45,7 +46,8 @@ public class BidPerFormLogAdapter extends BaseQuickAdapter<BidLvYueSZListEnt, Ba
                 .setText(R.id.proj_type, "公司名称：" + item.companyName)
                 .setText(R.id.proj_name, "项目名称：" + item.projectName)
                 .setText(R.id.appaly_content_tv, "金额：" + item.amount)
-                .setText(R.id.date_time_tv, "申请日期：" + item.date);
+                .setText(R.id.date_time_tv, "结束日期：" + item.endDate)
+                .setText(R.id.createtime_tv, DateUtil.formatNYR(item.createTime));
 //        PicasooUtil.setImageResource(item.portrait, helper.getView(R.id.head_img), 360);
 
         TextView name_tv_bg = helper.getView(R.id.name_tv_bg);
@@ -65,19 +67,24 @@ public class BidPerFormLogAdapter extends BaseQuickAdapter<BidLvYueSZListEnt, Ba
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.VISIBLE);
             bnt3.setVisibility(View.VISIBLE);
+            if (item.read == 0) {
+                helper.setVisible(R.id.unread_msg_img, true);
+            } else {
+                helper.setVisible(R.id.unread_msg_img, false);
+            }
         } else if (BidPerformanceLvYueSZActivity.mType == 4) {
-            bnt1.setVisibility(View.VISIBLE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
+            helper.setVisible(R.id.unread_msg_img, false);
+            if (item.canCancelTask == 1) {
+                bnt1.setVisibility(View.VISIBLE);
+            } else {
+                bnt1.setVisibility(View.GONE);
+            }
         } else {
             bnt1.setVisibility(View.GONE);
             bnt2.setVisibility(View.GONE);
             bnt3.setVisibility(View.GONE);
-        }
-
-        if (item.read == 0) {
-            helper.setVisible(R.id.unread_msg_img, true);
-        } else {
             helper.setVisible(R.id.unread_msg_img, false);
         }
 //

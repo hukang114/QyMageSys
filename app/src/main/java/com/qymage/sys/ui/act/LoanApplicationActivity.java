@@ -228,9 +228,6 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
         } else if (auditorList.size() == 0) {
             showToast("请选择审批人");
             return false;
-        } else if (copierList.size() == 0) {
-            showToast("请选择抄送人");
-            return false;
         } else {
             return true;
         }

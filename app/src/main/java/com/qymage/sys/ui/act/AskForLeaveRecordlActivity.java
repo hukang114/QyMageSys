@@ -61,7 +61,6 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
         return R.layout.fragment_ask_for_leave_record;
     }
 
-
     @TargetApi(Build.VERSION_CODES.CUPCAKE)
     @Override
     protected void initView() {
@@ -80,7 +79,6 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
         adapter = new AskForLeaveRecordAdapter(R.layout.item_askforleave_list, listdata);
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.radioGroup.setOnCheckedChangeListener(this);
-        mBinding.pendingBtn.setChecked(true);
         mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
              /*   if (!getKeyWord().equals("")) {
@@ -98,7 +96,7 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             ProjectAppLogEnt appLogEnt = new ProjectAppLogEnt();
             appLogEnt.id = listdata.get(position).id;
-            appLogEnt.processInstId = listdata.get(position).processInstanceId;
+            appLogEnt.processInstId = listdata.get(position).processInstId;
             switch (view.getId()) {
                 case R.id.bnt1:
                     auditAdd("3", AppConfig.status.value7, appLogEnt);
@@ -120,7 +118,7 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
                 msgUdate(listdata.get(position).msgId, position);
             }
         });
-
+        mBinding.pendingBtn.setChecked(true);
     }
 
     /**
@@ -200,8 +198,8 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
     @Override
     protected void initData() {
         super.initData();
-        page = 1;
-        getListData(Constants.RequestMode.FRIST);
+//        page = 1;
+//        getListData(Constants.RequestMode.FRIST);
     }
 
 
@@ -231,6 +229,15 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
         getListData(Constants.RequestMode.FRIST);
     }
 
+    /**
+     * 审批处理成功的回调
+     */
+    @Override
+    protected void successTreatment() {
+        super.successTreatment();
+        page = 1;
+        getListData(Constants.RequestMode.FRIST);
+    }
 
     /**
      * 参数

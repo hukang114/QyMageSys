@@ -53,6 +53,7 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
     private Bundle bundle;
     public static String assignees = "";// 借款人的id
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_my_loan;
@@ -76,7 +77,6 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
         adapter = new MyLoanListAdapter(R.layout.item_myloan_list, listdata);
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.radioGroup.setOnCheckedChangeListener(this);
-        mBinding.pendingBtn.setChecked(true);
         mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
              /*   if (!getKeyWord().equals("")) {
@@ -95,6 +95,8 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
             ProjectAppLogEnt appLogEnt = new ProjectAppLogEnt();
             appLogEnt.id = listdata.get(position).id;
             appLogEnt.processInstId = listdata.get(position).processInstId;
+            // 借款人的id
+            assignees = listdata.get(position).assignees;
             switch (view.getId()) {
                 case R.id.bnt1:
                     auditAdd("3", AppConfig.status.value13, appLogEnt);
@@ -109,9 +111,9 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
                     bundle = new Bundle();
                     bundle.putString("processInstId", listdata.get(position).processInstId);
                     bundle.putString("id", listdata.get(position).id);
+                    bundle.putString("amount", listdata.get(position).amount);
                     openActivity(ApplicationRepaymentActivity.class, bundle);
                     break;
-
             }
         });
 
@@ -123,7 +125,7 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
                 msgUdate(listdata.get(position).msgId, position);
             }
         });
-
+        mBinding.pendingBtn.setChecked(true);
     }
 
     /**
@@ -203,8 +205,8 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
     @Override
     protected void initData() {
         super.initData();
-        page = 1;
-        getListData(Constants.RequestMode.FRIST);
+//        page = 1;
+//        getListData(Constants.RequestMode.FRIST);
     }
 
 
@@ -219,21 +221,38 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
         switch (checkedId) {
             case R.id.pending_btn:// 待处理
                 mType = 1;
+                stats = "1";
+                mBinding.refreshlayout.setEnableLoadMore(false);
                 break;
             case R.id.processed_btn://已处理
                 mType = 2;
+                stats = "2";
+                mBinding.refreshlayout.setEnableLoadMore(true);
                 break;
             case R.id.copy_to_me_btn://抄送给我的
                 mType = 3;
+                stats = "3";
+                mBinding.refreshlayout.setEnableLoadMore(true);
                 break;
             case R.id.yitijioa_btn:// 已提交的
                 mType = 4;
+                stats = "4";
+                mBinding.refreshlayout.setEnableLoadMore(true);
                 break;
         }
         page = 1;
         getListData(Constants.RequestMode.FRIST);
     }
 
+    /**
+     * 审批处理成功回调
+     */
+    @Override
+    protected void successTreatment() {
+        super.successTreatment();
+        page = 1;
+        getListData(Constants.RequestMode.FRIST);
+    }
 
     /**
      * 参数

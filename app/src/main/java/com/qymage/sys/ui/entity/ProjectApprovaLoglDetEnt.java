@@ -36,6 +36,7 @@ public class ProjectApprovaLoglDetEnt {
     public List<SendListBean> sendList;
     public String actStatus;
     public String introduction;
+    public int canCancelTask;
 
     public static class ActivityVoListBean {
         /**

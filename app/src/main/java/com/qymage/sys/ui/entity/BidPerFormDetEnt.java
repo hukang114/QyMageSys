@@ -16,7 +16,7 @@ import java.util.List;
 public class BidPerFormDetEnt {
 
 
-    public String createTime;
+    public long createTime;
     public String createBy;
     public String updateTime;
     public String updateBy;
@@ -41,7 +41,8 @@ public class BidPerFormDetEnt {
     public Object keyword;
     public String stats;
     public String processInstId;
-    public int actStatus;
+    public String actStatus;
+    public int canCancelTask; // 是否可以撤销任务:1-可以 0-不可以
     public List<ActivityVoListBean> activityVoList;
     public List<SendListBean> sendList;
 

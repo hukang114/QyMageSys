@@ -106,6 +106,8 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
     @Override
     protected void initData() {
         super.initData();
+        // 获取打分的数据
+        getleadType();
         if (workType.equals("1")) {
             getDayDet();
         } else if (workType.equals("2")) {
@@ -121,7 +123,7 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
      */
     private void getMonthlDet() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("Id", id);
+        map.put("id", id);
         showLoading();
         HttpUtil.log_monQuery(map).execute(new JsonCallback<Result<DayWeekMonthDet>>() {
             @Override
@@ -209,11 +211,7 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
 
     private HashMap<String, Object> getPer() {
         HashMap<String, Object> map = new HashMap<>();
-        if (workType.equals("1")) {
-            map.put("id", id);
-        } else {
-            map.put("Id", id);
-        }
+        map.put("id", id);
         return map;
     }
 
@@ -267,11 +265,10 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         if (info != null) {
             appLogEnt = new ProjectAppLogEnt();
             appLogEnt.processInstId = info.processInstanceId;
+            appLogEnt.id = info.id;
             if (workType.equals("1")) {
-                appLogEnt.id = info.id;
                 status = AppConfig.status.value2;
             } else if (workType.equals("3")) {
-                appLogEnt.id = info.Id;
                 status = AppConfig.status.value14;
             }
 

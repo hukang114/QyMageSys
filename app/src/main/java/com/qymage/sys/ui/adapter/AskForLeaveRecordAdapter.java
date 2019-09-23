@@ -47,14 +47,9 @@ public class AskForLeaveRecordAdapter extends BaseQuickAdapter<AskForLeaveEntity
                 .setText(R.id.crate_time, item.createDate)
                 .setText(R.id.proj_type, "请假原因：" + item.cause)
                 .setText(R.id.proj_name, "请假类型：" + item.leaveName)
-                .setText(R.id.appaly_content_tv, "请假时间：" + item.startDate + "-" + item.endDate)
+                .setText(R.id.appaly_content_tv, "请假时间：" + item.startDate + " - " + item.endDate)
                 .setText(R.id.date_time_tv, " 时长：" + item.ofTime);
 
-        if (item.read == 0) {
-            helper.setVisible(R.id.unread_msg_img, true);
-        } else {
-            helper.setVisible(R.id.unread_msg_img, false);
-        }
 
         switch (AskForLeaveRecordlActivity.mType) {
             case 1:
@@ -62,23 +57,35 @@ public class AskForLeaveRecordAdapter extends BaseQuickAdapter<AskForLeaveEntity
                 bnt1.setVisibility(View.GONE);
                 bnt2.setVisibility(View.VISIBLE);
                 bnt3.setVisibility(View.VISIBLE);
+                if (item.read == 0) {
+                    helper.setVisible(R.id.unread_msg_img, true);
+                } else {
+                    helper.setVisible(R.id.unread_msg_img, false);
+                }
                 break;
             case 2:
                 bnt1.setVisibility(View.GONE);
                 bnt2.setVisibility(View.GONE);
                 bnt3.setVisibility(View.GONE);
+                helper.setVisible(R.id.unread_msg_img, false);
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
                 break;
             case 3:
                 bnt1.setVisibility(View.GONE);
                 bnt2.setVisibility(View.GONE);
                 bnt3.setVisibility(View.GONE);
+                helper.setVisible(R.id.unread_msg_img, false);
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
                 break;
             case 4:
-                bnt1.setVisibility(View.VISIBLE);
                 bnt2.setVisibility(View.GONE);
                 bnt3.setVisibility(View.GONE);
+                helper.setVisible(R.id.unread_msg_img, false);
+                if (item.canCancelTask == 1) {
+                    bnt1.setVisibility(View.VISIBLE);
+                } else {
+                    bnt1.setVisibility(View.GONE);
+                }
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
                 break;
             default:

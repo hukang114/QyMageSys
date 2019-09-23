@@ -200,12 +200,13 @@ public class ApplicationCollectionLogActivity extends BBActivity<ActivityApplica
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
                 closeLoading();
-                if (mType == 1 && result.data != null && result.data.size() > 0) {
-                    mBinding.pendingBtn.setText("待处理(" + result.data.size() + ")");
-                } else {
-                    mBinding.pendingBtn.setText("待处理");
+                if (mType == 1) {
+                    if (result.data != null && result.data.size() > 0) {
+                        mBinding.pendingBtn.setText("待处理(" + result.data.size() + ")");
+                    } else {
+                        mBinding.pendingBtn.setText("待处理");
+                    }
                 }
-
                 if (mode == Constants.RequestMode.FRIST) {
                     listdata.clear();
                     if (result.data != null && result.data.size() > 0) {

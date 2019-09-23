@@ -27,6 +27,9 @@ public class MyLoanEnt {
     public String processInstId;
     public String msgId;// 消息id
     public int read;// 消息状态  0未读  1已读
+    public int canCancelTask;
+    public int returnStatus;
+    public String assignees;
 
 
     /**

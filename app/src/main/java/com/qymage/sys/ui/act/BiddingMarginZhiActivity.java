@@ -181,11 +181,15 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
                 mBinding.bzjmcLayout.setVisibility(View.GONE);
                 //添加投标保证金支默认审批人
                 getAuditQuery(MainActivity.processDefId(AppConfig.btnType10));
+                mBinding.startTimeLayout.setVisibility(View.GONE);
+                mBinding.fileLayout.setVisibility(View.GONE);
                 break;
             case "2"://投标保证金收
                 mBinding.metitle.setcTxt("投标保证金收");
                 mBinding.skdwmcTv.setText("付款单位名称");
                 mBinding.skdwmcEdt.setHint("请输入付款单位名称");
+                mBinding.startTimeLayout.setVisibility(View.GONE);
+                mBinding.fileLayout.setVisibility(View.GONE);
                 //添加投标保证金收默认审批人
                 getAuditQuery(MainActivity.processDefId(AppConfig.btnType9));
                 break;
@@ -610,20 +614,11 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         } else if (TextUtils.isEmpty(mBinding.bzjjeEdt.getText().toString())) {
             showToast("请输入保证金金额");
             return false;
-        } else if (TextUtils.isEmpty(mBinding.startDateTv.getText().toString())) {
-            showToast("请选择开始日期");
-            return false;
-        } else if (TextUtils.isEmpty(mBinding.endDateTv.getText().toString())) {
-            showToast("请选择结束日期");
-            return false;
         } else if (TextUtils.isEmpty(mBinding.endDateTv.getText().toString())) {
             showToast("请选择结束日期");
             return false;
         } else if (auditorList.size() == 0) {
             showToast("请选择审批人");
-            return false;
-        } else if (copierList.size() == 0) {
-            showToast("请选择抄送人");
             return false;
         } else {
             return true;

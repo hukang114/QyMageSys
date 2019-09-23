@@ -48,6 +48,7 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
     private Intent mIntent;
     private String processInstId;
     private String id;
+    private String amount;
 
     @Override
     protected int getLayoutId() {
@@ -61,6 +62,7 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
         mIntent = getIntent();
         processInstId = mIntent.getStringExtra("processInstId");
         id = mIntent.getStringExtra("id");
+        amount = mIntent.getStringExtra("amount");
         if (processInstId == null) {
             return;
         }
@@ -104,7 +106,7 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
     protected void initData() {
         super.initData();
         loan_quotaQuery();
-
+        mBinding.shenqingMoneyEdt.setText(amount);
     }
 
     private void loan_quotaQuery() {

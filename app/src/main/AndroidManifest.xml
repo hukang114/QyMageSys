@@ -193,6 +193,7 @@
         <activity android:name=".ui.act.RankingActivity" />
         <activity android:name=".ui.act.MonthlyDetailsActivity" />
         <activity android:name=".ui.act.HistoryInvoicedCollectActivity" />
+        <activity android:name=".ui.act.ViewPagerActivity" />
     </application>
 
 </manifest>

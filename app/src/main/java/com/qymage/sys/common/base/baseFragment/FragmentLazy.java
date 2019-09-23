@@ -351,7 +351,7 @@ public abstract class FragmentLazy<VB extends ViewDataBinding> extends Fragment 
 
 
     /**
-     * 月报打分的时候需要先获取领导打分数据
+     * 月报打分页面需要提前调用改方法，的时候需要先获取领导打分数据
      */
     protected void getleadType() {
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -397,14 +397,13 @@ public abstract class FragmentLazy<VB extends ViewDataBinding> extends Fragment 
         LinearLayoutManager layouta = new LinearLayoutManager(getActivity());
         layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         recyclerView.setLayoutManager(layouta);
-        if (modeType == AppConfig.status.value14) { // 月报提交需要打分和提交评语
+        if (modeType == AppConfig.status.value14 && type.equals("1")) { // 月报提交需要打分和提交评语 同意 的时候执行
             comments_edt.setVisibility(View.VISIBLE);
             df_tv.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
             if (leaveTypes != null && leaveTypes.size() > 0) {
                 typeAdapter = new LeaveTypeAdapter(R.layout.item_list_leavetype, leaveTypes);
                 recyclerView.setAdapter(typeAdapter);
-
                 typeAdapter.setOnItemChildClickListener((adapter, view12, position) -> {
                     switch (view12.getId()) {
                         case R.id.frg_selc_all:
@@ -423,8 +422,6 @@ public abstract class FragmentLazy<VB extends ViewDataBinding> extends Fragment 
                             break;
                     }
                 });
-
-
             }
         } else {
             recyclerView.setVisibility(View.GONE);

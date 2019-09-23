@@ -17,162 +17,240 @@
             app:cTxt="@string/det_txt" />
 
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin8"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin60"
-                android:layout_marginLeft="@dimen/margin15">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/name_tv_bg"
-                    android:layout_width="@dimen/margin45"
-                    android:layout_height="@dimen/margin45"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/btn_round_style"
-                    android:gravity="center"
-                    android:text="名字"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_13"
-                    android:visibility="visible" />
-
-
-                <TextView
-                    android:id="@+id/user_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin10"
-                    android:layout_marginTop="@dimen/margin10"
-                    android:layout_toRightOf="@+id/name_tv_bg"
-                    android:text="张三的借款"
-                    android:textColor="@color/rizhi_color"
-                    android:textSize="@dimen/text_size_16"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/margin8"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/actstatus_tv"
-                    android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/margin60"
+                        android:layout_marginLeft="@dimen/margin15">
+
+                        <TextView
+                            android:id="@+id/name_tv_bg"
+                            android:layout_width="@dimen/margin45"
+                            android:layout_height="@dimen/margin45"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_round_style"
+                            android:gravity="center"
+                            android:text="名字"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_13"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/user_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin10"
+                            android:layout_marginTop="@dimen/margin10"
+                            android:layout_toRightOf="@+id/name_tv_bg"
+                            android:text="张三的提交申请"
+                            android:textColor="@color/rizhi_color"
+                            android:textSize="@dimen/text_size_16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/actstatus_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/user_name"
+                            android:layout_marginLeft="@dimen/margin10"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:layout_toRightOf="@+id/name_tv_bg"
+                            android:text="审批状态"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/div_color" />
+
+
+                    <TextView
+                        android:id="@+id/spbh_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin10"
+                        android:text="审批编号"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/szbm_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="所在部门"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/proj_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="项目类型"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/bank_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="开户银行"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/account_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="银行账号"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/proj_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="项目编号"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/proj_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="项目名称"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/persion_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="负责人"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/appaly_content_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="预算金额"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/createtime_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="申请日期"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/date_time_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="开始日期"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/end_time_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="结束日期"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <LinearLayout
+                        android:id="@+id/file_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/file_list_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="附件大小"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/file_list_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/introduction_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:layout_marginBottom="@dimen/margin20"
+                        android:text="项目介绍"
+                        android:textColor="@color/rizhi_content_color"
+                        android:textSize="@dimen/text_size_15" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/user_name"
-                    android:layout_marginLeft="@dimen/margin10"
-                    android:layout_marginTop="@dimen/margin5"
-                    android:layout_toRightOf="@+id/name_tv_bg"
-                    android:text="审批状态"
-                    android:visibility="visible" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="5dp"
-                android:background="@color/div_color" />
-
-
-            <TextView
-                android:id="@+id/spbh_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="审批编号"
-                android:textSize="@dimen/text_size_15" />
-
-            <TextView
-                android:id="@+id/szbm_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="@dimen/margin5"
-                android:text="所在部门"
-                android:textSize="@dimen/text_size_15" />
-
-            <TextView
-                android:id="@+id/proj_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="@dimen/margin5"
-                android:text="项目类型"
-                android:textSize="@dimen/text_size_15" />
-
-            <TextView
-                android:id="@+id/proj_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="@dimen/margin5"
-                android:text="项目编号"
-                android:textSize="@dimen/text_size_15" />
-
-            <TextView
-                android:id="@+id/proj_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="@dimen/margin5"
-                android:text="项目名称"
-                android:textSize="@dimen/text_size_15" />
-
-            <TextView
-                android:id="@+id/persion_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="@dimen/margin5"
-                android:text="负责人"
-                android:textSize="@dimen/text_size_15" />
-
-            <TextView
-                android:id="@+id/appaly_content_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="@dimen/margin5"
-                android:text="预算金额"
-                android:textColor="@color/rizhi_content_color"
-                android:textSize="@dimen/text_size_15" />
-
-
-            <TextView
-                android:id="@+id/date_time_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="@dimen/margin5"
-                android:text="日期"
-                android:textColor="@color/rizhi_content_color"
-                android:textSize="@dimen/text_size_15" />
-
-            <TextView
-                android:id="@+id/introduction_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin15"
-                android:layout_marginTop="@dimen/margin5"
-                android:layout_marginBottom="@dimen/margin20"
-                android:text="项目介绍"
-                android:textColor="@color/rizhi_content_color"
-                android:textSize="@dimen/text_size_15" />
-        </LinearLayout>
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin10"
-            android:layout_marginBottom="@dimen/margin10"
-            android:layout_weight="1" />
-
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginBottom="@dimen/margin10"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:paddingTop="@dimen/margin10"
+                    android:paddingBottom="@dimen/margin10" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
         <LinearLayout
+            android:id="@+id/bottom_state_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin50"
             android:background="@color/white"
@@ -217,4 +295,5 @@
 
 
     </LinearLayout>
+
 </layout>

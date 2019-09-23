@@ -45,6 +45,7 @@ public class AppColletionLoglDet {
     public Object keyword;
     public String stats;
     public String processInstId;
+    public String processInstanceId;
     public String actStatus;
     public String contractNo;
     public String contractName;
@@ -78,6 +79,7 @@ public class AppColletionLoglDet {
     public String colContacts;
     public String endAmount;
     public String endTicket;
+    public int canCancelTask; // 是否可以撤销任务:1-可以 0-不可以
 
     public List<CompanyMoneyTicketVOSBean> companyMoneyTicketVOS;
     public List<CompanyMoneyPaymentVOSBean> companyMoneyPaymentVOS;
@@ -143,7 +145,7 @@ public class AppColletionLoglDet {
     public static class CompanyMoneyTicketVOSBean implements Serializable {
         public String Id;//
         public String amount;//金额
-        public String taxeRate;// 税率
+        public String taxRate;// 税率
         public String taxes;// 税金
         public String paymentTime;//  日期
     }

@@ -38,7 +38,7 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * 收付款 支-收  开票 支-收详情
+ * 收付款 支-收  开票 支-收详情 收款详情 -付款申请详情
  */
 public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletionloglDetBinding> implements View.OnClickListener {
 
@@ -80,17 +80,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
         mBinding.endticketBtn.setOnClickListener(this);
         mBinding.thismoneyBtn.setOnClickListener(this);
         mBinding.fileListBtn.setOnClickListener(this);
-        if (ApplicationCollectionLogActivity.mType == 1) {
-            mBinding.bnt1.setVisibility(View.GONE);
-            mBinding.refuseTv.setVisibility(View.VISIBLE);
-            mBinding.agreeTv.setVisibility(View.VISIBLE);
-        } else if (ApplicationCollectionLogActivity.mType == 4) {
-            mBinding.bnt1.setVisibility(View.VISIBLE);
-            mBinding.refuseTv.setVisibility(View.GONE);
-            mBinding.agreeTv.setVisibility(View.GONE);
-        } else {
-            mBinding.bottomStateLayout.setVisibility(View.GONE);
-        }
+
         mBinding.bnt1.setOnClickListener(this);
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
@@ -218,6 +208,25 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
         } else {
             mBinding.fileListTv.setText("合同附件");
         }
+
+        if (ApplicationCollectionLogActivity.mType == 1) {
+            mBinding.bnt1.setVisibility(View.GONE);
+            mBinding.refuseTv.setVisibility(View.VISIBLE);
+            mBinding.agreeTv.setVisibility(View.VISIBLE);
+        } else if (ApplicationCollectionLogActivity.mType == 4) {
+            mBinding.bnt1.setVisibility(View.VISIBLE);
+            mBinding.refuseTv.setVisibility(View.GONE);
+            mBinding.agreeTv.setVisibility(View.GONE);
+            // 是否可以撤销任务:1-可以 0-不可以
+            if (item.canCancelTask == 1) {
+                mBinding.bnt1.setVisibility(View.VISIBLE);
+            } else {
+                mBinding.bnt1.setVisibility(View.GONE);
+            }
+        } else {
+            mBinding.bottomStateLayout.setVisibility(View.GONE);
+        }
+
     }
 
 
@@ -232,7 +241,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
     @Override
     public void onClick(View v) {
         ProjectAppLogEnt appLogEnt = new ProjectAppLogEnt();
-        appLogEnt.processInstId = info.processInstId;
+        appLogEnt.processInstId = info.processInstanceId;
         appLogEnt.id = info.id;
         switch (v.getId()) {
             case R.id.bnt1: // 撤销
@@ -362,7 +371,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
                         GetReceivedInfoEnt.CompanyMoneyTicketVOBean bean = new GetReceivedInfoEnt.CompanyMoneyTicketVOBean();
                         bean.amount = info.companyMoneyTicketVOS.get(i).amount;
                         bean.paymentTime = info.companyMoneyTicketVOS.get(i).paymentTime;
-                        bean.taxeRate = info.companyMoneyTicketVOS.get(i).taxeRate;
+                        bean.taxRate = info.companyMoneyTicketVOS.get(i).taxRate;
                         bean.taxes = info.companyMoneyTicketVOS.get(i).taxes;
                         companyMoneyTicketVO.add(bean);
                     }

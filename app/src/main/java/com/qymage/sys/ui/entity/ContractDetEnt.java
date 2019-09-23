@@ -111,6 +111,7 @@ public class ContractDetEnt {
     public List<ContractDetailsBean> contractDetails;
     public List<ContractPayscaleBean> contractPayscale;
     public List<FileListBean> fileList;
+    public int canCancelTask;
 
     public static class FileListBean {
         /**
