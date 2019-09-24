@@ -81,7 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin60"
             android:layout_marginTop="@dimen/margin10"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"

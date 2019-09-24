@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin10"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/user_name"
@@ -69,11 +69,19 @@
                     android:textSize="@dimen/text_size_16" />
 
                 <TextView
+                    android:id="@+id/comment_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_name"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:hint="" />
+
+                <TextView
                     android:id="@+id/time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginTop="@dimen/margin0"
                     android:layout_marginRight="@dimen/margin15"
                     android:text="" />
 

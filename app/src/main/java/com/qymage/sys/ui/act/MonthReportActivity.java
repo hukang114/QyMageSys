@@ -2,6 +2,7 @@ package com.qymage.sys.ui.act;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.qymage.sys.AppConfig;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
@@ -46,6 +49,9 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
     AuditorListAdapter auditorListAdapter;// 审批人适配器
     CopierListAdapter copierListAdapter;// 抄送人适配器
     Bundle bundle;
+    List<String> strings = new ArrayList<>();
+    private String selg = "";
+
 
     @Override
     protected int getLayoutId() {
@@ -68,6 +74,7 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
         mBinding.sprImg.setOnClickListener(this);
         mBinding.csrImg.setOnClickListener(this);
         mBinding.saveBtn.setOnClickListener(this);
+        mBinding.xiangmuBianhao.setOnClickListener(this);
         // 审批人
         auditorListAdapter = new AuditorListAdapter(R.layout.item_list_auditor, auditorList);
         mBinding.sprRecyclerview.setAdapter(auditorListAdapter);
@@ -95,6 +102,8 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
     @Override
     protected void initData() {
         super.initData();
+        // 获取打分数据
+        getleadType();
         //添加月报提交默认审批人
         getAuditQuery(MainActivity.processDefId(AppConfig.btnType16));
         // 获取月报数据展示
@@ -207,8 +216,38 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
                 if (isCheck()) {
                     subMitData();
                 }
+                break;
+            case R.id.xiangmu_bianhao:
+                setMemberLevel();
+                break;
         }
     }
+
+
+    private void setMemberLevel() {
+        strings.clear();
+        for (int i = 0; i < leaveTypes.size(); i++) {
+            strings.add(leaveTypes.get(i).label);
+        }
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
+            selg = leaveTypes.get(options1).value;
+            mBinding.xiangmuBianhao.setText(strings.get(options1));
+        })
+                .setTitleText("请选择评级等级")
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setContentTextSize(18)
+                .setOutSideCancelable(false)//点击外部dismiss default true
+                .setContentTextSize(16)//滚轮文字大小
+                .setSubCalSize(16)//确定和取消文字大小
+                .setLineSpacingMultiplier(2.4f)
+                .build();
+        // 三级选择器
+        pvOptions.setPicker(strings, null, null);
+        pvOptions.show();
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

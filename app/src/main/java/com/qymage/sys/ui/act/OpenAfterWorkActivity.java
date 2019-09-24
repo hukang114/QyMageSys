@@ -515,8 +515,8 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
                 if (clockMode == 2) { // 下班打卡成功，填写日志
                     openActivity(DailyReportActivity.class);
                 } else { // 上班打卡成功
-                    String weekDay = VerifyUtils.isEmpty(result.data.weekDay) ? "暂无" : result.data.weekDay;
-                    msgDialog("今日工作计划[" + result.data.dayWork + "]\n\n" + "本周工作计划[" + weekDay + "]");
+                    String dayWork = VerifyUtils.isEmpty(result.data.dayWork) ? "暂无" : result.data.dayWork;
+                    msgNoTitleDialog("今日工作计划 \n\n[" + dayWork + "]");
                 }
 
             }

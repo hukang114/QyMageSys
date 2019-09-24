@@ -44,7 +44,7 @@ import okhttp3.Response;
 
 
 /**
- * 日报 提交
+ * 日报提交
  */
 public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> implements View.OnClickListener {
 

@@ -43,14 +43,14 @@
     <application
         android:name=".AppApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.act.ListAttachmentsActivity"></activity>
+        <activity android:name=".ui.act.LogDetailsActivity"></activity>
+        <activity android:name=".ui.act.ListAttachmentsActivity" />
         <activity android:name=".ui.act.ReimbursementLogDetActivity" />
         <activity android:name=".ui.act.MyAttendanceListActivity" />
         <activity android:name=".ui.act.ReimbursementLogActivity" />
@@ -194,6 +194,7 @@
         <activity android:name=".ui.act.MonthlyDetailsActivity" />
         <activity android:name=".ui.act.HistoryInvoicedCollectActivity" />
         <activity android:name=".ui.act.ViewPagerActivity" />
+        <activity android:name=".ui.act.LogHistoryReimbuActivity" />
     </application>
 
 </manifest>

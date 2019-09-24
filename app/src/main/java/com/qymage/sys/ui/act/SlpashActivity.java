@@ -30,7 +30,7 @@ public class SlpashActivity extends BBActivity<ActivitySlpashBinding> {
         return R.layout.activity_slpash;
     }
 
-    private int recLen = 5;//跳过倒计时提示5秒
+    private int recLen = 4;//跳过倒计时提示5秒
     Timer timer = new Timer();
 
     @Override

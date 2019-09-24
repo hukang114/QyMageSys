@@ -66,6 +66,7 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
+        mBinding.bottomStateLayout.setVisibility(View.GONE);
 
 
     }
@@ -81,6 +82,7 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
             public void onSuccess(Result<LoanQueryDetEnt> result, Call call, Response response) {
                 closeLoading();
                 if (result.data != null) {
+                    mBinding.bottomStateLayout.setVisibility(View.VISIBLE);
                     info = result.data;
                     setDataShow(result.data);
                     setAddList();
@@ -183,11 +185,7 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
                 } else {
                     mBinding.bnt1.setVisibility(View.GONE);
                 }
-                if (item.returnStatus == 1) {
-                    mBinding.bnt4.setVisibility(View.VISIBLE);
-                } else {
-                    mBinding.bnt4.setVisibility(View.GONE);
-                }
+                mBinding.bnt4.setVisibility(View.GONE);
                 break;
             default:
                 break;

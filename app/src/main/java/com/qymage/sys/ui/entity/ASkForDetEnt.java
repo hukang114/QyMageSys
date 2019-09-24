@@ -18,7 +18,7 @@ public class ASkForDetEnt {
 
     public String processInstanceId;
     public String actStatus;
-    public String endDate;
+    public long endDate;
     public String photo;
     public String cause;
     public double ofTime;
@@ -27,8 +27,8 @@ public class ASkForDetEnt {
     public String leaveName;
     public String name;
     public String Id;
-    public String startDate;
-    public String createDate;
+    public long startDate;
+    public long createDate;
     public String personName;
     public String createTime;
     public List<ActivityVoBean> activityVo;

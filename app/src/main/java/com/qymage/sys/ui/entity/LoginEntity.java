@@ -42,6 +42,7 @@ public class LoginEntity implements Serializable {
         public String birthday;
         public String moblie;
         public String companyName;
+        public int modifyPasswordFlag;// 密码修改标识:1-修改过、0-未修改过
 
 
        /* processAppBtnVo:[{//权限

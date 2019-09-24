@@ -23,6 +23,7 @@ import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
 import com.qymage.sys.ui.fragment.JournalFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,31 +76,7 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         mBinding.bnt2.setOnClickListener(this);
         mBinding.bnt3.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
-        switch (JournalFragment.logType) {
-            case 1:
-                mBinding.bnt1.setVisibility(View.GONE);
-                mBinding.bnt2.setVisibility(View.VISIBLE);
-                mBinding.bnt3.setVisibility(View.VISIBLE);
-                break;
-            case 2:
-                mBinding.bnt1.setVisibility(View.GONE);
-                mBinding.bnt2.setVisibility(View.GONE);
-                mBinding.bnt3.setVisibility(View.GONE);
-                break;
-            case 3:
-                mBinding.bnt1.setVisibility(View.GONE);
-                mBinding.bnt2.setVisibility(View.GONE);
-                mBinding.bnt3.setVisibility(View.GONE);
-                break;
-            case 4:
-                mBinding.bnt1.setVisibility(View.VISIBLE);
-                mBinding.bnt2.setVisibility(View.GONE);
-                mBinding.bnt3.setVisibility(View.GONE);
-                break;
-            default:
-                break;
-        }
-
+        mBinding.contractpayscaleBtn.setOnClickListener(this);
 
     }
 
@@ -228,29 +205,72 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         mBinding.userName.setText(info.userName + "提交申请");
         mBinding.actstatusTv.setText(info.actStatus);
 
-        if (workType.equals("1")) {
+        if (workType.equals("1")) { // 日报
 //        mBinding.szbmType.setText("合同名称：" + item.contractName);
             mBinding.szbmType.setVisibility(View.GONE);
 //        mBinding.projType.setText("合同类型：" + item.contractTypeName);
             mBinding.projType.setVisibility(View.GONE);
-            mBinding.projNumber.setText("昨日工作计划：" + info.dayWork);
-            mBinding.projName.setText("明日工作计划：" + info.wordplay);
-            mBinding.persionName.setText("本周工作总结：" + info.jobWord);
-            mBinding.appalyContentTv.setText("下周工作计划：" + info.nextWork);
-            mBinding.dateTimeTv.setText("时间：" + info.createTime);
-//            mBinding.introductionTv.setText("借款事由：" + item.cause);
-            mBinding.introductionTv.setVisibility(View.GONE);
+            String dayWork = VerifyUtils.isEmpty(info.dayWork) ? "暂无" : info.dayWork;
+            mBinding.projNumber.setText("昨日工作计划：" + dayWork);
+            String wordplay = VerifyUtils.isEmpty(info.wordplay) ? "暂无" : info.wordplay;
+            mBinding.projName.setText("明日工作计划：" + wordplay);
+            String jobWord = VerifyUtils.isEmpty(info.jobWord) ? "暂无" : info.jobWord;
+            mBinding.persionName.setText("本周工作总结：" + jobWord);
+            String nextWork = VerifyUtils.isEmpty(info.nextWork) ? "暂无" : info.nextWork;
+            mBinding.appalyContentTv.setText("下周工作计划：" + nextWork);
+            mBinding.dateTimeTv.setVisibility(View.GONE);
+            mBinding.introductionTv.setText("时间：" + info.createTime);
+            if (info.logList != null) {
+                mBinding.contractpayscaleTv.setText("日志明细" + info.logList.size() + "条");
+            } else {
+                mBinding.contractpayscaleTv.setText("日志明细0条");
+            }
+            //            mBinding.introductionTv.setText("借款事由：" + item.cause);
         } else if (workType.equals("3")) {
 //            mBinding.szbmType.setText("合同名称：" + item.contractName);
             mBinding.szbmType.setVisibility(View.GONE);
             mBinding.projType.setText("时间：" + info.createTime);
-            mBinding.projNumber.setText("本月工作计划：" + info.monthWork);
-            mBinding.projName.setText("本月工作总结：" + info.submonthWork);
-            mBinding.persionName.setText("下月工作计划：" + info.nextMonthWeek);
-            mBinding.appalyContentTv.setText("自我评级：" + info.selg);
-            mBinding.dateTimeTv.setText("领导评语：" + info.leadComment);
-            mBinding.introductionTv.setText("领导打分：" + info.leadGrade);
-
+            String monthWork = VerifyUtils.isEmpty(info.monthWork) ? "暂无" : info.monthWork;
+            mBinding.projNumber.setText("本月工作计划：" + monthWork);
+            String submonthWork = VerifyUtils.isEmpty(info.submonthWork) ? "暂无" : info.submonthWork;
+            mBinding.projName.setText("本月工作总结：" + submonthWork);
+            String nextMonthWeek = VerifyUtils.isEmpty(info.nextMonthWeek) ? "暂无" : info.nextMonthWeek;
+            mBinding.persionName.setText("下月工作计划：" + nextMonthWeek);
+            String selg = VerifyUtils.isEmpty(info.selg) ? "暂无" : info.selg;
+            mBinding.appalyContentTv.setText("自我评级：" + selg);
+            String leadComment = VerifyUtils.isEmpty(info.leadComment) ? "暂无" : info.leadComment;
+            mBinding.dateTimeTv.setText("领导评语：" + leadComment);
+            String leadGrade = VerifyUtils.isEmpty(info.leadGrade) ? "暂无" : info.leadGrade;
+            mBinding.introductionTv.setText("领导打分：" + leadGrade);
+            mBinding.rizhiLayout.setVisibility(View.GONE);
+        }
+        switch (JournalFragment.logType) {
+            case 1:
+                mBinding.bnt1.setVisibility(View.GONE);
+                mBinding.bnt2.setVisibility(View.VISIBLE);
+                mBinding.bnt3.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                mBinding.bnt1.setVisibility(View.GONE);
+                mBinding.bnt2.setVisibility(View.GONE);
+                mBinding.bnt3.setVisibility(View.GONE);
+                break;
+            case 3:
+                mBinding.bnt1.setVisibility(View.GONE);
+                mBinding.bnt2.setVisibility(View.GONE);
+                mBinding.bnt3.setVisibility(View.GONE);
+                break;
+            case 4:
+                mBinding.bnt2.setVisibility(View.GONE);
+                mBinding.bnt3.setVisibility(View.GONE);
+                if (info.canCancelTask == 1) {
+                    mBinding.bnt1.setVisibility(View.VISIBLE);
+                } else {
+                    mBinding.bnt1.setVisibility(View.GONE);
+                }
+                break;
+            default:
+                break;
         }
 
 
@@ -287,6 +307,15 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
             case R.id.bnt1:
                 if (appLogEnt != null) {
                     auditAdd("3", status, appLogEnt);
+                }
+                break;
+            case R.id.contractpayscale_btn://
+                if (info.logList != null && info.logList.size() > 0) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) info.logList);
+                    openActivity(LogDetailsActivity.class, bundle);
+                } else {
+                    showToast("暂无提交明细数据");
                 }
                 break;
         }

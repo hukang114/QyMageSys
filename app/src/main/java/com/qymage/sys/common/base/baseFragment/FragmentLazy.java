@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -430,14 +431,29 @@ public abstract class FragmentLazy<VB extends ViewDataBinding> extends Fragment 
         }
         TextView submit_btn = dialog.findViewById(R.id.submit_btn);
         submit_btn.setOnClickListener(v -> {
-            dialog.dismiss();
-            subMitAudit(type,
-                    modeType,
-                    item,
-                    editText.getText().toString(),
-                    comments_edt.getText().toString(),
-                    getSelectVal(),
-                    MyLoanActivity.assignees);
+            if (type.equals("2")) { // 拒绝审批
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    showToast("请填写拒绝的原因");
+                } else {
+                    dialog.dismiss();
+                    subMitAudit(type,
+                            modeType,
+                            item,
+                            editText.getText().toString(),
+                            comments_edt.getText().toString(),
+                            getSelectVal(),
+                            MyLoanActivity.assignees);
+                }
+            } else {
+                dialog.dismiss();
+                subMitAudit(type,
+                        modeType,
+                        item,
+                        editText.getText().toString(),
+                        comments_edt.getText().toString(),
+                        getSelectVal(),
+                        MyLoanActivity.assignees);
+            }
         });
 
     }

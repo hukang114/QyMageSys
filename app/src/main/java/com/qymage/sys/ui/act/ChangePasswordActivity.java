@@ -9,10 +9,16 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.util.AppManager;
+import com.qymage.sys.common.util.MeventKey;
+import com.qymage.sys.common.util.MyEvtnTools;
+import com.qymage.sys.common.util.SPUtils;
 import com.qymage.sys.databinding.ActivityChangePasswordBinding;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -20,7 +26,7 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * 修改登录密码
+ * 修改登录密码 修改密码
  */
 public class ChangePasswordActivity extends BBActivity<ActivityChangePasswordBinding> implements View.OnClickListener {
 
@@ -82,10 +88,18 @@ public class ChangePasswordActivity extends BBActivity<ActivityChangePasswordBin
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();
-                showToast(result.message);
                 // 需要从新登录
-                AppManager.getInstance().finishAllActivityNoLogin();
-                showToast("修改成功");
+                showToast("密码修改成功,需要重新登录");
+                SPUtils.remove(ChangePasswordActivity.this, Constants.token);
+                SPUtils.remove(ChangePasswordActivity.this, Constants.openid);
+                SPUtils.remove(ChangePasswordActivity.this, Constants.userid);
+                EventBus.getDefault().post(new MyEvtnTools(MeventKey.OUTLOGIN));
+                // 需要从新登录
+                AppManager.getInstance().finishAllActivity();
+                if (MainActivity.instance != null) {
+                    MainActivity.instance.finish();
+                }
+                openActivity(LoginActivity.class);
                 finish();
             }
 

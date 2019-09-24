@@ -36,6 +36,8 @@ public class JournalEntity implements Serializable {
     public String actStatus;
     public String headimg;
     public String userName;
+    public int canCancelTask;
+
     //周报--------------------------
     public String date;
     public String lastWeek;

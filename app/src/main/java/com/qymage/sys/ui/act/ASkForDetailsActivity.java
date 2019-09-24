@@ -14,6 +14,7 @@ import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityAskforDetBinding;
 import com.qymage.sys.databinding.ActivityLoanDetBinding;
@@ -177,10 +178,10 @@ public class ASkForDetailsActivity extends BBActivity<ActivityAskforDetBinding> 
         mBinding.szbmType.setVisibility(View.GONE);
 //        mBinding.projType.setText("合同类型：" + item.contractTypeName);
         mBinding.projType.setVisibility(View.GONE);
-        mBinding.projNumber.setText("创建时间：" + item.createDate);
+        mBinding.projNumber.setText("申请时间：" + DateUtil.formatMillsTo(item.createDate));
         mBinding.projName.setText("请假类型：" + item.leaveName);
-        mBinding.persionName.setText("开始时间：" + item.startDate);
-        mBinding.appalyContentTv.setText("结束时间：" + item.endDate);
+        mBinding.persionName.setText("开始时间：" + DateUtil.formatMillsTo(item.startDate));
+        mBinding.appalyContentTv.setText("结束时间：" + DateUtil.formatMillsTo(item.endDate));
         mBinding.dateTimeTv.setText("时长：" + item.ofTime);
         mBinding.introductionTv.setText("请假原因：" + item.cause);
 

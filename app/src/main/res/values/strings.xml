@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">企业项目管理平台</string>
+    <string name="app_name">润可OA</string>
 
     <!--app更新-->
     <string name="update_app_model_prepare">准备下载</string>

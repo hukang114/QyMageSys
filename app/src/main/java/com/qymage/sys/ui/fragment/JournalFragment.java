@@ -2,6 +2,7 @@ package com.qymage.sys.ui.fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -123,15 +124,19 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
             switch (checkedId) {
                 case R.id.pending_btn: // 待处理
                     logType = 1;
+                    mBinding.refreshlayout.setEnableLoadMore(false);
                     break;
                 case R.id.processed_btn:// 已处理
                     logType = 2;
+                    mBinding.refreshlayout.setEnableLoadMore(true);
                     break;
                 case R.id.copy_to_me_btn:// 抄送给我
                     logType = 3;
+                    mBinding.refreshlayout.setEnableLoadMore(true);
                     break;
                 case R.id.yitijioa_btn:// 已提交
                     logType = 4;
+                    mBinding.refreshlayout.setEnableLoadMore(true);
                     break;
             }
             page = 1;
@@ -164,6 +169,9 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                         auditAdd("1", state, item);
                         break;
                 }
+                if (journalEntities.get(position).read == 0) { // 跟新消息
+                    msgUdate(journalEntities.get(position).msgId, position);
+                }
             }
         });
         adapter.setOnItemClickListener((adapter, view, position) -> {
@@ -177,7 +185,7 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                 }
             }
         });
-
+        mBinding.refreshlayout.setEnableLoadMore(false);
     }
 
     @Override
@@ -192,6 +200,7 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         getAllTypeData(Constants.RequestMode.FRIST);
         getleadType();
     }
+
 
     private void getAllTypeData(Constants.RequestMode mode) {
         if (workType == 1) {
@@ -218,6 +227,13 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                 mBinding.emptylayout.showContent();
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
+                if (logType == 1) {
+                    if (result.data != null && result.data.size() > 0) {
+                        mBinding.pendingBtn.setText("待处理(" + result.data.size() + ")");
+                    } else {
+                        mBinding.pendingBtn.setText("待处理");
+                    }
+                }
                 if (mode == Constants.RequestMode.FRIST) {
                     journalEntities.clear();
                     if (result.data != null && result.data.size() > 0) {
@@ -272,6 +288,8 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                 mBinding.emptylayout.showContent();
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
+
+
                 if (mode == Constants.RequestMode.FRIST) {
                     journalEntities.clear();
                     if (result.data != null && result.data.size() > 0) {
@@ -327,6 +345,13 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                 mBinding.emptylayout.showContent();
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
+                if (logType == 1) {
+                    if (result.data != null && result.data.size() > 0) {
+                        mBinding.pendingBtn.setText("待处理(" + result.data.size() + ")");
+                    } else {
+                        mBinding.pendingBtn.setText("待处理");
+                    }
+                }
                 if (mode == Constants.RequestMode.FRIST) {
                     journalEntities.clear();
                     if (result.data != null && result.data.size() > 0) {
@@ -390,6 +415,15 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         super.successTreatment();
         page = 1;
         getAllTypeData(Constants.RequestMode.FRIST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 200) {
+            page = 1;
+            getAllTypeData(Constants.RequestMode.FRIST);
+        }
     }
 
     /**

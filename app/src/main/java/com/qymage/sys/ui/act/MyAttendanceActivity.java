@@ -10,6 +10,7 @@ import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityMyAttendanceBinding;
 import com.qymage.sys.ui.entity.ClockQueryList;
 
@@ -54,6 +55,8 @@ public class MyAttendanceActivity extends BBActivity<ActivityMyAttendanceBinding
         mBinding.radiogroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.week_btn:
+                    mBinding.rankingNumTv.setVisibility(View.INVISIBLE);
+                    mBinding.indexNumTv.setVisibility(View.INVISIBLE);
                     weekdateTime = DateUtil.offsetWeek(new Date(), 0);
                     DateTime beginOfWeek = DateUtil.beginOfWeek(weekdateTime);
                     DateTime endOfWeek = DateUtil.endOfWeek(weekdateTime);
@@ -62,6 +65,8 @@ public class MyAttendanceActivity extends BBActivity<ActivityMyAttendanceBinding
                 case R.id.month_btn:
                     mothdateTime = DateUtil.offsetMonth(new Date(), 0);
                     mBinding.kaoqingDateTv.setText(DateUtil.format(mothdateTime, "yyyy-MM"));
+                    mBinding.rankingNumTv.setVisibility(View.VISIBLE);
+                    mBinding.indexNumTv.setVisibility(View.VISIBLE);
                     break;
             }
             initRankDate();
@@ -109,18 +114,31 @@ public class MyAttendanceActivity extends BBActivity<ActivityMyAttendanceBinding
         }
         mBinding.kaoqinRulesTv.setText("工号：" + info.userNo);
         mBinding.userNameTv.setText(info.userName);
-        mBinding.indexNumTv.setText("指数：" + info.cindex);
-        mBinding.rankingNumTv.setText("排行: " + info.ranking);
-        mBinding.phoneEt.setText(info.totalHours + "小时");
-        mBinding.jonNumEt.setText(info.avgHours + "小时");
-        mBinding.usernameEt.setText(info.attDays + "天");
-        mBinding.sexEt.setText(info.restDays + "天");
-        mBinding.stationEt.setText(info.late + "次");
-        mBinding.birthdayEt.setText(info.leaveEarly + "次");
-        mBinding.absentTv.setText(info.absent + "次");
-        mBinding.abnormalTv.setText(info.abnormal + "次");
-        mBinding.leaveTv.setText(info.leave + "次");
-        mBinding.businessTv.setText(info.business + "次");
+        String cindex = VerifyUtils.isEmpty(info.cindex) ? "0" : info.cindex;
+        mBinding.indexNumTv.setText("指数：" + cindex);
+        String ranking = VerifyUtils.isEmpty(info.ranking) ? "0" : info.ranking;
+        mBinding.rankingNumTv.setText("排行: " + ranking);
+        String totalHours = VerifyUtils.isEmpty(info.totalHours) ? "0" : info.totalHours;
+        mBinding.phoneEt.setText(totalHours + "小时");
+        String avgHours = VerifyUtils.isEmpty(info.avgHours) ? "0" : info.avgHours;
+        mBinding.jonNumEt.setText(avgHours + "小时");
+        String attDays = VerifyUtils.isEmpty(info.attDays) ? "0" : info.attDays;
+        mBinding.usernameEt.setText(attDays + "天");
+        String restDays = VerifyUtils.isEmpty(info.restDays) ? "0" : info.restDays;
+        mBinding.sexEt.setText(restDays + "天");
+        String late = VerifyUtils.isEmpty(info.late) ? "0" : info.late;
+        mBinding.stationEt.setText(late + "次");
+        String leaveEarly = VerifyUtils.isEmpty(info.leaveEarly) ? "0" : info.leaveEarly;
+        mBinding.birthdayEt.setText(leaveEarly + "次");
+        String absent = VerifyUtils.isEmpty(info.absent) ? "0" : info.absent;
+        mBinding.absentTv.setText(absent + "次");
+        String abnormal = VerifyUtils.isEmpty(info.abnormal) ? "0" : info.abnormal;
+        mBinding.abnormalTv.setText(abnormal + "次");
+        String leave = VerifyUtils.isEmpty(info.leave) ? "0" : info.leave;
+        mBinding.leaveTv.setText(leave + "次");
+        String business = VerifyUtils.isEmpty(info.business) ? "0" : info.business;
+        mBinding.businessTv.setText(business + "次");
+
     }
 
     @Override
@@ -158,44 +176,68 @@ public class MyAttendanceActivity extends BBActivity<ActivityMyAttendanceBinding
                 initRankDate();
                 break;
             case R.id.username_et:
-                bundle = new Bundle();
-                bundle.putSerializable("data", info);
-                bundle.putString("type", "attDaysList");
-                openActivity(MyAttendanceListActivity.class, bundle);
+                if (info != null && info.attDaysList != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    bundle.putString("type", "attDaysList");
+                    openActivity(MyAttendanceListActivity.class, bundle);
+                } else {
+                    showToast("暂无数据");
+                }
                 break;
             case R.id.sex_et:
-                bundle = new Bundle();
-                bundle.putSerializable("data", info);
-                bundle.putString("type", "restDaysList");
-                openActivity(MyAttendanceListActivity.class, bundle);
+                if (info != null && info.restDaysList != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    bundle.putString("type", "restDaysList");
+                    openActivity(MyAttendanceListActivity.class, bundle);
+                } else {
+                    showToast("暂无数据");
+                }
                 break;
             case R.id.station_et:
-                bundle = new Bundle();
-                bundle.putSerializable("data", info);
-                bundle.putString("type", "lateList");
-                openActivity(MyAttendanceListActivity.class, bundle);
+                if (info != null && info.lateList != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    bundle.putString("type", "lateList");
+                    openActivity(MyAttendanceListActivity.class, bundle);
+                } else {
+                    showToast("暂无数据");
+                }
                 break;
             case R.id.birthday_et:
-                bundle = new Bundle();
-                bundle.putSerializable("data", info);
-                bundle.putString("type", "leaveEarlyList");
-                openActivity(MyAttendanceListActivity.class, bundle);
+                if (info != null && info.attDaysList != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    bundle.putString("type", "attDaysList");
+                    openActivity(MyAttendanceListActivity.class, bundle);
+                } else {
+                    showToast("暂无数据");
+                }
+
                 break;
             case R.id.absent_tv:
-                bundle = new Bundle();
-                bundle.putSerializable("data", info);
-                bundle.putString("type", "absentList");
-                openActivity(MyAttendanceListActivity.class, bundle);
+                if (info != null && info.absentList != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    bundle.putString("type", "absentList");
+                    openActivity(MyAttendanceListActivity.class, bundle);
+                } else {
+                    showToast("暂无数据");
+                }
                 break;
             case R.id.abnormal_tv:
-                bundle = new Bundle();
-                bundle.putSerializable("data", info);
-                bundle.putString("type", "abnormalList");
-                openActivity(MyAttendanceListActivity.class, bundle);
+                if (info != null && info.abnormalList != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    bundle.putString("type", "abnormalList");
+                    openActivity(MyAttendanceListActivity.class, bundle);
+                } else {
+                    showToast("暂无数据");
+                }
                 break;
         }
     }
-
 
     private HashMap<String, Object> getPer() {
         HashMap<String, Object> hashMap = new HashMap<>();

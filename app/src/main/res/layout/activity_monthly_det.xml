@@ -161,6 +161,33 @@
                         android:textColor="@color/rizhi_content_color"
                         android:textSize="@dimen/text_size_15" />
 
+                    <LinearLayout
+                        android:id="@+id/rizhi_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/contractpayscale_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="日志明细"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/contractpayscale_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin15"
+                            android:layout_marginTop="@dimen/margin5"
+                            android:text="查看明细"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/introduction_tv"
                         android:layout_width="match_parent"
@@ -179,7 +206,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin10"
                     android:layout_marginBottom="@dimen/margin10"
-                    android:nestedScrollingEnabled="false" />
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingTop="@dimen/margin10"
+                    android:paddingBottom="@dimen/margin10" />
             </LinearLayout>
         </ScrollView>
 

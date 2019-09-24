@@ -4,12 +4,8 @@
         <shape>
             <corners android:radius="20dp" />
             <solid android:color="@color/transparent" />
-            <padding android:bottom="3dp"
-                android:left="10dp"
-                android:right="10dp"
-                android:top="3dp" />
-            <stroke android:width="0.8dp"
-                android:color="@color/black" />
+            <padding android:bottom="3dp" android:left="10dp" android:right="10dp" android:top="3dp" />
+            <stroke android:width="0.8dp" android:color="@color/white" />
         </shape>
     </item>
 </selector>

@@ -10,7 +10,7 @@ public class AskForLeaveEntity {
 
     public String processInstanceId;
     public ProcessListBean processList;
-    public String endDate;
+    public long endDate;
     public String photo;
     public String cause;
     public double ofTime;
@@ -20,8 +20,8 @@ public class AskForLeaveEntity {
     public String leaveName;
     public String name;
     public String id;
-    public String startDate;
-    public String createDate;
+    public long startDate;
+    public long createDate;
     public String msgId;
     public int read;//消息状态  0未读  1已读
     public String actStatus;////审批状态

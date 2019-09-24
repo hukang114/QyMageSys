@@ -87,9 +87,9 @@ public class ReimbursementLogDetActivity extends BBActivity<ActivityReimbursemen
         }
         mBinding.userName.setText(item.reimburserName + "报销申请");
         mBinding.actstatusTv.setText(item.actStatus);
-        mBinding.szbmType.setText("报销类型：" + item.amountType);
+        mBinding.szbmType.setText("报销类型：" + item.amountName);
         mBinding.projType.setText("报销人：" + item.reimburserName);
-        mBinding.projNumber.setText("部门名称：" + item.amountType);
+        mBinding.projNumber.setText("部门名称：" + item.departmentName);
         mBinding.projName.setText("项目编号：" + item.projectNo);
         mBinding.persionName.setText("项目名称：" + item.projectName);
         mBinding.appalyContentTv.setText("合同编号：" + item.contractNo);

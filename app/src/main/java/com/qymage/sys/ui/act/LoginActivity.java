@@ -146,20 +146,32 @@ public class LoginActivity extends BBActivity<ActivityLoginBinding> implements V
             @Override
             public void onSuccess(Result<LoginEntity> result, Call call, Response response) {
                 closeLoading();
-                SPUtils.put(LoginActivity.this, Constants.USER_NAME, mBinding.etMobile.getText().toString());
-                if (mBinding.remPsd.isChecked()) {
-                    SPUtils.put(LoginActivity.this, Constants.REM_PSD, mBinding.etCode.getText().toString());
-                } else {
-                    SPUtils.remove(LoginActivity.this, Constants.REM_PSD);
-                }
                 if (result.data != null) {
-                    SPUtils.put(LoginActivity.this, Constants.token, result.data.token);
-                    SPUtils.put(LoginActivity.this, Constants.userid, result.data.info.userAccount);
-                    SPUtils.put(LoginActivity.this, Constants.userinfo, new Gson().toJson(result.data.info));
+                    if (result.data.info.modifyPasswordFlag == 0) {
+                        // 没有修改过的登录密码的需要先修改
+                        openActivity(ChangePasswordActivity.class);
+                        if (result.data != null) {
+                            SPUtils.put(LoginActivity.this, Constants.token, result.data.token);
+                        }
+                    } else { // 修改过登录密码
+                        SPUtils.put(LoginActivity.this, Constants.USER_NAME, mBinding.etMobile.getText().toString());
+                        if (mBinding.remPsd.isChecked()) {
+                            SPUtils.put(LoginActivity.this, Constants.REM_PSD, mBinding.etCode.getText().toString());
+                        } else {
+                            SPUtils.remove(LoginActivity.this, Constants.REM_PSD);
+                        }
+                        if (result.data != null) {
+                            SPUtils.put(LoginActivity.this, Constants.token, result.data.token);
+                            SPUtils.put(LoginActivity.this, Constants.userid, result.data.info.userAccount);
+                            SPUtils.put(LoginActivity.this, Constants.userinfo, new Gson().toJson(result.data.info));
+                        }
+                        showToast("登录成功");
+                        openActivity(MainActivity.class);
+                    }
+                    finish();
+                } else {
+                    showToast(result.message);
                 }
-                showToast("登录成功");
-                openActivity(MainActivity.class);
-                finish();
             }
 
             @Override

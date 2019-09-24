@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qymage.sys.R;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.common.util.PicasooUtil;
 import com.qymage.sys.ui.act.AskForLeaveRecordlActivity;
 import com.qymage.sys.ui.act.MyLoanActivity;
@@ -44,10 +45,10 @@ public class AskForLeaveRecordAdapter extends BaseQuickAdapter<AskForLeaveEntity
         }
         helper.setText(R.id.status_tv, item.actStatus)
                 .setText(R.id.user_name, item.name + "请假申请")
-                .setText(R.id.crate_time, item.createDate)
+                .setText(R.id.crate_time, DateUtil.formatMillsTo(item.createDate))
                 .setText(R.id.proj_type, "请假原因：" + item.cause)
                 .setText(R.id.proj_name, "请假类型：" + item.leaveName)
-                .setText(R.id.appaly_content_tv, "请假时间：" + item.startDate + " - " + item.endDate)
+                .setText(R.id.appaly_content_tv, "请假时间：" + DateUtil.formatMillsTo(item.startDate) + " - " + DateUtil.formatMillsTo(item.endDate))
                 .setText(R.id.date_time_tv, " 时长：" + item.ofTime);
 
 

@@ -2,6 +2,7 @@ package com.qymage.sys.ui.entity;
 
 import com.qymage.sys.ui.Test;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class DayWeekMonthDet {
+public class DayWeekMonthDet implements Serializable{
 
     // 日报====、
     public String processInstanceId;
@@ -26,6 +27,7 @@ public class DayWeekMonthDet {
     public String nextWork;//  下周工作计划
     public String actStatus; //审批状态
     public String id;
+    public int canCancelTask;
 
     // 周报===================
     public String userCode;//工号
@@ -45,10 +47,49 @@ public class DayWeekMonthDet {
     public String Id;
     public String userName;
 
+    public List<LogListBean> logList;
+
+    public static class LogListBean implements Serializable {
+        /**
+         * contractNo : z测试-合同编号
+         * contractName : z测试-合同名称
+         * projectNo : z测试-项目编号
+         * projectName : z测试-项目名称
+         * manHours : 22.0
+         * workContent : null
+         * subMoney : 333
+         * subMoneyList : [{"amount":"333","type":"1","detailed":"z测试-报销明细","photo":null}]
+         */
+
+        public String contractNo;
+        public String contractName;
+        public String projectNo;
+        public String projectName;
+        public String manHours;
+        public String workContent;
+        public String subMoney;
+        public List<LogListBean.SubMoneyListBean> subMoneyList;
+
+        public static class SubMoneyListBean implements Serializable {
+            /**
+             * amount : 333
+             * type : 1
+             * detailed : z测试-报销明细
+             * photo : null
+             */
+
+            public String amount;
+            public String type;
+            public String typeName;
+            public String detailed;
+            public String photo;
+        }
+    }
+
 
     public List<ActivityVoBean> activityVo;
 
-    public static class ActivityVoBean {
+    public static class ActivityVoBean implements Serializable{
         /**
          * id : 1171709251275427842
          * processInstanceId : 150077

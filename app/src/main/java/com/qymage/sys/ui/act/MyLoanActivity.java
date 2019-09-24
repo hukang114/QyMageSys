@@ -73,7 +73,6 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
             page++;
             getListData(Constants.RequestMode.LOAD_MORE);
         });
-        mBinding.refreshlayout.setEnableLoadMore(false);
         adapter = new MyLoanListAdapter(R.layout.item_myloan_list, listdata);
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.radioGroup.setOnCheckedChangeListener(this);
@@ -164,6 +163,13 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
                 closeLoading();
+                if (mType == 1) {
+                    if (result.data != null && result.data.size() > 0) {
+                        mBinding.pendingBtn.setText("待处理(" + result.data.size() + ")");
+                    } else {
+                        mBinding.pendingBtn.setText("待处理");
+                    }
+                }
                 if (mode == Constants.RequestMode.FRIST) {
                     listdata.clear();
                     if (result.data != null && result.data.size() > 0) {

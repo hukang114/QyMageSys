@@ -97,7 +97,7 @@ public abstract class BBActivity<VB extends ViewDataBinding> extends BaseActivit
 
     //===========================审批的处理开始=====================================================
     // 打分的数据集合
-    List<LeaveType> leaveTypes = new ArrayList<>();
+    protected List<LeaveType> leaveTypes = new ArrayList<>();
     // 打分的适配器
     LeaveTypeAdapter typeAdapter;
 

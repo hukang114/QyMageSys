@@ -15,11 +15,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/item_splash_btn_style"
             android:text="跳过 3"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
     </RelativeLayout>

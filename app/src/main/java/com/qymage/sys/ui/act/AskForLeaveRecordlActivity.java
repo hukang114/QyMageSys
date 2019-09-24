@@ -75,7 +75,6 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
             page++;
             getListData(Constants.RequestMode.LOAD_MORE);
         });
-        mBinding.refreshlayout.setEnableLoadMore(false);
         adapter = new AskForLeaveRecordAdapter(R.layout.item_askforleave_list, listdata);
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.radioGroup.setOnCheckedChangeListener(this);
@@ -157,6 +156,13 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
                 mBinding.refreshlayout.finishRefresh(); // 刷新完成
                 mBinding.refreshlayout.finishLoadMore();
                 closeLoading();
+                if (mType == 1) {
+                    if (result.data != null && result.data.size() > 0) {
+                        mBinding.pendingBtn.setText("待处理(" + result.data.size() + ")");
+                    } else {
+                        mBinding.pendingBtn.setText("待处理");
+                    }
+                }
                 if (mode == Constants.RequestMode.FRIST) {
                     listdata.clear();
                     if (result.data != null && result.data.size() > 0) {
@@ -214,15 +220,19 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
         switch (checkedId) {
             case R.id.pending_btn:// 待处理
                 mType = 1;
+                mBinding.refreshlayout.setEnableLoadMore(false);
                 break;
             case R.id.processed_btn://已处理
                 mType = 2;
+                mBinding.refreshlayout.setEnableLoadMore(true);
                 break;
             case R.id.copy_to_me_btn://抄送给我的
                 mType = 3;
+                mBinding.refreshlayout.setEnableLoadMore(true);
                 break;
             case R.id.yitijioa_btn:// 已提交的
                 mType = 4;
+                mBinding.refreshlayout.setEnableLoadMore(true);
                 break;
         }
         page = 1;

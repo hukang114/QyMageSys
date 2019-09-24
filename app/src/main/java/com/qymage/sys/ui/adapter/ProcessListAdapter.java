@@ -42,7 +42,6 @@ public class ProcessListAdapter extends BaseQuickAdapter<ProjectApprovaLoglDetEn
         } else {
             centet_div.setVisibility(View.VISIBLE);
         }
-
         if (item.userName != null) {
             if (item.userName.length() >= 3) {
                 String strh = item.userName.substring(item.userName.length() - 2, item.userName.length());   //截取
@@ -50,6 +49,10 @@ public class ProcessListAdapter extends BaseQuickAdapter<ProjectApprovaLoglDetEn
             } else {
                 name_tv.setText(item.userName);
             }
+        }
+
+        if (item.comment != null && !item.comment.equals("")) {
+            helper.setText(R.id.comment_tv, "审批意见：" + item.comment);
         }
         if (item.actType != null && item.actType.equals("startEvent")) {
             helper.setText(R.id.user_name, item.userName + "发起审批");

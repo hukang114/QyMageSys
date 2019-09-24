@@ -111,6 +111,9 @@ public class SetUpActivity extends BBActivity<ActivitySetUpBinding> implements V
             EventBus.getDefault().post(new MyEvtnTools(MeventKey.OUTLOGIN));
             // 需要从新登录
             AppManager.getInstance().finishAllActivity();
+            if (MainActivity.instance != null) {
+                MainActivity.instance.finish();
+            }
             openActivity(LoginActivity.class);
             finish();
 //            sendOutLogin();

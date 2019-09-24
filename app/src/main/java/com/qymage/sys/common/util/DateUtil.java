@@ -78,4 +78,16 @@ public class DateUtil {
         }
         return WEEK[dayIndex - 1];
     }
+
+    public static String DateToWeeks(Date date) {
+        String[] WEEK = {"星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        int WEEKDAYS = 7;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int dayIndex = calendar.get(Calendar.DAY_OF_WEEK);
+        if (dayIndex < 1 || dayIndex > WEEKDAYS) {
+            return null;
+        }
+        return WEEK[dayIndex - 1];
+    }
 }

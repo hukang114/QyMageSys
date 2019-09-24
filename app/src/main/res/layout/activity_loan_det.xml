@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             app:cTxt="@string/jiekuai_det_txt" />
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -184,7 +184,7 @@
                     android:paddingTop="@dimen/margin10"
                     android:paddingBottom="@dimen/margin10" />
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
         <LinearLayout
             android:id="@+id/bottom_state_layout"

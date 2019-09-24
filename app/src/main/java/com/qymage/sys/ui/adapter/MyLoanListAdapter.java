@@ -99,11 +99,7 @@ public class MyLoanListAdapter extends BaseQuickAdapter<MyLoanEnt, BaseViewHolde
                 } else {
                     bnt1.setVisibility(View.GONE);
                 }
-                if (item.returnStatus == 1) {
-                    bnt4.setVisibility(View.VISIBLE);
-                } else {
-                    bnt4.setVisibility(View.GONE);
-                }
+                bnt4.setVisibility(View.GONE);
                 helper.setVisible(R.id.unread_msg_img, false);
                 helper.setTextColor(R.id.status_tv, mContext.getResources().getColor(R.color.orange_e86));
                 break;

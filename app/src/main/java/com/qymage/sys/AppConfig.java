@@ -20,14 +20,14 @@ import java.util.Map;
 public class AppConfig {
     //http://192.168.1.173:50050
     //public static final String HOST = "http://livenewtest.yunbaozb.com";//50050 ，，120.79.18.66:8085
-    public static final String HOST = "http://120.79.18.66:8085";
+    public static final String HOST = "http://192.168.1.173:50050";
     //http://192.51.188.17
     //外部sd卡
     public static final String DCMI_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
     // 选择合同类型的回传标识
     public static final int num1000 = 1000;
 
-    // 工作模块的id
+    // 消息更新模块的id
     public interface status {
         final int value1 = 1;//
         final int value2 = 2;//
@@ -63,8 +63,8 @@ public class AppConfig {
 
     }
 
-    public static String btnType1 = "01";//
-    public static String btnType2 = "02";//
+    public static String btnType1 = "01";// 上班打卡
+    public static String btnType2 = "02";// 下班打开
     public static String btnType3 = "03";// 立项申请
     public static String btnType4 = "04";// 合同申请
     public static String btnType5 = "05";// 付款申请

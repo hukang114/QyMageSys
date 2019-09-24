@@ -81,7 +81,7 @@ public class MyAttendanceListActivity extends BBActivity<ActivityMyAttendanceLis
                     clockMode = "下班打卡";
                 }
                 holder.setText(R.id.crate_time_tv, item.date);
-                holder.setText(R.id.weekday_tv, DateUtil.DateToWeek(cn.hutool.core.date.DateUtil.parse(item.date).getTime()) + "\n" +
+                holder.setText(R.id.weekday_tv, DateUtil.DateToWeeks(cn.hutool.core.date.DateUtil.parse(item.date)) + "\n" +
                         "打卡时间：" + item.clockTime + "\n" + "打卡备注：" + item.remarks + "\n" + "打卡地址：" + item.address + "\n" + clockMode);
             }
         };
@@ -93,7 +93,7 @@ public class MyAttendanceListActivity extends BBActivity<ActivityMyAttendanceLis
             @Override
             protected void convert(ViewHolder holder, ClockQueryList.AbsentListBean item, int position) {
                 holder.setText(R.id.crate_time_tv, item.date);
-                holder.setText(R.id.weekday_tv, DateUtil.DateToWeek(cn.hutool.core.date.DateUtil.parse(item.date).getTime()));
+                holder.setText(R.id.weekday_tv, DateUtil.DateToWeeks(cn.hutool.core.date.DateUtil.parse(item.date)));
             }
         };
         mBinding.recyclerview.setAdapter(adapter5);
@@ -104,7 +104,7 @@ public class MyAttendanceListActivity extends BBActivity<ActivityMyAttendanceLis
             @Override
             protected void convert(ViewHolder holder, ClockQueryList.LeaveEarlyListBean item, int position) {
                 holder.setText(R.id.crate_time_tv, item.date);
-                holder.setText(R.id.weekday_tv, DateUtil.DateToWeek(cn.hutool.core.date.DateUtil.parse(item.date).getTime()) + "\n" +
+                holder.setText(R.id.weekday_tv, DateUtil.DateToWeeks(cn.hutool.core.date.DateUtil.parse(item.date)) + "\n" +
                         "打卡时间：" + item.clockTime + "\n" + "打卡备注：" + item.remarks + "\n" + "迟到时长：" + item.result + "分钟");
             }
         };
@@ -117,7 +117,7 @@ public class MyAttendanceListActivity extends BBActivity<ActivityMyAttendanceLis
             @Override
             protected void convert(ViewHolder holder, ClockQueryList.LateListBean item, int position) {
                 holder.setText(R.id.crate_time_tv, item.date);
-                holder.setText(R.id.weekday_tv, DateUtil.DateToWeek(cn.hutool.core.date.DateUtil.parse(item.date).getTime()) + "\n" +
+                holder.setText(R.id.weekday_tv, DateUtil.DateToWeeks(cn.hutool.core.date.DateUtil.parse(item.date)) + "\n" +
                         "打卡时间：" + item.clockTime + "\n" + "打卡备注：" + item.remarks + "\n" + "迟到时长：" + item.result + "分钟");
             }
         };
@@ -129,7 +129,8 @@ public class MyAttendanceListActivity extends BBActivity<ActivityMyAttendanceLis
             @Override
             protected void convert(ViewHolder holder, ClockQueryList.RestDaysListBean item, int position) {
                 holder.setText(R.id.crate_time_tv, item.date);
-                holder.setText(R.id.weekday_tv, DateUtil.DateToWeek(cn.hutool.core.date.DateUtil.parse(item.date).getTime()));
+
+                holder.setText(R.id.weekday_tv, DateUtil.DateToWeeks(cn.hutool.core.date.DateUtil.parse(item.date)));
             }
         };
         mBinding.recyclerview.setAdapter(adapter2);
@@ -140,7 +141,7 @@ public class MyAttendanceListActivity extends BBActivity<ActivityMyAttendanceLis
             @Override
             protected void convert(ViewHolder holder, ClockQueryList.AttDaysListBean item, int position) {
                 holder.setText(R.id.crate_time_tv, item.date);
-                holder.setText(R.id.weekday_tv, DateUtil.DateToWeek(cn.hutool.core.date.DateUtil.parse(item.date).getTime()));
+                holder.setText(R.id.weekday_tv, DateUtil.DateToWeeks(cn.hutool.core.date.DateUtil.parse(item.date)));
             }
         };
         mBinding.recyclerview.setAdapter(adapter1);

@@ -27,6 +27,7 @@ public class ReimbursementLogEnt implements Serializable {
     public String date; // 报销日期
     public String remark;//备注
     public String actStatus; //审批状态
+    public String deptName;
 
 
 }

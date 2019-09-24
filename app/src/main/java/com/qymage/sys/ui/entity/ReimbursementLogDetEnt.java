@@ -27,6 +27,7 @@ public class ReimbursementLogDetEnt {
     public String remark;//备注
     public String actStatus; //审批状态
     public String amountName;
+    public String deptName;
 }
 
 

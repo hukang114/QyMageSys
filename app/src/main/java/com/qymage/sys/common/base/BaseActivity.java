@@ -344,6 +344,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         msgDialog.show();
     }
 
+    // 不带标题
+    protected void msgNoTitleDialog(String msg) {
+        dismissMsgDialog();
+        msgDialog = new AlertDialog.Builder(this).setTitle("")
+                .setMessage(msg)
+                .setPositiveButton("确定", (dialog, which) -> {
+                    dismissMsgDialog();
+                })
+                .create();
+        msgDialog.show();
+    }
+
     protected AlertDialog.Builder msgDialogBuilder(String msg) {
         dismissMsgDialog();
         return new AlertDialog.Builder(this).setTitle("提示!")
