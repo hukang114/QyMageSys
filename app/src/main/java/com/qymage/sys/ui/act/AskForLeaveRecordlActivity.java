@@ -107,6 +107,9 @@ public class AskForLeaveRecordlActivity extends BBActivity<FragmentAskForLeaveRe
                     auditAdd("1", AppConfig.status.value7, appLogEnt);
                     break;
             }
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
 
         adapter.setOnItemClickListener((adapter, view, position) -> {

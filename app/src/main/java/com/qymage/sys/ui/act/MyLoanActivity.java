@@ -114,6 +114,9 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
                     openActivity(ApplicationRepaymentActivity.class, bundle);
                     break;
             }
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
 
         adapter.setOnItemClickListener((adapter, view, position) -> {

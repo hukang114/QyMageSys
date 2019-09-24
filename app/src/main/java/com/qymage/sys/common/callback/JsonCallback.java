@@ -6,6 +6,7 @@ import com.qymage.sys.AppApplication;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.common.util.SPUtils;
+import com.qymage.sys.ui.act.LoginInvalidActivity;
 
 import org.json.JSONObject;
 
@@ -93,7 +94,12 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         String jsonRe = response.body().string();
         JSONObject resJ = new JSONObject(jsonRe);
         if (resJ.getInt("code") != 200) {
-            throw new IllegalStateException(resJ.getString("message"));
+            if (resJ.getInt("code") == 700) {
+                //token过期，重新登录
+                LoginInvalidActivity.forward(resJ.getString("message"));
+            } else {
+                throw new IllegalStateException(resJ.getString("message"));
+            }
         }
         if (typeArgument == Void.class) {
             //无数据类型,表示没有data数据的情况（以  new DialogCallback<LzyResponse<Void>>(this)  以这种形式传递的泛型)
@@ -112,27 +118,24 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
             //一般来说服务器会和客户端约定一个数表示成功，其余的表示失败，这里根据实际情况修改
             if (code == 200) {
                 return (T) lzyResponse;
-            } else {
+            } else if (code == 700) {
+                //token过期，重新登录
+                LoginInvalidActivity.forward(lzyResponse.message);
                 throw new IllegalStateException(lzyResponse.message);
             }
-//            if (code == 0) {
-//                //noinspection unchecked
-//                return (T) lzyResponse;
-//            } else if (code == 104) {
-//                //比如：用户授权信息无效，在此实现相应的逻辑，弹出对话或者跳转到其他页面等,该抛出错误，会在onError中回调。
-//                throw new IllegalStateException("用户授权信息无效");
-//            } else if (code == 105) {
-//                //比如：用户收取信息已过期，在此实现相应的逻辑，弹出对话或者跳转到其他页面等,该抛出错误，会在onError中回调。
-//                throw new IllegalStateException("用户收取信息已过期");
-//            } else if (code == 106) {
-//                //比如：用户账户被禁用，在此实现相应的逻辑，弹出对话或者跳转到其他页面等,该抛出错误，会在onError中回调。
-//                throw new IllegalStateException("用户账户被禁用");
-//            } else if (code == 300) {
-//                //比如：其他乱七八糟的等，在此实现相应的逻辑，弹出对话或者跳转到其他页面等,该抛出错误，会在onError中回调。
-//                throw new IllegalStateException("其他乱七八糟的等");
-//            } else {
-//                throw new IllegalStateException("错误代码：" + code + "，错误信息：" + lzyResponse.msg);
-//            }
+          /*  else if (code == 105) {
+                //比如：用户收取信息已过期，在此实现相应的逻辑，弹出对话或者跳转到其他页面等,该抛出错误，会在onError中回调。
+                throw new IllegalStateException("用户收取信息已过期");
+            } else if (code == 106) {
+                //比如：用户账户被禁用，在此实现相应的逻辑，弹出对话或者跳转到其他页面等,该抛出错误，会在onError中回调。
+                throw new IllegalStateException("用户账户被禁用");
+            } else if (code == 300) {
+                //比如：其他乱七八糟的等，在此实现相应的逻辑，弹出对话或者跳转到其他页面等,该抛出错误，会在onError中回调。
+                throw new IllegalStateException("其他乱七八糟的等");
+            } */
+            else {
+                throw new IllegalStateException("错误代码：" + code + "，错误信息：" + lzyResponse.message);
+            }
         } else {
             response.close();
             throw new IllegalStateException("基类错误无法解析!");

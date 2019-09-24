@@ -20,7 +20,7 @@ import java.util.Map;
 public class AppConfig {
     //http://192.168.1.173:50050
     //public static final String HOST = "http://livenewtest.yunbaozb.com";//50050 ，，120.79.18.66:8085
-    public static final String HOST = "http://192.168.1.173:50050";
+    public static final String HOST = "http://120.79.18.66:8085";
     //http://192.51.188.17
     //外部sd卡
     public static final String DCMI_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();

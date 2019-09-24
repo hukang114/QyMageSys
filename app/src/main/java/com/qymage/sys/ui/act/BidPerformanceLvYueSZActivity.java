@@ -168,6 +168,9 @@ public class BidPerformanceLvYueSZActivity extends BBActivity<ActivityBidPerform
                     }
                     break;
             }
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
         mBinding.pendingBtn.setChecked(true);
 

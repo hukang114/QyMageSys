@@ -111,6 +111,9 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
                     auditAdd("1", AppConfig.status.value8, item);
                     break;
             }
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
         adapter.setOnItemClickListener((adapter, view, position) -> {
             bundle = new Bundle();

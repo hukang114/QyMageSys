@@ -49,7 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.act.LogDetailsActivity"></activity>
+        <activity android:name=".ui.act.LogDetailsActivity" />
         <activity android:name=".ui.act.ListAttachmentsActivity" />
         <activity android:name=".ui.act.ReimbursementLogDetActivity" />
         <activity android:name=".ui.act.MyAttendanceListActivity" />
@@ -195,6 +195,9 @@
         <activity android:name=".ui.act.HistoryInvoicedCollectActivity" />
         <activity android:name=".ui.act.ViewPagerActivity" />
         <activity android:name=".ui.act.LogHistoryReimbuActivity" />
+        <activity
+            android:name=".ui.act.LoginInvalidActivity"
+            android:theme="@style/Dialog" />
     </application>
 
 </manifest>

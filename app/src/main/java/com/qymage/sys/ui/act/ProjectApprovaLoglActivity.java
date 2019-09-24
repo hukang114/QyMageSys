@@ -137,6 +137,9 @@ public class ProjectApprovaLoglActivity extends BBActivity<ActivityProjectApprov
                     auditAdd("1", AppConfig.status.value1, listdata.get(position));
                     break;
             }
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
         });
 
     }

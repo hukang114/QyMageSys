@@ -118,7 +118,6 @@ public class ApplicationCollectionLogActivity extends BBActivity<ActivityApplica
             ProjectAppLogEnt appLogEnt = new ProjectAppLogEnt();
             appLogEnt.id = listdata.get(position).id;
             appLogEnt.processInstId = listdata.get(position).processInstanceId;
-
             switch (view.getId()) {
                 case R.id.bnt1:
                     switch (bidType) { // 撤销
@@ -168,6 +167,9 @@ public class ApplicationCollectionLogActivity extends BBActivity<ActivityApplica
                             break;
                     }
                     break;
+            }
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
             }
         });
 
