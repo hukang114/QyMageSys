@@ -19,12 +19,14 @@ import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.databinding.ActivityLoanApplicationBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.entity.CompanyMoneyPaymentVOS;
 import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
 import com.qymage.sys.ui.entity.GetTreeEnt;
+import com.qymage.sys.ui.entity.LoanQueryDetEnt;
 import com.qymage.sys.ui.entity.PaymentInfo;
 import com.qymage.sys.ui.entity.QuotaQuery;
 import com.qymage.sys.ui.entity.ReceiverInfo;
@@ -50,8 +52,9 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
     CopierListAdapter copierListAdapter;// 抄送人适配器
     private Bundle bundle;
     QuotaQuery query;
-
     List<String> orgList = new ArrayList<>();
+    LoanQueryDetEnt info;// 借款详情复制传递过来的信息
+    private Intent mIntent;
 
 
     @Override
@@ -62,6 +65,12 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
     @Override
     protected void initView() {
         super.initView();
+        mIntent = getIntent();
+        try {
+            info = (LoanQueryDetEnt) mIntent.getSerializableExtra("data");
+        } catch (Exception e) {
+
+        }
         mBinding.metitle.setlImgClick(v -> finish());
         mBinding.bumTxt.setOnClickListener(this);
         mBinding.shiyongDateTv.setOnClickListener(this);
@@ -107,7 +116,21 @@ public class LoanApplicationActivity extends BBActivity<ActivityLoanApplicationB
         //添加借款申请默认审批人
         getAuditQuery(MainActivity.processDefId(AppConfig.btnType13));
         loan_quotaQuery();
+        if (info != null) {
+            setCopyData();
+        }
+    }
 
+    private void setCopyData() {
+        mBinding.causeContent.setText(info.cause);
+        mBinding.shenqingMoneyEdt.setText(df.format(info.amount));
+        String useDate;
+        if (info.useDate != null && info.useDate.length() > 11) {
+            useDate = info.useDate.substring(0, 10);
+        } else {
+            useDate = DateUtil.formatNYR(System.currentTimeMillis());
+        }
+        mBinding.shiyongDateTv.setText(useDate);
     }
 
     @Override

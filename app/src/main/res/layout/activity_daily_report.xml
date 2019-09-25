@@ -147,8 +147,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:paddingBottom="@dimen/margin8"
-                    android:paddingTop="@dimen/margin8">
+                    android:paddingTop="@dimen/margin8"
+                    android:paddingBottom="@dimen/margin8">
 
                     <TextView
                         android:id="@+id/add_htmx_btn"
@@ -205,13 +205,14 @@
                     <EditText
                         android:id="@+id/mingri_gongzuo_jihua"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_5tm"
                         android:layout_marginLeft="@dimen/margin15"
                         android:layout_marginRight="@dimen/margin15"
                         android:background="@color/white"
                         android:gravity="center_vertical|top"
                         android:hint="@string/d_input_workplan_txt"
+                        android:minHeight="@dimen/margin50"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
@@ -247,13 +248,14 @@
                     <EditText
                         android:id="@+id/benzhou_gongzuozongjie"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_5cs"
                         android:layout_marginLeft="@dimen/margin15"
                         android:layout_marginRight="@dimen/margin15"
                         android:background="@color/white"
                         android:gravity="center_vertical|top"
                         android:hint="@string/d_input_summary_work_txt"
+                        android:minHeight="@dimen/margin50"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
@@ -288,13 +290,14 @@
                     <EditText
                         android:id="@+id/xiazhou_jihua"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_5np"
                         android:layout_marginLeft="@dimen/margin15"
                         android:layout_marginRight="@dimen/margin15"
                         android:background="@color/white"
                         android:gravity="center_vertical|top"
                         android:hint="@string/d_input_workplan_txt"
+                        android:minHeight="@dimen/margin50"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </RelativeLayout>
@@ -479,10 +482,10 @@
                         android:id="@+id/save_btn"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginBottom="@dimen/margin50"
                         android:layout_marginLeft="@dimen/margin15"
-                        android:layout_marginRight="@dimen/margin15"
                         android:layout_marginTop="50dp"
+                        android:layout_marginRight="@dimen/margin15"
+                        android:layout_marginBottom="@dimen/margin50"
                         android:background="@drawable/save_btn_style"
                         android:text="@string/submit_txt"
                         android:textColor="@color/white"

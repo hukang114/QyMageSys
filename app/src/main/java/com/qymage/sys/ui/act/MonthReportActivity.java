@@ -18,12 +18,14 @@ import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityMonthReportBinding;
 import com.qymage.sys.ui.Test;
 import com.qymage.sys.ui.Test2;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.entity.DayLogListEnt;
+import com.qymage.sys.ui.entity.DayWeekMonthDet;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.YesQueryEny;
 
@@ -51,7 +53,8 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
     Bundle bundle;
     List<String> strings = new ArrayList<>();
     private String selg = "";
-
+    DayWeekMonthDet info;// 月报详情复制操作传递过来的数据
+    private Intent mIntent;
 
     @Override
     protected int getLayoutId() {
@@ -63,6 +66,12 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
     protected void initView() {
         super.initView();
         mBinding.metitle.setlTxtClick(v -> finish());
+        mIntent = getIntent();
+        try {
+            info = (DayWeekMonthDet) mIntent.getSerializableExtra("data");
+        } catch (Exception e) {
+
+        }
         mBinding.zhoujihua.setOnClickListener(this);
         mBinding.zhouzongjie.setOnClickListener(this);
         LinearLayoutManager layouta = new LinearLayoutManager(this);
@@ -108,6 +117,19 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
         getAuditQuery(MainActivity.processDefId(AppConfig.btnType16));
         // 获取月报数据展示
         yesQuery();
+        if (info != null) {
+            setCopyData();
+        }
+
+    }
+
+    /**
+     * 设置复制操作的数据显示
+     */
+    private void setCopyData() {
+        mBinding.tv42x.setText(VerifyUtils.isEmpty(info.submonthWork) ? "暂无" : info.submonthWork);
+        mBinding.tv42xm.setText(VerifyUtils.isEmpty(info.nextMonthWeek) ? "暂无" : info.nextMonthWeek);
+        mBinding.xiangmuBianhao.setText(VerifyUtils.isEmpty(info.selg) ? "暂无" : info.selg);
     }
 
     @Override

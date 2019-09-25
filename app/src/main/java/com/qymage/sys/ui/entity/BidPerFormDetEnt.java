@@ -1,5 +1,6 @@
 package com.qymage.sys.ui.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class BidPerFormDetEnt {
+public class BidPerFormDetEnt implements Serializable {
 
 
     public long createTime;
@@ -48,7 +49,7 @@ public class BidPerFormDetEnt {
 
     public List<FileListBean> fileList;
 
-    public static class FileListBean {
+    public static class FileListBean implements Serializable {
         /**
          * fileName : 12
          * filePath : 12
@@ -58,7 +59,7 @@ public class BidPerFormDetEnt {
         public String filePath;
     }
 
-    public static class ActivityVoListBean {
+    public static class ActivityVoListBean implements Serializable {
         /**
          * id : 1172064669692579842
          * processInstanceId : 177597
@@ -89,7 +90,7 @@ public class BidPerFormDetEnt {
         public String userName;
     }
 
-    public static class SendListBean {
+    public static class SendListBean implements Serializable {
         /**
          * userName : 孔俊智
          * userId : 1099100700000000036

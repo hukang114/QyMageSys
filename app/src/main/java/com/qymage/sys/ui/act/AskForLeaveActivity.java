@@ -41,10 +41,12 @@ import com.qymage.sys.common.datepicker.DateFormatUtils;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.tools.FileSizeUtil;
 import com.qymage.sys.common.tools.Tools;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.databinding.ActivityAskForLeaveBinding;
 import com.qymage.sys.databinding.ActivityChangePasswordBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
+import com.qymage.sys.ui.entity.ASkForDetEnt;
 import com.qymage.sys.ui.entity.FileListEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.LeaveType;
@@ -88,6 +90,9 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
     private long begintime = 0;
     List<LeaveType> leaveTypes = new ArrayList<>();
 
+    ASkForDetEnt info;// 请假详情复制操作传递过来的数据
+    private Intent mIntent;
+
 
     @Override
     protected int getLayoutId() {
@@ -99,6 +104,11 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
     protected void initView() {
         // 关闭当前的页面
         mBinding.metitle.setlTxtClick(v -> finish());
+        mIntent = getIntent();
+        try {
+            info = (ASkForDetEnt) mIntent.getSerializableExtra("data");
+        } catch (Exception e) {
+        }
         mBinding.metitle.setrTxtClick(new View.OnClickListener() {
             @SingleClick(2000)
             @Override
@@ -146,7 +156,6 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
                     break;
             }
         });
-
         setImgAdapter();
 
     }
@@ -186,7 +195,21 @@ public class AskForLeaveActivity extends BBActivity<ActivityAskForLeaveBinding> 
         //添加请假申请默认审批人
         getAuditQuery(MainActivity.processDefId(AppConfig.btnType14));
         getQingJia();
+        if (info != null) {
+            setCopyData();
+        }
+    }
 
+    /**
+     * 设置复制操作的数据显示
+     */
+    private void setCopyData() {
+        mBinding.xuanzeQingjialeixing.setText(info.leaveName);
+        leaveType = info.leaveType;
+        mBinding.xuanzeShijianStart.setText(DateUtil.formatMillsTo(info.startDate));
+        mBinding.xuanzeShijianEnd.setText(DateUtil.formatMillsTo(info.endDate));
+        mBinding.shuruShichang.setText(info.ofTime + "");
+        mBinding.qingjiaShiyou.setText(info.cause);
     }
 
     @Override

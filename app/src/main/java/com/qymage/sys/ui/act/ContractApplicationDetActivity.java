@@ -89,6 +89,7 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
         mBinding.contractdetailsBtn.setOnClickListener(this);
         mBinding.contractpayscaleBtn.setOnClickListener(this);
         mBinding.fileListBtn.setOnClickListener(this);
+        mBinding.newBuildBtn.setOnClickListener(this);
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
@@ -187,6 +188,7 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
             mBinding.bnt1.setVisibility(View.GONE);
             mBinding.refuseTv.setVisibility(View.VISIBLE);
             mBinding.agreeTv.setVisibility(View.VISIBLE);
+            mBinding.newBuildBtn.setVisibility(View.GONE);
         } else if (ChoiceContractLogActivity.mType == 4) {
             mBinding.refuseTv.setVisibility(View.GONE);
             mBinding.agreeTv.setVisibility(View.GONE);
@@ -285,7 +287,7 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
                     showToast("尚未获取到数据");
                 }
                 break;
-            case R.id.contractdetails_btn:
+            case R.id.contractdetails_btn://合同明细
                 if (info != null && info.contractDetails != null && info.contractDetails.size() > 0) {
                     listdata.clear();
                     for (int i = 0; i < info.contractDetails.size(); i++) {
@@ -303,7 +305,7 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
                     showToast("暂无合同明细数据");
                 }
                 break;
-            case R.id.contractpayscale_btn:
+            case R.id.contractpayscale_btn: // 付款比例
                 if (info != null && info.contractPayscale != null && info.contractPayscale.size() > 0) {
                     listbil.clear();
                     for (int i = 0; i < info.contractPayscale.size(); i++) {
@@ -332,6 +334,15 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
                     openActivity(ListAttachmentsActivity.class, bundle);
                 } else {
                     showToast("该合同暂无上传附件");
+                }
+                break;
+            case R.id.new_build_btn:// 新建
+                if (info != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    openActivity(ContractApplicationActivity.class, bundle);
+                } else {
+                    showToast("尚未获取到数据");
                 }
                 break;
         }

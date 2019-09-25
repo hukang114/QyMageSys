@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class LoanQueryDetEnt {
+public class LoanQueryDetEnt implements Serializable {
 
     /**
      * id : 1099302100000000016

@@ -12,14 +12,11 @@ import android.widget.TextView;
 
 import com.qymage.sys.AppApplication;
 import com.qymage.sys.R;
-import com.qymage.sys.common.base.BBActivity;
-import com.qymage.sys.common.base.BaseActivity;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.util.AppManager;
 import com.qymage.sys.common.util.MeventKey;
 import com.qymage.sys.common.util.MyEvtnTools;
 import com.qymage.sys.common.util.SPUtils;
-import com.qymage.sys.databinding.ActivityLoginInvalidBinding;
 
 import org.greenrobot.eventbus.EventBus;
 

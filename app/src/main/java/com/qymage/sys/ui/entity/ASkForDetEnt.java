@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class ASkForDetEnt {
+public class ASkForDetEnt implements Serializable {
 
     public String processInstanceId;
     public String actStatus;

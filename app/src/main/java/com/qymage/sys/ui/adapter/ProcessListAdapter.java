@@ -60,11 +60,15 @@ public class ProcessListAdapter extends BaseQuickAdapter<ProjectApprovaLoglDetEn
         } else {
             if (item.id != null) {
                 String status = VerifyUtils.isEmpty(item.status) ? "" : item.status.equals("1") ? "同意" : item.status.equals("2") ? "拒绝" :
-                        item.status.equals("3") ? "撤销" : "";
+                        item.status.equals("3") ? "撤销" : item.status.equals("101") ? "已还款" : "";
                 helper.setText(R.id.user_name, item.name + "(" + status + ")");
                 helper.setText(R.id.time_tv, DateUtil.formatMillsTo(item.createdDate));
             } else {
-                helper.setText(R.id.user_name, "正在等待" + item.userName + "审批");
+                if (item.status != null && item.status.equals("101")) {
+                    helper.setText(R.id.user_name, "正在等待" + item.userName + "还款");
+                } else {
+                    helper.setText(R.id.user_name, "正在等待" + item.userName + "审批");
+                }
             }
 
         }

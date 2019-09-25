@@ -30,6 +30,7 @@ public class MyLoanEnt {
     public int canCancelTask;
     public int returnStatus;
     public String assignees;
+    public String type;
 
 
     /**

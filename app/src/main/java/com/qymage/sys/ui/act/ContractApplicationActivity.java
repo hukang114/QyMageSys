@@ -22,11 +22,14 @@ import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.http.LogUtils;
+import com.qymage.sys.common.util.DateUtil;
+import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityContractApplicationBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.adapter.FileListAdapter;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
+import com.qymage.sys.ui.entity.ContractDetEnt;
 import com.qymage.sys.ui.entity.ContractPayEnt;
 import com.qymage.sys.ui.entity.FileListEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
@@ -74,6 +77,8 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
 
     private String projectId;// 项目id
     private String contractType;// 合同类型
+    ContractDetEnt info;//通过合同详情新建传递过来的数据
+    private Intent mIntent;
 
 
     Bundle bundle;
@@ -82,7 +87,6 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
     protected int getLayoutId() {
         return R.layout.activity_contract_application;
     }
-
 
     @Override
     protected void initView() {
@@ -95,6 +99,12 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
                 openActivity(ChoiceContractLogActivity.class);
             }
         });
+        mIntent = getIntent();
+        try {
+            info = (ContractDetEnt) mIntent.getSerializableExtra("data");
+        } catch (Exception e) {
+
+        }
         mBinding.htmxEdt.setOnClickListener(this);
         mBinding.fkblsmEdt.setOnClickListener(this);
         mBinding.sprImg.setOnClickListener(this);
@@ -196,6 +206,77 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         super.initData();
         //添加合同默认审批人
         getAuditQuery(MainActivity.processDefId(AppConfig.btnType4));
+        // 设置新建操作显示对应的数据
+        if (info != null) {
+            mBinding.xmbhEdt.setText(info.projectNo);
+            mBinding.xmmcEdt.setText(info.projectName);
+            projectId = info.projectId;
+            contractType = info.contractType;
+            mBinding.htlxCateTxt.setText(info.contractTypeName);
+            mBinding.htbhEdt.setText(info.contractNo);
+            mBinding.htmcEdt.setText(info.contractName);
+            mBinding.htjeEdt.setText(df.format(info.amount));
+            String date;
+            if (info.date != null && info.date.length() > 10) {
+                date = info.date.substring(0, 10);
+            } else {
+                date = DateUtil.formatNYR(System.currentTimeMillis());
+            }
+            mBinding.htrqEdt.setText(date);
+            //  合同明细
+            if (info.contractDetails != null && info.contractDetails.size() > 0) {
+                listdata.clear();
+                for (int i = 0; i < info.contractDetails.size(); i++) {
+                    ContractDetAddEnt addEnt = new ContractDetAddEnt();
+                    addEnt.amount = info.contractDetails.get(i).amount + "";
+                    addEnt.taxes = info.contractDetails.get(i).taxes + "";
+                    addEnt.taxRate = info.contractDetails.get(i).taxRate;
+                    listdata.add(addEnt);
+                }
+            }
+            mBinding.hkbzContent.setText(info.payRemark);
+            // 付款比例
+            if (info.contractPayscale != null && info.contractPayscale.size() > 0) {
+                listbil.clear();
+                for (int i = 0; i < info.contractPayscale.size(); i++) {
+                    ContractPayEnt ent = new ContractPayEnt();
+                    ent.date = info.contractPayscale.get(i).date;
+                    ent.amount = info.contractPayscale.get(i).amount + "";
+                    ent.payScale = info.contractPayscale.get(i).payScale;
+                    listbil.add(ent);
+                }
+            }
+            // 收款方信息
+            receiverInfo.colName = VerifyUtils.isEmpty(info.colName) ? "" : info.colName;
+            receiverInfo.colBank = VerifyUtils.isEmpty(info.colBank) ? "" : info.colBank;
+            receiverInfo.colAccount = VerifyUtils.isEmpty(info.colAccount) ? "" : info.colAccount;
+            receiverInfo.colCreditCode = VerifyUtils.isEmpty(info.colCreditCode) ? "" : info.colCreditCode;
+            receiverInfo.colInvoicePhone = VerifyUtils.isEmpty(info.colInvoicePhone) ? "" : info.colInvoicePhone;
+            receiverInfo.colInvoiceAddress = VerifyUtils.isEmpty(info.colInvoiceAddress) ? "" : info.colInvoiceAddress;
+            receiverInfo.colContacts = VerifyUtils.isEmpty(info.colContacts) ? "" : info.colContacts;
+            receiverInfo.colPhone = VerifyUtils.isEmpty(info.colPhone) ? "" : info.colPhone;
+            // 付款放信息
+            paymentInfo.payName = VerifyUtils.isEmpty(info.payName) ? "" : info.payName;
+            paymentInfo.payBank = VerifyUtils.isEmpty(info.payBank) ? "" : info.payBank;
+            paymentInfo.payAccount = VerifyUtils.isEmpty(info.payAccount) ? "" : info.payAccount;
+            paymentInfo.payCreditCode = VerifyUtils.isEmpty(info.payCreditCode) ? "" : info.payCreditCode;
+            paymentInfo.payInvoicePhone = VerifyUtils.isEmpty(info.payInvoicePhone) ? "" : info.payInvoicePhone;
+            paymentInfo.payInvoiceAddress = VerifyUtils.isEmpty(info.payInvoiceAddress) ? "" : info.payInvoiceAddress;
+            paymentInfo.payContacts = VerifyUtils.isEmpty(info.payContacts) ? "" : info.payContacts;
+            paymentInfo.payPhone = VerifyUtils.isEmpty(info.payPhone) ? "" : info.payPhone;
+
+            //  附件
+            if (info.fileList != null && info.fileList.size() > 0) {
+                fileList.clear();
+                for (int i = 0; i < info.fileList.size(); i++) {
+                    fileList.add(new FileListEnt(info.fileList.get(i).fileName, info.fileList.get(i).filePath));
+                }
+            }
+            fileListAdapter.notifyDataSetChanged();
+            setRecPayInfoShow();
+
+        }
+
     }
 
     /**

@@ -42,6 +42,7 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
     ProjectApprovaLoglDetEnt info;
     List<ProjectApprovaLoglDetEnt.ActivityVoListBean> voListBeans = new ArrayList<>();
     ProcessListAdapter listAdapter;
+    private Bundle bundle;
 
 
     @Override
@@ -60,6 +61,7 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
         mBinding.refuseTv.setOnClickListener(this);
         mBinding.agreeTv.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
+        mBinding.newBuildBtn.setOnClickListener(this);
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
@@ -131,6 +133,7 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
             mBinding.bnt1.setVisibility(View.GONE);
             mBinding.refuseTv.setVisibility(View.VISIBLE);
             mBinding.agreeTv.setVisibility(View.VISIBLE);
+            mBinding.newBuildBtn.setVisibility(View.GONE);
         } else if (ProjectApprovaLoglActivity.mType == 4) {
             mBinding.refuseTv.setVisibility(View.GONE);
             mBinding.agreeTv.setVisibility(View.GONE);
@@ -167,6 +170,15 @@ public class ProjectApprovaLoglDetActivity extends BBActivity<ActivityProjectApp
                 break;
             case R.id.bnt1:
                 auditAdd("3", AppConfig.status.value1, item);
+                break;
+            case R.id.new_build_btn:// 新建
+                if (info != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    openActivity(ProjectApprovaApplylActivity.class, bundle);
+                } else {
+                    showToast("暂未获取到数据");
+                }
                 break;
         }
 

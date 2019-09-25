@@ -1,6 +1,7 @@
 package com.qymage.sys.ui.act;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -16,9 +17,11 @@ import com.qymage.sys.databinding.ActivityBidperformtblyszloglDetBinding;
 import com.qymage.sys.databinding.ActivityProjectApprovaLoglDetBinding;
 import com.qymage.sys.ui.adapter.ProcessListAdapter;
 import com.qymage.sys.ui.entity.BidPerFormDetEnt;
+import com.qymage.sys.ui.entity.FileListEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +35,7 @@ import okhttp3.Response;
  */
 public class BidPerFormTbLySZLoglDetActivity extends BBActivity<ActivityBidperformtblyszloglDetBinding> implements View.OnClickListener {
 
-
+    List<FileListEnt> fileList = new ArrayList<>();// 上传附件
     private String Tag;
     private String id;
     private Intent mIntent;
@@ -40,6 +43,7 @@ public class BidPerFormTbLySZLoglDetActivity extends BBActivity<ActivityBidperfo
     private String bidType;
     List<ProjectApprovaLoglDetEnt.ActivityVoListBean> voListBeans = new ArrayList<>();
     ProcessListAdapter listAdapter;
+    Bundle bundle;
 
 
     @Override
@@ -58,6 +62,8 @@ public class BidPerFormTbLySZLoglDetActivity extends BBActivity<ActivityBidperfo
         mBinding.refuseTv.setOnClickListener(this);
         mBinding.agreeTv.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
+        mBinding.newBuildBtn.setOnClickListener(this);
+        mBinding.fileListBtn.setOnClickListener(this);
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
@@ -204,7 +210,6 @@ public class BidPerFormTbLySZLoglDetActivity extends BBActivity<ActivityBidperfo
             appLogEnt.processInstId = info.processInstId;
             appLogEnt.id = info.id;
             switch (v.getId()) {
-
                 case R.id.bnt1:// 撤回
                     switch (bidType) {
                         case "01":
@@ -254,6 +259,29 @@ public class BidPerFormTbLySZLoglDetActivity extends BBActivity<ActivityBidperfo
                         case "04":
                             auditAdd("1", AppConfig.status.value6, appLogEnt);
                             break;
+                    }
+                    break;
+                case R.id.new_build_btn:// 复制新建
+                    if (info != null) {
+                        bundle = new Bundle();
+                        bundle.putSerializable("data", info);
+                        bundle.putString("type", bidType.replace("0", ""));
+                        openActivity(BiddingMarginZhiActivity.class, bundle);
+                    } else {
+                        showToast("尚未获取到数据");
+                    }
+                    break;
+                case R.id.file_list_btn:
+                    if (info != null && info.fileList != null && info.fileList.size() > 0) {
+                        fileList.clear();
+                        for (int i = 0; i < info.fileList.size(); i++) {
+                            fileList.add(new FileListEnt(info.fileList.get(i).fileName, info.fileList.get(i).filePath));
+                        }
+                        bundle = new Bundle();
+                        bundle.putSerializable("data", (Serializable) fileList);
+                        openActivity(ListAttachmentsActivity.class, bundle);
+                    } else {
+                        showToast("暂无上传附件");
                     }
                     break;
             }

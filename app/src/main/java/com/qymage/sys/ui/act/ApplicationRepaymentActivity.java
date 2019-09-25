@@ -175,6 +175,9 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
             public void onSuccess(Result<String> result, Call call, Response response) {
                 msgDialogBuilder("恭喜您,还款成功!", (dialog, which) -> {
                     dialog.dismiss();
+                    if (LoanDetailsActivity.instance != null) {
+                        LoanDetailsActivity.instance.finish();
+                    }
                     setResult(200);
                     finish();
                 }).setCancelable(false).create().show();
@@ -238,7 +241,7 @@ public class ApplicationRepaymentActivity extends BBActivity<ActivityApplication
         HashMap<String, Object> map = new HashMap<>();
 //        map.put("userCode", getUserId());
         map.put("cause", mBinding.causeContent.getText().toString());
-        map.put("Amount", mBinding.shenqingMoneyEdt.getText().toString());
+        map.put("amount", mBinding.shenqingMoneyEdt.getText().toString());
         map.put("payDate", mBinding.shiyongDateTv.getText().toString());
         map.put("id", id);
         map.put("processInstId", processInstId);

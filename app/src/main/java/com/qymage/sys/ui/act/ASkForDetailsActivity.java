@@ -76,6 +76,7 @@ public class ASkForDetailsActivity extends BBActivity<ActivityAskforDetBinding> 
         mBinding.bnt2.setOnClickListener(this);
         mBinding.bnt3.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
+        mBinding.newBuildBtn.setOnClickListener(this);
         setImgAdapter();
 
     }
@@ -204,6 +205,7 @@ public class ASkForDetailsActivity extends BBActivity<ActivityAskforDetBinding> 
             case 4:
                 mBinding.bnt2.setVisibility(View.GONE);
                 mBinding.bnt3.setVisibility(View.GONE);
+                mBinding.newBuildBtn.setVisibility(View.VISIBLE);
                 if (item.canCancelTask == 1) {
                     mBinding.bnt1.setVisibility(View.VISIBLE);
                 } else {
@@ -225,6 +227,8 @@ public class ASkForDetailsActivity extends BBActivity<ActivityAskforDetBinding> 
             appLogEnt = new ProjectAppLogEnt();
             appLogEnt.processInstId = item.processInstId;
             appLogEnt.id = item.id;
+        } else {
+            return;
         }
         switch (v.getId()) {
             case R.id.bnt2: // 拒绝
@@ -241,6 +245,14 @@ public class ASkForDetailsActivity extends BBActivity<ActivityAskforDetBinding> 
                 if (appLogEnt != null) {
                     auditAdd("3", AppConfig.status.value7, appLogEnt);
                 }
+                break;
+            case R.id.new_build_btn://新建复制
+                if (item != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", item);
+                    openActivity(AskForLeaveActivity.class, bundle);
+                }
+
                 break;
         }
     }

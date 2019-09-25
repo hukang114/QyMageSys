@@ -22,6 +22,7 @@ import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.databinding.ActivityProjectApprovaApplylBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
@@ -31,6 +32,7 @@ import com.qymage.sys.ui.entity.ContractTypeEnt;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.PaymentInfo;
 import com.qymage.sys.ui.entity.ProjecInfoEnt;
+import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
 import com.qymage.sys.ui.entity.ReceiverInfo;
 
 import java.util.ArrayList;
@@ -58,6 +60,8 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
     private List<String> protypelist = new ArrayList<>();
     List<ContractTypeEnt> typeEnts = new ArrayList<>();
     private String projectType;
+    ProjectApprovaLoglDetEnt info;// 通过立项详情中的新建传递过来的信息
+    private Intent mIntent;
 
 
     @Override
@@ -70,9 +74,19 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
     protected void initView() {
         super.initView();
         mBinding.metitle.setlImgClick(v -> finish());
-        mBinding.metitle.setrTxtClick(v -> {
-            openActivity(ProjectApprovaLoglActivity.class);
+        mBinding.metitle.setrTxtClick(new View.OnClickListener() {
+            @SingleClick(2000)
+            @Override
+            public void onClick(View v) {
+                openActivity(ProjectApprovaLoglActivity.class);
+            }
         });
+        mIntent = getIntent();
+        try {
+            info = (ProjectApprovaLoglDetEnt) mIntent.getSerializableExtra("data");
+        } catch (Exception e) {
+
+        }
         mBinding.shiyongDateTv.setOnClickListener(this);
         LinearLayoutManager layouta = new LinearLayoutManager(this);
         layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
@@ -115,7 +129,23 @@ public class ProjectApprovaApplylActivity extends BBActivity<ActivityProjectAppr
         getProType();
         //添加立项默认审批人
         getAuditQuery(MainActivity.processDefId(AppConfig.btnType3));
-
+        // 设置新建对应的数据
+        if (info != null) {
+            projectType = info.projectType;
+            mBinding.baoxiaoCateTxt.setText(info.projectTypeName);
+            mBinding.baoxiaoMoneyEdt.setText(info.projectNo);
+            mBinding.shenqingMoneyEdt.setText(info.projectName);
+            mBinding.fuzerenEdt.setText(info.persion);
+            mBinding.yusuanjineEdt.setText(info.amount);
+            String date;
+            if (info.date != null && info.date.length() > 11) {
+                date = info.date.substring(0, 10);
+            } else {
+                date = DateUtil.formatNYR(System.currentTimeMillis());
+            }
+            mBinding.shiyongDateTv.setText(date);
+            mBinding.baoxiaoContent.setText(info.introduction);
+        }
     }
 
     @Override

@@ -24,6 +24,9 @@ public class DayLogListEnt implements Serializable {
     public String workContent;// 工作内容
     public String subMoney;//  报销费用
 
+    public DayLogListEnt() {
+
+    }
 
     public List<SubMoneyListEntity> subMoneyList;
 
@@ -39,6 +42,10 @@ public class DayLogListEnt implements Serializable {
     }
 
     public static class SubMoneyListEntity implements Serializable {
+
+        public SubMoneyListEntity() {
+        }
+
         public String amount;//  报销金额
         public String type;//报销类别  1-交通费、2-市内交通、3-过路费用、4-加油费用、5-停/洗车费、6-住宿费用、7-业务餐费、8-礼品费用、9-快递费用
         public String detailed;// 明细

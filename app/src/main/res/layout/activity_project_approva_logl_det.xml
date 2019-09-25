@@ -239,6 +239,16 @@
                 android:text="@string/agree_txt"
                 android:textColor="@color/white" />
 
+            <TextView
+                android:id="@+id/new_build_btn"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:text="@string/new_build_btn_txt"
+                android:textColor="@color/white" />
+
         </LinearLayout>
 
 

@@ -25,10 +25,12 @@ import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.util.DateUtil;
+import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityDailyReportBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.entity.DayLogListEnt;
+import com.qymage.sys.ui.entity.DayWeekMonthDet;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.HasClockOutEnt;
 import com.qymage.sys.ui.entity.ProjecInfoEnt;
@@ -63,6 +65,10 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
     Bundle bundle;
     List<String> proList = new ArrayList<>();// 合同编号 项目编号
 
+    DayWeekMonthDet info;//日报详情页传递过来的复制数据
+    private Intent mIntent;
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_daily_report;
@@ -72,6 +78,11 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
     protected void initView() {
         super.initView();
         mBinding.metitle.setlTxtClick(v -> finish());
+        mIntent = getIntent();
+        try {
+            info = (DayWeekMonthDet) mIntent.getSerializableExtra("data");
+        } catch (Exception e) {
+        }
         mBinding.addHtmxBtn.setOnClickListener(this);
         mBinding.deleteBtn.setOnClickListener(this);
         LinearLayoutManager layouta = new LinearLayoutManager(this);
@@ -143,6 +154,49 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
         //添加日报提交默认审批人
         getAuditQuery(MainActivity.processDefId(AppConfig.btnType15));
 
+        if (info != null) {
+            setCopyData();
+        }
+
+    }
+
+    /**
+     * 设置复制数据的显示
+     */
+    private void setCopyData() {
+        if (info.logList != null && info.logList.size() > 0) {
+            dayLogListEnts.clear();
+            for (int i = 0; i < info.logList.size(); i++) {
+                DayLogListEnt dayLogListEnt = new DayLogListEnt();
+                dayLogListEnt.contractName = info.logList.get(i).contractName;
+                dayLogListEnt.contractNo = info.logList.get(i).contractNo;
+                dayLogListEnt.projectName = info.logList.get(i).projectName;
+                dayLogListEnt.projectNo = info.logList.get(i).projectNo;
+                dayLogListEnt.subMoney = info.logList.get(i).subMoney;
+                dayLogListEnt.manHours = info.logList.get(i).manHours;
+                dayLogListEnt.workContent = info.logList.get(i).workContent;
+                if (info.logList.get(i).subMoneyList != null && info.logList.get(i).subMoneyList.size() > 0) {
+                    List<DayLogListEnt.SubMoneyListEntity> entities = new ArrayList<>();
+                    for (int k = 0; k < info.logList.get(i).subMoneyList.size(); k++) {
+                        DayLogListEnt.SubMoneyListEntity listEntity = new DayLogListEnt.SubMoneyListEntity();
+                        listEntity.typeName = info.logList.get(i).subMoneyList.get(k).typeName;
+                        listEntity.type = info.logList.get(i).subMoneyList.get(k).type;
+                        listEntity.amount = info.logList.get(i).subMoneyList.get(k).amount;
+                        listEntity.detailed = info.logList.get(i).subMoneyList.get(k).detailed;
+                        listEntity.photo = "";
+                        List<String> strings = new ArrayList<>();
+                        listEntity.stringList = strings;
+                        entities.add(listEntity);
+                    }
+                    dayLogListEnt.subMoneyList = entities;
+                }
+                dayLogListEnts.add(dayLogListEnt);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        mBinding.mingriGongzuoJihua.setText(VerifyUtils.isEmpty(info.wordplay) ? "暂无" : info.wordplay);
+        mBinding.benzhouGongzuozongjie.setText(VerifyUtils.isEmpty(info.jobWord) ? "暂无" : info.jobWord);
+        mBinding.xiazhouJihua.setText(VerifyUtils.isEmpty(info.nextWork) ? "暂无" : info.nextWork);
 
     }
 

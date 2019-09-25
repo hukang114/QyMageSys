@@ -32,6 +32,7 @@ import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.http.LogUtils;
+import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.common.util.getPathUtil;
 import com.qymage.sys.databinding.ActivityApplicationCollectionBinding;
 import com.qymage.sys.ui.act.ReceiverInfoActivity;
@@ -39,6 +40,7 @@ import com.qymage.sys.ui.act.SelectionDepartmentActivity;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.adapter.FileListAdapter;
+import com.qymage.sys.ui.entity.AppColletionLoglDet;
 import com.qymage.sys.ui.entity.CompanyMoneyPaymentVOS;
 import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
@@ -84,7 +86,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
     private String projectId;// 项目id
     public List<GetReceivedInfoEnt.CompanyMoneyTicketVOBean> companyMoneyTicketVO = new ArrayList<>();//历史收票开票明细
     public List<GetReceivedInfoEnt.CompanyMoneyPaymentVOBean> companyMoneyPaymentVO = new ArrayList<>();// 历史收付款明细
-
+    AppColletionLoglDet info;// 对应的4个类型详情页传递过来的新建数据
 
     @Override
     protected int getLayoutId() {
@@ -99,6 +101,10 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         type = mIntent.getStringExtra("type");
         if (type == null) {
             return;
+        }
+        try {
+            info = (AppColletionLoglDet) mIntent.getSerializableExtra("data");
+        } catch (Exception e) {
         }
         mBinding.metitle.setrTxtClick(new View.OnClickListener() {
             @SingleClick(2000)
@@ -245,6 +251,122 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 //添加收票申请请默认审批人
                 getAuditQuery(MainActivity.processDefId(AppConfig.btnType8));
                 break;
+        }
+        setCopyData();
+    }
+
+    /**
+     * 设置新建操作对应的数据显示
+     */
+    private void setCopyData() {
+        if (info != null) {
+            mBinding.htbhEdt.setText(info.contractNo);
+            mBinding.htmcEdt.setText(info.contractName);
+            mBinding.htlxCateTxt.setText(info.contractTypeName);
+            contractType = info.contractType;
+            projectId = info.projectId;
+            mBinding.mxbhTv.setText(info.projectNo);
+            mBinding.xmmcEdt.setText(info.projectName);
+            // 历史已收款 已付款
+            if (info.companyMoneyPaymentVOS != null && info.companyMoneyPaymentVOS.size() > 0) {
+                companyMoneyPaymentVO.clear();
+                for (int i = 0; i < info.companyMoneyPaymentVOS.size(); i++) {
+                    GetReceivedInfoEnt.CompanyMoneyPaymentVOBean bean = new GetReceivedInfoEnt.CompanyMoneyPaymentVOBean();
+                    bean.amount = info.companyMoneyPaymentVOS.get(i).amount;
+                    bean.paymentTime = info.companyMoneyPaymentVOS.get(i).paymentTime;
+                    bean.remarks = info.companyMoneyPaymentVOS.get(i).remarks;
+                    companyMoneyPaymentVO.add(bean);
+                }
+            }
+            // 计算显示
+            mBinding.yskTxt.setText(info.endAmount);
+            mBinding.wskEdt.setText(info.notAmount);
+            mBinding.ykpTxt.setText(info.endTicket);
+            mBinding.wkpTxt.setText(info.notTicket);
+            // 计算票款差额
+            mBinding.diffmoneyTxt.setText(info.diffMoney);
+            //历史已开票 历史已收票
+            if (info.companyMoneyTicketVOS != null && info.companyMoneyTicketVOS.size() > 0) {
+                companyMoneyTicketVO.clear();
+                for (int i = 0; i < info.companyMoneyTicketVOS.size(); i++) {
+                    GetReceivedInfoEnt.CompanyMoneyTicketVOBean bean = new GetReceivedInfoEnt.CompanyMoneyTicketVOBean();
+                    bean.amount = info.companyMoneyTicketVOS.get(i).amount;
+                    bean.paymentTime = info.companyMoneyTicketVOS.get(i).paymentTime;
+                    bean.taxRate = info.companyMoneyTicketVOS.get(i).taxRate;
+                    bean.taxes = info.companyMoneyTicketVOS.get(i).taxes;
+                    companyMoneyTicketVO.add(bean);
+                }
+            }
+            // 本次收付款开收票
+            if (type.equals("1") || type.equals("2")) { //
+                if (info.thiscompanyMoneyPaymentVOS != null && info.thiscompanyMoneyPaymentVOS.size() > 0) {
+                    paymentVOS.clear();
+                    for (int i = 0; i < info.thiscompanyMoneyPaymentVOS.size(); i++) {
+                        CompanyMoneyPaymentVOS ben = new CompanyMoneyPaymentVOS();
+                        ben.amount = info.thiscompanyMoneyPaymentVOS.get(i).amount;
+                        ben.date = info.thiscompanyMoneyPaymentVOS.get(i).paymentTime;
+                        ben.remarks = info.thiscompanyMoneyPaymentVOS.get(i).remarks;
+                        paymentVOS.add(ben);
+                    }
+                    if (paymentVOS.size() > 0) {
+                        Double money = 0.0;
+                        for (int i = 0; i < paymentVOS.size(); i++) {
+                            money = money + Double.parseDouble(paymentVOS.get(i).amount);
+                        }
+                        mBinding.bzjjeEdt.setText(df.format(money));
+                    }
+                }
+            }
+            //开收票
+            if (type.equals("3") || type.equals("4")) {
+                if (info.thisompanyMoneyTicketVO != null && info.thisompanyMoneyTicketVO.size() > 0) {
+                    ticketVOS.clear();
+                    for (int i = 0; i < info.thisompanyMoneyTicketVO.size(); i++) {
+                        CompanyMoneyTicketVOS ben = new CompanyMoneyTicketVOS();
+                        ben.amount = info.thisompanyMoneyTicketVO.get(i).amount;
+                        ben.paymentTime = info.thisompanyMoneyTicketVO.get(i).paymentTime;
+                        ben.taxes = info.thisompanyMoneyTicketVO.get(i).taxes;
+                        ben.taxRate = (int) info.thisompanyMoneyTicketVO.get(i).taxeRate;
+                        ticketVOS.add(ben);
+                    }
+                    if (ticketVOS.size() > 0) {
+                        Double money = 0.0;
+                        for (int i = 0; i < ticketVOS.size(); i++) {
+                            money = money + Double.parseDouble(ticketVOS.get(i).amount);
+                        }
+                        mBinding.bzjjeEdt.setText(df.format(money));
+                    }
+                }
+            }
+            // 收款方信息
+            receiverInfo.colName = VerifyUtils.isEmpty(info.colName) ? "" : info.colName;
+            receiverInfo.colBank = VerifyUtils.isEmpty(info.colBank) ? "" : info.colBank;
+            receiverInfo.colAccount = VerifyUtils.isEmpty(info.colAccount) ? "" : info.colAccount;
+            receiverInfo.colCreditCode = VerifyUtils.isEmpty(info.colCreditCode) ? "" : info.colCreditCode;
+            receiverInfo.colInvoicePhone = VerifyUtils.isEmpty(info.colInvoicePhone) ? "" : info.colInvoicePhone;
+            receiverInfo.colInvoiceAddress = VerifyUtils.isEmpty(info.colInvoiceAddress) ? "" : info.colInvoiceAddress;
+            receiverInfo.colContacts = VerifyUtils.isEmpty(info.colContacts) ? "" : info.colContacts;
+            receiverInfo.colPhone = VerifyUtils.isEmpty(info.colPhone) ? "" : info.colPhone;
+            mBinding.skfxxEdt.setText(receiverInfo.colName);
+            // 付款方信息
+            paymentInfo.payName = VerifyUtils.isEmpty(info.payName) ? "" : info.payName;
+            paymentInfo.payBank = VerifyUtils.isEmpty(info.payBank) ? "" : info.payBank;
+            paymentInfo.payAccount = VerifyUtils.isEmpty(info.payAccount) ? "" : info.payAccount;
+            paymentInfo.payCreditCode = VerifyUtils.isEmpty(info.payCreditCode) ? "" : info.payCreditCode;
+            paymentInfo.payInvoicePhone = VerifyUtils.isEmpty(info.payInvoicePhone) ? "" : info.payInvoicePhone;
+            paymentInfo.payInvoiceAddress = VerifyUtils.isEmpty(info.payInvoiceAddress) ? "" : info.payInvoiceAddress;
+            paymentInfo.payContacts = VerifyUtils.isEmpty(info.payContacts) ? "" : info.payContacts;
+            paymentInfo.payPhone = VerifyUtils.isEmpty(info.payPhone) ? "" : info.payPhone;
+            mBinding.fkfxxEdt.setText(paymentInfo.payName);
+            // 附件
+            if (info.fileList != null && info.fileList.size() > 0) {
+                fileList.clear();
+                for (int i = 0; i < info.fileList.size(); i++) {
+                    fileList.add(new FileListEnt(info.fileList.get(i).fileName, info.fileList.get(i).filePath));
+                }
+            }
+            fileListAdapter.notifyDataSetChanged();
+
         }
     }
 
@@ -677,10 +799,10 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             copierListAdapter.notifyDataSetChanged();
         } else if (resultCode == 500) { // 获取收款方信息
             receiverInfo = (ReceiverInfo) data.getSerializableExtra("data");
-            showToast(receiverInfo.colName);
+            mBinding.skfxxEdt.setText(receiverInfo.colName);
         } else if (resultCode == 600) {// 获取付款方信息
             paymentInfo = (PaymentInfo) data.getSerializableExtra("data");
-            showToast(paymentInfo.payName);
+            mBinding.fkfxxEdt.setText(paymentInfo.payName);
         } else if (resultCode == 700) {//开收票明细
             List<CompanyMoneyTicketVOS> list = (List<CompanyMoneyTicketVOS>) data.getSerializableExtra("data");
             ticketVOS.clear();

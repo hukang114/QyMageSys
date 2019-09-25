@@ -296,6 +296,7 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|end"
                         android:hint="@string/htje_txt"
+                        android:inputType="number"
                         android:textColor="@color/item_color"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>

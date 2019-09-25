@@ -22,10 +22,12 @@ import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.DateUtil;
 import com.qymage.sys.databinding.ActivityBiddingMarginZhiBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
 import com.qymage.sys.ui.adapter.CopierListAdapter;
 import com.qymage.sys.ui.adapter.FileListAdapter;
+import com.qymage.sys.ui.entity.BidPerFormDetEnt;
 import com.qymage.sys.ui.entity.CompanyMoneyPaymentVOS;
 import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
 import com.qymage.sys.ui.entity.FileListEnt;
@@ -70,6 +72,7 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
     List<GetCompanyInfoEnt> companyInfoEnts = new ArrayList<>();//单位信息
     List<TouBS_LvSProjecEnt> sProjecEnts = new ArrayList<>();// 3.2投标/履约保证金-收查询对应支数据的接口 ，根据项目编号 和名称获得
 
+    BidPerFormDetEnt info;// 投标支收-履约支收详情页传递过来的复制数据
 
     @Override
     protected int getLayoutId() {
@@ -85,6 +88,10 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         type = mIntent.getStringExtra("type");
         if (type == null) {
             return;
+        }
+        try {
+            info = (BidPerFormDetEnt) mIntent.getSerializableExtra("data");
+        } catch (Exception e) {
         }
         mBinding.metitle.setrTxtClick(new View.OnClickListener() {
             @SingleClick(2000)
@@ -207,6 +214,50 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
                 getAuditQuery(MainActivity.processDefId(AppConfig.btnType12));
                 break;
         }
+        if (info != null) {
+            setCopyData();
+        }
+    }
+
+    /**
+     * 设置复制数据显示
+     */
+    private void setCopyData() {
+        mBinding.baoxiaoMoneyEdt.setText(info.projectNo);
+        mBinding.shenqingMoneyEdt.setText(info.projectName);
+        projectId = info.projectId;
+        companyId = info.companyId;
+        mBinding.bzjmcEdt.setText(info.amountName);
+        mBinding.gsmcEdt.setText(info.companyName);
+        mBinding.skdwmcEdt.setText(info.name);
+        mBinding.yhzhEdt.setText(info.account);
+        mBinding.khhEdt.setText(info.bank);
+        mBinding.bzjjeEdt.setText(info.amount);
+        String date;
+        if (info.date != null && info.date.length() > 11) {
+            date = info.date.substring(0, 10);
+        } else {
+            date = DateUtil.formatNYR(System.currentTimeMillis());
+        }
+        mBinding.startDateTv.setText(date);
+        String endDate;
+        if (info.endDate != null && info.endDate.length() > 11) {
+            endDate = info.endDate.substring(0, 10);
+        } else {
+            endDate = DateUtil.formatNYR(System.currentTimeMillis());
+        }
+        mBinding.endDateTv.setText(endDate);
+        mBinding.baoxiaoContent.setText(info.remark);
+
+        // 附件
+        if (info.fileList != null && info.fileList.size() > 0) {
+            fileList.clear();
+            for (int i = 0; i < info.fileList.size(); i++) {
+                fileList.add(new FileListEnt(info.fileList.get(i).fileName, info.fileList.get(i).filePath));
+            }
+        }
+        fileListAdapter.notifyDataSetChanged();
+
     }
 
     @Override

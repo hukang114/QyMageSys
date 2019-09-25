@@ -76,6 +76,7 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         mBinding.bnt2.setOnClickListener(this);
         mBinding.bnt3.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
+        mBinding.newBuildBtn.setOnClickListener(this);
         mBinding.contractpayscaleBtn.setOnClickListener(this);
 
     }
@@ -263,6 +264,7 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
             case 4:
                 mBinding.bnt2.setVisibility(View.GONE);
                 mBinding.bnt3.setVisibility(View.GONE);
+                mBinding.newBuildBtn.setVisibility(View.VISIBLE);
                 if (info.canCancelTask == 1) {
                     mBinding.bnt1.setVisibility(View.VISIBLE);
                 } else {
@@ -291,7 +293,8 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
             } else if (workType.equals("3")) {
                 status = AppConfig.status.value14;
             }
-
+        } else {
+            return;
         }
         switch (v.getId()) {
             case R.id.bnt2: // 拒绝
@@ -316,6 +319,19 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
                     openActivity(LogDetailsActivity.class, bundle);
                 } else {
                     showToast("暂无提交明细数据");
+                }
+                break;
+            case R.id.new_build_btn:// 复制新建
+                if (info != null) {
+                    if (workType.equals("1")) {//日报详情
+                        bundle = new Bundle();
+                        bundle.putSerializable("data", info);
+                        openActivity(DailyReportActivity.class, bundle);
+                    } else if (workType.equals("3")) {//月报详情
+                        bundle = new Bundle();
+                        bundle.putSerializable("data", info);
+                        openActivity(MonthReportActivity.class, bundle);
+                    }
                 }
                 break;
         }

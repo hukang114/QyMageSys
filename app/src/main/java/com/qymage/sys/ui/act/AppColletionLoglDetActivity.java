@@ -59,6 +59,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
     List<CompanyMoneyPaymentVOS> paymentVOS = new ArrayList<>();// 本次收款 付款明细
     List<CompanyMoneyTicketVOS> ticketVOS = new ArrayList<>();// //本次开 -收 票明细
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_appcolletionlogl_det;
@@ -80,7 +81,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
         mBinding.endticketBtn.setOnClickListener(this);
         mBinding.thismoneyBtn.setOnClickListener(this);
         mBinding.fileListBtn.setOnClickListener(this);
-
+        mBinding.newBuildBtn.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
@@ -164,6 +165,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
         mBinding.userName.setText(item.userName + "提交申请");
         mBinding.actstatusTv.setText(item.actStatus);
         mBinding.spbhTv.setText("票款差额：" + item.diffMoney);
+        mBinding.contracttypename.setText("合同类型：" + item.contractTypeName);
         mBinding.szbmType.setText("合同编号：" + item.contractNo);
         mBinding.projType.setText("合同名称：" + item.contractName);
         mBinding.projNumber.setText("项目编号：" + item.projectNo);
@@ -213,10 +215,12 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
             mBinding.bnt1.setVisibility(View.GONE);
             mBinding.refuseTv.setVisibility(View.VISIBLE);
             mBinding.agreeTv.setVisibility(View.VISIBLE);
+            mBinding.newBuildBtn.setVisibility(View.GONE);
         } else if (ApplicationCollectionLogActivity.mType == 4) {
             mBinding.bnt1.setVisibility(View.VISIBLE);
             mBinding.refuseTv.setVisibility(View.GONE);
             mBinding.agreeTv.setVisibility(View.GONE);
+            mBinding.newBuildBtn.setVisibility(View.VISIBLE);
             // 是否可以撤销任务:1-可以 0-不可以
             if (item.canCancelTask == 1) {
                 mBinding.bnt1.setVisibility(View.VISIBLE);
@@ -423,7 +427,14 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
 
                 }
                 break;
-
+            case R.id.new_build_btn:// 新建
+                if (info != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    bundle.putString("type", bidType);
+                    openActivity(ApplicationCollectionActivity.class, bundle);
+                }
+                break;
 
         }
 

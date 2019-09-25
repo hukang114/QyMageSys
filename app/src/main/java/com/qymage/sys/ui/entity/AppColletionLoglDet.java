@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class AppColletionLoglDet {
+public class AppColletionLoglDet implements Serializable {
 
 
     public long createTime;
@@ -58,6 +58,7 @@ public class AppColletionLoglDet {
     public String notAmount;
     public String diffMoney;
     public String contractType;
+    public String contractTypeName;
     // 收款方信息
     public String payName;
     public String payRemark;
@@ -88,7 +89,7 @@ public class AppColletionLoglDet {
 
 
     // 本次开票本次收票
-    public static class ThisompanyMoneyTicketVOBean {
+    public static class ThisompanyMoneyTicketVOBean implements Serializable {
         /**
          * id : 1099301100000000001
          * companyMoneyId : 1099300900000000021
@@ -111,7 +112,7 @@ public class AppColletionLoglDet {
     /**
      * 本次收款 本次付款
      */
-    public static class ThiscompanyMoneyPaymentVOSBean {
+    public static class ThiscompanyMoneyPaymentVOSBean implements Serializable {
         /**
          * id : 1099301000000000030
          * companyMoneyId : 1099300900000000018
@@ -153,7 +154,7 @@ public class AppColletionLoglDet {
 
     public List<AppColletionLoglDet.FileListBean> fileList;
 
-    public static class FileListBean {
+    public static class FileListBean implements Serializable {
         /**
          * fileName : 12
          * filePath : 12
@@ -163,7 +164,7 @@ public class AppColletionLoglDet {
         public String filePath;
     }
 
-    public static class ActivityVoBean {
+    public static class ActivityVoBean implements Serializable {
         /**
          * id : 1172064669692579842
          * processInstanceId : 177597
@@ -194,7 +195,7 @@ public class AppColletionLoglDet {
         public String userName;
     }
 
-    public static class SendListBean {
+    public static class SendListBean implements Serializable {
         /**
          * userName : 孔俊智
          * userId : 1099100700000000036

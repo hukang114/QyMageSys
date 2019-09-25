@@ -1,5 +1,6 @@
 package com.qymage.sys.ui.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,12 +9,12 @@ import java.util.List;
  * 立项记录详情
  */
 
-public class ProjectApprovaLoglDetEnt {
+public class ProjectApprovaLoglDetEnt implements Serializable {
 
     public long createTime;
-    public Object createBy;
-    public Object updateTime;
-    public Object updateBy;
+    public String createBy;
+    public String updateTime;
+    public String updateBy;
     public String id;
     public String projectType;
     public String projectTypeName;
@@ -38,7 +39,7 @@ public class ProjectApprovaLoglDetEnt {
     public String introduction;
     public int canCancelTask;
 
-    public static class ActivityVoListBean {
+    public static class ActivityVoListBean implements Serializable {
         /**
          * id : 1171709251275427842
          * processInstanceId : 150077
@@ -72,7 +73,7 @@ public class ProjectApprovaLoglDetEnt {
         public String userName;
     }
 
-    public static class SendListBean {
+    public static class SendListBean implements Serializable {
         /**
          * userName : 孔俊智
          * userId : 1099100700000000036

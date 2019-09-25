@@ -37,9 +37,10 @@ public class MyLoanListAdapter extends BaseQuickAdapter<MyLoanEnt, BaseViewHolde
         TextView bnt2 = helper.getView(R.id.bnt2);
         TextView bnt3 = helper.getView(R.id.bnt3);
         TextView bnt4 = helper.getView(R.id.btn4);
+        String typename = VerifyUtils.isEmpty(item.type) ? "借款" : item.type.equals("1") ? "借款" : item.type.equals("2") ? "还款" : "";
 
         helper.setText(R.id.status_tv, item.actStatus)
-                .setText(R.id.user_name, item.personName + "借款")
+                .setText(R.id.user_name, item.personName + typename)
                 .setText(R.id.crate_time, item.useDate)
                 .setText(R.id.proj_type, "申请事由：" + item.cause)
                 .setText(R.id.proj_name, "申请金额：" + item.amount)

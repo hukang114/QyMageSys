@@ -2,6 +2,7 @@ package com.qymage.sys.ui.entity;
 
 import com.qymage.sys.ui.Test2;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class ContractDetEnt {
+public class ContractDetEnt implements Serializable {
 
     /**
      * createTime : null
@@ -113,7 +114,7 @@ public class ContractDetEnt {
     public List<FileListBean> fileList;
     public int canCancelTask;
 
-    public static class FileListBean {
+    public static class FileListBean implements Serializable {
         /**
          * fileName : 12
          * filePath : 12
@@ -126,7 +127,7 @@ public class ContractDetEnt {
     public List<ActivityVoListBean> activityVoList;
     public List<SendListBean> sendList;
 
-    public static class ContractDetailsBean {
+    public static class ContractDetailsBean implements Serializable {
         /**
          * id : 1171631421661368321
          * contractId : 1171631419568410625
@@ -142,7 +143,7 @@ public class ContractDetEnt {
         public double taxes;
     }
 
-    public static class ContractPayscaleBean {
+    public static class ContractPayscaleBean implements Serializable {
         /**
          * id : 1171631421694922754
          * contractId : 1171631419568410625
@@ -158,7 +159,7 @@ public class ContractDetEnt {
         public double amount;
     }
 
-    public static class ActivityVoListBean {
+    public static class ActivityVoListBean implements Serializable {
         /**
          * id : 1171631426673561601
          * processInstanceId : 147514
@@ -190,7 +191,7 @@ public class ContractDetEnt {
         public String userName;
     }
 
-    public static class SendListBean {
+    public static class SendListBean implements Serializable {
         /**
          * userName : 孔俊智
          * userId : 1099100700000000036

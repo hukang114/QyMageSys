@@ -42,7 +42,7 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
     LoanQueryDetEnt info;
     List<ProjectApprovaLoglDetEnt.ActivityVoListBean> voListBeans = new ArrayList<>();
     ProcessListAdapter listAdapter;
-
+    public static LoanDetailsActivity instance = null;
 
     @Override
     protected int getLayoutId() {
@@ -53,6 +53,7 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
     @Override
     protected void initView() {
         super.initView();
+        instance = this;
         mBinding.metitle.setlTxtClick(v -> finish());
         mIntent = getIntent();
         id = mIntent.getStringExtra("id");
@@ -63,6 +64,7 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
         mBinding.bnt3.setOnClickListener(this);
         mBinding.bnt1.setOnClickListener(this);
         mBinding.bnt4.setOnClickListener(this);
+        mBinding.newBuildBtn.setOnClickListener(this);
         mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
         listAdapter = new ProcessListAdapter(R.layout.item_list_process, voListBeans);
         mBinding.recyclerview.setAdapter(listAdapter);
@@ -74,6 +76,11 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
     @Override
     protected void initData() {
         super.initData();
+        getDetData();
+
+    }
+
+    private void getDetData() {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("id", id);
         showLoading();
@@ -99,7 +106,6 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
                 showToast(e.getMessage());
             }
         });
-
     }
 
 
@@ -138,7 +144,8 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
                 mBinding.nameTvBg.setText(item.personName);
             }
         }
-        mBinding.userName.setText(item.personName + "申请");
+        String typename = VerifyUtils.isEmpty(item.type) ? "借款" : item.type.equals("1") ? "借款" : item.type.equals("2") ? "还款" : "";
+        mBinding.userName.setText(item.personName + "申请" + typename);
 //        String status = VerifyUtils.isEmpty(item.actStatus) ? "" : 1 == item.actStatus ? "待处理" : 2 == item.actStatus ? "已处理" :
 //                3 == item.actStatus ? "抄送给我" : 4 == item.actStatus ? "已处理" : "";
         mBinding.actstatusTv.setText(item.actStatus);
@@ -180,6 +187,7 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
             case 4:
                 mBinding.bnt2.setVisibility(View.GONE);
                 mBinding.bnt3.setVisibility(View.GONE);
+                mBinding.newBuildBtn.setVisibility(View.VISIBLE);
                 if (item.canCancelTask == 1) {
                     mBinding.bnt1.setVisibility(View.VISIBLE);
                 } else {
@@ -202,6 +210,8 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
             appLogEnt = new ProjectAppLogEnt();
             appLogEnt.processInstId = info.processInstId;
             appLogEnt.id = info.id;
+        } else {
+            return;
         }
         switch (v.getId()) {
             case R.id.bnt2: // 拒绝
@@ -224,16 +234,26 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
                     bundle = new Bundle();
                     bundle.putString("processInstId", info.processInstId);
                     bundle.putString("id", info.id);
+                    bundle.putString("amount", df.format(info.amount));
                     openActivity(ApplicationRepaymentActivity.class, bundle);
+                }
+                break;
+            case R.id.new_build_btn:// 复制新建
+                if (info != null) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", info);
+                    openActivity(LoanApplicationActivity.class, bundle);
                 }
                 break;
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200) {
+            getDetData();
+        }
 
     }
 
@@ -242,5 +262,11 @@ public class LoanDetailsActivity extends BBActivity<ActivityLoanDetBinding> impl
         super.successTreatment();
         setResult(200);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        instance = null;
     }
 }

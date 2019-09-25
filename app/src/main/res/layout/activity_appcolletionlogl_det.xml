@@ -96,6 +96,15 @@
                         android:textSize="@dimen/text_size_15" />
 
                     <TextView
+                        android:id="@+id/contracttypename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin15"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="合同类型"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
                         android:id="@+id/proj_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -325,12 +334,12 @@
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin10"
                     android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginBottom="@dimen/margin10"
                     android:layout_weight="1"
                     android:background="@color/white"
-                    android:paddingBottom="@dimen/margin10"
-                    android:paddingTop="@dimen/margin10" />
+                    android:paddingTop="@dimen/margin10"
+                    android:paddingBottom="@dimen/margin10" />
             </LinearLayout>
         </ScrollView>
 
@@ -375,6 +384,17 @@
                 android:gravity="center"
                 android:text="@string/agree_txt"
                 android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/new_build_btn"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/margin15"
+                android:background="@drawable/jujue_btn_style"
+                android:gravity="center"
+                android:text="@string/new_build_btn_txt"
+                android:textColor="@color/white" />
+
         </LinearLayout>
 
 
