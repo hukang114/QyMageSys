@@ -10,23 +10,25 @@ import java.io.Serializable;
 public class ContractDetAddEnt implements Serializable {
 
 
-//    amount:Double,//金额
+    //    amount:Double,//金额
 //    taxRate：Double，//税率
 //    taxes：Double//税金
+// String rateName;税率名称
 
     public String amount;
     public int taxRate;
     public String taxes;
+    public String rateName;
 
 
     public ContractDetAddEnt() {
+
     }
 
-    public ContractDetAddEnt(String amount, int taxRate, String taxes) {
+    public ContractDetAddEnt(String amount, int taxRate, String taxes, String rateName) {
         this.amount = amount;
         this.taxRate = taxRate;
         this.taxes = taxes;
+        this.rateName = rateName;
     }
-
-
 }

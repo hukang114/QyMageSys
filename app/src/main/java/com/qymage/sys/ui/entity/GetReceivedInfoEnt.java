@@ -64,6 +64,7 @@ public class GetReceivedInfoEnt implements Serializable {
         public String taxRate;// 税率
         public String taxes;// 税金
         public String paymentTime;//  日期
+        public String rateName;// 税率名称
     }
 
 

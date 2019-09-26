@@ -25,6 +25,8 @@ import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
 import com.qymage.sys.common.config.Constants;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.MeventKey;
+import com.qymage.sys.common.util.MyEvtnTools;
 import com.qymage.sys.databinding.FragmentJournalBinding;
 import com.qymage.sys.ui.act.ASkForDetailsActivity;
 import com.qymage.sys.ui.act.MonthlyDetailsActivity;
@@ -36,6 +38,9 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,8 +73,8 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
         }
+        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this);
     }
 
     public static JournalFragment newInstance() {
@@ -142,6 +147,9 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
             page = 1;
             getAllTypeData(Constants.RequestMode.FRIST);
         });
+
+        mBinding.dailyBtn.setChecked(true);
+        mBinding.pendingBtn.setChecked(true);
 
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @SingleClick(2000)
@@ -461,6 +469,23 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                 mBinding.endDateTv.setText(desc);
             }
         }
+    }
 
+    @Subscribe
+    public void onEventMainThread(MyEvtnTools mk) {
+        int status = (int) mk.tempStatus;
+        switch (status) {
+            case MeventKey.ORDERUPDATE:// 刷新列表
+                page = 1;
+                getAllTypeData(Constants.RequestMode.FRIST);
+                break;
+
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -293,6 +293,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                     bean.amount = info.companyMoneyTicketVOS.get(i).amount;
                     bean.paymentTime = info.companyMoneyTicketVOS.get(i).paymentTime;
                     bean.taxRate = info.companyMoneyTicketVOS.get(i).taxRate;
+                    bean.rateName = info.companyMoneyTicketVOS.get(i).rateName;
                     bean.taxes = info.companyMoneyTicketVOS.get(i).taxes;
                     companyMoneyTicketVO.add(bean);
                 }
@@ -327,6 +328,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                         ben.paymentTime = info.thisompanyMoneyTicketVO.get(i).paymentTime;
                         ben.taxes = info.thisompanyMoneyTicketVO.get(i).taxes;
                         ben.taxRate = (int) info.thisompanyMoneyTicketVO.get(i).taxeRate;
+                        ben.rateName = info.thisompanyMoneyTicketVO.get(i).rateName;
                         ticketVOS.add(ben);
                     }
                     if (ticketVOS.size() > 0) {

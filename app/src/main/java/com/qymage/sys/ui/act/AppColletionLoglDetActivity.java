@@ -377,6 +377,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
                         bean.paymentTime = info.companyMoneyTicketVOS.get(i).paymentTime;
                         bean.taxRate = info.companyMoneyTicketVOS.get(i).taxRate;
                         bean.taxes = info.companyMoneyTicketVOS.get(i).taxes;
+                        bean.rateName = info.companyMoneyTicketVOS.get(i).rateName;
                         companyMoneyTicketVO.add(bean);
                     }
                     bundle = new Bundle();
@@ -401,6 +402,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
                         bundle = new Bundle();
                         bundle.putSerializable("data", (Serializable) paymentVOS);
                         bundle.putString("type", bidType);
+                        bundle.putString("type_det", "det");
                         openActivity(ReceiptsPaymentsDetActivity.class, bundle);
                     } else {
                         showToast("暂无本次收款或者本次付款数据");
@@ -415,11 +417,13 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
                             ben.paymentTime = info.thisompanyMoneyTicketVO.get(i).paymentTime;
                             ben.taxes = info.thisompanyMoneyTicketVO.get(i).taxes;
                             ben.taxRate = (int) info.thisompanyMoneyTicketVO.get(i).taxeRate;
+                            ben.rateName = info.thisompanyMoneyTicketVO.get(i).rateName;
                             ticketVOS.add(ben);
                         }
                         bundle = new Bundle();
                         bundle.putSerializable("data", (Serializable) ticketVOS);
                         bundle.putString("type", bidType);
+                        bundle.putString("type_det", "det");
                         openActivity(InvoicedCollectActivity.class, bundle);
                     } else {
                         showToast("暂无本次开票或者本次收票数据");

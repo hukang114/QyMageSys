@@ -295,6 +295,7 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
                         addEnt.amount = info.contractDetails.get(i).amount + "";
                         addEnt.taxes = info.contractDetails.get(i).taxes + "";
                         addEnt.taxRate = info.contractDetails.get(i).taxRate;
+                        addEnt.rateName = info.contractDetails.get(i).rateName;
                         listdata.add(addEnt);
                     }
                     bundle = new Bundle();
@@ -317,6 +318,7 @@ public class ContractApplicationDetActivity extends BBActivity<ActivityContractA
                     }
                     bundle = new Bundle();
                     bundle.putString("type_det", "det");
+                    bundle.putString("htjeMoney", "0");
                     bundle.putSerializable("data", (Serializable) listbil);
                     openActivity(ContractPaymentRaActivity.class, bundle);
                 } else {

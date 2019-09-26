@@ -23,6 +23,7 @@ import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.http.LogUtils;
 import com.qymage.sys.databinding.ActivityContractDetailsAddBinding;
 import com.qymage.sys.ui.entity.ContractDetAddEnt;
+import com.qymage.sys.ui.entity.LeaveType;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -51,6 +52,7 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
     DecimalFormat df = new DecimalFormat("0.00");
     private Bundle bundle;
     private String type_det;
+    List<LeaveType> leaveTypes = new ArrayList<>();
 
 
     @Override
@@ -80,14 +82,21 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
         } catch (Exception e) {
         }
         setAdapter();
-//        for (int i = 1; i <= 100; i++) {
-//            shuilv_list.add(i + "%");
-//        }
-        shuilv_list.add(3 + "%");
-        shuilv_list.add(6 + "%");
-        shuilv_list.add(9 + "%");
-        shuilv_list.add(11 + "%");
-        shuilv_list.add(13 + "%");
+
+        leaveTypes.add(new LeaveType("3%普", "1"));
+        leaveTypes.add(new LeaveType("3%专", "2"));
+        leaveTypes.add(new LeaveType("6%普", "3"));
+        leaveTypes.add(new LeaveType("6%专", "4"));
+        leaveTypes.add(new LeaveType("9%普", "5"));
+        leaveTypes.add(new LeaveType("9%专", "6"));
+        leaveTypes.add(new LeaveType("11%普", "7"));
+        leaveTypes.add(new LeaveType("11%专", "8"));
+        leaveTypes.add(new LeaveType("13%普", "9"));
+        leaveTypes.add(new LeaveType("13%专", "10"));
+
+        for (int i = 0; i < leaveTypes.size(); i++) {
+            shuilv_list.add(leaveTypes.get(i).label);
+        }
 
         mBinding.metitle.setrTxtClick(v -> {
             bundle = new Bundle();
@@ -141,9 +150,9 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
     private void getTaxrateType() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("type", "taxrateType");
-        HttpUtil.getEnum(map).execute(new JsonCallback<Result<String>>() {
+        HttpUtil.getEnum(map).execute(new JsonCallback<Result<List<LeaveType>>>() {
             @Override
-            public void onSuccess(Result<String> result, Call call, Response response) {
+            public void onSuccess(Result<List<LeaveType>> result, Call call, Response response) {
 
             }
 
@@ -161,7 +170,7 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.new_add_img:// 新增
-                listdata.add(new ContractDetAddEnt("", 0, ""));
+                listdata.add(new ContractDetAddEnt("", 0, "", ""));
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.del_img:// 删除
@@ -185,20 +194,19 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
 
                 holder.setText(R.id.shuijin_tv, item.taxes);
 
-                if (item.taxRate == 0) {
-                    holder.setText(R.id.shui_lv_tv, "");
+                holder.setText(R.id.shui_lv_tv, item.rateName);
+
+                if (type_det != null) { // 详情查看时候不需要操作
+                    jine_edt.setEnabled(false);
                 } else {
-                    holder.setText(R.id.shui_lv_tv, item.taxRate + "%");
+                    holder.setOnClickListener(R.id.shui_lv_tv, v -> {
+                        if (!listdata.get(position).amount.equals("")) {
+                            setOnClick(position);
+                        } else {
+                            showToast("请先填写金额");
+                        }
+                    });
                 }
-                holder.setOnClickListener(R.id.shui_lv_tv, v -> {
-                    if (!listdata.get(position).amount.equals("")) {
-                        setOnClick(position);
-                    } else {
-                        showToast("请先填写金额");
-                    }
-
-                });
-
                 holder.setIsRecyclable(false);
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾
 
@@ -240,8 +248,13 @@ public class ContractDetailsAddActivity extends BBActivity<ActivityContractDetai
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                listdata.get(position).taxRate = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
-                listdata.get(position).taxes = df.format(number(listdata.get(position).taxRate, Double.parseDouble(listdata.get(position).amount)));
+                listdata.get(position).taxRate = Integer.parseInt(leaveTypes.get(options1).value);
+                listdata.get(position).rateName = leaveTypes.get(options1).label;
+                if (listdata.get(position).rateName.equals("3%普")) {
+                    listdata.get(position).taxes = "0.00";
+                } else {
+                    listdata.get(position).taxes = df.format(number(Integer.parseInt(listdata.get(position).rateName.substring(0, listdata.get(position).rateName.length() - 2)), Double.parseDouble(listdata.get(position).amount)));
+                }
                 adapter.notifyDataSetChanged();
             }
         })

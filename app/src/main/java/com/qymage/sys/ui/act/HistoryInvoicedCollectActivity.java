@@ -88,7 +88,7 @@ public class HistoryInvoicedCollectActivity extends BBActivity<ActivityHistoryIn
                 }
                 EditText jine_edt = holder.getView(R.id.jine_edt);
                 jine_edt.setText(item.amount);
-                holder.setText(R.id.shui_lv_tv, VerifyUtils.isEmpty(item.taxRate) ? "" : item.taxRate + "%");
+                holder.setText(R.id.shui_lv_tv, VerifyUtils.isEmpty(item.rateName) ? "" : item.rateName);
                 holder.setIsRecyclable(false);
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾

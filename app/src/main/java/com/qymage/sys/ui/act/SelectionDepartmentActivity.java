@@ -82,6 +82,19 @@ public class SelectionDepartmentActivity extends BBActivity<ActivitySelectionDep
                     break;
             }
         });
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            for (int i = 0; i < listdata.size(); i++) {
+                if (i == position) {
+                    if (listdata.get(position).isCheck) {
+                        listdata.get(position).isCheck = false;
+                    } else {
+                        listdata.get(position).isCheck = true;
+                    }
+                }
+            }
+            CalculNum();
+            adapter.notifyDataSetChanged();
+        });
         mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 KeyBordUtil.hideSoftKeyboard(mBinding.etSearch);

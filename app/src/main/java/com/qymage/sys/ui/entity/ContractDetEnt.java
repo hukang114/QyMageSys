@@ -141,6 +141,7 @@ public class ContractDetEnt implements Serializable {
         public int taxRate;
         public double amount;
         public double taxes;
+        public String rateName;
     }
 
     public static class ContractPayscaleBean implements Serializable {

@@ -73,8 +73,8 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
         try {
             type_det = mInstant.getStringExtra("type_det");
             htjeMoney = Double.parseDouble(mInstant.getStringExtra("htjeMoney"));
-            if (type_det != null) {
-                mBinding.metitle.setcTxt("");
+            if (type_det != null && !type_det.equals("")) {
+                mBinding.metitle.setrTxt("");
                 mBinding.bottonLayout.setVisibility(View.GONE);
             }
         } catch (Exception e) {
@@ -129,7 +129,6 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
 
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -155,7 +154,14 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
                 holder.setText(R.id.num_tv, (position + 1) + "");
                 EditText jine_edt = holder.getView(R.id.shuijin_tv);
                 jine_edt.setText(item.amount);
-                holder.setText(R.id.jine_edt, item.date);
+
+                String date;
+                if (item.date != null && item.date.length() > 11) {
+                    date = item.date.substring(0, 10);
+                } else {
+                    date = item.date;
+                }
+                holder.setText(R.id.jine_edt, date);
                 if (item.payScale == 0) {
                     holder.setText(R.id.shui_lv_tv, "");
                 } else {
@@ -164,12 +170,14 @@ public class ContractPaymentRaActivity extends BBActivity<ActivityContractPaymen
                 holder.setIsRecyclable(false);
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾
 
-                holder.setOnClickListener(R.id.jine_edt, v -> {
-                    selectClickDate(position);
-                });
-                holder.setOnClickListener(R.id.shui_lv_tv, v -> {
-                    setOnClick(position);
-                });
+                if (type_det == null) { // 付款比例详情展示不需要操作事件
+                    holder.setOnClickListener(R.id.jine_edt, v -> {
+                        selectClickDate(position);
+                    });
+                    holder.setOnClickListener(R.id.shui_lv_tv, v -> {
+                        setOnClick(position);
+                    });
+                }
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾
 
                 jine_edt.addTextChangedListener(new TextWatcher() {

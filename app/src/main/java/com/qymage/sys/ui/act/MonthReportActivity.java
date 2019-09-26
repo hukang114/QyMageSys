@@ -17,7 +17,10 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
+import com.qymage.sys.common.util.MeventKey;
+import com.qymage.sys.common.util.MyEvtnTools;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityMonthReportBinding;
 import com.qymage.sys.ui.Test;
@@ -28,6 +31,8 @@ import com.qymage.sys.ui.entity.DayLogListEnt;
 import com.qymage.sys.ui.entity.DayWeekMonthDet;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.YesQueryEny;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,6 +60,14 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
     private String selg = "";
     DayWeekMonthDet info;// 月报详情复制操作传递过来的数据
     private Intent mIntent;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        HttpUtil.cancel(HttpConsts.LOG_MONADD);
+        HttpUtil.cancel(HttpConsts.GETENUM);
+        HttpUtil.cancel(HttpConsts.LOG_YESQUERY);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -90,8 +103,12 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
         auditorListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.caccel_ioc:
-                    auditorList.remove(position);
-                    auditorListAdapter.notifyDataSetChanged();
+                    if (auditorList.get(position).isDef) {
+                        showToast("默认审批人不能移除");
+                    } else {
+                        auditorList.remove(position);
+                        auditorListAdapter.notifyDataSetChanged();
+                    }
                     break;
             }
         });
@@ -132,9 +149,21 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
         mBinding.xiangmuBianhao.setText(VerifyUtils.isEmpty(info.selg) ? "暂无" : info.selg);
     }
 
+    /**
+     * 审批人的获取回调
+     *
+     * @param listdata
+     */
     @Override
     protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
-        auditorList.addAll(listdata);
+        // 加上默认审批人的标识
+        for (int i = 0; i < listdata.size(); i++) {
+            GetTreeEnt ent = new GetTreeEnt();
+            ent.isDef = true;
+            ent.userId = listdata.get(i).userId;
+            ent.userName = listdata.get(i).userName;
+            auditorList.add(ent);
+        }
         auditorListAdapter.notifyDataSetChanged();
     }
 
@@ -276,8 +305,12 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 300) { // 审核人
             List<GetTreeEnt> list = (List<GetTreeEnt>) data.getSerializableExtra("data");
-            auditorList.clear();
-            auditorList.addAll(list);
+            if (list.size() > 0) {
+                auditorList.clear();
+                for (int i = 0; i < list.size(); i++) {
+                    auditorList.add(list.get(i));
+                }
+            }
             auditorListAdapter.notifyDataSetChanged();
         } else if (resultCode == 400) { // 抄送人
             List<GetTreeEnt> list = (List<GetTreeEnt>) data.getSerializableExtra("data");
@@ -295,6 +328,8 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
             @Override
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();
+                // 更新月报列表
+                EventBus.getDefault().post(new MyEvtnTools(MeventKey.ORDERUPDATE));
                 msgNocanseDialogBuilder("月报提交成功！", (dialog, which) -> {
                     dialog.dismiss();
                     finish();
@@ -321,13 +356,9 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
         } else if (auditorList.size() == 0) {
             showToast("请填写审批人");
             return false;
-        } else if (copierList.size() == 0) {
-            showToast("请填写抄送人");
-            return false;
         } else {
             return true;
         }
     }
-
 
 }

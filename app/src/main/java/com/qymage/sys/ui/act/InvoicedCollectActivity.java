@@ -22,6 +22,7 @@ import com.qymage.sys.databinding.ActivityInvoicedCollectBinding;
 import com.qymage.sys.ui.entity.CompanyMoneyPaymentVOS;
 import com.qymage.sys.ui.entity.CompanyMoneyTicketVOS;
 import com.qymage.sys.ui.entity.ContractPayEnt;
+import com.qymage.sys.ui.entity.LeaveType;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -47,6 +48,8 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
     List<CompanyMoneyTicketVOS> ticketVOS;
     CommonAdapter<CompanyMoneyTicketVOS> adapter;
     private Intent mInstant;
+    List<LeaveType> leaveTypes = new ArrayList<>();
+    private String type_det;
 
 
     @Override
@@ -69,6 +72,15 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
         if (ticketVOS == null) {
             return;
         }
+        try {
+            type_det = mInstant.getStringExtra("type_det");
+            if (type_det != null) {
+                mBinding.metitle.setrTxt("");
+                mBinding.bottomBntLayout.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+
+        }
         if (type.equals("3")) {
             mBinding.metitle.setcTxt("本次已开票");
         } else if (type.equals("4")) {
@@ -76,11 +88,20 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
         }
         setAdapter();
 
-        shuilv_list.add(3 + "%");
-        shuilv_list.add(6 + "%");
-        shuilv_list.add(9 + "%");
-        shuilv_list.add(11 + "%");
-        shuilv_list.add(13 + "%");
+        leaveTypes.add(new LeaveType("3%普", "1"));
+        leaveTypes.add(new LeaveType("3%专", "2"));
+        leaveTypes.add(new LeaveType("6%普", "3"));
+        leaveTypes.add(new LeaveType("6%专", "4"));
+        leaveTypes.add(new LeaveType("9%普", "5"));
+        leaveTypes.add(new LeaveType("9%专", "6"));
+        leaveTypes.add(new LeaveType("11%普", "7"));
+        leaveTypes.add(new LeaveType("11%专", "8"));
+        leaveTypes.add(new LeaveType("13%普", "9"));
+        leaveTypes.add(new LeaveType("13%专", "10"));
+
+        for (int i = 0; i < leaveTypes.size(); i++) {
+            shuilv_list.add(leaveTypes.get(i).label);
+        }
 
         mBinding.metitle.setrTxtClick(v -> {
             bundle = new Bundle();
@@ -108,26 +129,24 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
 
                 EditText jine_edt = holder.getView(R.id.jine_edt);
                 jine_edt.setText(item.amount);
+                holder.setText(R.id.shui_lv_tv, item.rateName);
 
-                if (item.taxRate == 0) {
-                    holder.setText(R.id.shui_lv_tv, "");
-                } else {
-                    holder.setText(R.id.shui_lv_tv, item.taxRate + "%");
-                }
                 holder.setIsRecyclable(false);
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾
 
-                holder.setOnClickListener(R.id.date_tv, v -> {
-                    selectClickDate(position);
-                });
-                holder.setOnClickListener(R.id.shui_lv_tv, v -> {
-                    if (!ticketVOS.get(position).amount.equals("")) {
-                        setOnClick(position);
-                    } else {
-                        showToast("请先填写金额");
-                    }
+                if (type_det == null) { // 显示详情页数据的时候不需要操作
+                    holder.setOnClickListener(R.id.date_tv, v -> {
+                        selectClickDate(position);
+                    });
+                    holder.setOnClickListener(R.id.shui_lv_tv, v -> {
+                        if (!ticketVOS.get(position).amount.equals("")) {
+                            setOnClick(position);
+                        } else {
+                            showToast("请先填写金额");
+                        }
 
-                });
+                    });
+                }
                 jine_edt.setSelection(jine_edt.length());//将光标移至文字末尾
 
                 jine_edt.addTextChangedListener(new TextWatcher() {
@@ -187,9 +206,13 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                ticketVOS.get(position).taxRate = Integer.parseInt(shuilv_list.get(options1).replace("%", ""));
-                ticketVOS.get(position).taxes = number(ticketVOS.get(position).taxRate, Double.parseDouble(ticketVOS.get(position).amount));
-
+                ticketVOS.get(position).taxRate = Integer.parseInt(leaveTypes.get(options1).value);
+                ticketVOS.get(position).rateName = leaveTypes.get(options1).label;
+                if (ticketVOS.get(position).rateName.equals("3%普")) {
+                    ticketVOS.get(position).taxes = 0.00;
+                } else {
+                    ticketVOS.get(position).taxes = number(Integer.parseInt(ticketVOS.get(position).rateName.substring(0, ticketVOS.get(position).rateName.length() - 2)), Double.parseDouble(ticketVOS.get(position).amount));
+                }
                 adapter.notifyDataSetChanged();
             }
         })
@@ -242,7 +265,7 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
      * @param position
      */
     private void setCalculation(int position) {
-        ticketVOS.get(position).taxes = number(ticketVOS.get(position).taxRate, Double.parseDouble(ticketVOS.get(position).amount));
+        ticketVOS.get(position).taxes = number(Integer.parseInt(ticketVOS.get(position).rateName.substring(0, ticketVOS.get(position).rateName.length() - 2)), Double.parseDouble(ticketVOS.get(position).amount));
 
         if (mBinding.recyclerview.getScrollState() == RecyclerView.SCROLL_STATE_IDLE || (mBinding.recyclerview.isComputingLayout() == false)) {
         }
@@ -268,7 +291,7 @@ public class InvoicedCollectActivity extends BBActivity<ActivityInvoicedCollectB
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.new_add_img:// 新增
-                ticketVOS.add(new CompanyMoneyTicketVOS("", 0, 0, ""));
+                ticketVOS.add(new CompanyMoneyTicketVOS("", 0, 0, "", ""));
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.del_img:// 删除

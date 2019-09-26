@@ -191,7 +191,6 @@
                         android:id="@+id/phone_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawableRight="@mipmap/down_ioc"
                         android:drawablePadding="@dimen/margin5"
                         android:enabled="false"
                         android:hint="10小时" />
@@ -214,7 +213,6 @@
                         android:id="@+id/jon_num_et"
                         style="@style/personal_title_kaoqin_et"
                         android:layout_marginRight="5dp"
-                        android:drawableRight="@mipmap/down_ioc"
                         android:drawablePadding="@dimen/margin5"
                         android:hint="0小时" />
                 </LinearLayout>

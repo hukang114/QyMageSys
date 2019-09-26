@@ -23,8 +23,11 @@ import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
 import com.qymage.sys.common.callback.JsonCallback;
 import com.qymage.sys.common.callback.Result;
+import com.qymage.sys.common.http.HttpConsts;
 import com.qymage.sys.common.http.HttpUtil;
 import com.qymage.sys.common.util.DateUtil;
+import com.qymage.sys.common.util.MeventKey;
+import com.qymage.sys.common.util.MyEvtnTools;
 import com.qymage.sys.common.util.VerifyUtils;
 import com.qymage.sys.databinding.ActivityDailyReportBinding;
 import com.qymage.sys.ui.adapter.AuditorListAdapter;
@@ -34,6 +37,8 @@ import com.qymage.sys.ui.entity.DayWeekMonthDet;
 import com.qymage.sys.ui.entity.GetTreeEnt;
 import com.qymage.sys.ui.entity.HasClockOutEnt;
 import com.qymage.sys.ui.entity.ProjecInfoEnt;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -297,6 +302,8 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
             public void onSuccess(Result<String> result, Call call, Response response) {
                 closeLoading();
                 closeLoading();
+                // 更新日志列表
+                EventBus.getDefault().post(new MyEvtnTools(MeventKey.ORDERUPDATE));
                 msgDialogBuilder("日报请提交成功", (dialog, which) -> {
                     dialog.dismiss();
                     finish();
@@ -328,9 +335,56 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
         return hashMap;
     }
 
+    /**
+     * 检查日志是否填写完成
+     *
+     * @return
+     */
+    private boolean isHtisEmpty() {
+        boolean isEmpty = false;
+        if (dayLogListEnts.size() > 0) {
+            for (int i = 0; i < dayLogListEnts.size(); i++) {
+                if (dayLogListEnts.get(i).contractNo == null || dayLogListEnts.get(i).contractNo.equals("")) {
+                    showToast("请填写合同编号");
+                    isEmpty = false;
+                } else if (dayLogListEnts.get(i).manHours == null || dayLogListEnts.get(i).manHours.equals("")) {
+                    showToast("请填写工时比例");
+                    isEmpty = false;
+                } else if (dayLogListEnts.get(i).workContent == null || dayLogListEnts.get(i).workContent.equals("")) {
+                    showToast("请填写工作内容");
+                    isEmpty = false;
+                } else {
+                    if (dayLogListEnts.get(i).subMoneyList.size() >= 0) {
+                        for (int k = 0; k < dayLogListEnts.get(i).subMoneyList.size(); k++) {
+                            if (dayLogListEnts.get(i).subMoneyList.get(k).amount == null || dayLogListEnts.get(i).subMoneyList.get(k).amount.equals("")) {
+                                showToast("请填写工报销金额");
+                                isEmpty = false;
+                            } else if (dayLogListEnts.get(i).subMoneyList.get(k).typeName == null || dayLogListEnts.get(i).subMoneyList.get(k).typeName.equals("")) {
+                                showToast("请填写工报销类型");
+                                isEmpty = false;
+                            } else if (dayLogListEnts.get(i).subMoneyList.get(k).detailed == null || dayLogListEnts.get(i).subMoneyList.get(k).detailed.equals("")) {
+                                showToast("请填写明细描述");
+                                isEmpty = false;
+                            } else {
+                                isEmpty = true;
+                            }
+                        }
+                    } else {
+                        isEmpty = true;
+                    }
+                }
+            }
+        } else {
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
 
     private boolean isCheck() {
-        if (TextUtils.isEmpty(mBinding.mingriGongzuoJihua.getText().toString())) {
+        if (!isHtisEmpty()) {
+            return false;
+        } else if (TextUtils.isEmpty(mBinding.mingriGongzuoJihua.getText().toString())) {
             showToast("请填写明日工作计划");
             return false;
         } else {
@@ -587,4 +641,10 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
     //------------------------------------------------------------------------------------------------
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        HttpUtil.cancel(HttpConsts.ATTENDANCE_HASCLOCKOUT);
+        HttpUtil.cancel(HttpConsts.LOG_LOGADD);
+    }
 }

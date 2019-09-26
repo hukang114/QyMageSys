@@ -75,8 +75,13 @@ public class HistoryReceiptsPaymentsDetActivity extends BBActivity<ActivityHisto
                 amount_edt.setText(item.amount);
                 EditText remarks_edt = holder.getView(R.id.remarks_edt);
                 remarks_edt.setText(item.remarks);
-                holder.setText(R.id.date_tv, item.paymentTime);
-
+                String paymentTime;
+                if (item.paymentTime != null && item.paymentTime.length() > 11) {
+                    paymentTime = item.paymentTime.substring(0, 10);
+                } else {
+                    paymentTime = item.paymentTime;
+                }
+                holder.setText(R.id.date_tv, paymentTime);
                 mBinding.recyclerview.setAdapter(adapter);
             }
 

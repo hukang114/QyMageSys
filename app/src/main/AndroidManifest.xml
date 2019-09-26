@@ -114,7 +114,7 @@
             android:resizeableActivity="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- ============ 微信相关结束 ============ -->
         <!-- j  push s -->
-        <service
+       <!-- <service
             android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace">
@@ -124,7 +124,8 @@
                 <action android:name="cn.jpush.android.intent.PushService" />
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
-        </service> <!-- User defined. 用户自定义的广播接收器 -->
+        </service> -->
+        <!-- User defined. 用户自定义的广播接收器 -->
         <receiver
             android:name=".receiver.MyReceiver"
             android:enabled="true">

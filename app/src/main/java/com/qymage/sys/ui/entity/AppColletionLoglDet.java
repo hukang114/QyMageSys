@@ -107,6 +107,7 @@ public class AppColletionLoglDet implements Serializable {
         public double taxes;
         public String paymentTime;
         public String total;
+        public String rateName;
     }
 
     /**
@@ -149,6 +150,7 @@ public class AppColletionLoglDet implements Serializable {
         public String taxRate;// 税率
         public String taxes;// 税金
         public String paymentTime;//  日期
+        public String rateName;//税率名称
     }
 
 

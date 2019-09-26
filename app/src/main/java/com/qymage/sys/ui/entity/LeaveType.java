@@ -23,6 +23,13 @@ public class LeaveType {
     public String value;
     public boolean isCheck = false;
 
-    
+
+    public LeaveType() {
+    }
+
+    public LeaveType(String label, String value) {
+        this.label = label;
+        this.value = value;
+    }
 
 }

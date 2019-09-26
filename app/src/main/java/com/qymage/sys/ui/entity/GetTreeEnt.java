@@ -37,5 +37,6 @@ public class GetTreeEnt implements Serializable {
     public String headPortrait;
     public String userCode;
     public String email;
+    public boolean isDef = false;
 
 }

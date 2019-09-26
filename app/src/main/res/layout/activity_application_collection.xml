@@ -762,6 +762,7 @@
                         android:gravity="center_vertical"
                         android:paddingTop="@dimen/margin5"
                         android:text="*"
+                        android:visibility="invisible"
                         android:textColor="@color/xinghao_color"
                         android:textSize="@dimen/text_size_30" />
 

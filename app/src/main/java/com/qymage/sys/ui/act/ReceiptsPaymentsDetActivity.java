@@ -28,7 +28,7 @@ import cn.leo.click.SingleClick;
 
 
 /**
- * 已收款 已付款明细
+ * 本次已收款 已付款明细
  */
 public class ReceiptsPaymentsDetActivity extends BBActivity<ActivityReceiptsPaymentsDetBinding> implements View.OnClickListener {
 
@@ -39,6 +39,7 @@ public class ReceiptsPaymentsDetActivity extends BBActivity<ActivityReceiptsPaym
     List<CompanyMoneyPaymentVOS> paymentVOS;
     CommonAdapter<CompanyMoneyPaymentVOS> adapter;
     private Intent mInstant;
+    private String type_det;
 
     @Override
     protected int getLayoutId() {
@@ -55,6 +56,14 @@ public class ReceiptsPaymentsDetActivity extends BBActivity<ActivityReceiptsPaym
         mInstant = getIntent();
         paymentVOS = (List<CompanyMoneyPaymentVOS>) mInstant.getSerializableExtra("data");
         type = mInstant.getStringExtra("type");
+        try {
+            type_det = mInstant.getStringExtra("type_det");
+            if (type_det != null) {
+                mBinding.metitle.setrTxt("");
+                mBinding.bottomLayoutBtn.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+        }
         if (paymentVOS == null) {
             return;
         }

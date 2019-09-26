@@ -14,14 +14,16 @@ public class CompanyMoneyTicketVOS implements Serializable {
     public int taxRate;//税率
     public double taxes;//税金
     public String paymentTime;//日期
+    public String rateName;// 税率名称
 
     public CompanyMoneyTicketVOS() {
     }
 
-    public CompanyMoneyTicketVOS(String amount, int taxRate, double taxes, String paymentTime) {
+    public CompanyMoneyTicketVOS(String amount, int taxRate, double taxes, String paymentTime, String rateName) {
         this.amount = amount;
         this.taxRate = taxRate;
         this.taxes = taxes;
         this.paymentTime = paymentTime;
+        this.rateName = rateName;
     }
 }
