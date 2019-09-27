@@ -329,6 +329,7 @@ public class AppColletionLoglDetActivity extends BBActivity<ActivityAppcolletion
                     receiverInfo.colInvoiceAddress = VerifyUtils.isEmpty(info.colInvoiceAddress) ? "" : info.colInvoiceAddress;
                     receiverInfo.colContacts = VerifyUtils.isEmpty(info.colContacts) ? "" : info.colContacts;
                     receiverInfo.colPhone = VerifyUtils.isEmpty(info.colPhone) ? "" : info.colPhone;
+                    bundle = new Bundle();
                     bundle.putString("type_det", "det");
                     bundle.putString("type", "1");
                     bundle.putSerializable("data", receiverInfo);

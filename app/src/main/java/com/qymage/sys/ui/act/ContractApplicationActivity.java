@@ -128,8 +128,12 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         auditorListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.caccel_ioc:
-                    auditorList.remove(position);
-                    auditorListAdapter.notifyDataSetChanged();
+                    if (auditorList.get(position).isDef) {
+                        showToast("默认审批人不能移除");
+                    } else {
+                        auditorList.remove(position);
+                        auditorListAdapter.notifyDataSetChanged();
+                    }
                     break;
             }
         });
@@ -286,7 +290,14 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
      */
     @Override
     protected void getAuditQuerySuccess(List<GetTreeEnt> listdata) {
-        auditorList.addAll(listdata);
+        // 加上默认审批人的标识
+        for (int i = 0; i < listdata.size(); i++) {
+            GetTreeEnt ent = new GetTreeEnt();
+            ent.isDef = true; // 默认审批人
+            ent.userId = listdata.get(i).userId;
+            ent.userName = listdata.get(i).userName;
+            auditorList.add(ent);
+        }
         auditorListAdapter.notifyDataSetChanged();
     }
 
@@ -496,8 +507,24 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
             listdata.addAll(list);
         } else if (resultCode == 300) { // 审核人
             List<GetTreeEnt> list = (List<GetTreeEnt>) data.getSerializableExtra("data");
-            auditorList.clear();
-            auditorList.addAll(list);
+            if (list.size() > 0) {
+                if (auditorList.size() > 0) {
+                    for (GetTreeEnt gteTar : list) {
+                        boolean flag = false;
+                        for (GetTreeEnt gte : auditorList) {
+                            if (gteTar.userId.toString().trim().equals(gte.userId.toString().trim())) {
+                                flag = true;
+                            }
+                        }
+                        if (!flag) {
+                            auditorList.add(gteTar);
+                        }
+                    }
+                } else {
+                    auditorList.clear();
+                    auditorList.addAll(list);
+                }
+            }
             auditorListAdapter.notifyDataSetChanged();
         } else if (resultCode == 400) { // 抄送人
             List<GetTreeEnt> list = (List<GetTreeEnt>) data.getSerializableExtra("data");

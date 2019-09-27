@@ -119,7 +119,9 @@
             android:layout_marginRight="@dimen/margin10"
             android:background="@color/div_color" />
 
-        <LinearLayout style="@style/personal_msg_ll">
+        <LinearLayout
+            style="@style/personal_msg_ll"
+            android:visibility="gone">
 
             <TextView
                 style="@style/personal_title_txt"

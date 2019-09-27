@@ -380,7 +380,7 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
         //============上班相关======================
         mBinding.workShiftTimeTv.setText("上班时间：" + dayEnt.beginTime);
 
-        String clockInTime = VerifyUtils.isEmpty(dayEnt.clockInResult) ? "打卡时间：" : "打卡时间：" + dayEnt.clockInTime;
+        String clockInTime = VerifyUtils.isEmpty(dayEnt.clockInTime) ? "打卡时间：" : "打卡时间：" + dayEnt.clockInTime;
         mBinding.workShiftClockTime.setText(clockInTime);
         // 上班考勤类型 1-在岗  2-出差  3-请假
         String clockInType = VerifyUtils.isEmpty(dayEnt.clockInType) ? "" : 1 == dayEnt.clockInType ? "在岗" : 2 == dayEnt.clockInType ? "出差" :

@@ -3,11 +3,14 @@ package com.qymage.sys.ui.act;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -38,6 +41,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
 
 import cn.leo.click.SingleClick;
 import okhttp3.Call;
@@ -159,7 +165,7 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
         // 加上默认审批人的标识
         for (int i = 0; i < listdata.size(); i++) {
             GetTreeEnt ent = new GetTreeEnt();
-            ent.isDef = true;
+            ent.isDef = true; // 默认审批人
             ent.userId = listdata.get(i).userId;
             ent.userName = listdata.get(i).userName;
             auditorList.add(ent);
@@ -300,18 +306,32 @@ public class MonthReportActivity extends BBActivity<ActivityMonthReportBinding> 
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 300) { // 审核人
             List<GetTreeEnt> list = (List<GetTreeEnt>) data.getSerializableExtra("data");
             if (list.size() > 0) {
-                auditorList.clear();
-                for (int i = 0; i < list.size(); i++) {
-                    auditorList.add(list.get(i));
+                if (auditorList.size() > 0) {
+                    for (GetTreeEnt gteTar : list) {
+                        boolean flag = false;
+                        for (GetTreeEnt gte : auditorList) {
+                            if (gteTar.userId.toString().trim().equals(gte.userId.toString().trim())) {
+                                flag = true;
+                            }
+                        }
+                        if (!flag) {
+                            auditorList.add(gteTar);
+                        }
+                    }
+                } else {
+                    auditorList.clear();
+                    auditorList.addAll(list);
                 }
             }
             auditorListAdapter.notifyDataSetChanged();
+
         } else if (resultCode == 400) { // 抄送人
             List<GetTreeEnt> list = (List<GetTreeEnt>) data.getSerializableExtra("data");
             copierList.clear();

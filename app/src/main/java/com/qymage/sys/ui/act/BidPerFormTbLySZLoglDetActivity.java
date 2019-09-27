@@ -179,9 +179,11 @@ public class BidPerFormTbLySZLoglDetActivity extends BBActivity<ActivityBidperfo
             mBinding.bnt1.setVisibility(View.GONE);
             mBinding.refuseTv.setVisibility(View.VISIBLE);
             mBinding.agreeTv.setVisibility(View.VISIBLE);
+            mBinding.newBuildBtn.setVisibility(View.GONE);
         } else if (BidPerformanceLvYueSZActivity.mType == 4) {
             mBinding.refuseTv.setVisibility(View.GONE);
             mBinding.agreeTv.setVisibility(View.GONE);
+            mBinding.newBuildBtn.setVisibility(View.VISIBLE);
             if (item.canCancelTask == 1) {
                 mBinding.bnt1.setVisibility(View.VISIBLE);
             } else {

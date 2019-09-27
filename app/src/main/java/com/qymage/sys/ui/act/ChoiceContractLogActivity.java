@@ -73,15 +73,6 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
         mBinding.recyclerview.setAdapter(adapter);
         mBinding.radioGroup.setOnCheckedChangeListener(this);
         mBinding.pendingBtn.setChecked(true);
-        adapter.setOnItemClickListener((adapter, view, position) -> {
-            bundle = new Bundle();
-            bundle.putString("Tag", Tag);
-            bundle.putString("id", listdata.get(position).id);
-            openActivity(ContractApplicationDetActivity.class, bundle);
-            if (listdata.get(position).read == 0) {
-                msgUdate(listdata.get(position).msgId, position);
-            }
-        });
         mBinding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
              /*   if (!getKeyWord().equals("")) {
@@ -117,8 +108,13 @@ public class ChoiceContractLogActivity extends BBActivity<ActivityChoiceContract
         });
         adapter.setOnItemClickListener((adapter, view, position) -> {
             bundle = new Bundle();
+            bundle.putString("Tag", Tag);
             bundle.putString("id", listdata.get(position).id);
             openActivity(ContractApplicationDetActivity.class, bundle);
+            if (listdata.get(position).read == 0) {
+                msgUdate(listdata.get(position).msgId, position);
+            }
+
         });
     }
 

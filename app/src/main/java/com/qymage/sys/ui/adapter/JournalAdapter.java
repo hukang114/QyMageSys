@@ -77,6 +77,7 @@ public class JournalAdapter extends BaseQuickAdapter<JournalEntity, BaseViewHold
                     .setText(R.id.tomorrow_plan_tv, VerifyUtils.isEmpty(item.nextMonthWeek) ? "暂无" : item.nextMonthWeek);
             bottom_bnt_layout.setVisibility(View.VISIBLE);
         }
+        helper.setText(R.id.status_tv, VerifyUtils.isEmpty(item.actStatus) ? "" : item.actStatus);
         if (item.userName != null && item.userName.length() >= 3) {
             String strh = item.userName.substring(item.userName.length() - 2, item.userName.length());   //截取
             helper.setText(R.id.name_tv_bg, strh);
