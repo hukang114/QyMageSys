@@ -21,6 +21,7 @@ import com.qymage.sys.ui.entity.DayWeekMonthDet;
 import com.qymage.sys.ui.entity.LoanQueryDetEnt;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
 import com.qymage.sys.ui.entity.ProjectApprovaLoglDetEnt;
+import com.qymage.sys.ui.entity.YesQueryEny;
 import com.qymage.sys.ui.fragment.JournalFragment;
 
 import java.io.Serializable;
@@ -78,6 +79,8 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
         mBinding.bnt1.setOnClickListener(this);
         mBinding.newBuildBtn.setOnClickListener(this);
         mBinding.contractpayscaleBtn.setOnClickListener(this);
+        mBinding.zhoujihuaBtn.setOnClickListener(this);
+        mBinding.zhouzongjieBtn.setOnClickListener(this);
 
     }
 
@@ -244,6 +247,10 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
             String leadGrade = VerifyUtils.isEmpty(info.leadGrade) ? "暂无" : info.leadGrade;
             mBinding.introductionTv.setText("领导打分：" + leadGrade);
             mBinding.rizhiLayout.setVisibility(View.GONE);
+            mBinding.zhoujihuaLayout.setVisibility(View.VISIBLE);
+            mBinding.zhouzongjieLayout.setVisibility(View.VISIBLE);
+
+
         }
         switch (JournalFragment.logType) {
             case 1:
@@ -334,6 +341,37 @@ public class MonthlyDetailsActivity extends BBActivity<ActivityMonthlyDetBinding
                     }
                 }
                 break;
+
+
+            case R.id.zhoujihua_btn: // 周计划
+                if (info != null && info.weekPalyList != null && info.weekPalyList.size() > 0) {
+                    bundle = new Bundle();
+                    bundle.putSerializable("data", (Serializable) info.weekPalyList);
+                    bundle.putString("type", "1");
+                    openActivity(WeeklySummWeeklyPlanActivity.class, bundle);
+                } else {
+                    showToast("暂无周计划数据记录");
+                }
+                break;
+
+            case R.id.zhouzongjie_btn:// 周总结
+                if (info != null && info.weekTatalList != null && info.weekTatalList.size() > 0) {
+                    List<YesQueryEny.WeekPalyListBean> list = new ArrayList<>();
+                    for (int i = 0; i < info.weekTatalList.size(); i++) {
+                        YesQueryEny.WeekPalyListBean bean = new YesQueryEny.WeekPalyListBean();
+                        bean.createTime = info.weekTatalList.get(i).createTime;
+                        bean.nextWeek = info.weekTatalList.get(i).weekDay;
+                        list.add(bean);
+                    }
+                    bundle = new Bundle();
+                    bundle.putString("type", "2");
+                    bundle.putSerializable("data", (Serializable) list);
+                    openActivity(WeeklySummWeeklyPlanActivity.class, bundle);
+                } else {
+                    showToast("暂无周总结数据");
+                }
+                break;
+
         }
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public class DayWeekMonthDet implements Serializable{
+public class DayWeekMonthDet implements Serializable {
 
     // 日报====、
     public String processInstanceId;
@@ -46,6 +46,25 @@ public class DayWeekMonthDet implements Serializable{
     public String leadGrade;//  领导打分
     public String Id;
     public String userName;
+
+    public List<WeekPalyListBean> weekPalyList;
+    public List<WeekTatalListBean> weekTatalList;
+
+    public static class WeekPalyListBean implements Serializable {
+        /**
+         * weekPalyList : 周工作计划
+         */
+        public String nextWeek;
+        public String createTime;
+    }
+
+    public static class WeekTatalListBean implements Serializable {
+        /**
+         * weekDay : 周工作总结
+         */
+        public String weekDay;
+        public String createTime;
+    }
 
     public List<LogListBean> logList;
 
@@ -89,7 +108,7 @@ public class DayWeekMonthDet implements Serializable{
 
     public List<ActivityVoBean> activityVo;
 
-    public static class ActivityVoBean implements Serializable{
+    public static class ActivityVoBean implements Serializable {
         /**
          * id : 1171709251275427842
          * processInstanceId : 150077
