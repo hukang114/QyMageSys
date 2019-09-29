@@ -114,10 +114,10 @@ public class WorkFragment extends FragmentLazy<FragmentWorkBinding> {
                         baenList2.add(new WorkListEnt.DataBaen("shoupiao", "收票申请", R.mipmap.shoupiao));
                         break;
                     case "09":// 投标保证金收
-                        baenList2.add(new WorkListEnt.DataBaen("toubiaoz", "投标保证金支", R.mipmap.toubiaoz));
+                        baenList2.add(new WorkListEnt.DataBaen("toubiaos", "投标保证金收", R.mipmap.toubiaos));
                         break;
                     case "10"://投标保证金支
-                        baenList2.add(new WorkListEnt.DataBaen("toubiaos", "投标保证金收", R.mipmap.toubiaos));
+                        baenList2.add(new WorkListEnt.DataBaen("toubiaoz", "投标保证金支", R.mipmap.toubiaoz));
                         break;
                     case "11":// 履约保证金支
                         baenList2.add(new WorkListEnt.DataBaen("lvyuez", "履约保证金支", R.mipmap.lvyuez));

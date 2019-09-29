@@ -63,6 +63,7 @@ public class JournalEntity implements Serializable {
 
     public String msgId;// 消息id
     public int read;// 消息状态  0未读  1已读
+    public String needLeaderGrade; // 1是弹出  0是隐藏 引导打分
 
 
 }

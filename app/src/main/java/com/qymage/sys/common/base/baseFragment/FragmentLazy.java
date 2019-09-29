@@ -43,6 +43,7 @@ import com.qymage.sys.ui.act.MyLoanActivity;
 import com.qymage.sys.ui.adapter.LeaveTypeAdapter;
 import com.qymage.sys.ui.entity.LeaveType;
 import com.qymage.sys.ui.entity.ProjectAppLogEnt;
+import com.qymage.sys.ui.fragment.JournalFragment;
 import com.qymage.sys.ui.fragment.NewsFragment;
 
 import java.lang.reflect.Field;
@@ -398,7 +399,7 @@ public abstract class FragmentLazy<VB extends ViewDataBinding> extends Fragment 
         LinearLayoutManager layouta = new LinearLayoutManager(getActivity());
         layouta.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
         recyclerView.setLayoutManager(layouta);
-        if (modeType == AppConfig.status.value14 && type.equals("1")) { // 月报提交需要打分和提交评语 同意 的时候执行
+        if (modeType == AppConfig.status.value14 && type.equals("1") && JournalFragment.needLeaderGrade != null && JournalFragment.needLeaderGrade.equals("1")) { // 月报提交需要打分和提交评语 同意 的时候执行
             comments_edt.setVisibility(View.VISIBLE);
             df_tv.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);

@@ -67,6 +67,7 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
     JournalAdapter adapter;
     private int page = 1;
     private Bundle bundle;
+    public static String needLeaderGrade;
 
 
     @Override
@@ -162,6 +163,7 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
                     item.processInstId = journalEntities.get(position).processInstanceId;
                     state = AppConfig.status.value2;
                 } else if (workType == 3) { // 月报
+                    needLeaderGrade = journalEntities.get(position).needLeaderGrade;
                     item.id = journalEntities.get(position).id;
                     item.processInstId = journalEntities.get(position).processInstanceId;
                     state = AppConfig.status.value14;
@@ -185,6 +187,7 @@ public class JournalFragment extends FragmentLazy<FragmentJournalBinding> implem
         adapter.setOnItemClickListener((adapter, view, position) -> {
             bundle = new Bundle();
             bundle.putString("id", journalEntities.get(position).id);
+            needLeaderGrade = journalEntities.get(position).needLeaderGrade;
             if (workType != 2) {
                 bundle.putString("workType", workType + "");
                 openActivity(MonthlyDetailsActivity.class, bundle);

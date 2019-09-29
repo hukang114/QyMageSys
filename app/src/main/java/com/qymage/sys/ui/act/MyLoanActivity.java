@@ -280,11 +280,13 @@ public class MyLoanActivity extends BBActivity<ActivityMyLoanBinding> implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        page = 1;
+        getListData(Constants.RequestMode.FRIST);
         if (resultCode == 200) {
-            page = 1;
-            getListData(Constants.RequestMode.FRIST);
         }
     }
+
+
 }
 
 

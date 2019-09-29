@@ -676,8 +676,8 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
 
 
     private boolean isCheck() {
-        if (TextUtils.isEmpty(mBinding.baoxiaoMoneyEdt.getText().toString())) {
-            showToast("请填写项目编号");
+        if (TextUtils.isEmpty(projectId)) {
+            showToast("请搜索后选择项目编号");
             return false;
         } else if (TextUtils.isEmpty(mBinding.shenqingMoneyEdt.getText().toString())) {
             showToast("请输入项目名称");
