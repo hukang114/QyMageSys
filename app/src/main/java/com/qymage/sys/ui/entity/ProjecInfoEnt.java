@@ -1,6 +1,9 @@
 package com.qymage.sys.ui.entity;
 
+import com.qymage.sys.ui.Test;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 类名：
@@ -25,6 +28,22 @@ public class ProjecInfoEnt implements Serializable {
     public String contractName; // 合同名称
     public String company_name;// 公司名称
     public String contractTypeName;// 合同类型名称
+
+    public List<ContractListBean> contractList;
+
+    public static class ContractListBean {
+        /**
+         * contractType : 11
+         * contractNo : SW17
+         * contractName : 晴隆气站商务
+         * contractTypeName : 商务费用
+         */
+
+        public String contractType;
+        public String contractNo;
+        public String contractName;
+        public String contractTypeName;
+    }
 
 
 }

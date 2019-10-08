@@ -192,7 +192,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         });
         mBinding.xmmcEdt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                getProjectNo(2, mBinding.xmbhEdt.getText().toString());
+                getProjectNo(2, mBinding.xmmcEdt.getText().toString());
               /*  if (!mBinding.xmbhEdt.getText().toString().equals("")) {
                 } else {
                     showToast("请输入搜索关键字");
@@ -313,7 +313,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
             hashMap.put("projectName", contnet);//项目名称
         }
         showLoading();
-        HttpUtil.getProjectNo(new HashMap<>()).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
+        HttpUtil.getProjectNo(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
             @Override
             public void onSuccess(Result<List<ProjecInfoEnt>> result, Call call, Response response) {
                 closeLoading();
