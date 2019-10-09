@@ -56,6 +56,10 @@ import okhttp3.Response;
 public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> implements View.OnClickListener {
 
 
+    // 项目编号下的所有合同数据
+    List<ProjecInfoEnt.ContractListBean> contractListBeans = new ArrayList<>();
+    private List<String> contractListString = new ArrayList<>();
+
     List<ProjecInfoEnt> infoEnts = new ArrayList<>();
 
     List<GetTreeEnt> auditorList = new ArrayList<>();// 审核人
@@ -489,27 +493,27 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
             EditText gongshi_bili = helper.getView(R.id.gongshi_bili);
             EditText gongzuo_neirong = helper.getView(R.id.gongzuo_neirong);
 
-            EditText day_log_htbh_tv = helper.getView(R.id.day_log_htbh_tv);
-            EditText hetong_mingchen = helper.getView(R.id.hetong_mingchen);
+            EditText xiangmu_bianhao = helper.getView(R.id.xiangmu_bianhao);
+            EditText xiangmu_mingchen = helper.getView(R.id.xiangmu_mingchen);
 
-            day_log_htbh_tv.setOnEditorActionListener((v, actionId, event) -> {
+            xiangmu_bianhao.setOnEditorActionListener((v, actionId, event) -> {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    getContract(1, day_log_htbh_tv.getText().toString(), helper.getAdapterPosition());
-                  /*  if (!day_log_htbh_tv.getText().toString().equals("")) {
+                    if (!xiangmu_bianhao.getText().toString().equals("")) {
+                        getProjectNo(1, xiangmu_bianhao.getText().toString(), helper.getAdapterPosition());
                     } else {
                         showToast("请输入搜索关键字");
-                    }*/
+                    }
                     return true;
                 }
                 return false;
             });
-            hetong_mingchen.setOnEditorActionListener((v, actionId, event) -> {
+            xiangmu_mingchen.setOnEditorActionListener((v, actionId, event) -> {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    getContract(2, hetong_mingchen.getText().toString(), helper.getAdapterPosition());
-                 /*   if (!hetong_mingchen.getText().toString().equals("")) {
+                    if (!xiangmu_mingchen.getText().toString().equals("")) {
+                        getProjectNo(2, xiangmu_mingchen.getText().toString(), helper.getAdapterPosition());
                     } else {
                         showToast("请输入搜索关键字");
-                    }*/
+                    }
                     return true;
                 }
                 return false;
@@ -595,16 +599,16 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
      * @param
      * @param contetn 内容
      */
-    private void getContract(int type, String contetn, int postion) {
+    private void getProjectNo(int type, String contetn, int postion) {
         HashMap<String, Object> hashMap = new HashMap<>();
         if (type == 1) {
-            hashMap.put("contractNo", contetn); // 合同编号
+            hashMap.put("projectNo", contetn); // 项目编号
         }
         if (type == 2) {
-            hashMap.put("contractName", contetn);//合同名称查询
+            hashMap.put("projectName", contetn);//项目名称查询
         }
         showLoading();
-        HttpUtil.getContract(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
+        HttpUtil.getProjectNo(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
             @Override
             public void onSuccess(Result<List<ProjecInfoEnt>> result, Call call, Response response) {
                 closeLoading();
@@ -614,13 +618,13 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                     if (type == 1) {
                         proList.clear();
                         for (int i = 0; i < infoEnts.size(); i++) {
-                            proList.add(infoEnts.get(i).contractNo);
+                            proList.add(infoEnts.get(i).projectNo);
                         }
                         setProDialog(type, proList, postion);
                     } else if (type == 2) {
                         proList.clear();
                         for (int i = 0; i < infoEnts.size(); i++) {
-                            proList.add(infoEnts.get(i).contractName);
+                            proList.add(infoEnts.get(i).projectName);
                         }
                         setProDialog(type, proList, postion);
                     }
@@ -645,11 +649,11 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
      * @param postion
      */
     private void setProDialog(int type, List<String> proList, int postion) {
-        String title = "请选择合同编号";
+        String title = "请选择项目编号";
         if (type == 1) {
-            title = "请选择合同编号";
+            title = "请选择项目编号";
         } else if (type == 2) {
-            title = "请选择合同名称";
+            title = "请选择项目名称";
         }
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
             dayLogListEnts.get(postion).projectNo = infoEnts.get(options1).projectNo;
@@ -657,7 +661,15 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
             dayLogListEnts.get(postion).contractNo = infoEnts.get(options1).contractNo;
             dayLogListEnts.get(postion).contractName = infoEnts.get(options1).contractName;
             adapter.notifyDataSetChanged();
-
+            if (infoEnts.get(options1).contractList != null && infoEnts.get(options1).contractList.size() > 0) {
+                contractListBeans.clear();
+                contractListBeans.addAll(infoEnts.get(options1).contractList);
+                contractListString.clear();
+                for (int i = 0; i < infoEnts.get(options1).contractList.size(); i++) {
+                    contractListString.add(infoEnts.get(options1).contractList.get(i).contractName);
+                }
+                contractTypeNameDialog(postion);
+            }
         })
                 .setTitleText(title)
                 .setDividerColor(Color.BLACK)
@@ -670,6 +682,29 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 .build();
         // 三级选择器
         pvOptions.setPicker(proList, null, null);
+        pvOptions.show();
+    }
+
+    /**
+     * 选择合同名称
+     */
+    private void contractTypeNameDialog(int postion) {
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
+            dayLogListEnts.get(postion).contractNo = contractListBeans.get(options1).contractNo;
+            dayLogListEnts.get(postion).contractName = contractListBeans.get(options1).contractName;
+            adapter.notifyDataSetChanged();
+        })
+                .setTitleText("请选择合同名称")
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setContentTextSize(18)
+                .setOutSideCancelable(false)//点击外部dismiss default true
+                .setContentTextSize(16)//滚轮文字大小
+                .setSubCalSize(16)//确定和取消文字大小
+                .setLineSpacingMultiplier(2.4f)
+                .build();
+        // 三级选择器
+        pvOptions.setPicker(contractListString, null, null);
         pvOptions.show();
     }
     //------------------------------------------------------------------------------------------------

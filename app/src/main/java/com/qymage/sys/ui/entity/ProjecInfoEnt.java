@@ -31,7 +31,7 @@ public class ProjecInfoEnt implements Serializable {
 
     public List<ContractListBean> contractList;
 
-    public static class ContractListBean {
+    public static class ContractListBean implements Serializable{
         /**
          * contractType : 11
          * contractNo : SW17

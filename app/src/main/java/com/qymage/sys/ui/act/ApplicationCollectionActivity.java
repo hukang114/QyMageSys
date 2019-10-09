@@ -71,6 +71,10 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
     private String type;
     List<ProjecInfoEnt> infoEnts = new ArrayList<>();// 更具合同编号或合同名称查询的信息集合
     List<String> proList = new ArrayList<>();// 合同编号 项目编号
+    // 项目编号下的所有合同数据
+    List<ProjecInfoEnt.ContractListBean> contractListBeans = new ArrayList<>();
+    private List<String> contractListString = new ArrayList<>();
+
     List<CompanyMoneyPaymentVOS> paymentVOS = new ArrayList<>();// 收款 付款明细
     List<CompanyMoneyTicketVOS> ticketVOS = new ArrayList<>();// //开 -收 票明细
     List<FileListEnt> fileList = new ArrayList<>();// 上传附件
@@ -192,28 +196,44 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 , "");
         mBinding.htbhEdt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                getContract(1, mBinding.htbhEdt.getText().toString());
+                if (TextUtils.isEmpty(mBinding.htbhEdt.getText().toString())) {
+                    showToast("请输入关键字");
+                } else {
+                    getContract(1, mBinding.htbhEdt.getText().toString());
+                }
                 return true;
             }
             return false;
         });
         mBinding.htmcEdt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                getContract(2, mBinding.htbhEdt.getText().toString());
+                if (TextUtils.isEmpty(mBinding.htmcEdt.getText().toString())) {
+                    showToast("请输入关键字");
+                } else {
+                    getContract(2, mBinding.htmcEdt.getText().toString());
+                }
                 return true;
             }
             return false;
         });
         mBinding.mxbhTv.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                getProjectNo(3, mBinding.mxbhTv.getText().toString());
+                if (TextUtils.isEmpty(mBinding.mxbhTv.getText().toString())) {
+                    showToast("请输入关键字");
+                } else {
+                    getProjectNo(3, mBinding.mxbhTv.getText().toString());
+                }
                 return true;
             }
             return false;
         });
         mBinding.xmmcEdt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                getProjectNo(4, mBinding.mxbhTv.getText().toString());
+                if (TextUtils.isEmpty(mBinding.xmmcEdt.getText().toString())) {
+                    showToast("请输入关键字");
+                } else {
+                    getProjectNo(4, mBinding.xmmcEdt.getText().toString());
+                }
                 return true;
             }
             return false;
@@ -520,16 +540,27 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 mBinding.htbhEdt.setText(infoEnts.get(options1).contractNo);
                 mBinding.htmcEdt.setText(infoEnts.get(options1).contractName);
                 mBinding.htlxCateTxt.setText(infoEnts.get(options1).contractTypeName);
-                mBinding.mxbhTv.setText(infoEnts.get(options1).projectNo);
-                mBinding.xmmcEdt.setText(infoEnts.get(options1).projectName);
+//                mBinding.mxbhTv.setText(infoEnts.get(options1).projectNo);
+//                mBinding.xmmcEdt.setText(infoEnts.get(options1).projectName);
                 contractType = infoEnts.get(options1).contractType;
-                projectId = infoEnts.get(options1).id;
+//                projectId = infoEnts.get(options1).id;
                 //按合同编号获取收付款/开票收票信息
                 getMoney_Received(infoEnts.get(options1).contractNo);
             } else if (cate == 3 || cate == 4) {
                 mBinding.mxbhTv.setText(infoEnts.get(options1).projectNo);
                 mBinding.xmmcEdt.setText(infoEnts.get(options1).projectName);
                 projectId = infoEnts.get(options1).id;
+                //   项目编号下面有合同编号存在
+                if (infoEnts.get(options1).contractList != null && infoEnts.get(options1).contractList.size() > 0) {
+                    contractListBeans.clear();
+                    contractListBeans.addAll(infoEnts.get(options1).contractList);
+                    contractListString.clear();
+                    for (int i = 0; i < infoEnts.get(options1).contractList.size(); i++) {
+                        contractListString.add(infoEnts.get(options1).contractList.get(i).contractTypeName);
+                    }
+                    contractTypeNameDialog();
+                }
+
             }
 
         })
@@ -547,8 +578,36 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         pvOptions.show();
 
     }
-    //------------------------------------------------------------------------------------------------
 
+    private void contractTypeNameDialog() {
+
+
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
+
+            mBinding.htbhEdt.setText(contractListBeans.get(options1).contractNo);
+            mBinding.htmcEdt.setText(contractListBeans.get(options1).contractName);
+            mBinding.htlxCateTxt.setText(contractListBeans.get(options1).contractTypeName);
+            contractType = contractListBeans.get(options1).contractType;
+            //按合同编号获取收付款/开票收票信息
+            getMoney_Received(contractListBeans.get(options1).contractNo);
+
+        })
+                .setTitleText("请选择合同类型")
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setContentTextSize(18)
+                .setOutSideCancelable(false)//点击外部dismiss default true
+                .setContentTextSize(16)//滚轮文字大小
+                .setSubCalSize(16)//确定和取消文字大小
+                .setLineSpacingMultiplier(2.4f)
+                .build();
+        // 三级选择器
+        pvOptions.setPicker(contractListString, null, null);
+        pvOptions.show();
+    }
+
+
+    //------------------------------------------------------------------------------------------------
 
     /**
      * 按合同编号获取收付款/开票收票信息
