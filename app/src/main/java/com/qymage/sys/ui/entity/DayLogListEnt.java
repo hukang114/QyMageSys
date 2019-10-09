@@ -18,6 +18,8 @@ public class DayLogListEnt implements Serializable {
 
     public String contractNo; //合同编号
     public String contractName;//合同名称
+    public String contractType;
+    public String contractTypeName;
     public String projectNo;//项目编号
     public String projectName;//项目名称
     public String manHours;//工时比例
@@ -30,7 +32,7 @@ public class DayLogListEnt implements Serializable {
 
     public List<SubMoneyListEntity> subMoneyList;
 
-    public DayLogListEnt(String contractNo, String contractName, String projectNo, String projectName, String manHours, String workContent, String subMoney, List<SubMoneyListEntity> subMoneyList) {
+    public DayLogListEnt(String contractNo, String contractName, String contractType, String contractTypeName, String projectNo, String projectName, String manHours, String workContent, String subMoney, List<SubMoneyListEntity> subMoneyList) {
         this.contractNo = contractNo;
         this.contractName = contractName;
         this.projectNo = projectNo;

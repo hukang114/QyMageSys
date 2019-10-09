@@ -85,6 +85,7 @@ public class LogDetailsActivity extends BBActivity<ActivityLogDetailsBinding> {
                     .setText(R.id.hetong_mingchen, item.contractName)
                     .setText(R.id.xiangmu_bianhao, item.projectNo)
                     .setText(R.id.xiangmu_mingchen, item.projectName)
+                    .setText(R.id.contracttype, item.contractTypeName)
                     .setText(R.id.gongshi_bili, item.manHours)
                     .setText(R.id.gongzuo_neirong, item.workContent)
                     .setText(R.id.baoxiao_feiyong, item.subMoney);

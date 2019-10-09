@@ -103,6 +103,53 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="@dimen/margin55"
+        android:layout_marginTop="@dimen/margin1"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="@dimen/margin5"
+            android:text="*"
+            android:textColor="@color/xinghao_color"
+            android:textSize="@dimen/text_size_30"
+            android:visibility="invisible" />
+
+
+        <TextView
+            android:id="@+id/tv_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin2"
+            android:layout_toRightOf="@+id/tv_10"
+            android:text="合同类型"
+            android:textColor="@color/rizhi_color"
+            android:textSize="@dimen/text_size_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/contracttype"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/margin10"
+            android:layout_toRightOf="@+id/tv_11"
+            android:background="@color/white"
+            android:gravity="center_vertical|end"
+            android:hint=""
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/item_color"
+            android:textSize="@dimen/text_size_14" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="@dimen/margin1"
         android:background="@color/white">

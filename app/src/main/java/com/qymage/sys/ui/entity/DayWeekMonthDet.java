@@ -82,6 +82,8 @@ public class DayWeekMonthDet implements Serializable {
 
         public String contractNo;
         public String contractName;
+        public String contractType;
+        public String contractTypeName;
         public String projectNo;
         public String projectName;
         public String manHours;

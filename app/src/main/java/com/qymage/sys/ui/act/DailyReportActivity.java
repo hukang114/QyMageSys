@@ -160,6 +160,8 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 , ""
                 , ""
                 , ""
+                , ""
+                , ""
                 , defLogList));
         adapter.notifyDataSetChanged();
         gethasClockOut();
@@ -183,6 +185,8 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 DayLogListEnt dayLogListEnt = new DayLogListEnt();
                 dayLogListEnt.contractName = info.logList.get(i).contractName;
                 dayLogListEnt.contractNo = info.logList.get(i).contractNo;
+                dayLogListEnt.contractType = info.logList.get(i).contractType;
+                dayLogListEnt.contractTypeName = info.logList.get(i).contractTypeName;
                 dayLogListEnt.projectName = info.logList.get(i).projectName;
                 dayLogListEnt.projectNo = info.logList.get(i).projectNo;
                 dayLogListEnt.subMoney = info.logList.get(i).subMoney;
@@ -273,6 +277,8 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 // 添加一条默认的合同空数据
                 dayLogListEnts.add(new DayLogListEnt(
                         ""
+                        , ""
+                        , ""
                         , ""
                         , ""
                         , ""
@@ -482,6 +488,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
         protected void convert(BaseViewHolder helper, DayLogListEnt item) {
             helper.setText(R.id.day_log_htbh_tv, item.contractNo)
                     .setText(R.id.hetong_mingchen, item.contractName)
+                    .setText(R.id.contracttype, item.contractTypeName)
                     .setText(R.id.xiangmu_bianhao, item.projectNo)
                     .setText(R.id.xiangmu_mingchen, item.projectName)
                     .setText(R.id.gongshi_bili, item.manHours)
@@ -660,6 +667,8 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
             dayLogListEnts.get(postion).projectName = infoEnts.get(options1).projectName;
             dayLogListEnts.get(postion).contractNo = infoEnts.get(options1).contractNo;
             dayLogListEnts.get(postion).contractName = infoEnts.get(options1).contractName;
+            dayLogListEnts.get(postion).contractType = infoEnts.get(options1).contractType;
+            dayLogListEnts.get(postion).contractTypeName = infoEnts.get(options1).contractTypeName;
             adapter.notifyDataSetChanged();
             if (infoEnts.get(options1).contractList != null && infoEnts.get(options1).contractList.size() > 0) {
                 contractListBeans.clear();
@@ -692,6 +701,8 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
             dayLogListEnts.get(postion).contractNo = contractListBeans.get(options1).contractNo;
             dayLogListEnts.get(postion).contractName = contractListBeans.get(options1).contractName;
+            dayLogListEnts.get(postion).contractType = contractListBeans.get(options1).contractType;
+            dayLogListEnts.get(postion).contractTypeName = contractListBeans.get(options1).contractTypeName;
             adapter.notifyDataSetChanged();
         })
                 .setTitleText("请选择合同名称")
