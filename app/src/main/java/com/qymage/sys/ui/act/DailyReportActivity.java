@@ -675,7 +675,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 contractListBeans.addAll(infoEnts.get(options1).contractList);
                 contractListString.clear();
                 for (int i = 0; i < infoEnts.get(options1).contractList.size(); i++) {
-                    contractListString.add(infoEnts.get(options1).contractList.get(i).contractName);
+                    contractListString.add(infoEnts.get(options1).contractList.get(i).contractTypeName);
                 }
                 contractTypeNameDialog(postion);
             }
@@ -705,7 +705,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
             dayLogListEnts.get(postion).contractTypeName = contractListBeans.get(options1).contractTypeName;
             adapter.notifyDataSetChanged();
         })
-                .setTitleText("请选择合同名称")
+                .setTitleText("请选择合同类型")
                 .setDividerColor(Color.BLACK)
                 .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
                 .setContentTextSize(18)
