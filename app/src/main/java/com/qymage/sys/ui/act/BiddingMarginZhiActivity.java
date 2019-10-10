@@ -382,6 +382,21 @@ public class BiddingMarginZhiActivity extends BBActivity<ActivityBiddingMarginZh
         if (type.equals("2") || type.equals("4")) {
             hashMap.put("bidType", "0" + type);
         }
+        switch (type) {
+            case "1"://投标保证金支
+                hashMap.put("btnType", AppConfig.btnType10);
+                break;
+            case "2"://投标保证金收
+                hashMap.put("btnType", AppConfig.btnType9);
+                break;
+            case "3"://履约保证金收
+                hashMap.put("btnType", AppConfig.btnType12);
+                break;
+            case "4"://履约保证金支
+                hashMap.put("btnType", AppConfig.btnType11);
+                break;
+        }
+
         showLoading();
         HttpUtil.getProjectNo(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
             @Override

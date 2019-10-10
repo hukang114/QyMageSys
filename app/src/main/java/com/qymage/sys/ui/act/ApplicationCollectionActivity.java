@@ -484,6 +484,21 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
         if (type.equals("2") || type.equals("4")) {
             hashMap.put("bidType", type);
         }
+        switch (type) {
+            case "1"://收款申请
+                hashMap.put("btnType", AppConfig.btnType6);
+                break;
+            case "2"://付款申请
+                hashMap.put("btnType", AppConfig.btnType5);
+                break;
+            case "3"://开票申请
+                hashMap.put("btnType", AppConfig.btnType7);
+                break;
+            case "4"://收票申请
+                hashMap.put("btnType", AppConfig.btnType8);
+                break;
+        }
+
         showLoading();
         HttpUtil.getProjectNo(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
             @Override
@@ -554,6 +569,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 mBinding.mxbhTv.setText(infoEnts.get(options1).projectNo);
                 mBinding.xmmcEdt.setText(infoEnts.get(options1).projectName);
                 projectId = infoEnts.get(options1).id;
+                setDefText();
                 //   项目编号下面有合同编号存在
                 if (infoEnts.get(options1).contractList != null && infoEnts.get(options1).contractList.size() > 0) {
                     contractListBeans.clear();
@@ -686,7 +702,23 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
             }
         });
 
+    }
 
+    private void setDefText() {
+        detalBeanList.clear();
+        mBinding.htbhEdt.setText("");
+        mBinding.htmcEdt.setText("");
+        mBinding.htlxCateTxt.setText("");
+
+        mBinding.yskTxt.setText("0.00");
+
+        mBinding.wskEdt.setText("0.00");
+
+        mBinding.ykpTxt.setText("0.00");
+
+        mBinding.wkpTxt.setText("0.00");
+        // 计算票款差额
+        mBinding.diffmoneyTxt.setText("0.00");
     }
 
 

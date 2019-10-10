@@ -626,6 +626,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
         if (type == 2) {
             hashMap.put("projectName", contetn);//项目名称查询
         }
+        hashMap.put("btnType", AppConfig.btnType15);
         showLoading();
         HttpUtil.getProjectNo(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
             @Override
