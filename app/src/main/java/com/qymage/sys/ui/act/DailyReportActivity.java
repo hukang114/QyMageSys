@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
@@ -61,6 +62,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
     private List<String> contractListString = new ArrayList<>();
     // 合同类型下面的合同编号
     List<ProjecInfoEnt.ContractListBean.ContractDetalBean> detalBeanList = new ArrayList<>();
+    List<String> detaList = new ArrayList<>();
 
     List<ProjecInfoEnt> infoEnts = new ArrayList<>();
 
@@ -504,6 +506,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
 
             EditText xiangmu_bianhao = helper.getView(R.id.xiangmu_bianhao);
             EditText xiangmu_mingchen = helper.getView(R.id.xiangmu_mingchen);
+            TextView contracttype = helper.getView(R.id.contracttype);
 
             xiangmu_bianhao.setOnEditorActionListener((v, actionId, event) -> {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -527,6 +530,13 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 }
                 return false;
             });
+
+            contracttype.setOnClickListener(v -> {
+                if (contractListBeans != null && contractListBeans.size() > 0) {
+                    contractTypeNameDialog(1, helper.getAdapterPosition());
+                }
+            });
+
             gongshi_bili.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -714,9 +724,9 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 if (contractListBeans.get(options1).contractDetal != null && contractListBeans.get(options1).contractDetal.size() > 0) {
                     detalBeanList.clear();
                     detalBeanList.addAll(contractListBeans.get(options1).contractDetal);
-                    contractListString.clear();
+                    detaList.clear();
                     for (int i = 0; i < detalBeanList.size(); i++) {
-                        contractListString.add(detalBeanList.get(i).contractNo);
+                        detaList.add(detalBeanList.get(i).contractNo);
                     }
                     contractTypeNameDialog(2, postion);
                 }
@@ -737,8 +747,14 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 .setLineSpacingMultiplier(2.4f)
                 .build();
         // 三级选择器
-        pvOptions.setPicker(contractListString, null, null);
-        pvOptions.show();
+        if (cate == 1) {
+            pvOptions.setPicker(contractListString, null, null);
+            pvOptions.show();
+        } else {
+            pvOptions.setPicker(detaList, null, null);
+            pvOptions.show();
+        }
+
     }
     //------------------------------------------------------------------------------------------------
 

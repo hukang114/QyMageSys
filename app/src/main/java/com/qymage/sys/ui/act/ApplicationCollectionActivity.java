@@ -77,6 +77,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
 
     // 合同类型下面的合同编号
     List<ProjecInfoEnt.ContractListBean.ContractDetalBean> detalBeanList = new ArrayList<>();
+    List<String> detaList = new ArrayList<>();
 
     List<CompanyMoneyPaymentVOS> paymentVOS = new ArrayList<>();// 收款 付款明细
     List<CompanyMoneyTicketVOS> ticketVOS = new ArrayList<>();// //开 -收 票明细
@@ -597,9 +598,9 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 if (contractListBeans.get(options1).contractDetal != null && contractListBeans.get(options1).contractDetal.size() > 0) {
                     detalBeanList.clear();
                     detalBeanList.addAll(contractListBeans.get(options1).contractDetal);
-                    contractListString.clear();
+                    detaList.clear();
                     for (int i = 0; i < detalBeanList.size(); i++) {
-                        contractListString.add(detalBeanList.get(i).contractNo);
+                        detaList.add(detalBeanList.get(i).contractNo);
                     }
                     contractTypeNameDialog(2);
                 }
@@ -620,8 +621,14 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 .setLineSpacingMultiplier(2.4f)
                 .build();
         // 三级选择器
-        pvOptions.setPicker(contractListString, null, null);
-        pvOptions.show();
+        if (cate == 1) {
+            pvOptions.setPicker(contractListString, null, null);
+            pvOptions.show();
+        } else {
+            pvOptions.setPicker(detaList, null, null);
+            pvOptions.show();
+        }
+
     }
 
 
@@ -822,7 +829,10 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                 }
                 break;
             case R.id.htlx_cate_txt:// 合同类型
-                openActivity(ChoiceContractTypeActivity.class);
+//                openActivity(ChoiceContractTypeActivity.class);
+                if (contractListBeans.size() > 0) {
+                    contractTypeNameDialog(1);
+                }
                 break;
 
         }
