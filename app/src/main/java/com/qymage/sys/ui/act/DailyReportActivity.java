@@ -59,6 +59,8 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
     // 项目编号下的所有合同数据
     List<ProjecInfoEnt.ContractListBean> contractListBeans = new ArrayList<>();
     private List<String> contractListString = new ArrayList<>();
+    // 合同类型下面的合同编号
+    List<ProjecInfoEnt.ContractListBean.ContractDetalBean> detalBeanList = new ArrayList<>();
 
     List<ProjecInfoEnt> infoEnts = new ArrayList<>();
 
@@ -677,7 +679,7 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
                 for (int i = 0; i < infoEnts.get(options1).contractList.size(); i++) {
                     contractListString.add(infoEnts.get(options1).contractList.get(i).contractTypeName);
                 }
-                contractTypeNameDialog(postion);
+                contractTypeNameDialog(1, postion);
             }
         })
                 .setTitleText(title)
@@ -695,17 +697,37 @@ public class DailyReportActivity extends BBActivity<ActivityDailyReportBinding> 
     }
 
     /**
-     * 选择合同名称
+     * 选择合同类型
      */
-    private void contractTypeNameDialog(int postion) {
+    private void contractTypeNameDialog(int cate, int postion) {
+
+        String title = "请选择合同类型";
+        if (cate == 1) {
+            title = "请选择合同类型";
+        } else {
+            title = "请选择合同编号";
+        }
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
-            dayLogListEnts.get(postion).contractNo = contractListBeans.get(options1).contractNo;
-            dayLogListEnts.get(postion).contractName = contractListBeans.get(options1).contractName;
-            dayLogListEnts.get(postion).contractType = contractListBeans.get(options1).contractType;
-            dayLogListEnts.get(postion).contractTypeName = contractListBeans.get(options1).contractTypeName;
+            if (cate == 1) {
+                dayLogListEnts.get(postion).contractType = contractListBeans.get(options1).contractType;
+                dayLogListEnts.get(postion).contractTypeName = contractListBeans.get(options1).contractTypeName;
+                if (contractListBeans.get(options1).contractDetal != null && contractListBeans.get(options1).contractDetal.size() > 0) {
+                    detalBeanList.clear();
+                    detalBeanList.addAll(contractListBeans.get(options1).contractDetal);
+                    contractListString.clear();
+                    for (int i = 0; i < detalBeanList.size(); i++) {
+                        contractListString.add(detalBeanList.get(i).contractNo);
+                    }
+                    contractTypeNameDialog(2, postion);
+                }
+
+            } else if (cate == 2) {
+                dayLogListEnts.get(postion).contractNo = detalBeanList.get(options1).contractNo;
+                dayLogListEnts.get(postion).contractName = detalBeanList.get(options1).contractName;
+            }
             adapter.notifyDataSetChanged();
         })
-                .setTitleText("请选择合同类型")
+                .setTitleText(title)
                 .setDividerColor(Color.BLACK)
                 .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
                 .setContentTextSize(18)

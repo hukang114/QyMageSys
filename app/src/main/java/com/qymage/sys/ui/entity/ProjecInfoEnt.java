@@ -31,7 +31,7 @@ public class ProjecInfoEnt implements Serializable {
 
     public List<ContractListBean> contractList;
 
-    public static class ContractListBean implements Serializable{
+    public static class ContractListBean implements Serializable {
         /**
          * contractType : 11
          * contractNo : SW17
@@ -43,6 +43,19 @@ public class ProjecInfoEnt implements Serializable {
         public String contractNo;
         public String contractName;
         public String contractTypeName;
+
+        public List<ContractDetalBean> contractDetal;
+
+        public static class ContractDetalBean {
+            /**
+             * contractNo : BT04
+             * contractName : 汇盛通财务费用补贴
+             */
+
+            public String contractNo;
+            public String contractName;
+        }
+
     }
 
 

@@ -75,6 +75,9 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
     List<ProjecInfoEnt.ContractListBean> contractListBeans = new ArrayList<>();
     private List<String> contractListString = new ArrayList<>();
 
+    // 合同类型下面的合同编号
+    List<ProjecInfoEnt.ContractListBean.ContractDetalBean> detalBeanList = new ArrayList<>();
+
     List<CompanyMoneyPaymentVOS> paymentVOS = new ArrayList<>();// 收款 付款明细
     List<CompanyMoneyTicketVOS> ticketVOS = new ArrayList<>();// //开 -收 票明细
     List<FileListEnt> fileList = new ArrayList<>();// 上传附件
@@ -558,7 +561,7 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
                     for (int i = 0; i < infoEnts.get(options1).contractList.size(); i++) {
                         contractListString.add(infoEnts.get(options1).contractList.get(i).contractTypeName);
                     }
-                    contractTypeNameDialog();
+                    contractTypeNameDialog(1);
                 }
 
             }
@@ -579,20 +582,35 @@ public class ApplicationCollectionActivity extends BBActivity<ActivityApplicatio
 
     }
 
-    private void contractTypeNameDialog() {
-
+    private void contractTypeNameDialog(int cate) {
+        String title = "请选择合同类型";
+        if (cate == 1) {
+            title = "请选择合同类型";
+        } else {
+            title = "请选择合同编号";
+        }
 
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, (options1, options2, options3, v) -> {
-
-            mBinding.htbhEdt.setText(contractListBeans.get(options1).contractNo);
-            mBinding.htmcEdt.setText(contractListBeans.get(options1).contractName);
-            mBinding.htlxCateTxt.setText(contractListBeans.get(options1).contractTypeName);
-            contractType = contractListBeans.get(options1).contractType;
-            //按合同编号获取收付款/开票收票信息
-            getMoney_Received(contractListBeans.get(options1).contractNo);
-
+            if (cate == 1) {
+                contractType = contractListBeans.get(options1).contractType;
+                mBinding.htlxCateTxt.setText(contractListBeans.get(options1).contractTypeName);
+                if (contractListBeans.get(options1).contractDetal != null && contractListBeans.get(options1).contractDetal.size() > 0) {
+                    detalBeanList.clear();
+                    detalBeanList.addAll(contractListBeans.get(options1).contractDetal);
+                    contractListString.clear();
+                    for (int i = 0; i < detalBeanList.size(); i++) {
+                        contractListString.add(detalBeanList.get(i).contractNo);
+                    }
+                    contractTypeNameDialog(2);
+                }
+            } else if (cate == 2) {
+                mBinding.htbhEdt.setText(detalBeanList.get(options1).contractNo);
+                mBinding.htmcEdt.setText(detalBeanList.get(options1).contractName);
+                //按合同编号获取收付款/开票收票信息
+                getMoney_Received(detalBeanList.get(options1).contractNo);
+            }
         })
-                .setTitleText("请选择合同类型")
+                .setTitleText(title)
                 .setDividerColor(Color.BLACK)
                 .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
                 .setContentTextSize(18)

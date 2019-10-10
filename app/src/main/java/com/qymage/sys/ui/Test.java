@@ -13,7 +13,7 @@ public class Test {
      * success : true
      * code : 200
      * message : 请求成功
-     * data : [{"createTime":null,"createBy":null,"updateTime":null,"updateBy":null,"id":null,"projectType":null,"projectTypeName":null,"projectNo":"160818","projectName":"晴隆气站","persion":null,"amount":null,"date":null,"introduction":null,"processInstId":null,"activityVoList":null,"personName":null,"actStatus":null,"canCancelTask":null,"startDate":null,"endDate":null,"keyword":null,"stats":null,"msgId":null,"read":null,"auditor":null,"copier":null,"sendList":null,"contractList":[{"contractType":"11","contractNo":"SW17","contractName":"晴隆气站商务","contractTypeName":"商务费用"},{"contractType":"02","contractNo":"BT17","contractName":"晴隆气站补贴","contractTypeName":"补贴"},{"contractType":"03","contractNo":"TS17","contractName":"晴隆气站退税","contractTypeName":"退税"},{"contractType":"04","contractNo":"QR17","contractName":"晴隆气站现金收入","contractTypeName":"现金收入"},{"contractType":"12","contractNo":"QC17","contractName":"晴隆气站现金支出","contractTypeName":"现金支出"}],"regarding":0}]
+     * data : [{"createTime":null,"createBy":null,"updateTime":null,"updateBy":null,"id":"1179012623849881601","projectType":null,"projectTypeName":null,"projectNo":"101011","projectName":"汇盛通财务费用","persion":null,"amount":null,"date":null,"introduction":null,"processInstId":null,"activityVoList":null,"personName":null,"actStatus":null,"canCancelTask":null,"startDate":null,"endDate":null,"keyword":null,"stats":null,"msgId":null,"read":null,"auditor":null,"copier":null,"sendList":null,"contractList":[{"contractType":"02","contractNo":"BT04","contractName":"汇盛通财务费用补贴","contractTypeName":"补贴","contractDetal":[{"contractNo":"BT04","contractName":"汇盛通财务费用补贴"}]},{"contractType":"03","contractNo":"TS04","contractName":"汇盛通财务费用退税","contractTypeName":"退税","contractDetal":[{"contractNo":"TS04","contractName":"汇盛通财务费用退税"}]},{"contractType":"04","contractNo":"QR04","contractName":"汇盛通财务费用现金收入","contractTypeName":"现金收入","contractDetal":[{"contractNo":"QR04","contractName":"汇盛通财务费用现金收入"}]},{"contractType":"05","contractNo":"CG03","contractName":"测试_吴昌强","contractTypeName":"外部采购","contractDetal":[{"contractNo":"CG03","contractName":"测试_吴昌强"}]},{"contractType":"11","contractNo":"SW04","contractName":"汇盛通财务费用商务","contractTypeName":"商务费用","contractDetal":[{"contractNo":"SW04","contractName":"汇盛通财务费用商务"}]},{"contractType":"12","contractNo":"QC04","contractName":"汇盛通财务费用现金支出","contractTypeName":"现金支出","contractDetal":[{"contractNo":"QC04","contractName":"汇盛通财务费用现金支出"},{"contractNo":"QR042","contractName":"汇盛通财务费用现金收入"}]}],"regarding":0}]
      */
 
     public boolean success;
@@ -27,11 +27,11 @@ public class Test {
          * createBy : null
          * updateTime : null
          * updateBy : null
-         * id : null
+         * id : 1179012623849881601
          * projectType : null
          * projectTypeName : null
-         * projectNo : 160818
-         * projectName : 晴隆气站
+         * projectNo : 101011
+         * projectName : 汇盛通财务费用
          * persion : null
          * amount : null
          * date : null
@@ -50,7 +50,7 @@ public class Test {
          * auditor : null
          * copier : null
          * sendList : null
-         * contractList : [{"contractType":"11","contractNo":"SW17","contractName":"晴隆气站商务","contractTypeName":"商务费用"},{"contractType":"02","contractNo":"BT17","contractName":"晴隆气站补贴","contractTypeName":"补贴"},{"contractType":"03","contractNo":"TS17","contractName":"晴隆气站退税","contractTypeName":"退税"},{"contractType":"04","contractNo":"QR17","contractName":"晴隆气站现金收入","contractTypeName":"现金收入"},{"contractType":"12","contractNo":"QC17","contractName":"晴隆气站现金支出","contractTypeName":"现金支出"}]
+         * contractList : [{"contractType":"02","contractNo":"BT04","contractName":"汇盛通财务费用补贴","contractTypeName":"补贴","contractDetal":[{"contractNo":"BT04","contractName":"汇盛通财务费用补贴"}]},{"contractType":"03","contractNo":"TS04","contractName":"汇盛通财务费用退税","contractTypeName":"退税","contractDetal":[{"contractNo":"TS04","contractName":"汇盛通财务费用退税"}]},{"contractType":"04","contractNo":"QR04","contractName":"汇盛通财务费用现金收入","contractTypeName":"现金收入","contractDetal":[{"contractNo":"QR04","contractName":"汇盛通财务费用现金收入"}]},{"contractType":"05","contractNo":"CG03","contractName":"测试_吴昌强","contractTypeName":"外部采购","contractDetal":[{"contractNo":"CG03","contractName":"测试_吴昌强"}]},{"contractType":"11","contractNo":"SW04","contractName":"汇盛通财务费用商务","contractTypeName":"商务费用","contractDetal":[{"contractNo":"SW04","contractName":"汇盛通财务费用商务"}]},{"contractType":"12","contractNo":"QC04","contractName":"汇盛通财务费用现金支出","contractTypeName":"现金支出","contractDetal":[{"contractNo":"QC04","contractName":"汇盛通财务费用现金支出"},{"contractNo":"QR042","contractName":"汇盛通财务费用现金收入"}]}]
          * regarding : 0
          */
 
@@ -58,7 +58,7 @@ public class Test {
         public Object createBy;
         public Object updateTime;
         public Object updateBy;
-        public Object id;
+        public String id;
         public Object projectType;
         public Object projectTypeName;
         public String projectNo;
@@ -86,16 +86,28 @@ public class Test {
 
         public static class ContractListBean {
             /**
-             * contractType : 11
-             * contractNo : SW17
-             * contractName : 晴隆气站商务
-             * contractTypeName : 商务费用
+             * contractType : 02
+             * contractNo : BT04
+             * contractName : 汇盛通财务费用补贴
+             * contractTypeName : 补贴
+             * contractDetal : [{"contractNo":"BT04","contractName":"汇盛通财务费用补贴"}]
              */
 
             public String contractType;
             public String contractNo;
             public String contractName;
             public String contractTypeName;
+            public List<ContractDetalBean> contractDetal;
+
+            public static class ContractDetalBean {
+                /**
+                 * contractNo : BT04
+                 * contractName : 汇盛通财务费用补贴
+                 */
+
+                public String contractNo;
+                public String contractName;
+            }
         }
     }
 }
