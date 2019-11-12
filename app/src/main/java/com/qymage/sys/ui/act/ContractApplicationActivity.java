@@ -312,6 +312,7 @@ public class ContractApplicationActivity extends BBActivity<ActivityContractAppl
         if (type == 2) {
             hashMap.put("projectName", contnet);//项目名称
         }
+        hashMap.put("btnType", AppConfig.btnType4);
         showLoading();
         HttpUtil.getProjectNo(hashMap).execute(new JsonCallback<Result<List<ProjecInfoEnt>>>() {
             @Override

@@ -27,12 +27,16 @@ import cn.leo.click.SingleClick;
  */
 public class LoginInvalidActivity extends Activity implements View.OnClickListener {
 
+    public static boolean isShow = true;
 
     public static void forward(String tip) {
-        Intent intent = new Intent(AppApplication.sInstance, LoginInvalidActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("tip", tip);
-        AppApplication.sInstance.startActivity(intent);
+        if (isShow) {
+            Intent intent = new Intent(AppApplication.sInstance, LoginInvalidActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("tip", tip);
+            AppApplication.sInstance.startActivity(intent);
+            isShow = false;
+        }
     }
 
 

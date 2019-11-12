@@ -144,7 +144,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
 
 
     public String getToken() {
-        return (String) SPUtils.get(AppApplication.sInstance, Constants.token, "");
+        return (String) SPUtils.get(AppApplication.sInstance.getApplicationContext(), Constants.token, "");
     }
 
 }
