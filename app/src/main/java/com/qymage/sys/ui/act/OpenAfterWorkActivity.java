@@ -18,8 +18,12 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.hjq.permissions.XXPermissions;
 import com.qymage.sys.AppApplication;
 import com.qymage.sys.R;
 import com.qymage.sys.common.base.BBActivity;
@@ -53,12 +57,17 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
     private int clockType = 1;//考勤类型 1-在岗  2-出差  3-请假
     private int clockMode = 1;////考勤模式 1-上班打卡  2-下班打卡
     CheckSettingInfo settingInfo;
-    private SjLocationService locationService;// 定位工具类
     private double latitude = 0;// 维度
     private double longitude = 0;// 精度
     private String locationaddress = "";// 定位的当前位置
     DaySearchEnt dayEnt;// 当天的考勤信息
     RankCalculateEnt calculateEnt;// 计算过的考勤信息
+
+    //-----------------------
+    // 定位相关
+    LocationClient mLocClient;
+    public MyLocationListenner myListener;
+    private boolean isFirst = true;
 
     @Override
     protected void onStart() {
@@ -69,9 +78,11 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (locationService != null) {
-            locationService.stop();
-            locationService = null;
+        // 退出时销毁定位
+        if (mLocClient != null && myListener != null) {
+            mLocClient.stop();
+            mLocClient.unRegisterLocationListener(myListener);
+            myListener = null;
         }
 
     }
@@ -119,17 +130,70 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
         getSettingInfo();
     }
 
-    private void initLocation() {
-        if (locationService != null && mListener != null) {
-            locationService.stop();
-            locationService.unregisterListener(mListener);
+    /**
+     * 定位SDK监听函数
+     */
+    public class MyLocationListenner extends BDAbstractLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // map view 销毁后不在处理新接收的位置
+            closeLoading();
+            if (location == null || location.getLatitude() == 4.9E-324 || location.getAddrStr() == null) {
+                mBinding.locationAddressTv.setText("手机定位获取位置失败,检查定位服务是否开启高精度模式");
+                msgDialogBuilder("请打开系统设置查看手机是否允许获取位置权限?", (dialog, which) -> {
+                    //如果是被永久拒绝就跳转到应用权限系统设置页面
+                    XXPermissions.gotoPermissionSettings(OpenAfterWorkActivity.this);
+                }).create().show();
+                LogUtils.e("定位失败");
+                return;
+            }
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            locationaddress = location.getAddrStr();
+            mBinding.locationAddressTv.setText("当前位置" + locationaddress);
+            LogUtils.e("当前位置：" + locationaddress);
+            Message msg = handler.obtainMessage();
+            msg.what = 1;
+            handler.sendMessage(msg);
+            if (mLocClient != null) {
+                mLocClient.stop();
+                mLocClient.unRegisterLocationListener(myListener);
+                myListener = null;
+            }
+            if (!isFirst) {
+                showToast("位置刷新成功");
+            }
+            isFirst = false;
         }
-        locationService = ((AppApplication) getApplication()).mLocationService;
-        locationService.setLocationOption(locationService.getDefaultLocationClientOption());
-        //获取locationservice实例，建议应用中只初始化1个location实例，然后使用
-        locationService.registerListener(mListener);
-        // 开始定位
-        locationService.start();
+
+        public void onReceivePoi(BDLocation poiLocation) {
+
+        }
+    }
+
+
+    private void initLocation() {
+        // 定位初始化
+        mLocClient = new LocationClient(this);
+        myListener = new MyLocationListenner();
+        mLocClient.registerLocationListener(myListener);
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true); // 打开gps
+        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setScanSpan(0);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+        option.setIsNeedLocationDescribe(true);//可选，设置是否需要地址描述
+        option.setNeedDeviceDirect(false);//可选，设置是否需要设备方向结果
+        option.setLocationNotify(false);//可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
+        option.setIgnoreKillProcess(true);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
+        mLocClient.setLocOption(option);
+        showLoading();
+        mLocClient.start();
+
     }
 
     // handler对象，用来接收消息~
@@ -145,42 +209,6 @@ public class OpenAfterWorkActivity extends BBActivity<ActivityOpenAfterWorkBindi
         }
     };
 
-
-    /*****
-     * 定位结果回调，重写onReceiveLocation方法，
-     */
-    private BDLocationListener mListener = new BDLocationListener() {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            // TODO Auto-generated method stub
-            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
-                /**
-                 * 时间也可以使用systemClock.elapsedRealtime()方法 获取的是自从开机以来，每次回调的时间；
-                 * location.getTime() 是指服务端出本次结果的时间，如果位置不发生变化，则时间不变
-                 */
-                if (location.getLatitude() == 4.9E-324) {
-                    mBinding.locationAddressTv.setText("手机定位获取位置失败,检查定位服务是否开启高精度模式");
-                    LogUtils.e("定位失败");
-                    locationService.stop();
-                    return;
-                }
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                locationaddress = location.getAddrStr();
-                mBinding.locationAddressTv.setText("当前位置" + locationaddress);
-                LogUtils.e("当前位置：" + locationaddress);
-                Message msg = handler.obtainMessage();
-                msg.what = 1;
-                handler.sendMessage(msg);
-            } else {
-                //定位失败
-                mBinding.locationAddressTv.setText("手机定位获取位置失败,检查定位服务是否开启高精度模式");
-                locationService.stop();
-                LogUtils.e("定位失败");
-
-            }
-        }
-    };
 
     /**
      * 获取考情的计算内容相关
